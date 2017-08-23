@@ -6,16 +6,51 @@
 namespace Firebelly\PostTypes\Workshop;
 use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
 
-$workshops = new PostType('workshop', [
+$cpt = new PostType('workshop', [
   'taxonomies' => ['workshop_type', 'workshop_series'],
   'supports'   => ['title', 'editor', 'thumbnail'],
   'rewrite'    => ['with_front' => false],
 ]);
-$workshops->taxonomy('workshop_type');
-$workshops->taxonomy([
+$cpt->taxonomy('workshop_type');
+$cpt->taxonomy([
   'name'     => 'workshop_series',
   'plural'   => 'Workshop Series',
 ]);
+
+$cpt->columns()->set([
+    'cb' => '<input type="checkbox" />',
+    'title' => __('Title'),
+    'program_type' => __('Type'),
+    'date_start' => __('Date Start'),
+    'date_end' => __('Date End'),
+    'time' => __('Time'),
+    'featured' => __('Featured'),
+    // 'date' => __('Date')
+]);
+$cpt->columns()->sortable([
+    'date_start' => ['_cmb2_date_start', true],
+    'date_end' => ['_cmb2_date_end', true]
+]);
+$cpt->columns()->populate('date_start', function($column, $post_id) {
+  if ($val = get_post_meta($post_id, '_cmb2_date_start', true)) {
+    echo date('Y-m-d', $val);
+  } else {
+    echo 'n/a';
+  }
+});
+$cpt->columns()->populate('date_end', function($column, $post_id) {
+  if ($val = get_post_meta($post_id, '_cmb2_date_end', true)) {
+    echo date('Y-m-d', $val);
+  } else {
+    echo 'n/a';
+  }
+});
+$cpt->columns()->populate('time', function($column, $post_id) {
+  echo get_post_meta($post_id, '_cmb2_time', true);
+});
+$cpt->columns()->populate('featured', function($column, $post_id) {
+  echo (get_post_meta($post_id, '_cmb2_featured', true)) ? '&check;' : '';
+});
 
 /**
  * CMB2 custom fields
@@ -41,6 +76,7 @@ function metaboxes( array $meta_boxes ) {
       [
         'name'        => 'Cost',
         'id'          => $prefix . 'cost',
+        'desc'        => 'e.g. 5.00',
         'type'        => 'text_small',
       ],
       [

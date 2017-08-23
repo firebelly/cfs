@@ -9,40 +9,43 @@ namespace Firebelly\PostTypes\Posts;
 function metaboxes( array $meta_boxes ) {
   $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
 
-  $meta_boxes['post_metabox'] = array(
-    'id'            => 'post_metabox',
-    'title'         => __( 'Image Slideshow', 'cmb2' ),
-    'object_types'  => array( 'post', ), // Post type
-    'context'       => 'normal',
-    'priority'      => 'high',
-    'show_names'    => true, // Show field names on the left
-    'fields'        => array(
-      array(
-        'name' => 'Images',
-        'id'   => $prefix .'slideshow-images',
-        'type' => 'file_list',
-        'description' => __( 'Multiple images as a slideshow in the featured image section of the post', 'cmb' ),
-      ),
-    ),
-  );
+  // $meta_boxes['post_metabox'] = array(
+  //   'id'            => 'post_metabox',
+  //   'title'         => __( 'Image Slideshow', 'cmb2' ),
+  //   'object_types'  => array( 'post', ), // Post type
+  //   'context'       => 'normal',
+  //   'priority'      => 'high',
+  //   'show_names'    => true, // Show field names on the left
+  //   'fields'        => array(
+  //     array(
+  //       'name' => 'Images',
+  //       'id'   => $prefix .'slideshow-images',
+  //       'type' => 'file_list',
+  //       'description' => __( 'Multiple images as a slideshow in the featured image section of the post', 'cmb' ),
+  //     ),
+  //   ),
+  // );
 
   $meta_boxes['post_is_featured'] = array(
     'id'            => 'post_is_featured',
     'title'         => __( 'Is this a featured post on the homepage?', 'cmb2' ),
-    'object_types'  => array( 'post', ), // Post type
+    'object_types'  => ['post', 'program', 'workshop'],
     'context'       => 'side',
-    'priority'      => 'high',
+    'priority'      => 'default',
     'show_names'    => false, // Show field names on the left
     'fields'        => array(
       array(
           'name'    => 'Featured',
-          'id'      => $prefix . 'post_is_featured',
+          'id'      => $prefix . 'featured',
           'desc'    => 'Featured?',
           'type'    => 'checkbox',
       ),
     ),
   );
 
+  /**
+   * Repeating media/quote/stat blocks used on Programs and Workshops
+   */
   $cmb_group = new_cmb2_box([
     'id'           => $prefix . 'metabox',
     'title'        => __( 'Media Blocks', 'cmb2' ),
@@ -94,24 +97,6 @@ function metaboxes( array $meta_boxes ) {
     'type' => 'textarea_small',
     'description' => 'Statistic caption or context',
   ]);
-  // $meta_boxes['post_videos'] = array(
-  //   'id'            => 'post_videos',
-  //   'title'         => __( 'Post Videos', 'cmb2' ),
-  //   'object_types'  => array( 'post', 'program' ), // Post type
-  //   'priority'      => 'high',
-  //   'show_names'    => true,
-  //   'fields'        => array(
-  //     array(
-  //       'name' => 'Video Links',
-  //       'desc' => 'List of related Vimeo video URLs (e.g. https://vimeo.com/106786952 — one per line). The videos will appear at the beginning of a slideshow.',
-  //       'id'   => $prefix . 'video_links',
-  //       'type' => 'textarea',
-  //       'options' => array(
-  //         'textarea_cols' => 8,
-  //       ),
-  //     ),
-  //   ),
-  // );
 
   return $meta_boxes;
 }

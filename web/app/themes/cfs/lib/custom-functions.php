@@ -92,3 +92,29 @@ function get_secondary_header($post) {
   $secondary_bg = \Firebelly\Media\get_header_bg($secondary_bg_image,'','bw', 'banner_image');
   return $secondary_bg;
 }
+
+/**
+ * Breadcrumbs
+ */
+
+function fb_crumbs() {
+  $separator = '>';
+  if (is_front_page()) return '';
+  $return = '<nav class="crumb"><a href="'.home_url().'">Home</a>';
+  if (is_category() || is_single()) {
+      $return .= " {$separator} ";
+      $return .= get_the_category(" {$separator} ");
+          if (is_single()) {
+              $return .= " {$separator} ";
+              $return .= get_the_title();
+          }
+  } elseif (is_page()) {
+      $return .= " {$separator} ";
+      $return .= get_the_title();
+  } elseif (is_search()) {
+      $return .= " {$separator} Search: ";
+      $return .= the_search_query();
+  }
+  $return .= '</nav>';
+  return $return;
+}

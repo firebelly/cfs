@@ -6,49 +6,49 @@
 namespace Firebelly\PostTypes\Program;
 use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
 
-$programs = new PostType('program', [
+$cpt = new PostType('program', [
   'taxonomies' => ['program_type'],
   'supports'   => ['title', 'editor', 'thumbnail'],
   'rewrite'    => ['with_front' => false],
 ]);
-$programs->taxonomy('program_type');
+$cpt->taxonomy('program_type');
 
 /**
  * Admin columns
  */
-// $programs->columns()->add([
-//     'date_start' => __('Date Start'),
-//     'date_end' => __('Date End'),
-// ]);
-$programs->columns()->set([
+$cpt->columns()->set([
     'cb' => '<input type="checkbox" />',
     'title' => __('Title'),
     'program_type' => __('Type'),
     'date_start' => __('Date Start'),
     'date_end' => __('Date End'),
     'time' => __('Time'),
+    'featured' => __('Featured'),
     // 'date' => __('Date')
 ]);
-$programs->columns()->sortable([
+$cpt->columns()->sortable([
     'date_start' => ['_cmb2_date_start', true],
     'date_end' => ['_cmb2_date_end', true]
 ]);
-$programs->columns()->populate('date_start', function($column, $post_id) {
+$cpt->columns()->populate('date_start', function($column, $post_id) {
   if ($val = get_post_meta($post_id, '_cmb2_date_start', true)) {
     echo date('Y-m-d', $val);
   } else {
     echo 'n/a';
   }
 });
-$programs->columns()->populate('date_end', function($column, $post_id) {
+$cpt->columns()->populate('date_end', function($column, $post_id) {
   if ($val = get_post_meta($post_id, '_cmb2_date_end', true)) {
     echo date('Y-m-d', $val);
   } else {
     echo 'n/a';
   }
 });
-$programs->columns()->populate('time', function($column, $post_id) {
+$cpt->columns()->populate('time', function($column, $post_id) {
   echo get_post_meta($post_id, '_cmb2_time', true);
+});
+$cpt->columns()->populate('featured', function($column, $post_id) {
+  echo (get_post_meta($post_id, '_cmb2_featured', true)) ? '&check;' : '';
 });
 
 /**
