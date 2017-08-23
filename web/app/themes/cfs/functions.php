@@ -18,6 +18,24 @@ $sage_includes = [
   'lib/customizer.php' // Theme customizer
 ];
 
+$firebelly_includes = [
+  'lib/disable-comments.php',          // Disables WP comments in admin and frontend
+  'lib/fb_init.php',                   // FB theme setups
+  'lib/fb_metatags.php',               // FB metatags / ogtags
+  'lib/media.php',                     // FB media
+  'lib/ajax.php',                      // AJAX functions
+  'lib/custom-functions.php',          // Rando utility functions and miscellany
+  'lib/cmb2-custom-fields.php',        // Custom CMB2
+  'lib/page-meta-boxes.php',           // Various tweaks for multiple post types
+  'lib/post-meta-boxes.php',           // Various tweaks for multiple post types
+  'lib/program-post-type.php',         // Programs
+  'lib/workshop-post-type.php',        // Workshops
+  'lib/person-post-type.php',          // People
+  'lib/site-options.php',              // Custom site options for admin
+];
+
+$sage_includes = array_merge($sage_includes, $firebelly_includes);
+
 foreach ($sage_includes as $file) {
   if (!$filepath = locate_template($file)) {
     trigger_error(sprintf(__('Error locating %s for inclusion', 'sage'), $file), E_USER_ERROR);

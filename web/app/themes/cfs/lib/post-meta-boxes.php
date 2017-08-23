@@ -43,24 +43,75 @@ function metaboxes( array $meta_boxes ) {
     ),
   );
 
-  $meta_boxes['post_videos'] = array(
-    'id'            => 'post_videos',
-    'title'         => __( 'Post Videos', 'cmb2' ),
-    'object_types'  => array( 'post', 'program' ), // Post type
-    'priority'      => 'high',
-    'show_names'    => true,
-    'fields'        => array(
-      array(
-        'name' => 'Video Links',
-        'desc' => 'List of related Vimeo video URLs (e.g. https://vimeo.com/106786952 — one per line). The videos will appear at the beginning of a slideshow.',
-        'id'   => $prefix . 'video_links',
-        'type' => 'textarea',
-        'options' => array(
-          'textarea_cols' => 8,
-        ),
-      ),
+  $cmb_group = new_cmb2_box([
+    'id'           => $prefix . 'metabox',
+    'title'        => __( 'Media Blocks', 'cmb2' ),
+    'priority'      => 'low',
+    'object_types' => ['program','workshop'],
+  ]);
+
+  $group_field_id = $cmb_group->add_field([
+    'id'          => $prefix . 'program_blocks',
+    'type'        => 'group',
+    // 'description' => __( '', 'cmb' ),
+    'options'     => array(
+      'group_title'   => __( 'Media Block {#}', 'cmb2' ),
+      'add_button'    => __( 'Add Another Block', 'cmb2' ),
+      'remove_button' => __( 'Remove Block', 'cmb2' ),
+      'sortable'      => true,
     ),
-  );
+  ]);
+
+  $cmb_group->add_group_field( $group_field_id, [
+    'name' => 'Video',
+    'description' => 'Paste in a Vimeo URL, e.g. https://vimeo.com/101102896',
+    'id'   => 'video_url',
+    'type' => 'text',
+  ]);
+
+  $cmb_group->add_group_field( $group_field_id, [
+    'name' => 'Image(s)',
+    'id'   => 'images',
+    'type' => 'file_list',
+  ]);
+
+  $cmb_group->add_group_field( $group_field_id, [
+    'name' => 'Pull-quote',
+    'id'   => 'pullquote',
+    'type' => 'textarea_small',
+  ]);
+
+  $cmb_group->add_group_field( $group_field_id, [
+    'name' => 'Stat Figure',
+    'id'   => 'stat_figure',
+    'type' => 'text_small',
+    'description' => 'e.g. 99/100',
+  ]);
+
+  $cmb_group->add_group_field( $group_field_id, [
+    'name' => 'Stat Label',
+    'id'   => 'stat_label',
+    'type' => 'textarea_small',
+    'description' => 'Statistic caption or context',
+  ]);
+  // $meta_boxes['post_videos'] = array(
+  //   'id'            => 'post_videos',
+  //   'title'         => __( 'Post Videos', 'cmb2' ),
+  //   'object_types'  => array( 'post', 'program' ), // Post type
+  //   'priority'      => 'high',
+  //   'show_names'    => true,
+  //   'fields'        => array(
+  //     array(
+  //       'name' => 'Video Links',
+  //       'desc' => 'List of related Vimeo video URLs (e.g. https://vimeo.com/106786952 — one per line). The videos will appear at the beginning of a slideshow.',
+  //       'id'   => $prefix . 'video_links',
+  //       'type' => 'textarea',
+  //       'options' => array(
+  //         'textarea_cols' => 8,
+  //       ),
+  //     ),
+  //   ),
+  // );
 
   return $meta_boxes;
 }
@@ -134,3 +185,5 @@ function parse_video_links($post_id, $post, $update) {
 }
 add_action('save_post', __NAMESPACE__ . '\\parse_video_links', 10, 3);
 add_action('save_post_program', __NAMESPACE__ . '\\parse_video_links', 10, 3);
+
+
