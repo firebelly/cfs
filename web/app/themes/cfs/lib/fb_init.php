@@ -80,3 +80,9 @@ function simplify_tinymce($settings) {
   return $settings;
 }
 add_filter('tiny_mce_before_init', __NAMESPACE__ . '\simplify_tinymce');
+
+// Remove Customize link from admin bar
+add_action( 'wp_before_admin_bar_render', function() {
+  global $wp_admin_bar;
+  $wp_admin_bar->remove_menu('customize');
+});

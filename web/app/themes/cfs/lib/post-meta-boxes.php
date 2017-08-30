@@ -5,9 +5,8 @@
 
 namespace Firebelly\PostTypes\Posts;
 
-// Custom CMB2 fields for post type
 function metaboxes( array $meta_boxes ) {
-  $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
+  $prefix = '_cmb2_';
 
   // $meta_boxes['post_metabox'] = array(
   //   'id'            => 'post_metabox',
