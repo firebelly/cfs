@@ -1,0 +1,364 @@
+// Nav
+
+// WP admin bar push
+.admin-bar {
+  .site-header {
+    top: 32px;
+  }
+  // @include tablet {
+  //   .logo {
+  //       top: 32px;
+  //   }
+  // }
+}
+
+.site-nav {
+  top: 0;
+  left: 100%;
+  z-index: 10;
+  width: 100%;
+  color: $white;
+  height: 85px;
+  position: fixed;
+  @extend .font-display;
+  font-size: 12px;
+  @extend .smooth;
+  transition: left .3s $slide-easing;
+  padding: #{$vertical-beat * 6} $global-padding #{$vertical-beat * 14};
+
+  &::before {
+    top: 0;
+    content: '';
+    position: absolute;
+    right: #{$global-padding / 2};
+    // @include sprite($triple-pattern);
+    // @extend .sprite-icon;
+  }
+
+  &.-active {
+    left: 0;
+  }
+
+  .brand {
+    left: -36px;
+    margin-top: -45px;
+    position: relative;
+    svg {
+      width: 115px;
+      .logo-mark-header {
+        fill: $black;
+        transform: scale(.763358779);
+      }
+      .logo-text-header {
+        fill: $black;
+        transform: scale(1.144801157) translate(-19px, -17px);
+      }
+    }
+  }
+
+  a {
+    color: $black;
+    display: block;
+    text-decoration: none;
+    transition: color .2 ease-out;
+    padding: #{$vertical-beat * 3} 0;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style: none;
+    }
+  }
+
+  & > ul > li {
+    position: relative;
+    &::before {
+      top: 0;
+      left: -12px;
+      content: '';
+      height: 1px;
+      background: $black;
+      position: absolute;
+      right: -$global-padding;
+    }
+    &::after {
+      top: 0;
+      width: 1px;
+      content: '';
+      left: -12px;
+      background: $black;
+      position: absolute;
+      height: #{$vertical-beat * 2};
+    }
+    &.hover {
+      a {
+        color: $black;
+      }
+    }
+  }
+
+  .sub-menu {
+    color: $black;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .3s ease-out;
+    &::before {
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 3px;
+      content: '';
+      display: block;
+      position: relative;
+      background: $black;
+      margin-bottom: #{$vertical-beat * 2};
+    }
+    li {
+      padding: $vertical-beat 0;
+      &:last-of-type {
+        margin-bottom: #{$vertical-beat * 3};
+      }
+    }
+    a {
+      padding: 0;
+    }
+
+    @include min-screen($breakpoint-nav) {
+      &::before {
+        margin-bottom: 0;
+      }
+    }
+
+    &.-toggled {
+      @include max-screen($breakpoint-nav) {
+        max-height: 200px;
+      }
+    }
+  }
+  .menu-item-has-children:hover {
+    @include min-screen($breakpoint-nav) {
+      .sub-menu {
+        max-height: 200px;
+      }
+    }
+  }
+
+  // Toggles for sub-menus on mobile
+  .sub-menu-toggle {
+    top: 0;
+    height: 47px;
+    border: none;
+    cursor: pointer;
+    background: none;
+    position: absolute;
+    text-align: center;
+    right: -$global-padding;
+    width: #{$global-padding};
+    &:focus {
+      outline: none;
+    }
+    &::before {
+      content: '▼';
+      color: $black;
+      margin-left: -12px;
+    }
+    @include min-screen($breakpoint-nav) {
+      display: none;
+    }
+  }
+
+  @include media-md {
+    .nav {
+      padding-left: 50%;
+    }
+  }
+
+  @include min-screen($breakpoint-nav) {
+    width: 60%;
+    left: auto;
+    float: right;
+    // margin-top: 70px;
+    background: $red;
+    padding: 30px 0 0;
+    position: relative;
+
+    &::before {
+      left: 0;
+      top: auto;
+      content: '';
+      right: auto;
+      bottom: 100%;
+      // @include sprite($triple-pattern-large);
+    }
+
+    .brand {
+      display: none;
+    }
+
+    a {
+      padding: #{$vertical-beat * 1} #{$vertical-beat * 2};
+      color: $white;
+      display: inline-block;
+      &:hover {
+        color: $black;
+      }
+    }
+
+    .menu-search a {
+      border: 2px solid $white;
+    }
+
+    & > ul > li {
+      &::before,
+      &::after {
+        display: none;
+      }
+    }
+
+    .nav {
+      padding-left: 0;
+      @include clearfix;
+      > li {
+        float: left;
+        // padding-right: 20px;
+        &:hover {
+          color: $black;
+        }
+        &:last-of-type {
+          padding-right: 0;
+        }
+      }
+    }
+
+    .sub-menu {
+      width: 0;
+      height: 0;
+      opacity: 0;
+      top: -1000px;
+      max-height: none;
+      overflow: visible;
+      position: relative;
+      transition: opacity .2s ease-out;
+      &::before {
+        top: 10px;
+      }
+      li {
+        width: 130px;
+        &:first-of-type {
+          padding-top: #{$vertical-beat * 5};
+        }
+        &:last-of-type {
+          margin-bottom: #{$vertical-beat * 6};
+        }
+      }
+    }
+
+    .menu-item-has-children:hover {
+      .sub-menu {
+        top: auto;
+        opacity: 1;
+        height: auto;
+        transition-delay: .2s;
+        a {
+          color: $black;
+        }
+      }
+    }
+
+    .shop-link {
+      top: 5px;
+      position: absolute;
+      right: -$global-padding;
+    }
+  }
+}
+
+// mobile menu toggle
+.menu-toggle {
+  top: 0;
+  right: 0;
+  padding: 0;
+  z-index: 20;
+  width: 35px;
+  height: 35px;
+  border: none;
+  position: fixed;
+  background: $black;
+  .lines {
+    display: block;
+    top: 48%;
+    left: 10px;
+    width: 16px;
+    height: 2px;
+    position: absolute;
+    background: $white;
+    &::before,
+    &::after {
+      left: 0;
+      height: 2px;
+      width: 100%;
+      content: '';
+      background: $white;
+      position: absolute;
+      transition: all .2s ease-out;
+    }
+    &::before {
+      top: -6px;
+    }
+    &::after {
+      bottom: -6px;
+    }
+  }
+
+  // States
+  &:focus {
+    outline: none;
+  }
+
+  // Open
+  &.menu-open {
+
+    .lines {
+      background: rgba($white, 0);
+      &::before {
+        top: 0;
+        transform: rotate(-45deg);
+      }
+      &::after {
+        top: 0;
+        transform: rotate(45deg);
+      }
+    }
+
+    .icon path {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .icon {
+    top: 3px;
+    left: 3px;
+    z-index: -1;
+    width: 29px;
+    height: 29px;
+    stroke: $white;
+    stroke-width: 3px;
+    position: absolute;
+    path {
+      stroke-dashoffset: 150%;
+      stroke-dasharray: 150%, 150%;
+      transition: stroke-dashoffset .3s $slide-easing .1s;
+    }
+  }
+
+  @include media-md {
+    right: 0;
+  }
+
+  @include min-screen($breakpoint-nav) {
+    top: auto;
+    display: none;
+  }
+}

@@ -10,7 +10,6 @@ var gulpif       = require('gulp-if');
 var imagemin     = require('gulp-imagemin');
 var jshint       = require('gulp-jshint');
 var lazypipe     = require('lazypipe');
-var less         = require('gulp-less');
 var merge        = require('merge-stream');
 var cssNano      = require('gulp-cssnano');
 var plumber      = require('gulp-plumber');
@@ -19,6 +18,10 @@ var runSequence  = require('run-sequence');
 var sass         = require('gulp-sass');
 var sourcemaps   = require('gulp-sourcemaps');
 var uglify       = require('gulp-uglify');
+var rename       = require('gulp-rename');
+var svgstore     = require('gulp-svgstore');
+var svgmin       = require('gulp-svgmin');
+var svg2png      = require('gulp-svg2png');
 
 // See https://github.com/austinpray/asset-builder
 var manifest = require('asset-builder')('./assets/manifest.json');
@@ -90,9 +93,6 @@ var cssTasks = function(filename) {
     })
     .pipe(function() {
       return gulpif(enabled.maps, sourcemaps.init());
-    })
-    .pipe(function() {
-      return gulpif('*.less', less());
     })
     .pipe(function() {
       return gulpif('*.scss', sass({
@@ -221,8 +221,6 @@ gulp.task('fonts', function() {
 gulp.task('images', function() {
   return gulp.src(globs.images)
     .pipe(imagemin([
-      imagemin.jpegtran({progressive: true}),
-      imagemin.gifsicle({interlaced: true}),
       imagemin.svgo({plugins: [
         {removeUnknownsAndDefaults: false},
         {cleanupIDs: false}
@@ -247,6 +245,32 @@ gulp.task('jshint', function() {
 // `gulp clean` - Deletes the build folder entirely.
 gulp.task('clean', require('del').bind(null, [path.dist]));
 
+// ### SVG time!
+gulp.task('svgs', function() {
+  return gulp.src(path.source + 'svgs/*.svg')
+    .pipe(svgmin({
+        plugins: [{
+            removeViewBox: false
+        }, {
+            removeEmptyAttrs: false
+        },{
+            mergePaths: false
+        },{
+            cleanupIDs: false
+        }]
+    }))
+    .pipe(gulp.dest(path.source + 'svgs'))
+    .pipe(svgstore({ inlineSvg: true }))
+    .pipe(rename({suffix: '-defs'}))
+    .pipe(gulp.dest(path.source + 'svgs/build'));
+});
+// convert to png for fallback
+gulp.task('svgfallback', function() {
+  return gulp.src(path.source + 'svgs/*.svg')
+    .pipe(svg2png())
+    .pipe(gulp.dest('assets/images'));
+});
+
 // ### Watch
 // `gulp watch` - Use BrowserSync to proxy your dev server and synchronize code
 // changes across devices. Specify the hostname of your dev server at
@@ -267,6 +291,7 @@ gulp.task('watch', ['styles', 'scripts'], function() {
   gulp.watch([path.source + 'scripts/**/*'], ['jshint', 'scripts']);
   gulp.watch([path.source + 'fonts/**/*'], ['fonts']);
   gulp.watch([path.source + 'images/**/*'], ['images']);
+  gulp.watch([path.source + 'svgs/*.svg'], ['svgs', 'svgfallback']);
   gulp.watch(['bower.json', 'assets/manifest.json'], ['build']);
 });
 
@@ -276,7 +301,7 @@ gulp.task('watch', ['styles', 'scripts'], function() {
 gulp.task('build', function(callback) {
   runSequence('styles',
               'scripts',
-              ['fonts', 'images'],
+              ['fonts', 'images', 'svgs'],
               callback);
 });
 

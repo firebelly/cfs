@@ -1,0 +1,64 @@
+// Typography
+
+@import url('https://fonts.googleapis.com/css?family=Anton|Rubik+Mono+One|Rubik:400,400i');
+
+// https://fonts.google.com/?selection.family=Anton|Rubik+Mono+One|Rubik:400,400i&query=rubik
+// font-family: 'Rubik', sans-serif;
+// font-family: 'Anton', sans-serif;
+// font-family: 'Rubik Mono One', sans-serif;
+
+// Fonts
+$font-display: 'Rubik Mono One', sans-serif;
+$font-regular: 'Rubik', sans-serif;
+$font-regular-italic: 'Rubik', sans-serif;
+$font-bold: 'Rubik', sans-serif;
+$font-bold-italic: 'Rubik', sans-serif;
+
+.font-display {
+  font-weight: normal;
+  font-family: $font-display;
+  text-transform: uppercase;
+}
+
+.font-regular {
+  font-weight: normal;
+  font-family: $font-regular;
+}
+
+.font-regular-italic {
+  font-weight: normal;
+  font-style: normal;
+  font-family: $font-regular;
+}
+
+.font-bold {
+  font-weight: normal;
+  font-family: $font-bold;
+}
+
+.font-bold-italic {
+  font-style: normal;
+  font-weight: normal;
+  font-family: $font-bold-italic;
+}
+
+.h1 {
+  font-size: 20px;
+  line-height: 1.25;
+  @extend .font-display;
+  text-transform: uppercase;
+}
+
+.h2 {
+  font-size: 10px;
+  line-height: 1.5;
+  @extend .font-bold;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.h3 {
+  font-size: 20px;
+  line-height: 1.25;
+  @extend .font-regular;
+}
