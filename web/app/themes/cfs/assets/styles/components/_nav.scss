@@ -5,11 +5,6 @@
   .site-header {
     top: 32px;
   }
-  // @include tablet {
-  //   .logo {
-  //       top: 32px;
-  //   }
-  // }
 }
 
 .site-nav {
@@ -26,13 +21,21 @@
   transition: left .3s $slide-easing;
   padding: #{$vertical-beat * 6} $global-padding #{$vertical-beat * 14};
 
-  &::before {
+  .logo-wordmark {
+    position: absolute;
     top: 0;
+    left: #{$column-width * 2 * 20/18};
+  }
+
+  &::after {
+    bottom: -10px;
+    height: 10px;
+    width: 100%;
     content: '';
     position: absolute;
-    right: #{$global-padding / 2};
-    // @include sprite($triple-pattern);
-    // @extend .sprite-icon;
+    border-top: 1px solid rgba(#000, .3);
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 100%);
   }
 
   &.-active {
@@ -45,14 +48,6 @@
     position: relative;
     svg {
       width: 115px;
-      .logo-mark-header {
-        fill: $black;
-        transform: scale(.763358779);
-      }
-      .logo-text-header {
-        fill: $black;
-        transform: scale(1.144801157) translate(-19px, -17px);
-      }
     }
   }
 
@@ -62,6 +57,10 @@
     text-decoration: none;
     transition: color .2 ease-out;
     padding: #{$vertical-beat * 3} 0;
+  }
+  .brand a,
+  .logo-wordmark a {
+    padding: 0;
   }
 
   ul {
@@ -74,27 +73,9 @@
 
   & > ul > li {
     position: relative;
-    &::before {
-      top: 0;
-      left: -12px;
-      content: '';
-      height: 1px;
-      background: $black;
-      position: absolute;
-      right: -$global-padding;
-    }
-    &::after {
-      top: 0;
-      width: 1px;
-      content: '';
-      left: -12px;
-      background: $black;
-      position: absolute;
-      height: #{$vertical-beat * 2};
-    }
     &.hover {
       a {
-        color: $black;
+        // color: $black;
       }
     }
   }
@@ -103,44 +84,47 @@
     color: $black;
     max-height: 0;
     overflow: hidden;
-    transition: max-height .3s ease-out;
-    &::before {
-      top: 0;
-      left: 0;
-      width: 6px;
-      height: 3px;
-      content: '';
-      display: block;
-      position: relative;
-      background: $black;
-      margin-bottom: #{$vertical-beat * 2};
-    }
     li {
-      padding: $vertical-beat 0;
-      &:last-of-type {
-        margin-bottom: #{$vertical-beat * 3};
-      }
+      transition: height .3s ease-out;
+      height: 0;
+      overflow: hidden;
     }
     a {
-      padding: 0;
+      display: block;
+      padding: 35px 0;
+      position: relative;
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        // box-shadow: 0 2px 4px 0 rgba(#000,.5);
+        border-top: 1px solid rgba(#000, .25);
+        background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 100%);
+        height: 6px;
+      }
     }
-
-    @include min-screen($breakpoint-nav) {
-      &::before {
-        margin-bottom: 0;
+    li:first-of-type a {
+      &::after {
+        display: none;
       }
     }
 
-    &.-toggled {
-      @include max-screen($breakpoint-nav) {
-        max-height: 200px;
-      }
-    }
+    // &.-toggled {
+    //   @include max-screen($breakpoint-nav) {
+    //     max-height: 200px;
+    //   }
+    // }
   }
   .menu-item-has-children:hover {
     @include min-screen($breakpoint-nav) {
       .sub-menu {
-        max-height: 200px;
+        li {
+          height: 80px;
+        }
+        // max-height: 200px;
       }
     }
   }
@@ -159,11 +143,11 @@
     &:focus {
       outline: none;
     }
-    &::before {
-      content: '▼';
-      color: $black;
-      margin-left: -12px;
-    }
+    // &::before {
+    //   content: '▼';
+    //   color: $black;
+    //   margin-left: -12px;
+    // }
     @include min-screen($breakpoint-nav) {
       display: none;
     }
@@ -176,49 +160,55 @@
   }
 
   @include min-screen($breakpoint-nav) {
-    width: 60%;
+    width: #{$column-width * 18};
     left: auto;
     float: right;
-    // margin-top: 70px;
     background: $red;
     padding: 30px 0 0;
     position: relative;
 
+    // Black bar at left of nav
     &::before {
+      top: 0;
       left: 0;
-      top: auto;
+      width: #{$column-width * 20/18};
+      background: $black;
       content: '';
-      right: auto;
-      bottom: 100%;
-      // @include sprite($triple-pattern-large);
+      position: absolute;
+      display: block;
+      height: 100%;
     }
 
-    .brand {
-      display: none;
-    }
+    // .brand {
+    //   display: none;
+    // }
 
     a {
       padding: #{$vertical-beat * 1} #{$vertical-beat * 2};
       color: $white;
       display: inline-block;
       &:hover {
-        color: $black;
+        color: $yellow;
+        // border-bottom: 1px solid $white;
       }
     }
 
     .menu-search a {
-      border: 2px solid $white;
+      // border: 2px solid $white;
+      box-shadow: inset 0px 0px 0px 2px $white;
     }
 
-    & > ul > li {
-      &::before,
-      &::after {
-        display: none;
-      }
-    }
+    // & > ul > li {
+    //   &::before,
+    //   &::after {
+    //     display: none;
+    //   }
+    // }
 
     .nav {
       padding-left: 0;
+      float: right;
+      margin-right: #{$column-width * 20/18};
       @include clearfix;
       > li {
         float: left;
@@ -237,20 +227,22 @@
       height: 0;
       opacity: 0;
       top: -1000px;
+      left: 50%;
+      margin-left: -175px;
       max-height: none;
       overflow: visible;
       position: relative;
-      transition: opacity .2s ease-out;
+      transition: all .2s ease-out;
       &::before {
         top: 10px;
       }
       li {
-        width: 130px;
+        width: 350px;
         &:first-of-type {
-          padding-top: #{$vertical-beat * 5};
+          margin-top: #{$vertical-beat * 2};
         }
         &:last-of-type {
-          margin-bottom: #{$vertical-beat * 6};
+          // margin-bottom: #{$vertical-beat * 6};
         }
       }
     }
@@ -260,18 +252,18 @@
         top: auto;
         opacity: 1;
         height: auto;
-        transition-delay: .2s;
+        transition-delay: .1s;
+        li {
+          background: $red;
+          text-align: center;
+          // min-width: 345px;
+        }
         a {
-          color: $black;
+          // color: $black;
         }
       }
     }
 
-    .shop-link {
-      top: 5px;
-      position: absolute;
-      right: -$global-padding;
-    }
   }
 }
 
