@@ -1,0 +1,64 @@
+.site-footer {
+	@include clearfix;
+
+	position: relative;
+	padding-top: 126px;
+
+	// brown bar above footer
+	&::before {
+		display: block;
+		content: '';
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: #{$column-width * 18};
+		height: 96px;
+		background: $brown;
+	}
+	.brand {
+		margin: 20px 0 0;
+	}
+	.icon-logo {
+		width: 70px;
+		height: 64px;
+		fill: $brown;
+		position: absolute;
+		top: 16px;
+		left: -80px;
+
+	}
+	.icon-logo-wordmark {
+		fill: $brown;
+		width: 72px;
+		height: 58px;
+	}
+
+	.wrap {
+		width: #{$column-width * 16};
+		margin: 0 #{$column-width * 2};
+		.brand {
+			float: left;
+			width: #{$column-width * 2};
+		}
+	}
+
+	.subscribe {
+		float: left;
+		width: #{$column-width * 9};
+		padding-left: $gutter;
+		h3 {
+			margin: 0 0 #{$vertical-beat * 2};
+		}
+		.input-name {
+			margin-left: -($gutter + 2px);
+		}
+	}
+
+	form {
+		input,
+		label {
+			color: $brown;
+			border-color: $brown;
+		}
+	}
+}

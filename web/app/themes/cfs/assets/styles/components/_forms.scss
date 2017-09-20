@@ -1,3 +1,47 @@
+form {
+	label,
+	input {
+		padding: 0 $gutter $vertical-beat $gutter;
+	}
+	input[type=text],
+	input[type=email] {
+		outline: none;
+		display: block;
+		width: 100%;
+		background: none;
+		border: none;
+		border-left: 2px solid $yellow;
+		border-bottom: 2px solid $yellow;
+		padding: 10px $gutter #{$vertical-beat * 2} $gutter;
+		&:focus,
+		&:valid {
+			// padding: 0 $gutter #{$vertical-beat * 2} $gutter;
+			+ label {
+				top: -10px;
+			}
+		}
+	}
+	.input-item {
+		position: relative;
+	}
+	label {
+		transition: all .2s;
+		@extend .font-display;
+		margin: 0;
+		padding-bottom: 4px;
+		font-size: 12px;
+		line-height: 1;
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		color: $yellow;
+		border-left: 2px solid $yellow;
+
+	}
+
+}
+
 // Search form
 .search-form {
 }

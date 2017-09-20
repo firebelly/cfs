@@ -176,6 +176,13 @@ class FbSiteOptions {
     ) );
 
     $cmb->add_field( array(
+      'name' => __( 'Contact Notice', 'firebelly' ),
+      'id'   => 'contact_notice',
+      'desc' => __( 'Notice shown in the footer'),
+      'type' => 'textarea_small',
+    ) );
+
+    $cmb->add_field( array(
       'name' => __( 'Facebook App ID', 'firebelly' ),
       'desc' => __( 'Used for OG tags, set up at https://developers.facebook.com/apps/', 'firebelly' ),
       'id'   => 'facebook_app_id',

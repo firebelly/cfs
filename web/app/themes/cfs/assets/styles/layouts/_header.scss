@@ -8,57 +8,17 @@
   position: absolute;
   transition: height .2s ease-out;
 
-  .brand {
-    margin-top: 9px;
-    font-size: 24px;
-    position: absolute;
-    padding: 0;
-    margin: 0;
-    top: 32px;
-    left: -102px;
-    svg {
-      width: 115px;
-    }
-  }
-
   @include media-md {
     top: 0;
     width: 100%;
     position: absolute;
 
-    &.sub-menu-active {
-
-      // .brand {
-      //   .logo-text-header,
-      //   .logo-mark-header {
-      //     fill: $black;
-      //   }
-      // }
-    }
+    &.sub-menu-active {}
 
     // Sticky
     &.-sticky {
       position: fixed;
       animation: slideDown .2s;
-      &::before {
-        display: none;
-      }
-      // .brand {
-      //     width: 35px;
-      //     height: 54px;
-      //     margin-bottom: 0;
-      //     overflow: hidden;
-      //     svg {
-      //       width: 115px;
-      //     }
-      //     .logo-text-header {
-      //       display: none;
-      //     }
-      //   }
-
-      // .site-nav {
-      //   color: $black;
-      // }
     }
   }
 
@@ -67,33 +27,6 @@
       height: auto;
       background: none;
       padding: #{$vertical-beat * 5} 0 0;
-
-      &::before {
-        top: 0;
-        left: 0;
-        width: 100%;
-        content: '';
-        height: 67px;
-        display: block;
-        position: absolute;
-        background: $gray-lite;
-      }
-
-      .brand {
-        width: 47px;
-        bottom: auto;
-        height: 70px;
-        margin-top: 8px;
-        max-width: 150px;
-        transform: translateY(0);
-        .logo-mark-header {
-          transform: scale(1);
-        }
-      }
-
-      a {
-        // color: $black;
-      }
 
       .site-nav {
         margin-top: 0;
@@ -104,33 +37,14 @@
       }
     }
 
-    >.wrap > .brand {
-      margin-top: 0;
-      svg {
-        width: 140px;
-        .logo-mark-header {
-          transform: scale(1.290091381);
-        }
-        .logo-text-header {
-          transform: scale(.886659539) translate(19px,15px);
-        }
-      }
-    }
-
-    .wrap {
-      // margin-right: 35px;
-    }
-
     &.sub-menu-active {
       .menu-item:not(.hover) {
         > a {
-          color: #bebebe;
         }
       }
 
       .sub-menu .menu-item.un-hover {
         a {
-          color: #bebebe;
         }
       }
     }

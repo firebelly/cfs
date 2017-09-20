@@ -262,7 +262,8 @@ gulp.task('svgs', function() {
     .pipe(gulp.dest(path.source + 'svgs'))
     .pipe(svgstore({ inlineSvg: true }))
     .pipe(rename({suffix: '-defs'}))
-    .pipe(gulp.dest(path.source + 'svgs/build'));
+    // .pipe(gulp.dest(path.source + 'svgs/build'));
+    .pipe(gulp.dest(path.dist + 'svgs/build'));
 });
 // convert to png for fallback
 gulp.task('svgfallback', function() {
