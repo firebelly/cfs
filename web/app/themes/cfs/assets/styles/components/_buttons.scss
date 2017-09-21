@@ -1,0 +1,26 @@
+.button {
+	display: inline-block;
+	border: none;
+	padding: 0 $vertical-beat;
+	line-height: 60px;
+	background: $gray-lite;
+	border: 2px solid $black;
+	// transition: fill .2s ease-out;
+	min-height: 60px;
+	min-width: 60px;
+	text-align: center;
+	position: relative;
+	svg {
+		vertical-align: middle;
+		transition: fill .1s steps(2), margin .1s steps(2);
+		width: 24px;
+		height: 24px;
+		fill: $black;
+	}
+	&:hover {
+		background: $black;
+		svg {
+			fill: $white;
+		}
+	}
+}

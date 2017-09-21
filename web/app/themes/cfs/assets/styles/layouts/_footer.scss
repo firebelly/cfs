@@ -2,9 +2,9 @@
 	@include clearfix;
 
 	position: relative;
-	padding-top: 126px;
+	padding: 126px 0 40px;
 
-	// brown bar above footer
+	// black bar above footer
 	&::before {
 		display: block;
 		content: '';
@@ -13,7 +13,7 @@
 		right: 0;
 		width: #{$column-width * 18};
 		height: 96px;
-		background: $brown;
+		background: $black;
 	}
 	.brand {
 		margin: 20px 0 0;
@@ -21,14 +21,14 @@
 	.icon-logo {
 		width: 70px;
 		height: 64px;
-		fill: $brown;
+		fill: $black;
 		position: absolute;
 		top: 16px;
 		left: -80px;
 
 	}
 	.icon-logo-wordmark {
-		fill: $brown;
+		fill: $black;
 		width: 72px;
 		height: 58px;
 	}
@@ -44,21 +44,67 @@
 
 	.subscribe {
 		float: left;
-		width: #{$column-width * 9};
+		width: #{$column-width * 9 * 20/16};
 		padding-left: $gutter;
-		h3 {
-			margin: 0 0 #{$vertical-beat * 2};
+				h3 {
+			margin: 0 0 #{$vertical-beat * 3};
+		}
+		.newsletter-form {
+			position: relative;
+			input,
+			label {
+				color: $black;
+				border-color: $black;
+			}
 		}
 		.input-name {
 			margin-left: -($gutter + 2px);
 		}
-	}
-
-	form {
-		input,
-		label {
-			color: $brown;
-			border-color: $brown;
+		.input-email {
+		}
+		.input-submit {
+			position: absolute;
+			bottom: 0;
+			right: 0;
 		}
 	}
+
+	#contact {
+		&,
+		.contact-notice,
+		.copyright {
+			margin-top: #{$vertical-beat * 2};
+		}
+		address,
+		p {
+			margin: 0;
+			font-size: 12px;
+			line-height: 1.5;
+		}
+		.locality {
+			display: block;
+		}
+	}
+
+	.social {
+		width: #{$column-width * 4 * 20/16};
+		position: absolute;
+		right: 0;
+		top: 0;
+		li {
+			position: absolute;
+			top: 22px;
+			&:nth-child(1) {
+				left: 0;
+			}
+			&:nth-child(2) {
+				left: 50%;
+				margin-left: -30px;
+			}
+			&:nth-child(3) {
+				right: 0;
+			}
+		}
+	}
+
 }

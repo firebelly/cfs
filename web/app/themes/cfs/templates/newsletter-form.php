@@ -10,7 +10,10 @@
           <input type="text" value="" name="EMAIL" class="required email" id="mce-EMAIL" required>
           <label for="mce-EMAIL">Email Address</label>
         </div>
-        <div class="clear input-submit"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"><svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg></div>
+        <div class="clear input-submit"><button type="submit" name="subscribe" id="mc-embedded-subscribe" class="button">
+          <svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg>
+          <span class="sr-only">Submit</span>
+        </div>
       </div>
       <div id="mce-responses" class="clear">
         <div class="response" id="mce-error-response" style="display:none"></div>

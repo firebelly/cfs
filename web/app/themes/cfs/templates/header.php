@@ -1,4 +1,4 @@
-<header class="site-header" role="banner">
+<header class="site-header -sticky" role="banner">
   <div class="wrap">
     <nav class="site-nav" role="navigation">
       <h1 class="brand"><a href="<?= esc_url(home_url('/')); ?>">

@@ -11,83 +11,16 @@ html {
 body {
   color: $black;
   font-size: 16px;
+  line-height: 1.5;
   overflow-x: hidden;
   background: $gray-lite;
   font-family: $font-regular;
 }
 
-// Browser alert
-.old-browser {
-  top: 0;
-  left: 0;
-  right: 0;
-  color: $white;
-  padding: 50px;
-  text-align: center;
-  background: $red;
+.container {
+  margin-top: 84px;
 }
 
-.smooth {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-// Utility classes
-.hide {
-  display: none;
-}
-.loading {
-  opacity: .5;
-}
-
-// Visually hide, accessibility-friendly
-.screen-reader-text,
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0,0,0,0);
-  border: 0;
-}
-
-.clearfix,.cf {
-  @include clearfix;
-}
-
-// Visibility classes (borrowing nomenclature from Foundation)
-.show-for-medium-up {
-  display: none;
-  @include media-md {
-    display: block;
-  }
-}
-.hide-for-medium-up {
-  @include media-md {
-    display: none !important;
-  }
-}
-
-// Default link styles
-a {
-  color: $brand-primary;
-  text-decoration: none;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-figure,
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-address {
-  font-style: normal;
+.main {
+  margin: 0 #{$column-width * 1};
 }

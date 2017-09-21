@@ -5,11 +5,19 @@
 
 namespace Firebelly\Media;
 
-// Image sizes for grid items
-add_image_size( 'post-thumb', 288, 288, array('center', 'top') );
-add_image_size( 'grid-thumb', 600, 430 );
-add_image_size( 'grid-large', 1200, 700 );
-add_image_size( 'banner_image', 1600, 800 );
+// Image sizes
+add_action('after_setup_theme', __NAMESPACE__ . '\\set_image_sizes');
+function set_image_sizes() {
+  // Set default sizes
+  update_option('medium_size_w', 600);
+  update_option('medium_size_h', 0);
+  update_option('medium_large_size_w', 1000);
+  update_option('large_size_w', 1400);
+  update_option('large_size_h', 0);
+
+  // Custom banner size for headers
+  add_image_size('banner', 1800, 850, true);
+}
 
 /**
  * Get the file path (not URL) to a thumbnail of a particular size.
@@ -43,12 +51,12 @@ function get_thumbnail_size_path($thumb_id, $size) {
  * @param  string|object   $post_or_image (WP post object or background image)
  * @return HTML            background image code
  */
-function get_header_bg($post_or_image, $remote_img=false, $thumb_id='', $color_or_bw='color', $size='full') {
+function get_header_bg($post_or_image, $remote_img=false, $thumb_id='', $color_or_bw='', $size='banner') {
 
   // Set colors if bw or color
   if ($color_or_bw!=='color') {
-    $shadow = '141414';
-    $highlight = 'e6e6f0';
+    $shadow = '323228';
+    $highlight = 'F0F0F0';
   } else {
     $shadow = '3e4d9b';
     $highlight = 'c0c8f7';

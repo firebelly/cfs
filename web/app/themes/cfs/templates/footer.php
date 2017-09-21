@@ -27,17 +27,21 @@
               <p><a href="mailto:<?= \Firebelly\SiteOptions\get_option('contact_email'); ?>"><?= \Firebelly\SiteOptions\get_option('contact_email'); ?></a></p>
             </div>
           </div>
-          <p><?= \Firebelly\SiteOptions\get_option('contact_notice'); ?></p>
-          <p>&copy; <?= date("Y") ?> <?= get_bloginfo('name'); ?></p>
+          <div class="contact-notice">
+            <p><?= \Firebelly\SiteOptions\get_option('contact_notice'); ?></p>
+          </div>
+          <div class="copyright">
+            <p>&copy; <?= date("Y") ?> <?= get_bloginfo('name'); ?></p>
+          </div>
         </div>
 
       </div>
 
       <div class="social">
         <ul>
-          <li><a href="https://www.facebook.com/<?= \Firebelly\SiteOptions\get_option('facebook_id'); ?>"><svg class="icon icon-facebook" aria-hidden="hidden" role="image"><use xlink:href="#icon-facebook"/></svg><span class="sr-only">Facebook</span></a></li>
-          <li><a href="https://www.twitter.com/<?= \Firebelly\SiteOptions\get_option('twitter_id'); ?>"><svg class="icon icon-twitter" aria-hidden="hidden" role="image"><use xlink:href="#icon-twitter"/></svg><span class="sr-only">Twitter</span></a></li>
-          <li><a href="https://www.vimeo.com/<?= \Firebelly\SiteOptions\get_option('vimeo_id'); ?>"><svg class="icon icon-vimeo" aria-hidden="hidden" role="image"><use xlink:href="#icon-vimeo"/></svg><span class="sr-only">Vimeo</span></a></li>
+          <li><a class="button" href="https://www.facebook.com/<?= \Firebelly\SiteOptions\get_option('facebook_id'); ?>"><svg class="icon icon-facebook" aria-hidden="hidden" role="image"><use xlink:href="#icon-facebook"/></svg><span class="sr-only">Facebook</span></a></li>
+          <li><a class="button" href="https://www.twitter.com/<?= \Firebelly\SiteOptions\get_option('twitter_id'); ?>"><svg class="icon icon-twitter" aria-hidden="hidden" role="image"><use xlink:href="#icon-twitter"/></svg><span class="sr-only">Twitter</span></a></li>
+          <li><a class="button" href="https://www.vimeo.com/<?= \Firebelly\SiteOptions\get_option('vimeo_id'); ?>"><svg class="icon icon-vimeo" aria-hidden="hidden" role="image"><use xlink:href="#icon-vimeo"/></svg><span class="sr-only">Vimeo</span></a></li>
         </ul>
       </div>
 

@@ -19,7 +19,7 @@ function metaboxes( array $meta_boxes ) {
       [
         'name' => 'Intro Title',
         'id'   => $prefix .'intro_title',
-        'type' => 'text',
+        'type' => 'textarea_small',
       ],
       [
         'name' => 'Intro Quote',

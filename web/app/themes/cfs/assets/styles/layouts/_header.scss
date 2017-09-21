@@ -1,92 +1,82 @@
-// Header
+// Headers
 
-.site-header {
-  top: 0;
-  left: 0;
-  // z-index: 10;
-  width: 100%;
-  position: absolute;
-  transition: height .2s ease-out;
-
-  @include media-md {
-    top: 0;
-    width: 100%;
-    position: absolute;
-
-    &.sub-menu-active {}
-
-    // Sticky
-    &.-sticky {
-      position: fixed;
-      animation: slideDown .2s;
-    }
-  }
-
-  @include min-screen($breakpoint-nav) {
-    &.-sticky {
-      height: auto;
-      background: none;
-      padding: #{$vertical-beat * 5} 0 0;
-
-      .site-nav {
-        margin-top: 0;
-        padding-top: 0;
-        &::before {
-          display: none;
-        }
-      }
-    }
-
-    &.sub-menu-active {
-      .menu-item:not(.hover) {
-        > a {
-        }
-      }
-
-      .sub-menu .menu-item.un-hover {
-        a {
-        }
-      }
-    }
-  }
-}
-
-// Basic page header
 .page-header {
-  padding-top: 200px;
   background-size: cover;
   background-position: top center;
-  padding-bottom: $global-padding;
+  position: relative;
+}
+
+// Homepage header
+.page-header.homepage {
+  background-size: cover;
+  background-position: top center;
   position: relative;
 
   .wrap {
-    padding: 0 $global-padding;
   }
 
   h1 {
-    color: $white;
+    font-size: 60px;
     line-height: 1;
-    font-size: 32px;
+    color: $white;
+    text-transform: uppercase;
+  }
+  .page-intro {
+    color: $white;
   }
 
   @include media-md {
     height: 600px;
-    padding-bottom: 155px;
-    border-bottom: #{$global-padding / 2} solid $black;
+    .page-intro {
+      padding: 170px #{$column-width * 1 * 20/18} $global-padding #{$column-width * 1 * 20/18};
+      h1 {
+        margin: 0;
+        width: #{$column-width * 7 * 20/16};
+        min-width: 430px;
+      }
+      p {
+        margin: 0;
+      }
+      .page-content {
+        padding: #{$vertical-beat * 4} 0 0 #{$column-width * 2 * 20/16};
+        .p-intro {
+          padding-right: #{$column-width * 1 * 20/16};
+        }
+      }
+    }
+
+    // Red bar at right
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      right: -#{$column-width * 1 * 20/18};
+      width: #{$column-width * 1 * 20/18};
+      height: 100%;
+      background: $red;
+    }
+    // Notches at bottom left and right
+    .icon-notch {
+      width: 42px;
+      height: 42px;
+      fill: $black;
+      position: absolute;
+      bottom: -42px;
+      &.bottom-left {
+        left: -42px;
+        transform: rotate(270deg);
+      }
+      &.bottom-right {
+        right: -42px;
+        transform: rotate(180deg);
+      }
+    }
 
     .wrap {
-      // z-index: 1;
-      height: 100%;
-      display: flex;
-      position: relative;
-      align-items: flex-end;
-      padding: 0 $global-padding 0 130px;
     }
 
     h1 {
-      margin: 0;
-      max-width: 50%;
-      font-size: 60px;
     }
   }
   // @include media-xl {
