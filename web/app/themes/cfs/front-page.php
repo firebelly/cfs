@@ -5,7 +5,7 @@
 
 $header_video = get_post_meta($post->ID, '_cmb2_featured_video', true);
 if (!$header_video) {
-  $header_bg = \Firebelly\Media\get_header_bg($post, false, '', 'color', 'banner_image');
+  $header_bg = \Firebelly\Media\get_header_bg($post, false, '', 'bw', 'banner');
 } else {
   $header_bg = '';
 }
@@ -37,7 +37,7 @@ $custom_featured_image = get_post_meta($post->ID, '_cmb2_custom_featured_image',
 $custom_featured_link = get_post_meta($post->ID, '_cmb2_custom_featured_link', true);
 ?>
 
-<div class="page-header" <?= $header_bg ?>>
+<header class="page-header homepage" <?= $header_bg ?>>
   <?php if ($header_video): ?>
   <div class="background-video-wrapper">
     <video class="background-video" playsinline autoplay muted loop poster="">
@@ -45,28 +45,29 @@ $custom_featured_link = get_post_meta($post->ID, '_cmb2_custom_featured_link', t
     </video>
   </div>
   <?php endif; ?>
-  <div class="wrap">
-    <h2><?php bloginfo('description'); ?></h2>
-  </div>
-</div>
-
-<?= Firebelly\Utils\fb_crumbs(); ?>
-
-<div class="page-intro">
-  <div class="page-intro-content">
-    <div class="-inner">
-      <div class="page-content user-content grid">
-        <div class="one-half -left">
-          <?= $page_intro_quote; ?>
-        </div>
-        <div class="one-half -right">
-          <?= apply_filters('the_content', $post->post_content); ?>
-        </div>
+  <section class="page-intro">
+    <h1><?php bloginfo('description'); ?></h1>
+    <div class="page-content user-content grid">
+      <div class="one-half -left">
+        <p class="p-intro"><?= $page_intro_quote; ?></p>
+      </div>
+      <div class="one-half -right">
+        <?= apply_filters('the_content', $post->post_content); ?>
       </div>
     </div>
-  </div>
-</div>
+  </section>
+  <svg class="icon icon-notch bottom-left" aria-hidden="hidden" role="image"><use xlink:href="#icon-notch"/></svg>
+  <svg class="icon icon-notch bottom-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-notch"/></svg>
+</header>
 
+<section class="featured">
+  <article class="feature program">
+    <?php
+    $featured_header = \Firebelly\Media\get_header_bg($featured_program, false, '', 'bw', 'banner');
+
+    ?>
+  </article>
+</section>
 <h2>Featured Program:</h2>
 <?= print_r($featured_program) ?>
 
