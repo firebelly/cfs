@@ -36,6 +36,7 @@
 	.wrap {
 		width: #{$column-width * 16};
 		margin: 0 #{$column-width * 2};
+		position: relative;
 		.brand {
 			float: left;
 			width: #{$column-width * 2};
