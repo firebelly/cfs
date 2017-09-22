@@ -26,6 +26,21 @@
       }
     }
   }
+  .brand {
+    margin-top: 9px;
+    font-size: 24px;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    top: 32px;
+    left: calc(#{$column-width * 1} - 52px);
+    z-index: 10;
+    svg {
+      fill: $red;
+      width: 139px;
+      height: 139px;
+    }
+  }
 }
 
 // WP admin bar push
@@ -34,22 +49,6 @@
     top: 32px;
   }
 }
-.brand {
-  margin-top: 9px;
-  font-size: 24px;
-  position: absolute;
-  padding: 0;
-  margin: 0;
-  top: 32px;
-  left: calc(#{$column-width * 1} - 52px);
-  z-index: 10;
-  svg {
-    fill: $red;
-    width: 139px;
-    height: 139px;
-  }
-}
-
 
 .site-nav {
   top: 0;
