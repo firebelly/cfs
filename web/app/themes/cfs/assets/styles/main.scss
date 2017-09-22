@@ -10,8 +10,8 @@
 // Variables & globals
 @import "common/variables";
 @import "common/mixins";
-@import "common/typography";
 @import "common/grid";
+@import "common/typography";
 @import "common/utility";
 @import "common/base";
 
@@ -29,3 +29,6 @@
 @import "layouts/pages";
 @import "layouts/posts";
 @import "layouts/tinymce";
+
+// Pages
+@import "pages/home";

@@ -1,26 +1,77 @@
 .button {
-	display: inline-block;
-	border: none;
-	padding: 0 $vertical-beat;
-	line-height: 60px;
-	background: $gray-lite;
-	border: 2px solid $black;
-	// transition: fill .2s ease-out;
-	min-height: 60px;
-	min-width: 60px;
-	text-align: center;
-	position: relative;
-	svg {
-		vertical-align: middle;
-		transition: fill .1s steps(2), margin .1s steps(2);
-		width: 24px;
-		height: 24px;
-		fill: $black;
-	}
-	&:hover {
-		background: $black;
-		svg {
-			fill: $white;
-		}
-	}
+  display: inline-block;
+  border: none;
+  padding: 0 $vertical-beat;
+  line-height: 60px;
+  border: 2px solid $black;
+  background: none;
+  // transition: background .1s steps(2);
+  min-height: 60px;
+  min-width: 60px;
+  text-align: center;
+  position: relative;
+  @extend .font-display;
+  font-size: 12px;
+  position: relative;
+  svg {
+    vertical-align: middle;
+    transition: fill .1s steps(2), margin .1s steps(2);
+    width: 24px;
+    height: 24px;
+    fill: $black;
+  }
+  z-index: 1;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: $black;
+    z-index: -1;
+    transform: scaleX(0);
+    transition: transform .1s steps(2);
+  }
+  &:hover {
+    &::before {
+      transform: scaleX(1);
+    }
+    svg {
+      fill: $white;
+    }
+  }
+  &.-wide {
+    width: 100%;
+  }
+
+  // White buttons
+  &.-white {
+    border: 2px solid $white;
+    color: $white;
+    &::before {
+      background: $white;
+    }
+    &:hover {
+      color: $black;
+      svg {
+        fill: $black;
+      }
+    }
+  }
+
+  // Red buttons
+  &.-red {
+    border: 2px solid $red;
+    color: $red;
+    &::before {
+      background: $red;
+    }
+    &:hover {
+      color: $black;
+      svg {
+        fill: $black;
+      }
+    }
+  }
 }

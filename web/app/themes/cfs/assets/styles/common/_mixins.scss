@@ -13,6 +13,23 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+// Various floating bars
+@mixin bar($position, $color, $parent_num_columns, $before_or_after:"after") {
+  @if $position == 'left' {
+    $before_or_after: 'before';
+  }
+  &::#{$before_or_after} {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    #{$position}: -#{$column-width * 1 * 20 / $parent_num_columns};
+    width: #{$column-width * 1 * 20 / $parent_num_columns};
+    height: 100%;
+    background: #{$color};
+  }
+}
+
 // Responsive mixins by Andy Richardson (@andimal): https://github.com/andimal/sass-responsive-mixin-madness
 @mixin media-xs() {
   @media screen and (max-width: $breakpoint-sm - 1) {

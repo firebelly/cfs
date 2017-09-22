@@ -34,7 +34,9 @@ $featured_workshop = ($featured_workshops) ? $featured_workshops[0] : null;
 $custom_featured_title = get_post_meta($post->ID, '_cmb2_custom_featured_title', true);
 $custom_featured_body = get_post_meta($post->ID, '_cmb2_custom_featured_body', true);
 $custom_featured_image = get_post_meta($post->ID, '_cmb2_custom_featured_image', true);
+$custom_featured_image_id = get_post_meta($post->ID, '_cmb2_custom_featured_image_id', true);
 $custom_featured_link = get_post_meta($post->ID, '_cmb2_custom_featured_link', true);
+$custom_featured_link_text = get_post_meta($post->ID, '_cmb2_custom_featured_link_text', true);
 ?>
 
 <header class="page-header homepage" <?= $header_bg ?>>
@@ -61,26 +63,57 @@ $custom_featured_link = get_post_meta($post->ID, '_cmb2_custom_featured_link', t
 </header>
 
 <section class="featured">
-  <article class="feature program">
-    <?php
-    $featured_header = \Firebelly\Media\get_header_bg($featured_program, false, '', 'bw', 'banner');
-
-    ?>
+  <?php if ($featured_program): ?>
+  <article class="feature program-post">
+    <div class="wrap grid">
+      <div class="one-half -left">
+        <div class="image" <?= \Firebelly\Media\get_header_bg($featured_program, false, '', 'bw', 'large') ?>></div>
+      </div>
+      <div class="one-half -right">
+        <h1><?= $featured_program->post_title ?></h1>
+        <div class="user-content excerpt">
+          <p><?= Firebelly\Utils\get_excerpt($featured_program) ?></p>
+        </div>
+        <a href="<?= get_permalink($featured_program) ?>" class="button -wide -white">Get the Details</a>
+      </div>
+    </div>
   </article>
-</section>
-<h2>Featured Program:</h2>
-<?= print_r($featured_program) ?>
-
-<?php if ($custom_featured_title): ?>
-  <?php if ($custom_featured_image): ?>
-    <img src="<?= $custom_featured_image ?>">
   <?php endif; ?>
-  <h2><?= $custom_featured_title ?></h2>
-  <div class="user-content">
-    <?= $custom_featured_body ?>
-  </div>
-  <a class="button" href="<?= $custom_featured_link ?>">More</a>
-<?php endif; ?>
 
-<h2>Featured Workshop:</h2>
-<?= print_r($featured_workshop) ?>
+  <?php if ($custom_featured_title): ?>
+    <article class="feature custom-link">
+      <div class="wrap grid">
+        <div class="one-half -left details">
+          <h1><?= $custom_featured_title ?></h1>
+          <div class="user-content excerpt">
+            <?= apply_filters('the_content', $custom_featured_body) ?>
+          </div>
+          <a href="<?= $custom_featured_link ?>" class="button -wide -red"><?= $custom_featured_link_text ?></a>
+        </div>
+        <div class="one-half -right">
+          <?php if ($custom_featured_image): ?>
+            <div class="image" <?= \Firebelly\Media\get_header_bg($custom_featured_image, true, $custom_featured_image_id, 'bw', 'large') ?>></div>
+          <?php endif; ?>
+        </div>
+      </div>
+    </article>
+  <?php endif; ?>
+
+  <?php if ($featured_workshop): ?>
+  <article class="feature workshop-post">
+    <div class="wrap grid">
+      <div class="one-half -left">
+        <div class="image" <?= \Firebelly\Media\get_header_bg($featured_workshop, false, '', 'bw', 'large') ?>></div>
+      </div>
+      <div class="one-half -right">
+        <h1><?= $featured_workshop->post_title ?></h1>
+        <div class="user-content excerpt">
+          <p><?= Firebelly\Utils\get_excerpt($featured_workshop) ?></p>
+        </div>
+        <a href="<?= get_permalink($featured_workshop) ?>" class="button -wide -red">Train With Us</a>
+      </div>
+    </div>
+  </article>
+  <?php endif; ?>
+
+</section>

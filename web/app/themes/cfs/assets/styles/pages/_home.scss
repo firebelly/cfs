@@ -1,0 +1,138 @@
+// Homepage header
+.page-header.homepage {
+  background-size: cover;
+  background-position: top center;
+  position: relative;
+
+  .wrap {
+  }
+
+  h1 {
+    font-size: 60px;
+    line-height: 1;
+    color: $white;
+    text-transform: uppercase;
+  }
+  .page-intro {
+    color: $white;
+  }
+
+  @include media-md {
+    height: 600px;
+    .page-intro {
+      padding: 170px #{$column-width * 1 * 20/18} $global-padding #{$column-width * 1 * 20/18};
+      h1 {
+        margin: 0;
+        width: #{$column-width * 7 * 20/16};
+        min-width: 430px;
+      }
+      p {
+        margin: 0;
+      }
+      .page-content {
+        padding: #{$vertical-beat * 4} 0 0 #{$column-width * 2 * 20/16};
+        .p-intro {
+          padding-right: #{$column-width * 1 * 20/16};
+        }
+      }
+    }
+
+    // Red bar at right
+    @include bar('right', $red, 18);
+
+    // Notches at bottom left and right
+    .icon-notch {
+      width: 42px;
+      height: 42px;
+      fill: $black;
+      position: absolute;
+      bottom: -42px;
+      z-index: 1;
+      &.bottom-left {
+        left: -42px;
+        transform: rotate(270deg);
+      }
+      &.bottom-right {
+        right: -42px;
+        transform: rotate(180deg);
+      }
+    }
+
+    .wrap {
+    }
+
+    h1 {
+    }
+  }
+  // @include media-xl {
+  //   height: 80vh;
+  //   min-height: 600px;
+  //   max-height: 800px;
+  // }
+}
+
+
+// Homepage featured posts
+.home.page {
+  .featured {}
+
+  // Shared featured post styles
+  .feature {
+    position: relative;
+    background: $black;
+    margin: 0 0 0 #{$column-width * 1 * 20/18};
+    >.wrap {
+      padding: #{$vertical-beat * 4} #{$column-width * 1 * 20/17} #{$vertical-beat * 4} #{$column-width * 2 * 20/17};
+    }
+    @include bar('right', $black, 16);
+    .image {
+      background-size: cover;
+      background-position: top center;
+      position: relative;
+      height: 0;
+      padding-top: 57%;
+      margin: 0 $gutter 0 0;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    }
+    h1 {
+      color: $red;
+    }
+    p {
+      color: $white;
+    }
+
+    // Featured Program
+    &.program-post {
+      background: $red;
+      padding: #{$vertical-beat * 4} 0;
+      margin: 0 0 0 #{$column-width * 2 * 20/18};
+      @include bar('left', $black, 16);
+      @include bar('right', $red, 16);
+      h1 {
+        color: $white;
+      }
+      >.wrap {
+        padding: 0 #{$column-width * 1 * 20/16};
+      }
+    }
+
+    // Featured Custom Link
+    &.custom-link {
+      .details {
+        padding: 0 $gutter 0 0;
+      }
+      .image {
+        margin: 0;
+      }
+    }
+
+    // Featured Workshop
+    &.workshop-post {
+      >.wrap {
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+
+  }
+}

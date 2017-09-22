@@ -32,6 +32,8 @@ h1,
   @extend .font-header;
   font-size: 60px;
   line-height: 1;
+  text-transform: uppercase;
+  margin: 0 0 #{$vertical-beat * 2};
 }
 
 h2,
@@ -50,6 +52,9 @@ h4,
   line-height: 1.5;
 }
 
+p {
+  letter-spacing: .06875em;
+}
 .p-intro,
 p.p-intro {
   @extend .font-regular;

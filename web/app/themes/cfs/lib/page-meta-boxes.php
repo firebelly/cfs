@@ -83,6 +83,12 @@ function metaboxes( array $meta_boxes ) {
         'type' => 'text_url',
         'desc' => 'e.g. http://foo.com/',
       ],
+      [
+        'name' => 'Custom Featured Link Text',
+        'id'   => $prefix . 'custom_featured_link_text',
+        'type' => 'text_medium',
+        'desc' => 'e.g. Support Us'
+      ],
     ],
   );
 

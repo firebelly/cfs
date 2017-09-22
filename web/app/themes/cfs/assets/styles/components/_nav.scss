@@ -34,6 +34,22 @@
     top: 32px;
   }
 }
+.brand {
+  margin-top: 9px;
+  font-size: 24px;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  top: 32px;
+  left: calc(#{$column-width * 1} - 52px);
+  z-index: 10;
+  svg {
+    fill: $red;
+    width: 139px;
+    height: 139px;
+  }
+}
+
 
 .site-nav {
   top: 0;
@@ -52,7 +68,7 @@
   .logo-wordmark {
     position: absolute;
     top: 0;
-    left: #{$column-width * 2 * 20/18};
+    left: #{$column-width * 1 * 20/18};
     svg {
       fill: $white;
       width: 104px;
@@ -75,26 +91,11 @@
     left: 0;
   }
 
-  .brand {
-    margin-top: 9px;
-    font-size: 24px;
-    position: absolute;
-    padding: 0;
-    margin: 0;
-    top: 32px;
-    left: -124px;
-    svg {
-      fill: $red;
-      width: 139px;
-      height: 139px;
-    }
-  }
-
   a {
     color: $black;
     display: block;
     text-decoration: none;
-    transition: color .2s ease-out;
+    // transition: color .2s ease-out;
     padding: #{$vertical-beat * 3} 0;
   }
   .brand a,
@@ -211,7 +212,7 @@
   }
 
   @include min-screen($breakpoint-nav) {
-    width: #{$column-width * 18};
+    width: #{$column-width * 17};
     left: auto;
     float: right;
     background: $red;
@@ -219,16 +220,7 @@
     position: relative;
 
     // Black bar at left of nav
-    &::before {
-      top: 0;
-      left: 0;
-      width: #{$column-width * 20/18};
-      background: $black;
-      content: '';
-      position: absolute;
-      display: block;
-      height: 100%;
-    }
+    @include bar('left', $black, 18);
 
     a {
       padding: #{$vertical-beat * 1} 16px;
@@ -319,37 +311,11 @@
   top: 0;
   right: 0;
   padding: 0;
-  // z-index: 20;
   width: 35px;
   height: 35px;
   border: none;
   position: fixed;
   background: $black;
-  // .lines {
-  //   display: block;
-  //   top: 48%;
-  //   left: 10px;
-  //   width: 16px;
-  //   height: 2px;
-  //   position: absolute;
-  //   background: $white;
-  //   &::before,
-  //   &::after {
-  //     left: 0;
-  //     height: 2px;
-  //     width: 100%;
-  //     content: '';
-  //     background: $white;
-  //     position: absolute;
-  //     transition: all .2s ease-out;
-  //   }
-  //   &::before {
-  //     top: -6px;
-  //   }
-  //   &::after {
-  //     bottom: -6px;
-  //   }
-  // }
 
   // States
   &:focus {
@@ -358,17 +324,6 @@
 
   // Open
   &.menu-open {
-    // .lines {
-    //   background: rgba($white, 0);
-    //   &::before {
-    //     top: 0;
-    //     transform: rotate(-45deg);
-    //   }
-    //   &::after {
-    //     top: 0;
-    //     transform: rotate(45deg);
-    //   }
-    // }
   }
 
   @include media-md {
