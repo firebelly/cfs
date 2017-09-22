@@ -51,7 +51,7 @@ function get_thumbnail_size_path($thumb_id, $size) {
  * @param  string|object   $post_or_image (WP post object or background image)
  * @return HTML            background image code
  */
-function get_header_bg($post_or_image, $remote_img=false, $thumb_id='', $color_or_bw='', $size='banner') {
+function get_header_bg($post_or_image, $absolute_url=false, $thumb_id='', $color_or_bw='', $size='banner') {
 
   // Set colors if bw or color
   if ($color_or_bw!=='color') {
@@ -70,18 +70,9 @@ function get_header_bg($post_or_image, $remote_img=false, $thumb_id='', $color_o
       $background_image = get_thumbnail_size_path($thumb_id, $size);
     }
   } else {
-    // These are sent from a taxonomy page
-    if ($remote_img) {
-      $base_dir = wp_upload_dir()['basedir'] . '/backgrounds/';
-      if(!file_exists($base_dir)) {
-        mkdir($base_dir);
-      }
-
-      $background_image = $post_or_image;
-      $remote_filename = basename($background_image, '.jpg');
-      $remote_image = file_get_contents($background_image);
-      file_put_contents($base_dir.$remote_filename.'.jpg', $remote_image);
-      $background_image = $base_dir.$remote_filename.'.jpg';
+    // Absolute URLs, e.g. from a taxonomy page or other CMB2 file field
+    if ($absolute_url) {
+      $background_image = wp_upload_dir()['basedir'] . wp_make_link_relative($post_or_image);
     } else {
       $background_image = $post_or_image;
     }
