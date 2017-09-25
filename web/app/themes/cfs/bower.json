@@ -7,9 +7,32 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "modernizr": "2.8.2",
+    "jquery": "1.11.2",
+    "fitvids": "~1.1.0",
+    "imagesloaded": "~3.1.8",
+    "history.js": "~1.8.0",
+    "velocity": "~1.2.2",
+    "fastclick": "~1.0.6",
+    "slick-carousel": "~1.6.0",
+    "waypoints": "~4.0.0",
+    "swipebox": "~1.4.4"
   },
   "overrides": {
-  },
-  "resolutions": {
+    "modernizr": {
+      "main": "./modernizr.js"
+    },
+    "slick-carousel": {
+      "main": [
+        "./slick/slick.min.js",
+        "./slick/slick.css"
+      ]
+    },
+    "waypoints": {
+      "main": [
+        "./lib/jquery.waypoints.js",
+        "./lib/shortcuts/sticky.js"
+      ]
+    }
   }
 }
