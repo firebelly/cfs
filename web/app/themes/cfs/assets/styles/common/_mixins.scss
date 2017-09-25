@@ -1,5 +1,6 @@
 // Mixins
 
+// Ye olde clearfix
 @mixin clearfix {
   &:after {
     content: "";
@@ -8,9 +9,20 @@
   }
 }
 
-.smooth {
+// Smooth text
+%smooth {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+// Padding
+@mixin aspect-ratio($width, $height) {
+  background-size: cover;
+  background-position: top center;
+  position: relative;
+  height: 0;
+  padding-top: #{$height / $width * 100%}; // aspect ratio
+  // padding-top: 57%; // aspect ratio
 }
 
 // Various floating bars

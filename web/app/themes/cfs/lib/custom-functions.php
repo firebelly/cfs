@@ -98,7 +98,7 @@ function get_secondary_header($post) {
  */
 
 function fb_crumbs() {
-  $separator = '>';
+  $separator = '/';
   if (is_front_page()) return '';
   $return = '<nav class="crumb"><a href="'.home_url().'">Home</a>';
   if (is_category() || is_single()) {

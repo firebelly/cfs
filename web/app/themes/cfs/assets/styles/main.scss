@@ -20,6 +20,7 @@
 @import "components/buttons";
 @import "components/comments";
 @import "components/forms";
+@import "components/user-content";
 @import "components/wp-classes";
 
 // Layout specifics
@@ -32,3 +33,4 @@
 
 // Pages
 @import "pages/home";
+@import "pages/programs";

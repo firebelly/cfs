@@ -5,12 +5,12 @@
 
 namespace Firebelly\PostTypes\Posts;
 
-function metaboxes( array $meta_boxes ) {
+function metaboxes() {
   $prefix = '_cmb2_';
 
   // $meta_boxes['post_metabox'] = array(
   //   'id'            => 'post_metabox',
-  //   'title'         => __( 'Image Slideshow', 'cmb2' ),
+  //   'title'         => esc_html__( 'Image Slideshow', 'cmb2' ),
   //   'object_types'  => array( 'post', ), // Post type
   //   'context'       => 'normal',
   //   'priority'      => 'high',
@@ -20,34 +20,32 @@ function metaboxes( array $meta_boxes ) {
   //       'name' => 'Images',
   //       'id'   => $prefix .'slideshow-images',
   //       'type' => 'file_list',
-  //       'description' => __( 'Multiple images as a slideshow in the featured image section of the post', 'cmb' ),
+  //       'description' => esc_html__( 'Multiple images as a slideshow in the featured image section of the post', 'cmb' ),
   //     ),
   //   ),
   // );
 
-  $meta_boxes['post_is_featured'] = array(
+  $post_is_featured = new_cmb2_box([
     'id'            => 'post_is_featured',
-    'title'         => __( 'Is this a featured post on the homepage?', 'cmb2' ),
+    'title'         => esc_html__( 'Is this a featured post on the homepage?', 'cmb2' ),
     'object_types'  => ['post', 'program', 'workshop'],
     'context'       => 'side',
     'priority'      => 'default',
-    'show_names'    => false, // Show field names on the left
-    'fields'        => array(
-      array(
-          'name'    => 'Featured',
-          'id'      => $prefix . 'featured',
-          'desc'    => 'Featured?',
-          'type'    => 'checkbox',
-      ),
-    ),
-  );
+    'show_names'    => false,
+  ]);
+  $post_is_featured->add_field([
+    'name'    => esc_html__( 'Featured', 'cmb2' ),
+    'id'      => $prefix . 'featured',
+    'desc'    => 'Featured?',
+    'type'    => 'checkbox',
+  ]);
 
   /**
    * Repeating media/quote/stat blocks used on Programs and Workshops
    */
   $cmb_group = new_cmb2_box([
     'id'           => $prefix . 'metabox',
-    'title'        => __( 'Media Blocks', 'cmb2' ),
+    'title'        => esc_html__( 'Media Blocks', 'cmb2' ),
     'priority'      => 'low',
     'object_types' => ['program','workshop'],
   ]);
@@ -55,11 +53,11 @@ function metaboxes( array $meta_boxes ) {
   $group_field_id = $cmb_group->add_field([
     'id'          => $prefix . 'program_blocks',
     'type'        => 'group',
-    // 'description' => __( '', 'cmb' ),
+    // 'description' => esc_html__( '', 'cmb' ),
     'options'     => array(
-      'group_title'   => __( 'Media Block {#}', 'cmb2' ),
-      'add_button'    => __( 'Add Another Block', 'cmb2' ),
-      'remove_button' => __( 'Remove Block', 'cmb2' ),
+      'group_title'   => esc_html__( 'Media Block {#}', 'cmb2' ),
+      'add_button'    => esc_html__( 'Add Another Block', 'cmb2' ),
+      'remove_button' => esc_html__( 'Remove Block', 'cmb2' ),
       'sortable'      => true,
     ),
   ]);
@@ -96,10 +94,8 @@ function metaboxes( array $meta_boxes ) {
     'type' => 'textarea_small',
     'description' => 'Statistic caption or context',
   ]);
-
-  return $meta_boxes;
 }
-add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
+add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );
 
 function remove_tags_metabox() {
   remove_meta_box('tagsdiv-post_tag', 'post', 'side');

@@ -9,11 +9,6 @@
   background: $red;
 }
 
-.smooth {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 // Utility classes
 .hide {
   display: none;
@@ -39,6 +34,10 @@
   @include clearfix;
 }
 
+.bigclicky {
+  cursor: pointer;
+}
+
 // Visibility classes (borrowing nomenclature from Foundation)
 .show-for-medium-up {
   display: none;
@@ -49,5 +48,15 @@
 .hide-for-medium-up {
   @include media-md {
     display: none !important;
+  }
+}
+
+a.read-more {
+  color: $red;
+  @extend .font-display;
+  font-size: 12px;
+  text-decoration: underline;
+  &:hover {
+    color: $white;
   }
 }

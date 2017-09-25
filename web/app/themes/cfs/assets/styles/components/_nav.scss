@@ -20,7 +20,6 @@
       .menu-item:not(.hover) {
         > a {}
       }
-
       .sub-menu .menu-item.un-hover {
         a {}
       }
@@ -53,37 +52,27 @@
 .site-nav {
   top: 0;
   left: 100%;
-  // z-index: 10;
   width: 100%;
   color: $white;
   height: 85px;
   position: fixed;
   @extend .font-display;
   font-size: 12px;
-  @extend .smooth;
+  letter-spacing: .06875em;
+  @extend %smooth;
   transition: left .3s $slide-easing;
   padding: #{$vertical-beat * 6} $global-padding #{$vertical-beat * 14};
+  box-shadow: 0 2px 12px 0 rgba(#000, .5);
 
   .logo-wordmark {
     position: absolute;
     top: 0;
-    left: #{$column-width * 1 * 20/18};
+    left: #{$column-width * 1 * 20/17};
     svg {
       fill: $white;
       width: 104px;
       height: 84px;
     }
-  }
-
-  &::after {
-    bottom: -10px;
-    height: 10px;
-    width: 100%;
-    content: '';
-    position: absolute;
-    border-top: 1px solid rgba(#000, .3);
-    pointer-events: none;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 100%);
   }
 
   &.-active {
@@ -123,6 +112,7 @@
     color: $black;
     max-height: 0;
     overflow: hidden;
+    position: relative;
     li {
       transition: height 0s steps(1);
       &:nth-child(1) {
@@ -159,7 +149,8 @@
     }
     li:first-of-type a {
       &::after {
-        display: none;
+        height: 12px;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%,rgba(0,0,0,0) 100%);
       }
     }
 
@@ -219,7 +210,7 @@
     position: relative;
 
     // Black bar at left of nav
-    @include bar('left', $black, 18);
+    @include bar('left', $black, 17);
 
     a {
       padding: #{$vertical-beat * 1} 16px;
@@ -246,7 +237,7 @@
     .nav {
       padding-left: 0;
       float: right;
-      margin-right: #{$column-width * 20/18};
+      margin-right: #{$column-width * 20/17};
       @include clearfix;
       > li {
         float: left;
@@ -287,7 +278,7 @@
 
     .menu-item-has-children:hover {
       .sub-menu {
-        top: auto;
+        top: 1px;
         // opacity: 1;
         height: auto;
         // transition-delay: .1s;

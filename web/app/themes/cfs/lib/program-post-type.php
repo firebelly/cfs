@@ -18,13 +18,13 @@ $cpt->taxonomy('program_type');
  */
 $cpt->columns()->set([
     'cb' => '<input type="checkbox" />',
-    'title' => __('Title'),
-    'program_type' => __('Type'),
-    'date_start' => __('Date Start'),
-    'date_end' => __('Date End'),
-    'time' => __('Time'),
-    'featured' => __('Featured'),
-    // 'date' => __('Date')
+    'title' => esc_html__( 'Title', 'cmb2' ),
+    'program_type' => esc_html__( 'Type', 'cmb2' ),
+    'date_start' => esc_html__( 'Date Start', 'cmb2' ),
+    'date_end' => esc_html__( 'Date End', 'cmb2' ),
+    'time' => esc_html__( 'Time', 'cmb2' ),
+    'featured' => esc_html__( 'Featured', 'cmb2' ),
+    // 'date' => esc_html__('Date')
 ]);
 $cpt->columns()->sortable([
     'date_start' => ['_cmb2_date_start', true],
@@ -54,96 +54,90 @@ $cpt->columns()->populate('featured', function($column, $post_id) {
 /**
  * CMB2 custom fields
  */
-function metaboxes( array $meta_boxes ) {
-  $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
+add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );
+function metaboxes() {
+  $prefix = '_cmb2_';
 
-  $meta_boxes['program_info'] = array(
+  // Program Info fields
+  $program_info = new_cmb2_box([
     'id'            => 'program_info',
-    'title'         => __( 'Program Info', 'cmb2' ),
+    'title'         => esc_html__( 'Program Info', 'cmb2' ),
     'object_types'  => ['program'],
     'context'       => 'normal',
     'priority'      => 'high',
     'required'      => 'required',
     'show_names'    => true,
-    'fields'        => array(
-      [
-        'name'      => 'Details',
-        'id'        => $prefix . 'program_details',
-        'type'      => 'wysiwyg',
-        'options' => [
-          'textarea_rows' => 10,
-        ],
-      ],
-      [
-        'name'       => 'Age Minimum',
-        'id'         => $prefix . 'age_minimum',
-        'type'       => 'text_small',
-        'attributes' => [
-          'type'     => 'number',
-          'pattern'  => '\d*',
-        ],
-      ],
-      [
-        'name'       => 'Age Maximum',
-        'id'         => $prefix . 'age_maximum',
-        'type'       => 'text_small',
-        'attributes' => [
-          'type'     => 'number',
-          'pattern'  => '\d*',
-        ],
-      ],
-    ),
-  );
+  ]);
+  $program_info->add_field([
+    'name'      => esc_html__( 'Details', 'cmb2' ),
+    'id'        => $prefix . 'program_details',
+    'type'      => 'wysiwyg',
+    'options' => [
+      'textarea_rows' => 10,
+    ],
+  ]);
+  $program_info->add_field([
+    'name'       => 'Age Minimum',
+    'id'         => $prefix . 'age_minimum',
+    'type'       => 'text_small',
+    'attributes' => [
+      'type'     => 'number',
+      'pattern'  => '\d*',
+    ],
+  ]);
+  $program_info->add_field([
+    'name'       => 'Age Maximum',
+    'id'         => $prefix . 'age_maximum',
+    'type'       => 'text_small',
+    'attributes' => [
+      'type'     => 'number',
+      'pattern'  => '\d*',
+    ],
+  ]);
 
-  $meta_boxes['program_when'] = array(
+  // Program When fields
+  $program_when = new_cmb2_box([
     'id'            => 'program_when',
-    'title'         => __( 'Program Date & Time', 'cmb2' ),
+    'title'         => esc_html__( 'Program Date & Time', 'cmb2' ),
     'object_types'  => ['program'],
     'context'       => 'normal',
     'priority'      => 'high',
     'required'      => 'required',
     'show_names'    => true,
-    'fields'        => array(
-      [
-        'name'      => 'Start Date',
-        'id'        => $prefix . 'date_start',
-        'type'      => 'text_date_timestamp',
-      ],
-      [
-        'name'      => 'End Date',
-        'id'        => $prefix . 'date_end',
-        'type'      => 'text_date_timestamp',
-      ],
-      [
-        'name'      => 'Time',
-        'id'        => $prefix . 'time',
-        'desc'      => 'e.g. 5:00pm to 8:00pm',
-        'type'      => 'text_medium',
-      ],
-      [
-        'name'      => 'Registration Opens',
-        'id'        => $prefix . 'registration_opens',
-        'type'      => 'text_datetime_timestamp'
-      ],
-      [
-        'name'      => 'Registration Deadline',
-        'id'        => $prefix . 'registration_deadline',
-        'type'      => 'text_datetime_timestamp'
-      ],
-
-    ),
-  );
-
-  return $meta_boxes;
+  ]);
+  $program_when->add_field([
+    'name'      => esc_html__( 'Start Date', 'cmb2' ),
+    'id'        => $prefix . 'date_start',
+    'type'      => 'text_date_timestamp',
+  ]);
+  $program_when->add_field([
+    'name'      => esc_html__( 'End Date', 'cmb2' ),
+    'id'        => $prefix . 'date_end',
+    'type'      => 'text_date_timestamp',
+  ]);
+  $program_when->add_field([
+    'name'      => esc_html__( 'Time', 'cmb2' ),
+    'id'        => $prefix . 'time',
+    'desc'      => 'e.g. 5:00pm to 8:00pm',
+    'type'      => 'text_medium',
+  ]);
+  $program_when->add_field([
+    'name'      => esc_html__( 'Registration Opens', 'cmb2' ),
+    'id'        => $prefix . 'registration_opens',
+    'type'      => 'text_datetime_timestamp'
+  ]);
+  $program_when->add_field([
+    'name'      => esc_html__( 'Registration Deadline', 'cmb2' ),
+    'id'        => $prefix . 'registration_deadline',
+    'type'      => 'text_datetime_timestamp'
+  ]);
 }
-add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 
 /**
  * Get Programs
  */
 function get_programs($options=[]) {
   if (empty($options['num_posts'])) $options['num_posts'] = get_option('posts_per_page');
-  if (!empty($_REQUEST['past_programs'])) $options['past_programs'] = 1; // support for AJAX requests
   $args = [
     'numberposts' => $options['num_posts'],
     'post_type' => 'program',
@@ -182,4 +176,20 @@ function get_programs($options=[]) {
     $output .= ob_get_clean();
   endforeach;
   return $output;
+}
+
+function get_featured_programs() {
+  $featured_args = [
+    'post_type'  => 'program',
+    'order'      => 'ASC',
+    'orderby'    => 'meta_value_num',
+    'meta_key'   => '_cmb2_date_start',
+    'meta_query' => [
+      [
+        'key'    => '_cmb2_featured',
+        'value'  => 'on',
+      ],
+    ]
+  ];
+  return get_posts($featured_args);
 }

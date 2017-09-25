@@ -1,7 +1,86 @@
 // Headers
 
 .page-header {
-  background-size: cover;
-  background-position: top center;
   position: relative;
+  .bg-image {
+    width: 100%;
+    background-size: cover;
+    background-position: top center;
+    position: relative;
+  }
+
+  .icon-notch {
+    display: none;
+  }
+
+  .crumb {
+    @extend %smooth;
+  }
+
+  // Wide page headers (secondary landing pages)
+  &.wide {
+    .page-intro {
+      position: relative;
+      @include bar('left', $black, 17);
+      background: $white;
+      .one-half {
+        padding: #{$vertical-beat * 4} #{$column-width * 1 * 20/17}
+      }
+      .page-titles {
+        background: $red;
+        color: $white;
+      }
+    }
+  }
+
+  // Larger displays
+  @include media-md {
+    margin-right: -#{$column-width * 1 * 20/17};
+    .bg-image {
+      height: 600px;
+    }
+    &.wide {
+      .bg-image {
+        height: 400px;
+      }
+      .page-intro {
+        margin-left: #{$column-width * 2 * 20/19};
+      }
+    }
+
+    // Breadcrumb nav
+    .crumb {
+      position: absolute;
+      bottom: #{$vertical-beat * 4};
+      left: #{$column-width * 3 * 20/19};
+      color: $white;
+      letter-spacing: .06875em;
+      font-size: 12px;
+      a {
+        color: $white;
+        &:hover {
+          color: $yellow;
+        }
+      }
+    }
+
+    // Notches at bottom left and right
+    .icon-notch {
+      width: 42px;
+      height: 42px;
+      fill: $black;
+      position: absolute;
+      bottom: -42px;
+      z-index: 1;
+      display: block;
+      &.bottom-left {
+        left: -42px;
+        transform: rotate(270deg);
+      }
+      &.bottom-right {
+        right: -42px;
+        transform: rotate(180deg);
+      }
+    }
+  }
 }

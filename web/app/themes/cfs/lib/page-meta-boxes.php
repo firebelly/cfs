@@ -5,49 +5,51 @@
 
 namespace Firebelly\PostTypes\Pages;
 
-function metaboxes( array $meta_boxes ) {
+add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );
+function metaboxes() {
   $prefix = '_cmb2_';
 
-  $meta_boxes['page_intro'] = array(
-    'id'            => 'page_intro',
-    'title'         => __( 'Page Intro', 'cmb2' ),
+  // Page intro fields
+  $page_intro = new_cmb2_box([
+    'id'            => $prefix . 'page_intro',
+    'title'         => esc_html__( 'Page Intro', 'cmb2' ),
     'object_types'  => ['page'],
     'context'       => 'normal',
     'priority'      => 'high',
-    'description' => __( 'Title + Quote shown in the intro section of pages', 'cmb2' ),
-    'fields'        => [
-      [
-        'name' => 'Intro Title',
-        'id'   => $prefix .'intro_title',
-        'type' => 'textarea_small',
-      ],
-      [
-        'name' => 'Intro Quote',
-        'id'   => $prefix .'intro_quote',
-        'type' => 'textarea_small',
-      ],
-    ],
-  );
+  ]);
+  $page_intro->add_field([
+    'name' => esc_html__( 'Intro Title', 'cmb2' ),
+    'id'   => $prefix .'intro_title',
+    'type' => 'textarea_small',
+  ]);
+  $page_intro->add_field([
+    'name' => esc_html__( 'Intro Quote', 'cmb2' ),
+    'id'   => $prefix .'intro_quote',
+    'type' => 'textarea_small',
+  ]);
 
-  $meta_boxes['secondary_content'] = array(
-    'id'            => 'secondary_content',
-    'title'         => __( 'Secondary Page Content', 'cmb2' ),
+  // Parent navigation fields
+  $parent_page_navigation = new_cmb2_box([
+    'id'            => 'parent_page_navigation',
+    'title'         => __( 'Parent Page Navigation', 'cmb2' ),
     'object_types'  => ['page'],
     'context'       => 'normal',
-    'priority'      => 'high',
-    'show_names'    => false,
-    'fields'        => [
-      [
-        'name' => 'Secondary Page Content',
-        'desc' => 'The second set of main content on a page',
-        'id'   => $prefix . 'secondary_content',
-        'type' => 'wysiwyg',
-      ],
-    ],
-  );
+    'priority'      => 'default',
+  ]);
+  $parent_page_navigation->add_field([
+    'name' => esc_html__( 'Nav Excerpt', 'cmb2' ),
+    'id'   => $prefix .'nav_excerpt',
+    'type' => 'textarea_small',
+  ]);
+  $parent_page_navigation->add_field([
+    'name' => esc_html__( 'Nav Button Text', 'cmb2' ),
+    'id'   => $prefix .'nav_button_text',
+    'type' => 'text',
+    'desc' => 'e.g. Join the Movement',
+  ]);
 
   // Homepage fields
-  $meta_boxes['secondary_content'] = array(
+  $homepage_fields = new_cmb2_box([
     'id'            => 'secondary_content',
     'title'         => __( 'Custom Featured Block', 'cmb2' ),
     'object_types'  => ['page'],
@@ -55,43 +57,38 @@ function metaboxes( array $meta_boxes ) {
     'show_on'       => ['key' => 'page-template', 'value' => 'front-page.php'],
     'priority'      => 'high',
     'show_names'    => true,
-    'fields'        => [
-      [
-        'name' => 'Custom Featured Image',
-        'id'   => $prefix . 'custom_featured_image',
-        'type' => 'file',
-        'options' => [
-          'url' => false, // Hide the text input for the url
-        ],
-      ],
-      [
-        'name' => 'Custom Featured Title',
-        'id'   => $prefix . 'custom_featured_title',
-        'type' => 'text',
-      ],
-      [
-        'name' => 'Custom Featured Body',
-        'id'   => $prefix . 'custom_featured_body',
-        'type' => 'wysiwyg',
-        'options' => [
-          'textarea_rows' => 8,
-        ],
-      ],
-      [
-        'name' => 'Custom Featured Link',
-        'id'   => $prefix . 'custom_featured_link',
-        'type' => 'text_url',
-        'desc' => 'e.g. http://foo.com/',
-      ],
-      [
-        'name' => 'Custom Featured Link Text',
-        'id'   => $prefix . 'custom_featured_link_text',
-        'type' => 'text_medium',
-        'desc' => 'e.g. Support Us'
-      ],
+  ]);
+  $homepage_fields->add_field([
+    'name' => esc_html__( 'Custom Featured Image', 'cmb2' ),
+    'id'   => $prefix . 'custom_featured_image',
+    'type' => 'file',
+    'options' => [
+      'url' => false, // Hide the text input for the url
     ],
-  );
-
-  return $meta_boxes;
+  ]);
+  $homepage_fields->add_field([
+    'name' => esc_html__( 'Custom Featured Title', 'cmb2' ),
+    'id'   => $prefix . 'custom_featured_title',
+    'type' => 'text',
+  ]);
+  $homepage_fields->add_field([
+    'name' => esc_html__( 'Custom Featured Body', 'cmb2' ),
+    'id'   => $prefix . 'custom_featured_body',
+    'type' => 'wysiwyg',
+    'options' => [
+      'textarea_rows' => 8,
+    ],
+  ]);
+  $homepage_fields->add_field([
+    'name' => esc_html__( 'Custom Featured Link', 'cmb2' ),
+    'id'   => $prefix . 'custom_featured_link',
+    'type' => 'text_url',
+    'desc' => 'e.g. http://foo.com/',
+  ]);
+  $homepage_fields->add_field([
+    'name' => esc_html__( 'Custom Featured Link Text', 'cmb2' ),
+    'id'   => $prefix . 'custom_featured_link_text',
+    'type' => 'text_medium',
+    'desc' => 'e.g. Support Us'
+  ]);
 }
-add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );

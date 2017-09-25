@@ -15,7 +15,7 @@ $font-regular: 'Rubik', sans-serif;
   font-weight: normal;
   font-family: $font-display;
   text-transform: uppercase;
-  @extend .smooth;
+  @extend %smooth;
 }
 .font-regular {
   font-weight: normal;
@@ -24,7 +24,7 @@ $font-regular: 'Rubik', sans-serif;
 .font-header {
   font-weight: normal;
   font-family: $font-header;
-  @extend .smooth;
+  @extend %smooth;
 }
 
 h1,
@@ -53,8 +53,10 @@ h4,
 }
 
 p {
+  @extend %smooth;
   letter-spacing: .06875em;
 }
+
 .p-intro,
 p.p-intro {
   @extend .font-regular;
