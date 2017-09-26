@@ -14,6 +14,7 @@ if (!empty($post)) {
 ?>
 
 <header class="page-header wide">
+  <?php if (!empty($header_bg)): ?>
   <div class="bg-image" <?= $header_bg ?>>
     <?php if ($header_video): ?>
     <div class="background-video-wrapper">
@@ -25,6 +26,7 @@ if (!empty($post)) {
     <?= Firebelly\Utils\fb_crumbs() ?>
     <svg class="icon icon-notch bottom-left" aria-hidden="hidden" role="image"><use xlink:href="#icon-notch"/></svg>
   </div>
+  <?php endif; ?>
   <div class="page-intro">
     <div class="page-content grid">
       <div class="one-half -left page-titles">

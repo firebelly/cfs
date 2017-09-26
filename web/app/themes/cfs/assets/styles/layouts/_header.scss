@@ -24,7 +24,10 @@
       @include bar('left', $black, 17);
       background: $white;
       .one-half {
-        padding: #{$vertical-beat * 4} #{$column-width * 1 * 20/17}
+        padding: #{$vertical-beat * 4} #{$column-width * 1 * 20/17};
+        hr {
+          margin-right: -#{$column-width * 1 * 20/6};
+        }
       }
       .page-titles {
         background: $red;
