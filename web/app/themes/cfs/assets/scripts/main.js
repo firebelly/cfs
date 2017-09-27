@@ -41,6 +41,7 @@ var CFS = (function($) {
     // _initSearch();
     // _initLoadMore();
     _initBigClicky();
+    _initAccordions();
     // _initFormActions();
     // _initBadgeOverlay();
     // _initItemGrid();
@@ -83,6 +84,14 @@ var CFS = (function($) {
       delay: delay,
       offset: -offset,
     }, 'easeOutSine');
+  }
+
+  // Custom markup in accordions
+  function _initAccordions() {
+    $('<svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg>').appendTo('.accordion-title');
+    // $('.accordion-title').each(function() {
+
+    // });
   }
 
   // Large click areas by adding "bigclicky" class

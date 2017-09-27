@@ -140,16 +140,16 @@ function get_programs($options=[]) {
   if (empty($options['num_posts'])) $options['num_posts'] = get_option('posts_per_page');
   $args = [
     'numberposts' => $options['num_posts'],
-    'post_type' => 'program',
-    'meta_key' => '_cmb2_date_start',
-    'orderby' => 'meta_value_num',
+    'post_type'   => 'program',
+    'meta_key'    => '_cmb2_date_start',
+    'orderby'     => 'meta_value_num',
   ];
   if (!empty($options['tax_query'])) {
     $args['tax_query'] = [
       [
         'taxonomy' => 'program_type',
-        'field' => 'id',
-        'terms' => $options['program_type']
+        'field'    => 'id',
+        'terms'    => $options['program_type']
       ]
     ];
   }
@@ -157,8 +157,8 @@ function get_programs($options=[]) {
   $args['order'] = !empty($options['past_programs']) ? 'DESC' : 'ASC';
   $args['meta_query'] = [
     [
-      'key' => '_cmb2_date_end',
-      'value' => current_time('timestamp'),
+      'key'     => '_cmb2_date_end',
+      'value'   => current_time('timestamp'),
       'compare' => (!empty($options['past_programs']) ? '<=' : '>')
     ],
     [

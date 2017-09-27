@@ -29,7 +29,7 @@ if (count($child_pages)==2) {
         }
         $nav_button_text = get_post_meta($child_page->ID, '_cmb2_nav_button_text', true);
         ?>
-        <?php if ($header_bg = \Firebelly\Media\get_header_bg($child_page, false, '', 'bw', 'large')): ?>
+        <?php if ($header_bg = \Firebelly\Media\get_header_bg($child_page, false, '', 'bw', 'medium')): ?>
           <div class="image" <?= $header_bg ?>></div>
         <?php endif; ?>
         <h1><?= $child_page->post_title ?></h1>

@@ -27,7 +27,7 @@ if (!empty($post)) {
     <svg class="icon icon-notch bottom-left" aria-hidden="hidden" role="image"><use xlink:href="#icon-notch"/></svg>
   </div>
   <?php endif; ?>
-  <div class="page-intro">
+  <div class="page-intro"><div class="color-wrap">
     <div class="page-content grid">
       <div class="one-half -left page-titles">
         <h1><?= Titles\title(); ?></h1>
@@ -37,5 +37,5 @@ if (!empty($post)) {
         <?= apply_filters('the_content', $post->post_content); ?>
       </div>
     </div>
-  </div>
+  </div></div>
 </header>

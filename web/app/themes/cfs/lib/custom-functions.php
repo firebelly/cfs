@@ -98,24 +98,29 @@ function get_secondary_header($post) {
  */
 
 function fb_crumbs() {
+  global $post;
   $separator = '/';
   if (is_front_page()) return '';
   $return = '<nav class="crumb"><a href="'.home_url().'">Home</a>';
   if (is_category() || is_single()) {
-      $return .= " {$separator} ";
-      $return .= get_the_category(" {$separator} ");
-          if (is_single()) {
-              $return .= " {$separator} ";
-              $return .= get_the_title();
-          }
+    $return .= " {$separator} ";
+    $return .= get_the_category(" {$separator} ");
+    if (is_single()) {
+        $return .= " {$separator} ";
+        $return .= get_the_title();
+    }
   } elseif (is_page()) {
+    if ($post->post_parent) {
+      $parent_page = get_page($post->post_parent);
       $return .= " {$separator} ";
-      $return .= get_the_title();
+      $return .= '<a href="'.get_permalink($parent_page).'">' . get_the_title($parent_page) . '</a>';
+    }
+    $return .= " {$separator} ";
+    $return .= get_the_title();
   } elseif (is_search()) {
-      $return .= " {$separator} Search: ";
-      $return .= the_search_query();
+    $return .= " {$separator} Search: ";
+    $return .= the_search_query();
   }
   $return .= '</nav>';
   return $return;
 }
-

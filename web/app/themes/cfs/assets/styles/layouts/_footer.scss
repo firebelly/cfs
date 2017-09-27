@@ -2,7 +2,7 @@
 	@include clearfix;
 
 	position: relative;
-	padding: 126px 0 40px;
+	padding: 106px 0 40px;
 
 	// black bar above footer
 	&::before {
@@ -12,8 +12,8 @@
 		top: 0;
 		right: 0;
 		width: #{$column-width * 18};
-		height: 96px;
-		background: #000;
+		height: vertical-beat(8);
+		background: $black;
 	}
 	.brand {
 		margin: 20px 0 0;

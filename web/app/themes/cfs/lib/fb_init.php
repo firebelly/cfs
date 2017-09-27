@@ -86,3 +86,9 @@ add_action( 'wp_before_admin_bar_render', function() {
   global $wp_admin_bar;
   $wp_admin_bar->remove_menu('customize');
 });
+
+// Default options for all accordion shortcodes
+add_filter('shortcode_atts_accordion', function($atts) {
+  $atts['clicktoclose'] = true;
+  return $atts;
+}, 10, 3);

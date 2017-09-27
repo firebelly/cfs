@@ -1,37 +1,22 @@
-<?php get_template_part('templates/page', 'header-wide'); ?>
-
-<?php
-$people = get_posts([
-  'post_type'   => 'person',
-  'num_posts'   => -1,
-  'tax_query'   => [
-    [
-      'taxonomy' => 'person_category',
-      'field' => 'slug',
-      'terms' => 'staff',
-    ]
-  ]
-]);
-
-?>
+<?php get_template_part('templates/page', 'header'); ?>
 
 <div class="secondary-nav">
-  <div class="wrap"><div class="grid">
-    <?php foreach ($people as $person): ?>
-      <article class="person"><div class="wrap">
-        <?php
-        $person_title = get_post_meta($person->ID, '_cmb2_person_title', true);
-        $person_desc = apply_filters('the_content', $person->post_content);
-        ?>
-        <?php if ($header_bg = \Firebelly\Media\get_header_bg($person, false, '', 'bw', 'large')): ?>
-          <div class="image" <?= $header_bg ?>></div>
-        <?php endif; ?>
-        <h1 class="h3"><?= $person->post_title ?></h1>
-        <?php if (!empty($person_title)): ?>
-          <p class="person-title"><?= $person_title ?></p>
-        <?php endif ?>
-        <p class="excerpt user-content"><?= $person_desc ?></p>
-      </div></article>
-    <?php endforeach; ?>
-  </div></div>
+  <div class="wrap people-category staff">
+    <h3>Staff</h3>
+    <div class="grid">
+      <?= Firebelly\PostTypes\Person\get_people(['category' => 'staff', 'column-width' => 'one-third']) ?>
+    </div>
+  </div>
+  <div class="wrap people-category youth-leadership-board">
+    <h3>Youth Leadership Board</h3>
+    <div class="grid">
+    <?= Firebelly\PostTypes\Person\get_people(['category' => 'youth-leadership-board', 'column-width' => 'one-fourth']) ?>
+    </div>
+  </div>
+  <div class="wrap people-category board-of-directors">
+    <h3>Board of Directors</h3>
+    <div class="grid">
+      <?= Firebelly\PostTypes\Person\get_people(['category' => 'board-of-directors', 'column-width' => 'one-fourth']) ?>
+    </div>
+  </div>
 </div>

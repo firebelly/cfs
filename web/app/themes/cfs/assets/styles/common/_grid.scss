@@ -6,7 +6,16 @@ $gutter: 24px;
 $global-padding: 70px;
 $mobile-global-padding: 35px;
 
-$column-width: 100% / 20;
+$global-columns: 20;
+$column-width: 100% / $global-columns;
+
+// Quickie columns() function
+@function columns($num-columns, $parent-num-columns: $global-columns) {
+  @return $column-width * $num-columns * ($global-columns / $parent-num-columns);
+}
+@function vertical-beat($num) {
+  @return $vertical-beat * $num;
+}
 
 .grid {
   width: 100%;

@@ -1,16 +1,22 @@
 // Landing pages
 
 .secondary-nav {
-  margin-left: #{$column_width * 1 * 20/18};
-  margin-right: -#{$column_width * 1 * 20/18};
+  margin-left: columns(2);
   background: $black;
   color: $white;
-  padding: #{$vertical-beat * 4} #{$column-width * 2 * 20/18};
+  padding: vertical-beat(2) columns(2);
   article {
     .image {
       @include aspect-ratio(192,180);
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
-      margin-bottom: #{$vertical-beat * 2};
+      margin-bottom: vertical-beat(2);
+    }
+    &:hover {
+      .image {
+        // top: 2px;
+        // box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+        // transform: scale(1.02);
+      }
     }
     h1 {
       color: $red;
@@ -28,9 +34,12 @@
     .wrap {
       margin: 0 -35px;
     }
+    h3 {
+      margin: vertical-beat(5) 35px;
+    }
     article {
       position: relative;
-      padding-bottom: #{$vertical-beat * 2};
+      padding-bottom: vertical-beat(2);
       .read-more {
         position: absolute;
         bottom: 0;

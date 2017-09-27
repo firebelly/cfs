@@ -12,10 +12,10 @@ form {
 		border: none;
 		border-left: 2px solid $yellow;
 		border-bottom: 2px solid $yellow;
-		padding: 10px $gutter #{$vertical-beat * 1} $gutter;
+		padding: 10px $gutter vertical-beat(1) $gutter;
 		&:focus,
 		&:valid {
-			padding: 0 $gutter #{$vertical-beat * 2} $gutter;
+			padding: 0 $gutter vertical-beat(2) $gutter;
 			+ label {
 				top: -16px;
 			}
