@@ -43,7 +43,8 @@
     "roots/soil": "^3.7",
     "jjgrainger/posttypes": "^1.1",
     "wpackagist-plugin/intuitive-custom-post-order": "^3.1",
-    "wpackagist-plugin/regenerate-thumbnails": "^2.3.1"
+    "wpackagist-plugin/regenerate-thumbnails": "^2.3.1",
+    "wpackagist-plugin/accordion-shortcodes": "^2.3"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^2.5.1"
