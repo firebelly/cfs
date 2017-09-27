@@ -90,5 +90,6 @@ add_action( 'wp_before_admin_bar_render', function() {
 // Default options for all accordion shortcodes
 add_filter('shortcode_atts_accordion', function($atts) {
   $atts['clicktoclose'] = true;
+  $atts['autoclose'] = false;
   return $atts;
 }, 10, 3);

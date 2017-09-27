@@ -86,12 +86,9 @@ var CFS = (function($) {
     }, 'easeOutSine');
   }
 
-  // Custom markup in accordions
   function _initAccordions() {
+    // Add SVG arrow to accordion titles
     $('<svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg>').appendTo('.accordion-title');
-    // $('.accordion-title').each(function() {
-
-    // });
   }
 
   // Large click areas by adding "bigclicky" class

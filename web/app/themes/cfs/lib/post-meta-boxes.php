@@ -26,7 +26,7 @@ function metaboxes() {
   // );
 
   $post_is_featured = new_cmb2_box([
-    'id'            => 'post_is_featured',
+    'id'            => $prefix . 'post_is_featured',
     'title'         => esc_html__( 'Is this a featured post on the homepage?', 'cmb2' ),
     'object_types'  => ['post', 'program', 'workshop'],
     'context'       => 'side',
@@ -47,7 +47,8 @@ function metaboxes() {
     'id'           => $prefix . 'metabox',
     'title'        => esc_html__( 'Media Blocks', 'cmb2' ),
     'priority'      => 'low',
-    'object_types' => ['program','workshop'],
+    'closed'      => true,
+    'object_types' => ['program','workshop', 'page'],
   ]);
 
   $group_field_id = $cmb_group->add_field([
@@ -95,12 +96,15 @@ function metaboxes() {
     'description' => 'Statistic caption or context',
   ]);
 }
-add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );
+add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\\metaboxes' );
 
+/**
+ * Remove tags from admin for posts
+ */
 function remove_tags_metabox() {
   remove_meta_box('tagsdiv-post_tag', 'post', 'side');
 }
-add_action( 'do_meta_boxes', __NAMESPACE__ . '\remove_tags_metabox' );
+add_action( 'do_meta_boxes', __NAMESPACE__ . '\\remove_tags_metabox' );
 
 /**
  * Get post images and put into slideshow
