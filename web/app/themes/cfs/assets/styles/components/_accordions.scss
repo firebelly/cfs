@@ -1,0 +1,67 @@
+.fb-accordion {
+  .accordion-content {
+    position: relative;
+  }
+}
+
+// Accordion media blocks
+.media-block {
+  color: $white;
+  &.stat {
+    dl {
+      margin: 0;
+    }
+    dd {
+      @extend .h1;
+      margin: 0 0 vertical-beat(2);
+    }
+    dt {
+      @extend %small-text;
+    }
+  }
+  &.pull-quote {
+    blockquote {
+      margin: 0;
+    }
+    p {
+      margin: 0 0 vertical-beat(1);
+      text-transform: uppercase;
+      font: 30px/1 $font-header;
+    }
+    cite {
+      display: block;
+      text-align: right;
+      @extend %small-text;
+    }
+  }
+  &.images {
+    img {
+      display: block;
+      float: left;
+      width: columns(7,10);
+      box-shadow: 0 2px 4px 0 rgba(0,0,0,.5);
+    }
+    figcaption {
+      display: block;
+      width: columns(3,10);
+      float: left;
+      padding: 0 columns(1,10) 0 $gutter;
+      font: 12px/1.5 $font-regular;
+    }
+  }
+
+  // Desktop
+  @include media-md {
+    position: absolute;
+    bottom: vertical-beat(5);
+    &.stat,
+    &.pull-quote {
+      left: -#{columns(8,7)};
+      width: columns(6,7);
+    }
+    &.images {
+      left: -#{columns(11,7)};
+      width: columns(10,7);
+    }
+  }
+}

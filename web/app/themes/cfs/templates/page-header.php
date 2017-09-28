@@ -1,5 +1,8 @@
 <?php
 use Roots\Sage\Titles;
+if (is_404()) {
+	$post = get_page_by_path('/404-error/');
+}
 if (!empty($post)) {
   $header_video = get_post_meta($post->ID, '_cmb2_featured_video', true);
   if (!$header_video) {
@@ -11,6 +14,8 @@ if (!empty($post)) {
 } else {
   $page_intro_quote = $header_video = $header_bg = '';
 }
+// Pull post accordions
+$accordions_html = Firebelly\Utils\get_accordions($post);
 ?>
 
 <header class="page-header half">
@@ -34,6 +39,7 @@ if (!empty($post)) {
         <h1><?= Titles\title(); ?></h1>
         <p class="p-intro"><?= $page_intro_quote; ?></p>
         <?= apply_filters('the_content', $post->post_content); ?>
+        <?= $accordions_html ?>
       </div>
     </div>
   </div></div>

@@ -56,8 +56,7 @@
   color: $white;
   height: 85px;
   position: fixed;
-  @extend .font-display;
-  font-size: 12px;
+  font: 500 12px/1.5 $font-display;
   letter-spacing: .06875em;
   @extend %smooth;
   transition: left .3s $slide-easing;

@@ -20,7 +20,7 @@ function metaboxes() {
   $page_intro->add_field([
     'name' => esc_html__( 'Intro Title', 'cmb2' ),
     'id'   => $prefix .'intro_title',
-    'type' => 'textarea_small',
+    'type' => 'text',
   ]);
   $page_intro->add_field([
     'name' => esc_html__( 'Intro Quote', 'cmb2' ),
@@ -30,16 +30,19 @@ function metaboxes() {
 
   // Parent navigation fields
   $parent_page_navigation = new_cmb2_box([
-    'id'            => 'parent_page_navigation',
-    'title'         => __( 'Parent Page Navigation', 'cmb2' ),
+    'id'            => 'landing_page_navigation',
+    'title'         => __( 'Landing Page Navigation', 'cmb2' ),
     'object_types'  => ['page'],
-    'context'       => 'normal',
-    'priority'      => 'default',
+    'context'       => 'side',
+    'priority'      => 'low',
+    'closed'        => true,
+    'show_on_cb'    => '\Firebelly\CMB2\cmb_is_child_page',
   ]);
   $parent_page_navigation->add_field([
     'name' => esc_html__( 'Nav Excerpt', 'cmb2' ),
     'id'   => $prefix .'nav_excerpt',
     'type' => 'textarea_small',
+    'desc' => 'These are shown on the parent page\'s secondary navigation.',
   ]);
   $parent_page_navigation->add_field([
     'name' => esc_html__( 'Nav Button Text', 'cmb2' ),
@@ -92,3 +95,4 @@ function metaboxes() {
     'desc' => 'e.g. Support Us'
   ]);
 }
+

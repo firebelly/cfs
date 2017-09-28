@@ -87,8 +87,50 @@ var CFS = (function($) {
   }
 
   function _initAccordions() {
-    // Add SVG arrow to accordion titles
-    $('<svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg>').appendTo('.accordion-title');
+    // Add SVG arrow to accordion shortcode titles
+    $('<svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg>').appendTo('.accordion:not(.fb-accordion) .accordion-title');
+
+    // Custom fb-accordions
+    $('.fb-accordion').each(function() {
+      $(this).find('.accordion-title').on('click', function(e) {
+        e.preventDefault();
+        if ($(this).hasClass('open')) {
+          _closeAccordion(this);
+        } else {
+          _openAccordion(this);
+        }
+      });
+    });
+  }
+
+  function _openAccordion(el) {
+    var $el = $(el);
+    $el.next().clearQueue().stop().slideDown(250);
+    $el.addClass('open read')
+      .attr({
+        'aria-selected': 'true',
+        'aria-expanded': 'true'
+      })
+      .next().attr({
+        'aria-hidden': 'false'
+      });
+    $el.find('.media-block').addClass('active');
+  }
+
+  function _closeAccordion(el) {
+    var $el = $(el);
+    $el.next().slideUp(250);
+    $el.removeClass('open');
+
+    // Set accessibility attributes
+    $el.attr({
+      'aria-selected': 'false',
+      'aria-expanded': 'false'
+    })
+    .next().attr({
+      'aria-hidden': 'true'
+    });
+    $el.find('.media-block').removeClass('active');
   }
 
   // Large click areas by adding "bigclicky" class

@@ -102,25 +102,83 @@ function fb_crumbs() {
   $separator = '/';
   if (is_front_page()) return '';
   $return = '<nav class="crumb"><a href="'.home_url().'">Home</a>';
-  if (is_category() || is_single()) {
+  if (is_404()) {
+    $return .= " {$separator} 404";
+  } else if (is_category() || is_single()) {
     $return .= " {$separator} ";
     $return .= get_the_category(" {$separator} ");
     if (is_single()) {
-        $return .= " {$separator} ";
-        $return .= get_the_title();
+      $return .= " {$separator} " . get_the_title();
     }
   } elseif (is_page()) {
     if ($post->post_parent) {
       $parent_page = get_page($post->post_parent);
-      $return .= " {$separator} ";
-      $return .= '<a href="'.get_permalink($parent_page).'">' . get_the_title($parent_page) . '</a>';
+      $return .= "{$separator} <a href=\"".get_permalink($parent_page).'">' . get_the_title($parent_page) . '</a>';
     }
-    $return .= " {$separator} ";
-    $return .= get_the_title();
+    $return .= " {$separator} " . get_the_title();
   } elseif (is_search()) {
-    $return .= " {$separator} Search: ";
-    $return .= the_search_query();
+    $return .= " {$separator} Search: " . the_search_query();
   }
   $return .= '</nav>';
   return $return;
+}
+
+/**
+ * Get accordions HTML for post
+ */
+function get_accordions($post) {
+  $accordions = get_post_meta($post->ID, '_cmb2_accordions', true);
+  if (!$accordions) return '';
+  $accordions_html = '<div class="accordion fb-accordion" role="tablist" aria-multiselectable="true">';
+  foreach ($accordions as $accordion) {
+    $i = 1;
+
+    if (!empty($accordion['accordion_title'])) {
+      // Accordion title
+      $accordions_html .= '<h3 id="accordion-t'.$i.'" class="accordion-title" role="tab" aria-controls="accordion-c'.$i.'" aria-selected="false" aria-expanded="false" tabindex="0">'.$accordion['accordion_title'].'<svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"></use></svg></h3>';
+    }
+    // Accordion content
+    $accordions_html .= '<div id="accordion-c'.$i.'" class="accordion-content" role="tabpanel" aria-labelledby="accordion-t'.$i.'" aria-hidden="true" style="display:none">';
+    // Main body
+    if (!empty($accordion['accordion_body'])) {
+      $accordions_html .= '<div class="accordion-body user-content">'.apply_filters('the_content', $accordion['accordion_body']).'</div>';
+    }
+
+    // Check for media blocks
+
+    // Video URL
+    if (!empty($accordion['video_url'])) {
+      $accordions_html .= '<div class="media-block video">'.$accordion['video_url'].'</div>';
+    }
+    // Image(s) + optional caption
+    if (!empty($accordion['images'])) {
+      $accordions_html .= '<div class="media-block images"><figure>';
+      foreach ( (array)$accordion['images'] as $attachment_id => $attachment_url ) {
+        $accordions_html .= wp_get_attachment_image($attachment_id, 'large');
+      }
+      if (!empty($accordion['pullquote'])) {
+        $accordions_html .= '<figcaption class="image-caption">'.$accordion['pullquote'].'</figcaption>';
+      }
+      $accordions_html .= '</figure></div>';
+    } else if (!empty($accordion['pullquote'])) {
+      // Standalone pull-quote
+      $accordions_html .= '<div class="media-block pull-quote"><blockquote><p>'.$accordion['pullquote'].'</p>';
+      $accordions_html .= !empty($accordion['pullquote_author']) ? ' <cite>– '.$accordion['pullquote_author'].'</cite>' : '';
+      $accordions_html .= '</blockquote></div>';
+    }
+    // Stat figure + optional label
+    if (!empty($accordion['stat_figure'])) {
+      $accordions_html .= '<div class="media-block stat"><dl><dd>'.$accordion['stat_figure'].'</dd>';
+      if (!empty($accordion['stat_label'])) {
+        $accordions_html .= '<dt>'.$accordion['stat_label'].'</dt>';
+      }
+      $accordions_html .= '</dl></div>';
+    }
+
+    $accordions_html .= '</div><!-- /.accordion-content -->';
+    $i++;
+  }
+  $accordions_html .= '</div><!-- /.fb-accordion -->';
+
+  return $accordions_html;
 }

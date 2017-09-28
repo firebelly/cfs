@@ -60,7 +60,7 @@ function metaboxes() {
 
   // Program Info fields
   $program_info = new_cmb2_box([
-    'id'            => 'program_info',
+    'id'            => $prefix . 'program_info',
     'title'         => esc_html__( 'Program Info', 'cmb2' ),
     'object_types'  => ['program'],
     'context'       => 'normal',

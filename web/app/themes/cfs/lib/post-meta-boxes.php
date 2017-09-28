@@ -43,57 +43,85 @@ function metaboxes() {
   /**
    * Repeating media/quote/stat blocks used on Programs and Workshops
    */
-  $cmb_group = new_cmb2_box([
-    'id'           => $prefix . 'metabox',
-    'title'        => esc_html__( 'Media Blocks', 'cmb2' ),
-    'priority'      => 'low',
-    'closed'      => true,
-    'object_types' => ['program','workshop', 'page'],
-  ]);
 
+  $cmb_group = new_cmb2_box([
+    'id'           => $prefix . 'accordions_group',
+    'title'        => esc_html__( 'Accordions', 'cmb2' ),
+    'priority'      => 'low',
+    // 'closed'      => true,
+    'object_types' => ['program', 'workshop', 'page', 'post'],
+  ]);
   $group_field_id = $cmb_group->add_field([
-    'id'          => $prefix . 'program_blocks',
+    'id'          => $prefix . 'accordions',
     'type'        => 'group',
-    // 'description' => esc_html__( '', 'cmb' ),
     'options'     => array(
-      'group_title'   => esc_html__( 'Media Block {#}', 'cmb2' ),
-      'add_button'    => esc_html__( 'Add Another Block', 'cmb2' ),
-      'remove_button' => esc_html__( 'Remove Block', 'cmb2' ),
+      'group_title'   => esc_html__( 'Accordion {#}', 'cmb2' ),
+      'add_button'    => esc_html__( 'Add Another Accordion', 'cmb2' ),
+      'remove_button' => esc_html__( 'Remove Accordion', 'cmb2' ),
       'sortable'      => true,
     ),
   ]);
-
-  $cmb_group->add_group_field( $group_field_id, [
-    'name' => 'Video',
+  $cmb_group->add_group_field($group_field_id, [
+    'name'        => 'Accordion Title',
+    'id'          => 'accordion_title',
+    'type'        => 'text',
+    'before_row'   => '
+        <div class="cmb2-tabs">
+            <ul class="tabs-nav">
+                <li class="current"><a href="#tab-content-1">Content</a></li>
+                <li><a href="#tab-content-2">Media Block</a></li>
+            </ul>
+            <div class="tab-content tab-content-1 current">
+    ',
+  ]);
+  $cmb_group->add_group_field($group_field_id, [
+    'name'        => 'Accordion Body',
+    'id'          => 'accordion_body',
+    'type'        => 'wysiwyg',
+    'options' => [
+      'textarea_rows' => 8,
+    ],
+    'after_row' => '</div>',
+  ]);
+  $cmb_group->add_group_field($group_field_id, [
+    'name'        => 'Video',
     'description' => 'Paste in a Vimeo URL, e.g. https://vimeo.com/101102896',
-    'id'   => 'video_url',
-    'type' => 'text',
+    'id'          => 'video_url',
+    'type'        => 'text',
+    'before_row'   => '<div class="tab-content tab-content-2">',
   ]);
 
-  $cmb_group->add_group_field( $group_field_id, [
-    'name' => 'Image(s)',
-    'id'   => 'images',
-    'type' => 'file_list',
+  $cmb_group->add_group_field($group_field_id, [
+    'name'   => 'Image(s)',
+    'id'     => 'images',
+    'type'   => 'file_list',
   ]);
-
-  $cmb_group->add_group_field( $group_field_id, [
-    'name' => 'Pull-quote',
-    'id'   => 'pullquote',
-    'type' => 'textarea_small',
+  $cmb_group->add_group_field($group_field_id, [
+    'name'   => 'Pull-quote or Image caption',
+    'id'     => 'pullquote',
+    'desc'   => 'If image is selected, this is used as caption.',
+    'type'   => 'textarea_small',
   ]);
-
-  $cmb_group->add_group_field( $group_field_id, [
-    'name' => 'Stat Figure',
-    'id'   => 'stat_figure',
-    'type' => 'text_small',
+  $cmb_group->add_group_field($group_field_id, [
+    'name'   => 'Pull-quote author',
+    'id'     => 'pullquote_author',
+    'type'   => 'text',
+  ]);
+  $cmb_group->add_group_field($group_field_id, [
+    'name'        => 'Stat Figure',
+    'id'          => 'stat_figure',
+    'type'        => 'text_small',
     'description' => 'e.g. 99/100',
   ]);
-
-  $cmb_group->add_group_field( $group_field_id, [
-    'name' => 'Stat Label',
-    'id'   => 'stat_label',
-    'type' => 'textarea_small',
+  $cmb_group->add_group_field($group_field_id, [
+    'name'        => 'Stat Label',
+    'id'          => 'stat_label',
+    'type'        => 'textarea_small',
     'description' => 'Statistic caption or context',
+    'after_row'    => '
+            </div><!-- /.tab-content -->
+        </div><!-- /.cmb2-tabs -->
+    ',
   ]);
 }
 add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\\metaboxes' );
@@ -169,5 +197,3 @@ function parse_video_links($post_id, $post, $update) {
 }
 add_action('save_post', __NAMESPACE__ . '\\parse_video_links', 10, 3);
 add_action('save_post_program', __NAMESPACE__ . '\\parse_video_links', 10, 3);
-
-

@@ -6,6 +6,14 @@
 namespace Firebelly\CMB2;
 
 /**
+ * show_on_cb filter to only show for child pages
+ */
+function cmb_is_child_page($cmb) {
+  $has_parent = $cmb->object_id() && get_post_ancestors( $cmb->object_id() );
+  return $has_parent;
+}
+
+/**
  * Get post options for CMB2 select
  */
 function get_post_options( $query_args ) {

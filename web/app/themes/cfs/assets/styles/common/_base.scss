@@ -7,6 +7,11 @@ html {
   height: 100%;
   box-sizing: border-box;
 }
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+}
 
 body {
   color: $black;
@@ -39,6 +44,9 @@ figure,
 img {
   max-width: 100%;
   height: auto;
+}
+figure {
+  margin: 0;
 }
 
 address {

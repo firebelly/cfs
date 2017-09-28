@@ -18,6 +18,12 @@
       ],
       "main": true
     },
+    "admin.css": {
+      "files": [ "styles/admin.scss" ]
+    },
+    "admin.js": {
+      "vendor": ["assets/scripts/admin.js"]
+    },
     "customizer.js": {
       "files": [
         "scripts/customizer.js"

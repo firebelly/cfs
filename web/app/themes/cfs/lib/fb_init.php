@@ -1,6 +1,7 @@
 <?php
 
 namespace Firebelly\Init;
+use Roots\Sage\Assets;
 
 /**
  * Don't run wpautop before shortcodes are run! wtf Wordpress. from http://stackoverflow.com/a/14685465/1001675
@@ -18,7 +19,7 @@ function setup() {
   update_option('image_default_link_type', 'none');
   update_option('image_default_size', 'large');
 }
-add_action('after_setup_theme', __NAMESPACE__ . '\setup');
+add_action('after_setup_theme', __NAMESPACE__ . '\\setup');
 
 /*
  * Tiny MCE options
@@ -27,7 +28,7 @@ function mce_buttons_2($buttons) {
   array_unshift($buttons, 'styleselect');
   return $buttons;
 }
-add_filter('mce_buttons_2', __NAMESPACE__ . '\mce_buttons_2');
+add_filter('mce_buttons_2', __NAMESPACE__ . '\\mce_buttons_2');
 
 function simplify_tinymce($settings) {
   // What goes into the 'formatselect' list
@@ -79,7 +80,7 @@ function simplify_tinymce($settings) {
 
   return $settings;
 }
-add_filter('tiny_mce_before_init', __NAMESPACE__ . '\simplify_tinymce');
+add_filter('tiny_mce_before_init', __NAMESPACE__ . '\\simplify_tinymce');
 
 // Remove Customize link from admin bar
 add_action( 'wp_before_admin_bar_render', function() {
@@ -93,3 +94,9 @@ add_filter('shortcode_atts_accordion', function($atts) {
   $atts['autoclose'] = false;
   return $atts;
 }, 10, 3);
+
+// Custom Admin styles + JS
+add_action('admin_enqueue_scripts', function($hook){
+  wp_enqueue_style('fb_wp_admin_css', Assets\asset_path('styles/admin.css'));
+  wp_enqueue_script('fb_wp_admin_js', Assets\asset_path('scripts/admin.js'), ['jquery'], null, true);
+}, 100);

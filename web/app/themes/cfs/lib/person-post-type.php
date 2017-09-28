@@ -19,28 +19,25 @@ $persons->taxonomy([
 /**
  * CMB2 custom fields
  */
-function metaboxes( array $meta_boxes ) {
-  $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
+function metaboxes() {
+  $prefix = '_cmb2_';
 
-  $meta_boxes['person_info'] = array(
-    'id'            => 'person_info',
+  $person_info = new_cmb2_box([
+    'id'            => $prefix . 'person_info',
     'title'         => __( 'Person Info', 'cmb2' ),
     'object_types'  => ['person'],
     'context'       => 'normal',
     'priority'      => 'high',
-    'fields'        => array(
-      [
-        'name'      => 'Title',
-        'id'        => $prefix . 'person_title',
-        'type'      => 'text_medium',
-        'desc'      => 'e.g. 20xx Freedom Fellow',
-      ],
-    ),
-  );
+  ]);
+  $person_info->add_field([
+    'name'      => 'Title',
+    'id'        => $prefix . 'person_title',
+    'type'      => 'text_medium',
+    // 'desc'      => 'e.g. 20xx Freedom Fellow',
+  ]);
 
-  return $meta_boxes;
 }
-add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
+add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );
 
 // Update post meta for sorting people by last name
 function person_sort_meta($post_id) {
