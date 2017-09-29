@@ -69,12 +69,9 @@ function metaboxes() {
     'show_names'    => true,
   ]);
   $program_info->add_field([
-    'name'      => esc_html__( 'Details', 'cmb2' ),
-    'id'        => $prefix . 'program_details',
-    'type'      => 'wysiwyg',
-    'options' => [
-      'textarea_rows' => 10,
-    ],
+    'name'      => esc_html__( 'Intro Quote', 'cmb2' ),
+    'id'        => $prefix . 'intro_quote',
+    'type'      => 'textarea_small',
   ]);
   $program_info->add_field([
     'name'       => 'Age Minimum',

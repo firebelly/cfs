@@ -1,2 +1,19 @@
 // Programs page
 
+// Programs get .yellow-theme applied to body from fb_init
+body.theme-yellow {
+	.page-header {
+		.icon-notch.bottom-left {
+			transform: rotate(90deg);
+		}
+		.icon-notch.bottom-right {
+			transform: rotate(0deg);
+		}
+	}
+  .site-nav {
+    .menu-search a {
+      box-shadow: inset 0px 0px 0px 2px $black;
+    }
+  }
+}
+

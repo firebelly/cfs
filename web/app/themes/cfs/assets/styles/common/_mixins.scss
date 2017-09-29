@@ -3,7 +3,7 @@
 // Ye olde clearfix
 @mixin clearfix {
   &:after {
-    content: "";
+    content: '';
     display: table;
     clear: both;
   }
@@ -15,14 +15,39 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-// Padding
+@mixin theme-color($property, $default, $map: 'primary') {
+  $theme-map: '.theme-yellow' $yellow, '.theme-red' $red;
+  @if ($map == 'accent') {
+    $theme-map: '.theme-yellow' $black, '.theme-red' $white;
+  } @elseif ($map == 'accent2') {
+    $theme-map: '.theme-yellow' $red, '.theme-red' $yellow;
+  }
+
+  #{$property}: $default;
+  $selector: &;
+
+  // Loop through all schemes
+  @each $color-scheme in $theme-map {
+      $color-scheme-class: nth($color-scheme, 1);
+      $color-scheme-color: nth($color-scheme, 2);
+
+    // Prepend color-scheme selectors
+    @at-root body#{$color-scheme-class} {
+      // Apply rule
+      #{$selector} {
+        #{$property}: $color-scheme-color;
+      }
+    }
+  }
+}
+
+// Aspect ratio padding mixin
 @mixin aspect-ratio($width, $height) {
   background-size: cover;
   background-position: top center;
   position: relative;
   height: 0;
   padding-top: #{$height / $width * 100%}; // aspect ratio
-  // padding-top: 57%; // aspect ratio
 }
 
 // Various floating bars

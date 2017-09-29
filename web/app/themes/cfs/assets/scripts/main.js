@@ -105,7 +105,10 @@ var CFS = (function($) {
 
   function _openAccordion(el) {
     var $el = $(el);
-    $el.next().clearQueue().stop().slideDown(250);
+    // _scrollBody($el, 250);
+    $el.next().clearQueue().stop().slideDown(250, function() {
+      $el.next().find('.media-block').addClass('active');
+    });
     $el.addClass('open read')
       .attr({
         'aria-selected': 'true',
@@ -114,13 +117,18 @@ var CFS = (function($) {
       .next().attr({
         'aria-hidden': 'false'
       });
-    $el.find('.media-block').addClass('active');
   }
 
   function _closeAccordion(el) {
     var $el = $(el);
-    $el.next().slideUp(250);
-    $el.removeClass('open');
+    if ($el.next().find('.media-block')) {
+      $el.next().find('.media-block').removeClass('active');
+      setTimeout(function() {
+        $el.removeClass('open').next().slideUp(250);
+      }, 200);
+    } else {
+      $el.removeClass('open').next().slideUp(250);
+    }
 
     // Set accessibility attributes
     $el.attr({
@@ -130,7 +138,6 @@ var CFS = (function($) {
     .next().attr({
       'aria-hidden': 'true'
     });
-    $el.find('.media-block').removeClass('active');
   }
 
   // Large click areas by adding "bigclicky" class

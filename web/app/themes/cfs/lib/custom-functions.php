@@ -104,12 +104,11 @@ function fb_crumbs() {
   $return = '<nav class="crumb"><a href="'.home_url().'">Home</a>';
   if (is_404()) {
     $return .= " {$separator} 404";
-  } else if (is_category() || is_single()) {
-    $return .= " {$separator} ";
+  } else if (is_category()) {
     $return .= get_the_category(" {$separator} ");
-    if (is_single()) {
-      $return .= " {$separator} " . get_the_title();
-    }
+  } else if (is_single()) {
+    // todo: check for post_type and if not page, show link to listing page (e.g. /programs/)
+    $return .= " {$separator} " . get_the_title();
   } elseif (is_page()) {
     if ($post->post_parent) {
       $parent_page = get_page($post->post_parent);
@@ -154,7 +153,7 @@ function get_accordions($post) {
     if (!empty($accordion['images'])) {
       $accordions_html .= '<div class="media-block images"><figure>';
       foreach ( (array)$accordion['images'] as $attachment_id => $attachment_url ) {
-        $accordions_html .= wp_get_attachment_image($attachment_id, 'large');
+        $accordions_html .= '<img src="' . \Firebelly\Media\get_header_bg($attachment_url, ['thumb_id' => $attachment_id, 'size' => 'medium_large', 'output' => 'image']) . '">';
       }
       if (!empty($accordion['pullquote'])) {
         $accordions_html .= '<figcaption class="image-caption">'.$accordion['pullquote'].'</figcaption>';

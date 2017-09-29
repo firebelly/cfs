@@ -79,7 +79,7 @@
       margin-left: columns(1,19);
       padding-left: columns(1,19);
       .color-wrap {
-        background: $red;
+        @include theme-color('background', $red);
         padding-left: columns(8,17);
       }
       .page-content {

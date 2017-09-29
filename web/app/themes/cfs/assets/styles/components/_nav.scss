@@ -35,7 +35,7 @@
     left: calc(#{columns(1)} - 52px);
     z-index: 10;
     svg {
-      fill: $red;
+      @include theme-color('fill', $red);
       width: 139px;
       height: 139px;
     }
@@ -68,9 +68,9 @@
     top: 0;
     left: columns(1,17);
     svg {
-      fill: $white;
-      width: 104px;
-      height: 84px;
+      @include theme-color('fill', $white, 'accent');
+      width: 106px;
+      height: 85px;
     }
   }
 
@@ -79,11 +79,12 @@
   }
 
   a {
-    color: $black;
+    @include theme-color('color', $black, 'accent');
     display: block;
     text-decoration: none;
     // transition: color .2s ease-out;
     padding: vertical-beat(3) 0;
+    line-height: 24px;
   }
   .brand a,
   .logo-wordmark a {
@@ -112,6 +113,7 @@
     max-height: 0;
     overflow: hidden;
     position: relative;
+    box-shadow: 0 2px 4px 0 rgba(#000, .5);
     li {
       transition: height 0s steps(1);
       &:nth-child(1) {
@@ -131,7 +133,7 @@
     }
     a {
       display: block;
-      padding: 35px 0;
+      padding: 30px 0;
       position: relative;
       &::after {
         content: '';
@@ -165,7 +167,6 @@
         li {
           height: 80px;
         }
-        // max-height: 200px;
       }
     }
   }
@@ -204,25 +205,27 @@
     width: columns(17);
     left: auto;
     float: right;
-    background: $red;
-    padding: 30px 0 0;
+    @include theme-color('background', $red);
+    padding: 0;
     position: relative;
 
     // Black bar at left of nav
     @include bar('left', $black, 17);
 
     a {
-      padding: vertical-beat(1) 16px;
+      padding: vertical-beat(3) 16px;
       color: $white;
       display: inline-block;
       &:hover {
-        color: $yellow;
+        @include theme-color('color', $yellow, 'accent2');
+        // color: $yellow;
         // border-bottom: 1px solid $white;
       }
     }
 
     .menu-search a {
       margin-left: 16px;
+      padding: 6px 30px 4px;
       box-shadow: inset 0px 0px 0px 2px $white;
     }
 
@@ -241,6 +244,7 @@
       > li {
         float: left;
         // padding-right: 20px;
+        line-height: 85px;
         &:hover {
           color: $black;
         }
@@ -251,7 +255,8 @@
     }
 
     .sub-menu {
-      width: 0;
+      width: 350px;
+      position: absolute;
       height: 0;
       // opacity: 0;
       top: -1000px;
@@ -259,36 +264,37 @@
       margin-left: -175px;
       max-height: none;
       overflow: visible;
-      position: relative;
-      // transition: all .2s ease-out;
+      box-shadow: 0 2px 4px 0 rgba(#000, .5);
       &::before {
         top: 10px;
       }
       li {
         width: 350px;
-        &:first-of-type {
-          margin-top: 16px;
-        }
-        &:last-of-type {
-          // margin-bottom: vertical-beat(6);
-        }
+        &:first-of-type {}
+        &:last-of-type {}
       }
     }
 
     .menu-item-has-children:hover {
       .sub-menu {
-        top: 1px;
-        // opacity: 1;
+        top: 85px;
         height: auto;
-        // transition-delay: .1s;
+        &::before {
+          content: '';
+          position: absolute;
+          top: -10px;
+          left: -10px;
+          width: 370px;
+          height: 10px;
+          // background: $red;
+          @include theme-color('background', $red);
+          pointer-events: none;
+        }
         li {
-          background: $red;
+          @include theme-color('background', $red);
           text-align: center;
-          // min-width: 345px;
         }
-        a {
-          // color: $black;
-        }
+        a {}
       }
     }
 

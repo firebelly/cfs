@@ -6,7 +6,7 @@
 
 // Accordion media blocks (each accordion can have an associated block of content)
 .media-block {
-  color: $white;
+  @include theme-color('color', $white, 'accent');
   &.stat {
     dl {
       margin: 0;
@@ -54,6 +54,16 @@
   @include media-md {
     position: absolute;
     bottom: vertical-beat(5);
+
+    // Make media-block chunkily enter when opening accordion
+    opacity: 0;
+    margin-left: 20px;
+    transition: all .2s steps(2);
+    &.active {
+      opacity: 1;
+      margin-left: 0;
+    }
+
     &.stat,
     &.pull-quote {
       left: -#{columns(8,7)};

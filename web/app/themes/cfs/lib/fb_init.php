@@ -100,3 +100,22 @@ add_action('admin_enqueue_scripts', function($hook){
   wp_enqueue_style('fb_wp_admin_css', Assets\asset_path('styles/admin.css'));
   wp_enqueue_script('fb_wp_admin_js', Assets\asset_path('scripts/admin.js'), ['jquery'], null, true);
 }, 100);
+
+// Function to determine if we're on a yellow-themed Youth Program page
+function is_youth_program() {
+  global $post;
+  // Are we on a program page (all are youth programs), or Alumni Resources?
+  if ((is_single() && $post->post_type=='program') ||
+      (is_page() && $post->post_title == 'Alumni Resources')) {
+    return true;
+  }
+  return false;
+}
+
+// Apply filter
+add_filter('body_class', function($classes) {
+  if (is_youth_program()) {
+    $classes[] = 'theme-yellow';
+  }
+  return $classes;
+});
