@@ -6,7 +6,7 @@ if (is_404()) {
 if (!empty($post)) {
   $header_video = get_post_meta($post->ID, '_cmb2_featured_video', true);
   if (!$header_video) {
-    $header_bg = \Firebelly\Media\get_header_bg($post, false, '', 'bw', 'large');
+    $header_bg = \Firebelly\Media\get_header_bg($post);
   } else {
     $header_bg = '';
   }

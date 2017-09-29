@@ -51,10 +51,19 @@ function get_thumbnail_size_path($thumb_id, $size) {
  * @param  string|object   $post_or_image (WP post object or background image)
  * @return HTML            background image code
  */
-function get_header_bg($post_or_image, $absolute_url=false, $thumb_id='', $color_or_bw='', $size='banner') {
+function get_header_bg($post_or_image, $opts=[]) {
+  // Default options
+  $opts = array_merge([
+    'absolute_url' => false,
+    'thumb_id' => '',
+    'color_mode' => 'bw',
+    'size' => 'banner',
+    'output' => 'background',
+  ], $opts);
+  $header_bg = $background_image = false;
 
-  // Set colors if bw or color
-  if ($color_or_bw!=='color') {
+  // Set color mode
+  if ($opts['color_mode'] == 'bw') {
     $shadow = '323228';
     $highlight = 'F0F0F0';
   } else {
@@ -62,18 +71,22 @@ function get_header_bg($post_or_image, $absolute_url=false, $thumb_id='', $color
     $highlight = 'c0c8f7';
   }
 
-  $header_bg = $background_image = false;
   // If WP post object, get the featured image
   if (is_object($post_or_image)) {
     if (has_post_thumbnail($post_or_image->ID)) {
-      $thumb_id = get_post_thumbnail_id($post_or_image->ID);
-      $background_image = get_thumbnail_size_path($thumb_id, $size);
+      $opts['thumb_id'] = get_post_thumbnail_id($post_or_image->ID);
+      $background_image = get_thumbnail_size_path($opts['thumb_id'], $opts['size']);
     }
   } else {
     // Absolute URLs, e.g. from a taxonomy page or other CMB2 file field
-    if ($absolute_url) {
+    if ($opts['thumb_id'] && is_numeric($opts['thumb_id'])) {
+      // If thumb_id is sent, use that to get image
+      $background_image = get_thumbnail_size_path($opts['thumb_id'], $opts['size']);
+    } else if (preg_match('/^http/', $post_or_image)) {
+      // If it's an absolute URL, make it relative
       $background_image = wp_upload_dir()['basedir'] . wp_make_link_relative($post_or_image);
     } else {
+      // Not sure when this would ever happen...
       $background_image = $post_or_image;
     }
   }
@@ -82,7 +95,7 @@ function get_header_bg($post_or_image, $absolute_url=false, $thumb_id='', $color
     $base_dir = $upload_dir['basedir'] . '/backgrounds/';
 
     // Build treated filename with thumb_id in case there are filename conflicts
-    $treated_filename = preg_replace("/.+\/(.+)\.(\w{2,5})$/", $thumb_id."-$1-".$shadow."-".$highlight.".$2", $background_image);
+    $treated_filename = preg_replace("/.+\/(.+)\.(\w{2,5})$/", $opts['thumb_id']."-$1-".$shadow."-".$highlight.".$2", $background_image);
     $treated_image = $base_dir . $treated_filename;
 
     // If treated file doesn't exist, create it
@@ -95,7 +108,13 @@ function get_header_bg($post_or_image, $absolute_url=false, $thumb_id='', $color
       $convert_command = (WP_ENV==='development') ? '/usr/local/bin/convert' : '/usr/bin/convert';
       exec($convert_command.' '.$background_image.' +profile "*" -quality 65 -modulate 100,0 -size 256x1! gradient:#'.$shadow.'-#'.$highlight.' -clut '.$treated_image);
     }
-    $header_bg = ' style="background-image:url(' . $upload_dir['baseurl'] . '/backgrounds/' . $treated_filename . ');"';
+
+    // Option to return commonly used style=background, or just filename
+    if ($opts['output'] == 'background') {
+      $header_bg = ' style="background-image:url(' . $upload_dir['baseurl'] . '/backgrounds/' . $treated_filename . ');"';
+    } else {
+      $header_bg = $upload_dir['baseurl'] . '/backgrounds/' . $treated_filename;
+    }
   }
   return $header_bg;
 }

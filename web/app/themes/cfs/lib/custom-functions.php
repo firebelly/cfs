@@ -89,7 +89,7 @@ function get_secondary_header($post) {
   }
   $secondary_bg_id = get_post_meta($post->ID, '_cmb2_secondary_featured_image_id', true);
   $secondary_bg_image = get_attached_file($secondary_bg_id, false);
-  $secondary_bg = \Firebelly\Media\get_header_bg($secondary_bg_image, '', 'bw', 'banner');
+  $secondary_bg = \Firebelly\Media\get_header_bg($secondary_bg_image);
   return $secondary_bg;
 }
 

@@ -5,7 +5,7 @@
 
 $header_video = get_post_meta($post->ID, '_cmb2_featured_video', true);
 if (!$header_video) {
-  $header_bg = \Firebelly\Media\get_header_bg($post, false, '', 'bw', 'banner');
+  $header_bg = \Firebelly\Media\get_header_bg($post);
 } else {
   $header_bg = '';
 }
@@ -69,7 +69,7 @@ $custom_featured_link_text = get_post_meta($post->ID, '_cmb2_custom_featured_lin
   <article class="feature program-post bigclicky">
     <div class="wrap grid">
       <div class="one-half -left">
-        <div class="image" <?= \Firebelly\Media\get_header_bg($featured_program, false, '', 'bw', 'large') ?>></div>
+        <div class="image" <?= \Firebelly\Media\get_header_bg($featured_program, ['size' => 'medium_large']) ?>></div>
       </div>
       <div class="one-half -right">
         <h1><?= $featured_program->post_title ?></h1>
@@ -94,7 +94,7 @@ $custom_featured_link_text = get_post_meta($post->ID, '_cmb2_custom_featured_lin
         </div>
         <div class="one-half -right">
           <?php if ($custom_featured_image): ?>
-            <div class="image" <?= \Firebelly\Media\get_header_bg($custom_featured_image, true, $custom_featured_image_id, 'bw', 'large') ?>></div>
+            <div class="image" <?= \Firebelly\Media\get_header_bg($custom_featured_image, ['thumb_id' => $custom_featured_image_id, 'size' => 'medium_large']) ?>></div>
           <?php endif; ?>
         </div>
       </div>
@@ -105,7 +105,7 @@ $custom_featured_link_text = get_post_meta($post->ID, '_cmb2_custom_featured_lin
   <article class="feature workshop-post bigclicky">
     <div class="wrap grid">
       <div class="one-half -left">
-        <div class="image" <?= \Firebelly\Media\get_header_bg($featured_workshop, false, '', 'bw', 'large') ?>></div>
+        <div class="image" <?= \Firebelly\Media\get_header_bg($featured_workshop, ['size' => 'medium_large']) ?>></div>
       </div>
       <div class="one-half -right">
         <h1><?= $featured_workshop->post_title ?></h1>
