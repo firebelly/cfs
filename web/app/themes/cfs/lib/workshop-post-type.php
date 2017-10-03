@@ -9,7 +9,8 @@ use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
 $cpt = new PostType('workshop', [
   'taxonomies' => ['workshop_type', 'workshop_series'],
   'supports'   => ['title', 'editor', 'thumbnail'],
-  'rewrite'    => ['with_front' => false],
+  'has_archive' => true,
+  'rewrite'    => ['with_front' => false, 'slug' => 'workshops'],
 ]);
 $cpt->taxonomy('workshop_type');
 $cpt->taxonomy([
@@ -55,88 +56,76 @@ $cpt->columns()->populate('featured', function($column, $post_id) {
 /**
  * CMB2 custom fields
  */
+add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );
 function metaboxes( array $meta_boxes ) {
-  $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
+  $prefix = '_cmb2_';
 
-  $meta_boxes['workshop_info'] = array(
+  $workshop_info = new_cmb2_box([
     'id'            => 'workshop_info',
     'title'         => __( 'Workshop Info', 'cmb2' ),
     'object_types'  => ['workshop'],
     'context'       => 'normal',
     'priority'      => 'high',
-    'fields'        => array(
-      [
-        'name'      => 'Details',
-        'id'        => $prefix . 'workshop_details',
-        'type'      => 'wysiwyg',
-        'options' => [
-          'textarea_rows' => 10,
-        ],
-      ],
-      [
-        'name'        => 'Cost',
-        'id'          => $prefix . 'cost',
-        'desc'        => 'e.g. 5.00',
-        'type'        => 'text_small',
-      ],
-      [
-        'name'        => 'Eventbrite URL',
-        'id'          => $prefix . 'eventbrite_url',
-        'type'        => 'text',
-        'description' => 'e.g. https://www.eventbrite.com/e/xxxx',
-      ],
-      [
-        'name'        => 'Tickets Available',
-        'id'          => $prefix . 'tickets_available',
-        'type'        => 'text_small',
-        'attributes'  => [
-          'type'      => 'number',
-          'pattern'   => '\d*',
-        ],
-      ],
-    ),
-  );
+  ]);
+  $workshop_info->add_field([
+    'name'      => 'Details',
+    'id'        => $prefix . 'workshop_details',
+    'type'      => 'wysiwyg',
+    'options' => [
+      'textarea_rows' => 10,
+    ]
+  ]);
+  $workshop_info->add_field([
+    'name'        => 'Cost',
+    'id'          => $prefix . 'cost',
+    'desc'        => 'e.g. 5.00',
+    'type'        => 'text_small',
+  ]);
+  $workshop_info->add_field([
+    'name'        => 'Eventbrite URL',
+    'id'          => $prefix . 'eventbrite_url',
+    'type'        => 'text',
+    'description' => 'e.g. https://www.eventbrite.com/e/xxxx',
+  ]);
+  $workshop_info->add_field([
+    'name'        => 'Tickets Available',
+    'id'          => $prefix . 'tickets_available',
+    'type'        => 'text_small',
+    'attributes'  => [
+      'type'      => 'number',
+      'pattern'   => '\d*',
+    ],
+  ]);
 
-  $meta_boxes['workshop_when'] = array(
+  $workshop_when = new_cmb2_box([
     'id'            => 'workshop_when',
     'title'         => __( 'Workshop Date & Time', 'cmb2' ),
     'object_types'  => ['workshop'],
     'context'       => 'normal',
     'priority'      => 'high',
-    'fields'        => array(
-      [
-        'name'      => 'Start Date',
-        'id'        => $prefix . 'date_start',
-        'type'      => 'text_date_timestamp',
-      ],
-      [
-        'name'      => 'End Date',
-        'id'        => $prefix . 'date_end',
-        'type'      => 'text_date_timestamp',
-      ],
-      [
-        'name'      => 'Time',
-        'id'        => $prefix . 'time',
-        'desc'      => 'e.g. 5:00pm to 8:00pm',
-        'type'      => 'text_medium',
-      ],
-      // [
-      //   'name'      => 'Application Opens',
-      //   'id'        => $prefix . 'application_opens',
-      //   'type'      => 'text_datetime_timestamp'
-      // ],
-      [
-        'name'      => 'Application Deadline',
-        'id'        => $prefix . 'application_deadline',
-        'type'      => 'text_datetime_timestamp'
-      ],
-
-    ),
-  );
-
-  return $meta_boxes;
+  ]);
+  $workshop_when->add_field([
+    'name'      => 'Start Date',
+    'id'        => $prefix . 'date_start',
+    'type'      => 'text_date_timestamp',
+  ]);
+  $workshop_when->add_field([
+    'name'      => 'End Date',
+    'id'        => $prefix . 'date_end',
+    'type'      => 'text_date_timestamp',
+  ]);
+  $workshop_when->add_field([
+    'name'      => 'Time',
+    'id'        => $prefix . 'time',
+    'desc'      => 'e.g. 5:00pm to 8:00pm',
+    'type'      => 'text_medium',
+  ]);
+  $workshop_when->add_field([
+    'name'      => 'Application Deadline',
+    'id'        => $prefix . 'application_deadline',
+    'type'      => 'text_datetime_timestamp'
+  ]);
 }
-add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 
 /**
  * Get Workshops
@@ -182,4 +171,45 @@ function get_workshops($options=[]) {
     $output .= ob_get_clean();
   endforeach;
   return $output;
+}
+
+/**
+ * Get featured workshops
+ * @param  array  $args Extra args for get_posts()
+ */
+function get_featured_workshops($args=[]) {
+  array_merge($featured_args = [
+    'post_type'  => 'workshop',
+    'order'      => 'ASC',
+    'orderby'    => 'meta_value_num',
+    'meta_key'   => '_cmb2_date_start',
+    'meta_query' => [
+      [
+        'key'    => '_cmb2_featured',
+        'value'  => 'on',
+      ],
+    ]
+  ], $args);
+  return get_posts($featured_args);
+}
+
+function get_workshop_date($workshop_post) {
+  if (empty($workshop_post->meta)) $workshop_post->meta = get_post_meta($workshop_post->ID);
+  $output = '<div class="date">';
+  if (!empty($workshop_post->meta['_cmb2_date_start'])) {
+    $output .= '<time datetime="' . date('Y-m-d', $workshop_post->meta['_cmb2_date_start'][0]) . '">' . date('m/j/y', $workshop_post->meta['_cmb2_date_start'][0]) . '</time>';
+  }
+  if (!empty($workshop_post->meta['_cmb2_date_end'])) {
+    $output .= '– <time datetime="' . date('Y-m-d', $workshop_post->meta['_cmb2_date_end'][0]) . '">' . date('m/j/y', $workshop_post->meta['_cmb2_date_end'][0]) . '</time>';
+  }
+  if (!empty($workshop_post->meta['_cmb2_time'])) {
+    $output .= ' <span class="timespan">' . $workshop_post->meta['_cmb2_time'][0] . '</span>';
+  }
+  $output .= '</div>';
+  return $output;
+}
+
+function get_series($post) {
+  $series = \Firebelly\Utils\get_first_term($post, 'workshop_series');
+  return (empty($series)) ? '' : $series->name;
 }
