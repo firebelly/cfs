@@ -175,8 +175,8 @@ function get_programs($options=[]) {
   return $output;
 }
 
-function get_featured_programs() {
-  $featured_args = [
+function get_featured_programs($args=[]) {
+  array_merge($featured_args = [
     'post_type'  => 'program',
     'order'      => 'ASC',
     'orderby'    => 'meta_value_num',
@@ -187,6 +187,6 @@ function get_featured_programs() {
         'value'  => 'on',
       ],
     ]
-  ];
+  ], $args);
   return get_posts($featured_args);
 }

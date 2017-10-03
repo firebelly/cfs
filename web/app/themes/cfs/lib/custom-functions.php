@@ -106,7 +106,16 @@ function fb_crumbs() {
     $return .= " {$separator} 404";
   } else if (is_category()) {
     $return .= get_the_category(" {$separator} ");
-  } else if (is_single()) {
+  } else if (is_post_type_archive('workshop')) {
+    $workshop_page = get_page_by_path('/workshops-trainings/');
+    $return .= " {$separator} <a href=\"" . get_permalink($workshop_page) . '">' . $workshop_page->post_title . "</a> {$separator} Upcoming Workshops";
+  } else if (is_singular('workshop')) {
+    $parent_page = get_page_by_path('/workshops-trainings/');
+    $return .= " {$separator} <a href=\"" . get_permalink($parent_page) . '">' . $parent_page->post_title . "</a> {$separator} " . get_the_title();
+  } else if (is_singular('program')) {
+    $parent_page = get_page_by_path('/programs/');
+    $return .= " {$separator} <a href=\"" . get_permalink($parent_page) . '">' . $parent_page->post_title . "</a> {$separator} " . get_the_title();
+  } else if (is_singular('post')) {
     // todo: check for post_type and if not page, show link to listing page (e.g. /programs/)
     $return .= " {$separator} " . get_the_title();
   } elseif (is_page()) {
@@ -180,4 +189,31 @@ function get_accordions($post) {
   $accordions_html .= '</div><!-- /.fb-accordion -->';
 
   return $accordions_html;
+}
+
+function get_registration_details($post) {
+  if (empty($post->meta)) $post->meta = get_post_meta($post->ID);
+  $now = time();
+  $output = '<div class="registration">';
+  $output .= '<ul class="details"><li>';
+  if (!empty($post->meta['_cmb2_date_start'])) {
+    $output .= '<time datetime="' . date('Y-m-d', $post->meta['_cmb2_date_start'][0]) . '">' . date('m/j/y', $post->meta['_cmb2_date_start'][0]) . '</time>';
+  }
+  if (!empty($post->meta['_cmb2_date_end'])) {
+    $output .= '– <time datetime="' . date('Y-m-d', $post->meta['_cmb2_date_end'][0]) . '">' . date('m/j/y', $post->meta['_cmb2_date_end'][0]) . '</time>';
+  }
+  $output .= '</li>';
+  if (!empty($post->meta['_cmb2_registration_deadline'])) {
+    $output .= '<li class="applications-due">Applications Due ' . date('Y-m-d', $post->meta['_cmb2_registration_deadline'][0]) . '</li>';
+  }
+  if (!empty($post->meta['_cmb2_age_minimum']) && !empty($post->meta['_cmb2_age_maximum'])) {
+    $output .= '<li class="ages">Age of Applicants: ' . $post->meta['_cmb2_age_minimum'][0] . ' – ' . $post->meta['_cmb2_age_maximum'][0] . '</li>';
+  }
+  $output .= '</ul>';
+  // Check if applications open
+  if (1 || ($now > $post->meta['_cmb2_registration_opens'] && $now < $post->meta['_cmb2_registration_deadline'])) {
+    $output .= '<a class="button -wide" href="#">Apply</a>';
+  }
+  $output .= '</div>';
+  return $output;
 }

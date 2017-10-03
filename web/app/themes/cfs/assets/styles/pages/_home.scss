@@ -58,7 +58,6 @@
     >.wrap {
       padding: vertical-beat(4) columns(2,17) vertical-beat(4) columns(1,17);
     }
-    // @include bar('right', $black, 16);
     .image {
       @include aspect-ratio(480, 324);
       margin: 0 $gutter 0 0;

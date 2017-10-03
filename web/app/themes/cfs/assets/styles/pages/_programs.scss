@@ -2,14 +2,14 @@
 
 // Programs get .yellow-theme applied to body from fb_init
 body.theme-yellow {
-	.page-header {
-		.icon-notch.bottom-left {
-			transform: rotate(90deg);
-		}
-		.icon-notch.bottom-right {
-			transform: rotate(0deg);
-		}
-	}
+  .page-header {
+    .icon-notch.bottom-left {
+      transform: rotate(90deg);
+    }
+    .icon-notch.bottom-right {
+      transform: rotate(0deg);
+    }
+  }
   .site-nav {
     .menu-search a {
       box-shadow: inset 0px 0px 0px 2px $black;
@@ -17,3 +17,22 @@ body.theme-yellow {
   }
 }
 
+.intro-wrap {
+  position: relative;
+}
+.registration {
+  @extend .h3;
+  .button:hover {
+    color: $yellow;
+  }
+  ul,
+  .applications-due {
+    margin-bottom: vertical-beat(1);
+  }
+  @include media-md {
+    position: absolute;
+    bottom: 0;
+    left: -#{columns(8,7)};
+    width: columns(6,7);
+  }
+}

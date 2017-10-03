@@ -1,0 +1,106 @@
+// Workshops
+
+article.workshop {
+  .date {
+    @extend .h3;
+    margin-bottom: vertical-beat(2);
+    .timespan {
+      display: block;
+    }
+  }
+}
+
+// generic wide column
+@include media-md {
+  .column-wrap {
+    margin: 0 0 0 columns(2);
+    background: $black;
+    padding-left: columns(1);
+    .color-wrap {
+      padding: 0 columns(2,17) 0 columns(1,17);
+      background: $white;
+    }
+  }
+}
+
+// Workshop archive/listing pages
+body.post-type-archive-workshop {
+  .page-header {
+    &.half .page-intro {
+      .color-wrap {
+        background: $white;
+      }
+    }
+  }
+
+  article.feature {
+    .one-half.-left {
+      padding-right: $gutter;
+    }
+    .image {
+      @include aspect-ratio(480, 324);
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  .article-list {
+    margin: vertical-beat(4) 0;
+    padding-top: vertical-beat(4);
+    article {
+      h1 a {
+        color: $red;
+        &:hover {
+          color: $yellow;
+        }
+      }
+      h3.series {
+        position: relative;
+        padding-bottom: vertical-beat(1);
+        margin: 0 0 vertical-beat(2);
+        @include notch(bottom, $black);
+      }
+      .button {
+        width: 100%;
+      }
+    }
+
+    // Larger displays
+    @include media-md {
+      margin: vertical-beat(4) -35px 0;
+      article {
+        width: 33.33333%;
+        position: relative;
+        .wrap {
+          margin: 0 35px;
+          min-height: 300px;
+          padding-bottom: 60px;
+          position: relative;
+        }
+        .button {
+          position: absolute;
+          bottom: 80px;
+          left: 0;
+        }
+        border-right: 1px solid $black;
+        &:nth-child(3n) {
+          border-right: none;
+        }
+        &:nth-child(3n+1) {
+          &::before {
+            content: '';
+            position: absolute;
+            top: -#{vertical-beat(8)};
+            left: 35px;
+            width: 1000em;
+            height: 1px;
+            padding-bottom: 1px;
+            background: $black;
+            border-top: vertical-beat(4) solid $white;
+            border-bottom: vertical-beat(4) solid $white;
+            z-index: 1;
+          }
+        }
+      }
+    }
+  }
+}

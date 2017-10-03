@@ -1,9 +1,27 @@
 <?php
 use Roots\Sage\Titles;
+
+// Pull 404 page for content
 if (is_404()) {
 	$post = get_page_by_path('/404-error/');
 }
-if (!empty($post)) {
+
+// Defaults
+$accordions_html = $registration_html = $page_intro_quote = $header_video = $header_bg = '';
+
+if (is_post_type_archive('workshop')) {
+  // Workshop listings page pulls info from "Upcoming Workshops"
+  $workshop_page = get_page_by_title('Upcoming Workshops');
+  $header_video = get_post_meta($workshop_page->ID, '_cmb2_featured_video', true);
+  if (!$header_video) {
+    $header_bg = \Firebelly\Media\get_header_bg($workshop_page);
+  } else {
+    $header_bg = '';
+  }
+  $page_intro_quote = get_post_meta($workshop_page->ID, '_cmb2_intro_quote', true);
+
+} else if (!empty($post)) {
+  // Otherwise get header data from single post
   $header_video = get_post_meta($post->ID, '_cmb2_featured_video', true);
   if (!$header_video) {
     $header_bg = \Firebelly\Media\get_header_bg($post);
@@ -11,11 +29,14 @@ if (!empty($post)) {
     $header_bg = '';
   }
   $page_intro_quote = get_post_meta($post->ID, '_cmb2_intro_quote', true);
-} else {
-  $page_intro_quote = $header_video = $header_bg = '';
 }
+
 // Pull post accordions
 $accordions_html = Firebelly\Utils\get_accordions($post);
+
+if (is_singular('workshop') || is_singular('program')) {
+  $registration_html = \Firebelly\Utils\get_registration_details($post);
+}
 ?>
 
 <header class="page-header half">
@@ -37,8 +58,11 @@ $accordions_html = Firebelly\Utils\get_accordions($post);
       <div class="page-titles">
         <?= Firebelly\Utils\fb_crumbs() ?>
         <h1><?= Titles\title(); ?></h1>
-        <p class="p-intro"><?= $page_intro_quote; ?></p>
-        <?= apply_filters('the_content', $post->post_content); ?>
+        <div class="intro-wrap">
+          <p class="p-intro"><?= $page_intro_quote; ?></p>
+          <?= apply_filters('the_content', $post->post_content); ?>
+          <?= $registration_html ?>
+        </div>
         <?= $accordions_html ?>
       </div>
     </div>
