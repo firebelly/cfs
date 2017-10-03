@@ -50,6 +50,12 @@ function metaboxes() {
     'type' => 'text',
     'desc' => 'e.g. Join the Movement',
   ]);
+  $parent_page_navigation->add_field([
+    'name' => esc_html__( 'Nav Button Link', 'cmb2' ),
+    'id'   => $prefix .'nav_button_link',
+    'type' => 'text',
+    'desc' => 'Overrides link to child page if set, e.g. /program/freedom-fellowships/',
+  ]);
 
   // Homepage fields
   $homepage_fields = new_cmb2_box([

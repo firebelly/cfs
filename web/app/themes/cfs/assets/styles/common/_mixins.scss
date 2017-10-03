@@ -9,6 +9,16 @@
   }
 }
 
+@mixin notch($where:'top', $color:$white) {
+  &:before {
+    content: '';
+    position: absolute;
+    #{$where}: 0;
+    width: 10px;
+    border-top: 2px solid $color;
+  }
+}
+
 // Smooth text
 %smooth {
   -webkit-font-smoothing: antialiased;

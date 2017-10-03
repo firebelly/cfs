@@ -26,13 +26,7 @@
 	}
 	p {
 		position: relative;
-		&:before {
-			content: '';
-			position: absolute;
-			top: 0;
-			width: 10px;
-			border-top: 2px solid $white;
-		}
+		@include notch(top);
 		padding-top: vertical-beat(1);
 		margin-bottom: vertical-beat(1);
 		font-size: 12px;
