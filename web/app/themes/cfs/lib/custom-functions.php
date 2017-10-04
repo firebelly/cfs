@@ -125,7 +125,7 @@ function fb_crumbs() {
     }
     $return .= " {$separator} " . get_the_title();
   } elseif (is_search()) {
-    $return .= " {$separator} Search: " . the_search_query();
+    $return .= " {$separator} Search: " . get_search_query();
   }
   $return .= '</nav>';
   return $return;
@@ -135,6 +135,7 @@ function fb_crumbs() {
  * Get accordions HTML for post
  */
 function get_accordions($post) {
+  if (!is_object($post) || empty($post->ID)) return;
   $accordions = get_post_meta($post->ID, '_cmb2_accordions', true);
   if (!$accordions) return '';
   $accordions_html = '<div class="accordion fb-accordion" role="tablist" aria-multiselectable="true">';

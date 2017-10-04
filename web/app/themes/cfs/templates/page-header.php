@@ -60,7 +60,7 @@ if (is_singular('workshop') || is_singular('program')) {
         <h1><?= Titles\title(); ?></h1>
         <div class="intro-wrap">
           <p class="p-intro"><?= $page_intro_quote; ?></p>
-          <?= apply_filters('the_content', $post->post_content); ?>
+          <?= empty($post->post_content) ? '' : apply_filters('the_content', $post->post_content);?>
           <?= $registration_html ?>
         </div>
         <?= $accordions_html ?>

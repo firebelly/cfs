@@ -7,24 +7,6 @@
   width: 100%;
   z-index: 10;
 
-  @include media-md {
-    &.sub-menu-active {}
-
-    &.-sticky {
-      position: fixed;
-    }
-  }
-
-  @include min-screen($breakpoint-nav) {
-    &.sub-menu-active {
-      .menu-item:not(.hover) {
-        > a {}
-      }
-      .sub-menu .menu-item.un-hover {
-        a {}
-      }
-    }
-  }
   .brand {
     margin-top: 9px;
     font-size: 24px;
@@ -50,16 +32,15 @@
 }
 
 .site-nav {
+  position: fixed;
   top: 0;
   left: 100%;
   width: 100%;
   color: $white;
   height: 85px;
-  position: fixed;
   font: 500 12px/1.5 $font-display;
   letter-spacing: .06875em;
   @extend %smooth;
-  transition: left .3s $slide-easing;
   padding: vertical-beat(6) $global-padding vertical-beat(14);
   box-shadow: 0 2px 12px 0 rgba(#000, .5);
 
@@ -75,15 +56,10 @@
     z-index: 10;
   }
 
-  &.-active {
-    left: 0;
-  }
-
   a {
     @include theme-color('color', $black, 'accent');
     display: block;
     text-decoration: none;
-    // transition: color .2s ease-out;
     padding: vertical-beat(3) 0;
     line-height: 24px;
   }
@@ -99,14 +75,8 @@
       list-style: none;
     }
   }
-
   & > ul > li {
     position: relative;
-    &.hover {
-      a {
-        // color: $black;
-      }
-    }
   }
 
   .sub-menu {
@@ -116,6 +86,7 @@
     position: relative;
     box-shadow: 0 2px 4px 0 rgba(#000, .5);
     li {
+      // Stagger display of submenu items
       transition: height 0s steps(1);
       &:nth-child(1) {
         transition-delay: 0s;
@@ -128,6 +99,9 @@
       }
       &:nth-child(4) {
         transition-delay: 0.15s;
+      }
+      &:nth-child(5) {
+        transition-delay: 0.2s;
       }
       height: 0;
       overflow: hidden;
@@ -143,8 +117,9 @@
         top: 0;
         left: 0;
         width: 100%;
-        // box-shadow: 0 2px 4px 0 rgba(#000,.5);
+        // Give a hard edge to faux dropshadow
         border-top: 1px solid rgba(#000, .25);
+        // Faux dropshadow
         background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 100%);
         height: 6px;
       }
@@ -152,15 +127,10 @@
     li:first-of-type a {
       &::after {
         height: 12px;
+        // Faux dropshadow
         background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%,rgba(0,0,0,0) 100%);
       }
     }
-
-    // &.-toggled {
-    //   @include max-screen($breakpoint-nav) {
-    //     max-height: 200px;
-    //   }
-    // }
   }
   .menu-item-has-children:hover {
     @include min-screen($breakpoint-nav) {
@@ -169,36 +139,6 @@
           height: 80px;
         }
       }
-    }
-  }
-
-  // Toggles for sub-menus on mobile
-  .sub-menu-toggle {
-    top: 0;
-    height: 47px;
-    border: none;
-    cursor: pointer;
-    background: none;
-    position: absolute;
-    text-align: center;
-    right: -$global-padding;
-    width: #{$global-padding};
-    &:focus {
-      outline: none;
-    }
-    // &::before {
-    //   content: '▼';
-    //   color: $black;
-    //   margin-left: -12px;
-    // }
-    @include min-screen($breakpoint-nav) {
-      display: none;
-    }
-  }
-
-  @include media-md {
-    .nav {
-      padding-left: 50%;
     }
   }
 
@@ -219,32 +159,46 @@
       display: inline-block;
       &:hover {
         @include theme-color('color', $yellow, 'accent2');
-        // color: $yellow;
-        // border-bottom: 1px solid $white;
       }
     }
 
-    .menu-search a {
-      margin-left: 16px;
-      padding: 6px 30px 4px;
+    // Search and donate have 2px border
+    .menu-search a,
+    > ul > .menu-donate a {
+      margin-left: $gutter;
+      padding: 7px 30px 5px;
       box-shadow: inset 0px 0px 0px 2px $white;
     }
-
-    // & > ul > li {
-    //   &::before,
-    //   &::after {
-    //     display: none;
-    //   }
-    // }
+    .menu-search a {
+      text-indent: -9999px;
+      position: relative;
+      width: 36px;
+      padding-left: 0;
+      padding-right: 0;
+      &:hover {
+        svg {
+          @include theme-color('fill', $yellow, 'accent2');
+        }
+      }
+      svg {
+        display: block;
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        width: 12px;
+        height: 12px;
+        fill: $white;
+      }
+    }
 
     .nav {
       padding-left: 0;
       float: right;
-      margin-right: #{$column-width * 20/17};
+      // margin-right: #{$column-width * 20/17};
+      margin-right: $gutter;
       @include clearfix;
       > li {
         float: left;
-        // padding-right: 20px;
         line-height: 85px;
         &:hover {
           color: $black;
@@ -255,11 +209,11 @@
       }
     }
 
+    // Default state of drop-down menu
     .sub-menu {
       width: 350px;
       position: absolute;
       height: 0;
-      // opacity: 0;
       top: -1000px;
       left: 50%;
       margin-left: -175px;
@@ -271,15 +225,15 @@
       }
       li {
         width: 350px;
-        &:first-of-type {}
-        &:last-of-type {}
       }
     }
 
+    // Dropdown menus
     .menu-item-has-children:hover {
       .sub-menu {
         top: 85px;
         height: auto;
+        // Chop off dropshadow on top with pseudo element
         &::before {
           content: '';
           position: absolute;
@@ -287,7 +241,6 @@
           left: -10px;
           width: 370px;
           height: 10px;
-          // background: $red;
           @include theme-color('background', $red);
           pointer-events: none;
         }
@@ -295,7 +248,6 @@
           @include theme-color('background', $red);
           text-align: center;
         }
-        a {}
       }
     }
 
@@ -329,5 +281,69 @@
   @include min-screen($breakpoint-nav) {
     top: auto;
     display: none;
+  }
+}
+
+// Search form in nav
+.nav-search {
+  display: none;
+  float: right;
+  margin-right: $gutter;
+  width: columns(8);
+  padding-top: 24px;
+  form input[type=text] {
+    @include theme-color('border-color', $white, 'accent');
+    width: columns(5,8);
+    float: left;
+    &:valid {
+      // Match button sizes
+      max-height: 36px;
+    }
+  }
+  .go-button {
+    width: columns(2,8);
+    float: left;
+    height: 36px;
+    line-height: 30px;
+    background: none;
+    border: none;
+    border: 2px solid $white;
+    @include theme-color('border-color', $white, 'accent');
+    @include theme-color('color', $white, 'accent');
+    &:hover {
+      @include theme-color('color', $yellow, 'accent2');
+    }
+  }
+  .search-close {
+    display: block;
+    float: right;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 2px solid $white;
+    @include theme-color('border-color', $white, 'accent');
+    @include theme-color('color', $white, 'accent');
+    text-align: center;
+    position: relative;
+    svg {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 12px;
+      height: 12px;
+      @include theme-color('fill', $white, 'accent');
+    }
+    &:hover svg {
+      @include theme-color('fill', $yellow, 'accent2');
+    }
+  }
+}
+
+.site-header.search-active {
+  #menu-main-nav {
+    display: none;
+  }
+  .nav-search {
+    display: block;
   }
 }

@@ -57,7 +57,7 @@ $cpt->columns()->populate('featured', function($column, $post_id) {
  * CMB2 custom fields
  */
 add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );
-function metaboxes( array $meta_boxes ) {
+function metaboxes() {
   $prefix = '_cmb2_';
 
   $workshop_info = new_cmb2_box([

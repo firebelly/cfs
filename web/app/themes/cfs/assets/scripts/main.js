@@ -163,19 +163,17 @@ var CFS = (function($) {
   }
 
   function _initNav() {
-    // Give sticky class on scroll
-    // $(window).on('scroll', function() {
-    //   if ($(window).scrollTop() > $siteHeader.outerHeight()) {
-    //     $siteHeader.addClass('-sticky');
-    //   } else {
-    //     $siteHeader.removeClass('-sticky');
-    //   }
-    // });
-
-    // Duplicate the header logo for the nav
-    // $('.site-header .brand').clone().prependTo('.site-nav');
-
-    $('<button class="menu-toggle"><span class="lines"></span><svg class="icon icon-circle-stroke" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61.8 62"><style>.circle-stroke{fill:none;}</style><path id="bottom" class="circle-stroke" d="M1 33c1 15.6 14 28 29.9 28 15.9 0 28.9-12.4 29.9-28"/><path id="top" class="circle-stroke" d="M60.8 29c-1-15.6-14-28-29.9-28C15 1 2 13.4 1 29"/></svg></button>')
+    // Search Icon
+    $('<svg class="icon icon-search" aria-hidden="hidden" role="image"><title>Search</title><use xlink:href="#icon-search"/></svg>').appendTo('#menu-main-nav .menu-search a');
+    $('body').on('click', '.menu-search a,.nav-search a', function(e) {
+      e.preventDefault();
+      $('.site-header').toggleClass('search-active');
+      if ($('.site-header').hasClass('search-active')) {
+        $('.search-form .search-field').focus();
+      }
+    });
+    // Mobile menu toggle
+    $('<button class="menu-toggle">Menu</button>')
       .prependTo('.site-header')
       .on('click', function(e) {
       if (!$('.site-nav').is('.-active')) {
