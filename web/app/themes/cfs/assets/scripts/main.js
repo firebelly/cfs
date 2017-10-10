@@ -38,17 +38,10 @@ var CFS = (function($) {
     $('main').fitVids();
 
     _initNav();
-    // _initSearch();
-    // _initLoadMore();
     _initBigClicky();
     _initAccordions();
     // _initFormActions();
-    // _initBadgeOverlay();
-    // _initItemGrid();
-    // _initProgramOverlay();
-    // _initStateHandling();
-    // _initDraggableElements();
-    // _initSlickSliders();
+    _initSlickSliders();
     // _initStickyElements();
 
     // Esc handlers
@@ -199,21 +192,21 @@ var CFS = (function($) {
       slide: '.slide-item',
       autoplay: true,
       arrows: true,
-      prevArrow: '<div class="previous-item button-prev nav-button"><svg class="icon icon-circle-stroke" aria-hidden="hidden" role="image"><use xlink:href="#icon-circle-stroke"/></svg><svg class="icon icon-arrow-left button-next" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-left"/></svg><span class="sr-only">Prev</span></div>',
-      nextArrow: '<div class="next-item button-next nav-button"><svg class="icon icon-circle-stroke" aria-hidden="hidden" role="image"><use xlink:href="#icon-circle-stroke"/></svg><svg class="icon icon-arrow-right button-next" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg><span class="sr-only">Next</span></div>',
+      prevArrow: '<div class="button previous-item button-prev nav-button"><svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg><span class="sr-only">Prev</span></div>',
+      nextArrow: '<div class="button next-item button-next nav-button"><svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg><span class="sr-only">Next</span></div>',
       dots: false,
       autoplaySpeed: 6000,
       speed: 300,
       lazyLoad: 'ondemand'
     });
 
-    $('a.lightbox').swipebox({
-      autoplayVideos: false,
-      loopAtEnd: false,
-      afterOpen: function() {
-        $('#swipebox-slider .slide:last-of-type').remove();
-      }
-    });
+    // $('a.lightbox').swipebox({
+    //   autoplayVideos: false,
+    //   loopAtEnd: false,
+    //   afterOpen: function() {
+    //     $('#swipebox-slider .slide:last-of-type').remove();
+    //   }
+    // });
 
   }
 
