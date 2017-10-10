@@ -3,7 +3,7 @@
  * Extra fields for Pages
  */
 
-namespace Firebelly\PostTypes\Pages;
+namespace Firebelly\Fields\Pages;
 
 add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );
 function metaboxes() {
@@ -28,7 +28,7 @@ function metaboxes() {
     'type' => 'textarea_small',
   ]);
 
-  // Parent navigation fields
+  // Parent page navigation fields
   $parent_page_navigation = new_cmb2_box([
     'id'            => 'landing_page_navigation',
     'title'         => __( 'Landing Page Navigation', 'cmb2' ),
@@ -101,4 +101,3 @@ function metaboxes() {
     'desc' => 'e.g. Support Us'
   ]);
 }
-

@@ -1,0 +1,39 @@
+// Sliders
+@charset "UTF-8";
+
+.slider {
+  margin: 0;
+  padding: 0;
+
+  .slide-item {
+    &:focus {
+      outline: none;
+    }
+  }
+  .button-prev,
+  .button-next {
+  	position: absolute;
+  	bottom: 30px;
+  	left: columns(2,18);
+  	width: 60px;
+  	height: 60px;
+  	border: 2px solid $white;
+  	cursor: pointer;
+  	svg {
+  		width: 20px;
+  		height: 20px;
+  		fill: $white;
+  	}
+  }
+  .button-prev {
+  	svg {
+  		transform: rotate(180deg);
+  	}
+  }
+  .button-next {
+  	left: calc(#{columns(2,18)} + 72px);
+  }
+}
+.slide-image {
+	@include aspect-ratio(1220,548);
+}

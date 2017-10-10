@@ -1,29 +1,29 @@
 <?php
 /**
- * Extra fields for Posts
+ * Extra fields for Posts (and shared fields w/ other post types)
  */
 
-namespace Firebelly\PostTypes\Posts;
+namespace Firebelly\Fields\Posts;
 
 function metaboxes() {
   $prefix = '_cmb2_';
 
-  // $meta_boxes['post_metabox'] = array(
-  //   'id'            => 'post_metabox',
-  //   'title'         => esc_html__( 'Image Slideshow', 'cmb2' ),
-  //   'object_types'  => array( 'post', ), // Post type
-  //   'context'       => 'normal',
-  //   'priority'      => 'high',
-  //   'show_names'    => true, // Show field names on the left
-  //   'fields'        => array(
-  //     array(
-  //       'name' => 'Images',
-  //       'id'   => $prefix .'slideshow-images',
-  //       'type' => 'file_list',
-  //       'description' => esc_html__( 'Multiple images as a slideshow in the featured image section of the post', 'cmb' ),
-  //     ),
-  //   ),
-  // );
+  // Parent navigation fields
+  $image_slideshow = new_cmb2_box([
+    'id'            => 'image_slideshow',
+    'title'         => esc_html__( 'Image Slideshow', 'cmb2' ),
+    'object_types'  => ['program'],
+    'context'       => 'side',
+    'priority'      => 'low',
+    'closed'        => true,
+  ]);
+  $image_slideshow->add_field([
+    'name'       => __( 'Images', 'cmb2' ),
+    'show_names' => false,
+    'id'         => $prefix .'slideshow_images',
+    'type'       => 'file_list',
+    'desc'       => esc_html__('Slideshow for bottom of post', 'cmb2'),
+  ]);
 
   $post_is_featured = new_cmb2_box([
     'id'            => $prefix . 'post_is_featured',
@@ -137,31 +137,36 @@ add_action( 'do_meta_boxes', __NAMESPACE__ . '\\remove_tags_metabox' );
 /**
  * Get post images and put into slideshow
  */
-function get_post_slideshow($post_id) {
-    $images = get_post_meta($post_id, '_cmb2_slideshow-images', true);
-    $video_links_parsed = get_post_meta($post_id, '_cmb2_video_links_parsed', true);
+function get_post_slideshow($post, $opts=[]) {
+  $opts = array_merge([
+    'treated_images' => false
+  ], $opts);
+  if (!is_object($post) || empty($post->ID)) return;
+  $images = get_post_meta($post->ID, '_cmb2_slideshow_images', true);
+  $video_links_parsed = get_post_meta($post->ID, '_cmb2_video_links_parsed', true);
+  if (!$images && !$video_links_parsed) return;
 
-    if (!$images && !$video_links_parsed) return false;
-    $output = '<ul class="slider">';
-    // Are there videos?
-    if ($video_links_parsed) {
-      $output .= \Firebelly\Utils\video_slideshow($video_links_parsed);
+  $output = '<div class="slideshow"><ul class="slider">';
+  // Are there videos?
+  if ($video_links_parsed) {
+    $output .= \Firebelly\Utils\video_slideshow($video_links_parsed);
+  }
+  // Is there also a featured image?
+  // if (has_post_thumbnail($post)) {
+  //   $output .= '<li class="slide-item"><div class="slide-image" ' . \Firebelly\Media\get_header_bg($post, ['size' => 'large']) . '></div></li>';
+  // }
+  if ($images) {
+    foreach ($images as $attachment_id => $attachment_url) {
+      if (!empty($opts['treated_images'])) {
+        $image = \Firebelly\Media\get_header_bg($attachment_url, ['thumb_id' => $attachment_id, 'size' => 'large', 'output' => 'image']);
+      } else {
+        $image =  wp_get_attachment_image_src($attachment_id, 'large')[0];
+      }
+      $output .= '<li class="slide-item"><div class="slide-image" style="background-image:url(' . $image . ')"></div></li>';
     }
-    // Is there also a featured image?
-    if (get_the_post_thumbnail($post_id)) {
-      $image = get_post($post_id);
-      $image = \Firebelly\Media\get_header_bg($image, ['size' => 'large']);
-      $output .= '<li class="slide-item"><div class="slide-image" '.$image.'></div></li>';
-    }
-    if ($images) {
-      foreach ($images as $attachment_id => $attachment_url):
-        $image = get_attached_file($attachment_id, false);
-        $image = \Firebelly\Media\get_header_bg($image, ['size' => 'large']);
-        $output .= '<li class="slide-item"><div class="slide-image" '.$image.'></div></li>';
-      endforeach;
-    }
-    $output .= '</ul>';
-    return $output;
+  }
+  $output .= '</ul></div>';
+  return $output;
 }
 
 /**

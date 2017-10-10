@@ -21,9 +21,22 @@ body.theme-yellow {
   }
 }
 
+// Make sure registration info shows
+.single-workshop,
+.single-program {
+  .intro-wrap {
+    min-height: 330px;
+  }
+  .slider {
+    margin-left: columns(2);
+    background: $black;
+    padding-left: columns(1,20);
+  }
+}
 .intro-wrap {
   position: relative;
 }
+
 .registration {
   @extend .h3;
   .button:hover {

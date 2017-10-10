@@ -92,16 +92,16 @@
         transition-delay: 0s;
       }
       &:nth-child(2) {
-        transition-delay: 0.05s;
-      }
-      &:nth-child(3) {
         transition-delay: 0.1s;
       }
+      &:nth-child(3) {
+        transition-delay: 0.25s;
+      }
       &:nth-child(4) {
-        transition-delay: 0.15s;
+        transition-delay: 0.4s;
       }
       &:nth-child(5) {
-        transition-delay: 0.2s;
+        transition-delay: 0.55s;
       }
       height: 0;
       overflow: hidden;
