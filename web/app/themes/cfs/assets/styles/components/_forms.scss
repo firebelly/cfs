@@ -2,6 +2,13 @@ form {
 	label:not(.control) {
 		padding: 0 $gutter vertical-beat(1) $gutter;
 	}
+	fieldset {
+		margin: 0;
+		padding: vertical-beat(4) 0;
+		border: none;
+		position: relative;
+		@include hr();
+	}
 	input[type=text],
 	input[type=email] {
 		padding: 0 $gutter vertical-beat(1) $gutter;
@@ -23,6 +30,11 @@ form {
 	}
 	.input-item {
 		position: relative;
+		margin-bottom: vertical-beat(2);
+		&.select {
+			display: block;
+			width: 100%;
+		}
 	}
 	label:not(.control) {
 		transition: all .1s steps(2);
@@ -38,46 +50,52 @@ form {
 		color: $yellow;
 		border-left: 2px solid $yellow;
 	}
-
+	// Subheads
+	h3 .note {
+		display: block;
+		text-transform: none;
+		letter-spacing: .06875em;
+		font: 12px/1.5 $font-regular;
+		margin: 5px 0 vertical-beat(3);
+	}
 }
 
 // Search form
-.search-form {
-}
-.search-form label {
-  font-weight: normal;
-}
-.search-form .search-field {
-}
-.search-form .search-submit {
-}
+.search-form {}
+.search-form label {}
+.search-form .search-field {}
+.search-form .search-submit {}
 
 // wtf-forms
+//**********
 
 // Checkboxes and radios
 .control {
   position: relative;
-  display: inline-block;
+  display: block;
   padding-left: grid(5);
   cursor: pointer;
   margin-bottom: vertical-beat(2);
+  min-height: 36px;
+  font: 12px/1.5 $font-display;
+  .description {
+  	display: block;
+  	font: 12px/1.5 $font-regular;
+  }
+  input {
+    position: absolute;
+    opacity: 0;
+    z-index: -1; /* Put the input behind the label so it doesn't overlay text */
+  }
 }
-.control input {
-  position: absolute;
-  opacity: 0;
-  z-index: -1; /* Put the input behind the label so it doesn't overlay text */
-}
+
 .control-indicator {
   position: absolute;
-  top: .25rem;
+  top: 0;
   left: 0;
   display: block;
   width: 36px;
   height: 36px;
-  line-height: 1rem;
-  font-size: 65%;
-  color: #eee;
-  text-align: center;
   background-color: $white;
   border: 2px solid $black;
   background-position: center center;
@@ -94,9 +112,9 @@ form {
 */
 
 /* Focus */
-.control input:focus ~ .control-indicator {
-  box-shadow: 0 0 0 .075rem #fff, 0 0 0 .2rem $yellow;
-}
+// .control input:focus ~ .control-indicator {
+//   box-shadow: 0 0 0 .075rem #fff, 0 0 0 .2rem $yellow;
+// }
 
 /* Checked state */
 .control input:checked ~ .control-indicator {
@@ -111,11 +129,8 @@ form {
 }
 
 /* Checkbox modifiers */
-.checkbox .control-indicator {
-  border-radius: .25rem;
-}
 .checkbox input:checked ~ .control-indicator {
-  background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNy4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgOCA4IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA4IDgiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTYuNCwxTDUuNywxLjdMMi45LDQuNUwyLjEsMy43TDEuNCwzTDAsNC40bDAuNywwLjdsMS41LDEuNWwwLjcsMC43bDAuNy0wLjdsMy41LTMuNWwwLjctMC43TDYuNCwxTDYuNCwxeiINCgkvPg0KPC9zdmc+DQo=);
+	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE4IDE4Ij48cGF0aCBmaWxsPSIjMzIzMjI4IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0wIDBoMTh2MThIMHoiLz48L3N2Zz4=);
 }
 
 /* Radio modifiers */
@@ -137,7 +152,7 @@ form {
   color: #555;
 }
 .select select {
-  display: inline-block;
+  display: block;
   width: 100%;
   margin: 0;
   padding: .5rem 2.25rem .5rem 1rem;
@@ -148,9 +163,7 @@ form {
   border-radius: .25rem;
   cursor: pointer;
   outline: 0;
-  -webkit-appearance: none;
-     -moz-appearance: none;
-          appearance: none;
+  appearance: none;
 }
 /* Undo the Firefox inner focus ring */
 .select select:focus:-moz-focusring {

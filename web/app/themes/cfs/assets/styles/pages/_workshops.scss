@@ -73,12 +73,12 @@ body.post-type-archive-workshop {
         .wrap {
           margin: 0 35px;
           min-height: 300px;
-          padding-bottom: 60px;
+          padding-bottom: vertical-beat(6);
           position: relative;
         }
         .button {
           position: absolute;
-          bottom: 80px;
+          bottom: vertical-beat(6);
           left: 0;
         }
         border-right: 1px solid $black;
@@ -89,14 +89,14 @@ body.post-type-archive-workshop {
           &::before {
             content: '';
             position: absolute;
-            top: -#{vertical-beat(8)};
+            top: -#{vertical-beat(6)};
             left: 35px;
             width: 1000em;
             height: 1px;
             padding-bottom: 1px;
             background: $black;
-            border-top: vertical-beat(4) solid $white;
-            border-bottom: vertical-beat(4) solid $white;
+            border-top: vertical-beat(3) solid $white;
+            border-bottom: vertical-beat(3) solid $white;
             z-index: 1;
           }
         }

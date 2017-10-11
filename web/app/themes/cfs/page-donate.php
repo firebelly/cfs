@@ -12,6 +12,7 @@
     </div>
 
     <form action="#" method="post" class="donate-form switch-pane" data-switch="single">
+      <hr>
       <h2>Give Once</h2>
       <hr>
       <h3>Choose an Amount</h3>
@@ -27,9 +28,11 @@
         <span class="amount">$500</span>
         <span class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</span>
       </label>
+      <button class="button -red -wide">Complete Donation</button>
     </form>
 
     <form action="#" method="post" class="donate-form switch-pane" data-switch="recurring">
+      <hr>
       <h2>Give Monthly</h2>
       <hr>
       <h3>Choose an Amount</h3>
@@ -45,6 +48,7 @@
         <span class="amount">$500</span>
         <span class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</span>
       </label>
+      <button class="button -red -wide">Complete Donation</button>
     </form>
   </div>
 </div></div>

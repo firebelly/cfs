@@ -57,6 +57,9 @@
         color: $black;
         border-color: $black;
       }
+      .input-item {
+        margin-bottom: 0;
+      }
     }
     .input-name {
       margin-left: -($gutter + 2px);

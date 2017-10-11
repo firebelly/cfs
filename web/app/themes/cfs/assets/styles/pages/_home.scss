@@ -48,6 +48,9 @@
   .featured {
     background: $black;
     margin-left: columns(2);
+    .button.-red:hover {
+      color: $black;
+    }
   }
 
   // Shared featured post styles

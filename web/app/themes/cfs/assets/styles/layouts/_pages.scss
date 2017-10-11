@@ -1,0 +1,19 @@
+.secondary-content {
+  margin-left: columns(2);
+  background: $black;
+  padding-left: columns(1,20);
+  .color-wrap {
+    background: $red;
+    padding-left: columns(8,17);
+    >.wrap {
+      background: $white;
+      padding: 0 columns(1,9) vertical-beat(4) columns(1,9);
+    }
+  }
+  hr {
+    margin: vertical-beat(4) -#{columns(2,8)} vertical-beat(4) 0;
+  }
+  h3 {
+    margin-bottom: vertical-beat(2);
+  }
+}
