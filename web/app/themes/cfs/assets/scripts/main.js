@@ -40,7 +40,7 @@ var CFS = (function($) {
     _initNav();
     _initBigClicky();
     _initAccordions();
-    // _initFormActions();
+    _initForms();
     _initSlickSliders();
     // _initStickyElements();
 
@@ -151,10 +151,6 @@ var CFS = (function($) {
     });
   }
 
-  function _injectSvgSprite() {
-    boomsvgloader.load('/app/themes/girlsgarage/assets/svgs/build/svgs-defs.svg');
-  }
-
   function _initNav() {
     // Search Icon
     $('<svg class="icon icon-search" aria-hidden="hidden" role="image"><title>Search</title><use xlink:href="#icon-search"/></svg>').appendTo('#menu-main-nav .menu-search a');
@@ -208,6 +204,18 @@ var CFS = (function($) {
     //   }
     // });
 
+  }
+
+  function _initForms() {
+    $('body').on('click', '.switches a', function(e) {
+      e.preventDefault();
+      var sw = $(this).attr('data-switch');
+      $('.switches a').removeClass('active');
+      $(this).addClass('active');
+      console.log(sw);
+      $('.switch-pane').removeClass('active');
+      $('.switch-pane[data-switch=' + sw + ']').addClass('active');
+    });
   }
 
   function _initStickyElements() {

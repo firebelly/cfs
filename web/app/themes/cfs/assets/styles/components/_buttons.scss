@@ -33,6 +33,7 @@
     transform: scaleX(0);
     transition: transform .1s steps(2);
   }
+  &.active,
   &:hover {
     color: $white;
     &::before {
@@ -53,6 +54,7 @@
     &::before {
       background: $white;
     }
+    &.active,
     &:hover {
       color: $black;
       svg {
@@ -68,8 +70,9 @@
     &::before {
       background: $red;
     }
+    &.active,
     &:hover {
-      color: $black;
+      color: $white;
       svg {
         fill: $black;
       }

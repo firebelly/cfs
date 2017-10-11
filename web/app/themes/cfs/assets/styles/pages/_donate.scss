@@ -1,0 +1,46 @@
+// Donate page
+
+body.donate {
+	.page-header.half .page-intro .page-content {
+		padding-bottom: vertical-beat(1);
+	}
+	.secondary-content {
+		margin-left: columns(2);
+		background: $black;
+		padding-left: columns(1,20);
+		.color-wrap {
+			background: $red;
+			padding-left: columns(8,17);
+			>.wrap {
+				background: $white;
+				padding: 0 columns(1,9) vertical-beat(4) columns(1,9);
+			}
+		}
+		hr {
+		  margin-right: -#{columns(2,8)};
+		}
+	}
+	.switches {
+		.-left {
+			padding-right: #{$gutter / 2};
+		}
+		.-right {
+			padding-left: #{$gutter / 2};
+		}
+	}
+	.switch-pane {
+		display: none;
+		&.active {
+			display: block;
+		}
+	}
+}
+.donate-form {
+	.control {
+		font: 12px/1.5 $font-regular;
+	}
+	.amount {
+		display: block;
+		font: 12px/1 $font-display;
+	}
+}

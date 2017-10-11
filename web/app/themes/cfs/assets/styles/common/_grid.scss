@@ -1,6 +1,7 @@
 // Grid
 
-$vertical-beat: 10px;
+$vertical-beat: 12px;
+$grid: 12px;
 $gutter: 24px;
 
 $global-padding: 70px;
@@ -15,6 +16,9 @@ $column-width: 100% / $global-columns;
 }
 @function vertical-beat($num) {
   @return $vertical-beat * $num;
+}
+@function grid($num) {
+  @return $grid * $num;
 }
 
 .grid {

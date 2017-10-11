@@ -41,7 +41,6 @@
   font: 500 12px/1.5 $font-display;
   letter-spacing: .06875em;
   @extend %smooth;
-  padding: vertical-beat(6) $global-padding vertical-beat(14);
   box-shadow: 0 2px 12px 0 rgba(#000, .5);
 
   .logo-wordmark {
@@ -95,13 +94,13 @@
         transition-delay: 0.1s;
       }
       &:nth-child(3) {
-        transition-delay: 0.25s;
+        transition-delay: 0.2s;
       }
       &:nth-child(4) {
-        transition-delay: 0.4s;
+        transition-delay: 0.3s;
       }
       &:nth-child(5) {
-        transition-delay: 0.55s;
+        transition-delay: 0.4s;
       }
       height: 0;
       overflow: hidden;
@@ -154,7 +153,7 @@
     @include bar('left', $black, 17);
 
     a {
-      padding: vertical-beat(3) 16px;
+      padding: vertical-beat(2) 16px;
       color: $white;
       display: inline-block;
       &:hover {
