@@ -2,6 +2,7 @@
 /*
   Template name: Homepage
 */
+use jamiehollern\eventbrite\Eventbrite;
 
 $header_video = get_post_meta($post->ID, '_cmb2_featured_video', true);
 if (!$header_video) {
@@ -37,6 +38,12 @@ $custom_featured_image = get_post_meta($post->ID, '_cmb2_custom_featured_image',
 $custom_featured_image_id = get_post_meta($post->ID, '_cmb2_custom_featured_image_id', true);
 $custom_featured_link = get_post_meta($post->ID, '_cmb2_custom_featured_link', true);
 $custom_featured_link_text = get_post_meta($post->ID, '_cmb2_custom_featured_link_text', true);
+
+$eventbrite = new Eventbrite(getenv('EVENTBRITE_OAUTH_TOKEN'));
+$events = $eventbrite->get('users/me/owned_events/', ['expand' => 'ticket']);
+print_r($events['body']['events']);
+exit;
+
 ?>
 
 <header class="page-header homepage">

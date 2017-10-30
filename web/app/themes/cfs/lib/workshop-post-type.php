@@ -5,6 +5,7 @@
 
 namespace Firebelly\PostTypes\Workshop;
 use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
+use jamiehollern\eventbrite\Eventbrite;
 
 $cpt = new PostType('workshop', [
   'taxonomies' => ['workshop_type', 'workshop_series'],
@@ -212,4 +213,75 @@ function get_workshop_date($workshop_post) {
 function get_series($post) {
   $series = \Firebelly\Utils\get_first_term($post, 'workshop_series');
   return (empty($series)) ? '' : $series->name;
+}
+
+// daily cronjob to import new videos
+// add_action('wp', __NAMESPACE__ . '\\activate_eventbrite_import');
+function activate_eventbrite_import() {
+  if (!wp_next_scheduled('eventbrite_import')) {
+    wp_schedule_event(current_time('timestamp'), 'twicedaily', 'eventbrite_import');
+  }
+}
+// add_action( 'eventbrite_import', __NAMESPACE__ . '\\eventbrite_import' );
+function fb_eventbrite_import() {
+  global $wpdb;
+
+  $eventbrite = new Eventbrite(getenv('EVENTBRITE_OAUTH_TOKEN'));
+
+  // $last_run = get_option( 'fb_eventbrite_import_last_run' );
+  try {
+
+    $events = $eventbrite->get('users/me/owned_events/', ['expand' => 'tickets']);
+
+    foreach ( $events['body']['events'] as $event ) {
+
+      $video_exists = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s", '_cmb2_eventbrite_id', $event['id'] ) );
+      if (!$video_exists) {
+        $publishedAt = strtotime($event['created']);
+        // insert video
+        $video_post = array(
+          'post_status' => 'publish',
+          'post_type' => 'workshop',
+          'post_author' => 1,
+          'post_date' => date('Y-m-d H:i:s', $publishedAt),
+          'post_date_gmt' => date('Y-m-d H:i:s', $publishedAt),
+          'post_title' => $event['name']['text'],
+          'post_content' => $event['description']['html'],
+        );
+        $new_post_id = wp_insert_post( $video_post, $wp_error );
+
+        // image = $event['logo']['original']['url']
+        if ( $new_post_id ) {
+          update_post_meta($new_post_id, '_cmb2_eventbrite_id', $event['id'] );
+          update_post_meta($new_post_id, '_cmb2_application_deadline', $event['']);
+          update_post_meta($new_post_id, '_cmb2_time', $event['']);
+          update_post_meta($new_post_id, '_cmb2_date_end', $event['']);
+          update_post_meta($new_post_id, '_cmb2_date_start', $event['']);
+          update_post_meta($new_post_id, '_cmb2_tickets_available', $event['']);
+          update_post_meta($new_post_id, '_cmb2_eventbrite_url', $event['']);
+          update_post_meta($new_post_id, '_cmb2_cost', $event['']);
+
+          update_post_meta($new_post_id, '_cmb2_video_image', $event->snippet->thumbnails->high->url );
+          update_post_meta($new_post_id, '_cmb2_video_image', $event->snippet->thumbnails->high->url );
+          // update_post_meta( $new_post_id, '_cmb2_upload_time', $publishedAt );
+
+          // set category to playlist title
+          $cat_ids = array();
+          foreach($video_cats as $video_cat) {
+            if ($video_cat->name == $playlist->snippet->title)
+              $cat_ids[] = (int)$video_cat->term_id;
+          }
+          if (!empty($cat_ids))
+            wp_set_object_terms( $new_post_id, $cat_ids, 'video_cat');
+        }
+      }
+    }
+
+  } catch ( Exception $e ) {
+    echo 'Error fetching events: ' . $e->getMessage();
+    wp_mail( 'developer@firebellydesign.com', 'CFS error', 'Error fetching events: ' . $e->getMessage() );
+  }
+  // set date run so next run avoids unnecessary overhead
+  // UPDATE: can't use because getPlaylistItemsByPlaylistId doesn't allow publishedAfter param!
+  // update_option ( 'fb_eventbrite_import_last_run', date('Y-m-d\TH:i:sP') );
 }
