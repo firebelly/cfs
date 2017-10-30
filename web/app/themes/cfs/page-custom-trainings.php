@@ -81,6 +81,7 @@
             <option value="#">Two</option>
           </select>
           <label for="">Type of Organization</label>
+          <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg></span>
         </div>
 
         <div class="input-item select">
@@ -89,6 +90,7 @@
             <option value="#">Two</option>
           </select>
           <label for="">Size of Group</label>
+          <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg></span>
         </div>
 
         <div class="input-item select">
@@ -97,6 +99,7 @@
             <option value="#">Two</option>
           </select>
           <label for="">Organization Budget</label>
+          <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg></span>
         </div>
       </fieldset>
 

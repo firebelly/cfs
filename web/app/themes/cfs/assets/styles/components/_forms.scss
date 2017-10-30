@@ -19,10 +19,10 @@ form {
 		border: none;
 		border-left: 2px solid $yellow;
 		border-bottom: 2px solid $yellow;
-		padding: vertical-beat(1) $gutter;
+		padding: vertical-beat(.75) $gutter vertical-beat(1) $gutter;
 		&:focus,
 		&:valid {
-			padding: 0 $gutter vertical-beat(2) $gutter;
+			padding: vertical-beat(.25) $gutter vertical-beat(1.5) $gutter;
 			+ label {
 				top: -16px;
 			}
@@ -30,7 +30,7 @@ form {
 	}
 	.input-item {
 		position: relative;
-		margin-bottom: vertical-beat(2);
+		margin-bottom: 28px;
 		&.select {
 			display: block;
 			width: 100%;
@@ -149,21 +149,27 @@ form {
 .select {
   position: relative;
   display: inline-block;
-  color: #555;
+  color: $black;
 }
 .select select {
   display: block;
   width: 100%;
   margin: 0;
-  padding: .5rem 2.25rem .5rem 1rem;
-  line-height: 1.5;
-  color: #555;
-  background-color: #eee;
-  border: 0;
-  border-radius: .25rem;
+  // padding: vertical-beat(1) $gutter;
+  padding: vertical-beat(.25) $gutter vertical-beat(1.5) $gutter;
+  line-height: 1;
+  color: $black;
+  background: none;
+  border: none;
+  border-radius: 0;
+  border-left: 2px solid $yellow;
+  border-bottom: 2px solid $yellow;
   cursor: pointer;
   outline: 0;
   appearance: none;
+  + label {
+  	top: -16px;
+  }
 }
 /* Undo the Firefox inner focus ring */
 .select select:focus:-moz-focusring {
@@ -171,20 +177,23 @@ form {
   text-shadow: 0 0 0 #000;
 }
 /* Dropdown arrow */
-.select:after {
+.select .arrow {
   position: absolute;
-  top: 50%;
-  right: 1.25rem;
-  display: inline-block;
-  content: "";
-  width: 0;
-  height: 0;
-  margin-top: -.15rem;
+  bottom: 0;
+  right: 0;
+  width: grid(5);
+  height: grid(5);
   pointer-events: none;
-  border-top: .35rem solid;
-  border-right: .35rem solid transparent;
-  border-bottom: .35rem solid transparent;
-  border-left: .35rem solid transparent;
+  border: 2px solid $yellow;
+  svg {
+  	position: absolute;
+  	top: 16px;
+  	left: 17px;
+  	width: 24px;
+  	height: 24px;
+	  fill: $yellow;
+	  transform: rotate(90deg);
+  }
 }
 
 /* Hover state */
@@ -196,13 +205,13 @@ form {
 
 /* Focus */
 .select select:focus {
-  box-shadow: 0 0 0 .075rem #fff, 0 0 0 .2rem $black;
+  // box-shadow: 0 0 0 .075rem #fff, 0 0 0 .2rem $black;
 }
 
 /* Active/open */
 .select select:active {
-  color: #fff;
-  background-color: $black;
+  // color: #fff;
+  // background-color: $black;
 }
 
 /* Hide the arrow in IE10 and up */
