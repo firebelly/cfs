@@ -5,7 +5,7 @@
 
 namespace Firebelly\PostTypes\Workshop;
 use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
-use jamiehollern\eventbrite\Eventbrite;
+use jamiehollern\eventbrite\Eventbrite; // see https://github.com/jamiehollern/eventbrite
 
 $cpt = new PostType('workshop', [
   'taxonomies' => ['workshop_type', 'workshop_series'],
@@ -226,53 +226,99 @@ function activate_eventbrite_import() {
 function fb_eventbrite_import() {
   global $wpdb;
 
+  // Pull in libraries for media_sideload_image()
+  require_once(ABSPATH . 'wp-admin/includes/media.php');
+  require_once(ABSPATH . 'wp-admin/includes/file.php');
+  require_once(ABSPATH . 'wp-admin/includes/image.php');
+
+  // Cache categories
+  $workshop_series = get_terms('workshop_series', ['hide_empty' => 0]);
+  $workshop_types = get_terms('workshop_types', ['hide_empty' => 0]);
+
+  // Connect to Eventbrite API (uses .env token)
   $eventbrite = new Eventbrite(getenv('EVENTBRITE_OAUTH_TOKEN'));
 
   // $last_run = get_option( 'fb_eventbrite_import_last_run' );
   try {
 
-    $events = $eventbrite->get('users/me/owned_events/', ['expand' => 'tickets']);
+    // Get all user events
+    $events = $eventbrite->get('users/me/owned_events/', ['expand' => 'ticket_classes']);
 
     foreach ( $events['body']['events'] as $event ) {
-
-      $video_exists = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s", '_cmb2_eventbrite_id', $event['id'] ) );
-      if (!$video_exists) {
+      $workshop_id = null;
+      $event_exists = $wpdb->get_var($wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s", '_cmb2_eventbrite_id', $event['id'] ));
+      if (!$event_exists) {
+        // Get timestamp of date event created
         $publishedAt = strtotime($event['created']);
-        // insert video
-        $video_post = array(
+
+        // Strip out crappy inline styles and empty span/divs left behind
+        $event_html = $event['description']['html'];
+        $event_html = preg_replace('/ style=("|\')(.*?)("|\')/i','',$event_html);
+        $event_html = preg_replace('~<[\/]?(div|span)>~i','',$event_html);
+
+        // Insert workshop post
+        $video_post = [
           'post_status' => 'publish',
           'post_type' => 'workshop',
           'post_author' => 1,
           'post_date' => date('Y-m-d H:i:s', $publishedAt),
           'post_date_gmt' => date('Y-m-d H:i:s', $publishedAt),
           'post_title' => $event['name']['text'],
-          'post_content' => $event['description']['html'],
-        );
-        $new_post_id = wp_insert_post( $video_post, $wp_error );
+          'post_content' => $event_html,
+        ];
+        $new_workshop_id = wp_insert_post($video_post, $wp_error);
 
-        // image = $event['logo']['original']['url']
-        if ( $new_post_id ) {
-          update_post_meta($new_post_id, '_cmb2_eventbrite_id', $event['id'] );
-          update_post_meta($new_post_id, '_cmb2_application_deadline', $event['']);
-          update_post_meta($new_post_id, '_cmb2_time', $event['']);
-          update_post_meta($new_post_id, '_cmb2_date_end', $event['']);
-          update_post_meta($new_post_id, '_cmb2_date_start', $event['']);
-          update_post_meta($new_post_id, '_cmb2_tickets_available', $event['']);
-          update_post_meta($new_post_id, '_cmb2_eventbrite_url', $event['']);
-          update_post_meta($new_post_id, '_cmb2_cost', $event['']);
-
-          update_post_meta($new_post_id, '_cmb2_video_image', $event->snippet->thumbnails->high->url );
-          update_post_meta($new_post_id, '_cmb2_video_image', $event->snippet->thumbnails->high->url );
-          // update_post_meta( $new_post_id, '_cmb2_upload_time', $publishedAt );
-
-          // set category to playlist title
-          $cat_ids = array();
-          foreach($video_cats as $video_cat) {
-            if ($video_cat->name == $playlist->snippet->title)
-              $cat_ids[] = (int)$video_cat->term_id;
+        if ($new_workshop_id) {
+          // Download and attach image
+          if (!empty($event['logo']['original']['url'])) {
+            $attachment_src = media_sideload_image($event['logo']['original']['url'], $new_workshop_id, null, 'src');
+            // Get ID of new attachment (this is *almost* a feature of WP atm: https://core.trac.wordpress.org/ticket/19629, at some point we can change 'src' to 'id' above)
+            $attachment_id = \Firebelly\Media\get_attachment_id_from_src($attachment_src);
+            // Make this the featured image of the new post
+            set_post_thumbnail($new_workshop_id, $attachment_id);
           }
-          if (!empty($cat_ids))
-            wp_set_object_terms( $new_post_id, $cat_ids, 'video_cat');
+
+          // Set workshop_series if colon in title
+          if (strpos($event['name']['text'], ':')!==FALSE) {
+            $event_workshop_series = substr($event['name']['text'], 0, strpos($event['name']['text'], ':'));
+            $cat_ids = [];
+            foreach($workshop_series as $workshop_series_cat) {
+              if ($workshop_series_cat->name == $event_workshop_series) {
+                $cat_ids[] = (int)$workshop_series_cat->term_id;
+              }
+            }
+            if (!empty($cat_ids)) {
+              wp_set_object_terms($new_workshop_id, $cat_ids, 'workshop_series');
+            }
+          }
+
+          $workshop_id = $new_workshop_id;
+        }
+      } else {
+        $workshop_id = $wpdb->get_var($wpdb->prepare( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s", '_cmb2_eventbrite_id', $event['id'] ));
+      }
+
+      if ($workshop_id) {
+        // Set (or update if existing event) various custom fields
+        update_post_meta($workshop_id, '_cmb2_eventbrite_id', $event['id'] );
+        // update_post_meta($workshop_id, '_cmb2_application_deadline', $event['']);
+        update_post_meta($workshop_id, '_cmb2_time', date('g:ia', strtotime($event['start']['local'])));
+        update_post_meta($workshop_id, '_cmb2_date_end', strtotime($event['end']['local']));
+        update_post_meta($workshop_id, '_cmb2_date_start', strtotime($event['start']['local']));
+        update_post_meta($workshop_id, '_cmb2_eventbrite_url', $event['url']);
+        if (empty($event['is_free'])) {
+          // Determine if any tickets left
+          $tickets_available = 0;
+          foreach($event['ticket_classes'] as $ticket_class) {
+            if ($ticket_class['on_sale_status']=='AVAILABLE') {
+              $tickets_available += $ticket_class['quantity_total'] - $ticket_class['quantity_sold'];
+            }
+          }
+          update_post_meta($workshop_id, '_cmb2_tickets_available', $tickets_available);
+          // If single ticket class, and isn't donation, set cost for workshop
+          if (count($event['ticket_classes'])==1 && empty($event['ticket_classes'][0]['donation'])) {
+            update_post_meta($workshop_id, '_cmb2_cost', $event['ticket_classes'][0]['cost']['major_value']);
+          }
         }
       }
     }
