@@ -47,6 +47,17 @@ function get_thumbnail_size_path($thumb_id, $size) {
 }
 
 /**
+ * Get attachment ID from an image src
+ * @param  string            $image_src (full URL of an image attachment)
+ * @return int               ID of attachment
+ */
+function get_attachment_id_from_src($image_src) {
+  global $wpdb;
+  $id = $wpdb->get_var($wpdb->prepare("SELECT ID FROM {$wpdb->posts} WHERE guid='%s'", $image_src));
+  return $id;
+}
+
+/**
  * Get header bg for post, duotone treated with the random IHC_BACKGROUND + Dark Blue
  * @param  string|object   $post_or_image (WP post object or background image)
  * @return HTML            background image code
@@ -106,7 +117,7 @@ function get_header_bg($post_or_image, $opts=[]) {
         mkdir($base_dir);
       }
       $convert_command = (WP_ENV==='development') ? '/usr/local/bin/convert' : '/usr/bin/convert';
-      exec($convert_command.' '.$background_image.' +profile "*" -quality 65 -modulate 100,0 -size 256x1! gradient:#'.$shadow.'-#'.$highlight.' -clut '.$treated_image);
+      exec($convert_command.' '.$background_image.' +profile "*"  -quality 65 -modulate 100,0 -size 256x1! gradient:#'.$shadow.'-#'.$highlight.' -clut '.$treated_image);
     }
 
     // Option to return commonly used style=background, or just filename
