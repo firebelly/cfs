@@ -262,8 +262,8 @@ function fb_eventbrite_import() {
         $event_html = $event['description']['html'];
         $event_html = preg_replace('/ style=("|\')(.*?)("|\')/i','',$event_html);
         $event_html = preg_replace('/ class=("|\')(.*?)("|\')/i','',$event_html);
-        // $event_html = preg_replace('~<[\/]?(div|span)>~i','',$event_html);
-        $event_html = strip_tags($event_html, '<p><strong><b><a><br>');
+        $event_html = preg_replace('~<[\/]?(div|span)>~i','',$event_html);
+        $event_html = strip_tags($event_html, '<p><strong><b><a><br><ul><li><ol><div>');
 
         $event_title = $event['name']['text'];
         // Pull workshop series title if colon in title
