@@ -11,14 +11,14 @@ $accordions_html = $registration_html = $page_intro_quote = $header_video = $hea
 
 if (is_post_type_archive('workshop')) {
   // Workshop listings page pulls info from "Upcoming Workshops"
-  $workshop_page = get_page_by_title('Upcoming Workshops');
-  $header_video = get_post_meta($workshop_page->ID, '_cmb2_featured_video', true);
+  $post = get_page_by_title('Upcoming Workshops');
+  $header_video = get_post_meta($post->ID, '_cmb2_featured_video', true);
   if (!$header_video) {
-    $header_bg = \Firebelly\Media\get_header_bg($workshop_page);
+    $header_bg = \Firebelly\Media\get_header_bg($post);
   } else {
     $header_bg = '';
   }
-  $page_intro_quote = get_post_meta($workshop_page->ID, '_cmb2_intro_quote', true);
+  $page_intro_quote = get_post_meta($post->ID, '_cmb2_intro_quote', true);
 
 } else if (!empty($post)) {
   // Otherwise get header data from single post
