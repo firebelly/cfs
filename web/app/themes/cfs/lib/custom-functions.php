@@ -106,7 +106,7 @@ function fb_crumbs() {
     $return .= " {$separator} 404";
   } else if (is_category()) {
     $return .= get_the_category(" {$separator} ");
-  } else if (is_post_type_archive('workshop')) {
+  } else if (is_post_type_archive('workshop') || is_tax('workshop_series')) {
     $workshop_page = get_page_by_path('/workshops-trainings/');
     $return .= " {$separator} <a href=\"" . get_permalink($workshop_page) . '">' . $workshop_page->post_title . "</a> {$separator} Upcoming Workshops";
   } else if (is_singular('workshop')) {

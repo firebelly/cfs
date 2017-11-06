@@ -3,7 +3,7 @@
 article.workshop {
   .date {
     @extend .h3;
-    margin-bottom: vertical-beat(2);
+    padding-bottom: vertical-beat(7);
     .timespan {
       display: block;
     }
@@ -23,7 +23,24 @@ article.workshop {
   }
 }
 
+.single-workshop {
+  .registration {
+    color: $white;
+    .button {
+      color: $white;
+      border-color: $white;
+      &::before {
+        background: $white;
+      }
+      &:hover {
+        color: $black;
+      }
+    }
+  }
+}
+
 // Workshop archive/listing pages
+body.tax-workshop_series,
 body.post-type-archive-workshop {
   .page-header {
     &.half .page-intro {
@@ -58,6 +75,11 @@ body.post-type-archive-workshop {
         padding-bottom: vertical-beat(1);
         margin: 0 0 vertical-beat(2);
         @include notch(bottom, $black);
+        a {
+          &:hover {
+            color: $red;
+          }
+        }
       }
       .button {
         width: 100%;
@@ -66,7 +88,7 @@ body.post-type-archive-workshop {
 
     // Larger displays
     @include media-md {
-      margin: vertical-beat(4) -35px 0;
+      margin: 0 -35px 0;
       article {
         width: 33.33333%;
         position: relative;

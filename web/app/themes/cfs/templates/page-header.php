@@ -1,6 +1,4 @@
 <?php
-use Roots\Sage\Titles;
-
 // Pull 404 page for content
 if (is_404()) {
 	$post = get_page_by_path('/404-error/');
@@ -8,8 +6,10 @@ if (is_404()) {
 
 // Defaults
 $accordions_html = $registration_html = $page_intro_quote = $header_video = $header_bg = '';
+$page_title = \Roots\Sage\Titles\title();
 
-if (is_post_type_archive('workshop')) {
+if (is_post_type_archive('workshop') || is_tax('workshop_series')) {
+
   // Workshop listings page pulls info from "Upcoming Workshops"
   $post = get_page_by_title('Upcoming Workshops');
   $header_video = get_post_meta($post->ID, '_cmb2_featured_video', true);
@@ -19,8 +19,10 @@ if (is_post_type_archive('workshop')) {
     $header_bg = '';
   }
   $page_intro_quote = get_post_meta($post->ID, '_cmb2_intro_quote', true);
+  $page_title = $post->post_title;
 
 } else if (!empty($post)) {
+
   // Otherwise get header data from single post
   $header_video = get_post_meta($post->ID, '_cmb2_featured_video', true);
   if (!$header_video) {
@@ -29,6 +31,7 @@ if (is_post_type_archive('workshop')) {
     $header_bg = '';
   }
   $page_intro_quote = get_post_meta($post->ID, '_cmb2_intro_quote', true);
+
 }
 
 // Pull post accordions
@@ -57,7 +60,7 @@ if (is_singular('workshop') || is_singular('program')) {
     <div class="page-content">
       <div class="page-titles">
         <?= Firebelly\Utils\fb_crumbs() ?>
-        <h1><?= Titles\title(); ?></h1>
+        <h1><?= $page_title; ?></h1>
         <div class="intro-wrap">
           <p class="p-intro"><?= $page_intro_quote; ?></p>
           <?= empty($post->post_content) ? '' : apply_filters('the_content', $post->post_content);?>

@@ -6,6 +6,7 @@
   $featured_workshop = Firebelly\PostTypes\Workshop\get_featured_workshops(['num_posts' => 1]);
   if ($featured_workshop):
     $workshop_post = $featured_workshop[0];
+    $workshop_post->series = \Firebelly\PostTypes\Workshop\get_series($workshop_post);
     $post_image = \Firebelly\Media\get_header_bg($workshop_post, ['size' => 'medium_large']);
   ?>
 
@@ -16,7 +17,9 @@
         <div class="user-content excerpt">
           <p><?= Firebelly\Utils\get_excerpt($workshop_post, 100) ?></p>
         </div>
-        <a href="#" class="button -wide -black">Show All</a>
+        <?php if (!empty($workshop_post->series)): ?>
+          <a href="<?= get_term_link($workshop_post->series) ?>" class="button -wide -black">Show All</a>
+        <?php endif; ?>
       </div>
       <div class="one-half -right">
         <div class="image" <?= $post_image ?>></div>

@@ -201,7 +201,7 @@ function get_workshop_date($workshop_post) {
   if (!empty($workshop_post->meta['_cmb2_date_start'])) {
     $output .= '<time datetime="' . date('Y-m-d', $workshop_post->meta['_cmb2_date_start'][0]) . '">' . date('m/j/y', $workshop_post->meta['_cmb2_date_start'][0]) . '</time>';
   }
-  if (!empty($workshop_post->meta['_cmb2_date_end'])) {
+  if (!empty($workshop_post->meta['_cmb2_date_end']) && date('Y-m-d', $workshop_post->meta['_cmb2_date_end'][0]) != date('Y-m-d', $workshop_post->meta['_cmb2_date_start'][0])) {
     $output .= '– <time datetime="' . date('Y-m-d', $workshop_post->meta['_cmb2_date_end'][0]) . '">' . date('m/j/y', $workshop_post->meta['_cmb2_date_end'][0]) . '</time>';
   }
   if (!empty($workshop_post->meta['_cmb2_time'])) {
@@ -213,7 +213,7 @@ function get_workshop_date($workshop_post) {
 
 function get_series($post) {
   $series = \Firebelly\Utils\get_first_term($post, 'workshop_series');
-  return (empty($series)) ? '' : $series->name;
+  return (empty($series)) ? '' : $series;
 }
 
 // daily cronjob to import new videos
@@ -263,7 +263,7 @@ function fb_eventbrite_import() {
         $event_html = preg_replace('/ style=("|\')(.*?)("|\')/i','',$event_html);
         $event_html = preg_replace('/ class=("|\')(.*?)("|\')/i','',$event_html);
         $event_html = preg_replace('~<[\/]?(div|span)>~i','',$event_html);
-        $event_html = strip_tags($event_html, '<p><strong><b><a><br><ul><li><ol><div>');
+        // $event_html = strip_tags($event_html, '<p><strong><b><a><br><ul><li><ol><div>');
 
         $event_title = $event['name']['text'];
         // Pull workshop series title if colon in title
