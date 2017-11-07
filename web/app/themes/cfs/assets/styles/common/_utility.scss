@@ -55,7 +55,6 @@
 a.read-more {
   color: $red;
   @extend .font-display;
-  font-size: 12px;
   text-decoration: underline;
   &:hover {
     color: $white;

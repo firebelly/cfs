@@ -62,9 +62,9 @@ if (is_singular('workshop') || is_singular('program')) {
         <?= Firebelly\Utils\fb_crumbs() ?>
         <h1><?= $page_title; ?></h1>
         <div class="intro-wrap">
+          <?= $registration_html ?>
           <p class="p-intro"><?= $page_intro_quote; ?></p>
           <?= empty($post->post_content) ? '' : apply_filters('the_content', $post->post_content);?>
-          <?= $registration_html ?>
         </div>
         <?= $accordions_html ?>
       </div>

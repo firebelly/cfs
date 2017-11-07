@@ -195,19 +195,14 @@ function get_featured_workshops($args=[]) {
   return get_posts($featured_args);
 }
 
-function get_workshop_date($workshop_post) {
-  if (empty($workshop_post->meta)) $workshop_post->meta = get_post_meta($workshop_post->ID);
-  $output = '<div class="date">';
-  if (!empty($workshop_post->meta['_cmb2_date_start'])) {
-    $output .= '<time datetime="' . date('Y-m-d', $workshop_post->meta['_cmb2_date_start'][0]) . '">' . date('m/j/y', $workshop_post->meta['_cmb2_date_start'][0]) . '</time>';
+function get_registration_button($workshop_post) {
+  $output = '';
+  if ($workshop_post->sold_out) {
+    $output = '<a class="button black disabled" href="#">Sold Out</a>';
+  } elseif (!empty($workshop_post->meta['_cmb2_eventbrite_url'][0])
+                && $workshop_post->meta['_cmb2_date_end'][0] > time()) {
+    $output = '<a class="button black" href="' . $workshop_post->meta['_cmb2_eventbrite_url'][0] .'">Register</a>';
   }
-  if (!empty($workshop_post->meta['_cmb2_date_end']) && date('Y-m-d', $workshop_post->meta['_cmb2_date_end'][0]) != date('Y-m-d', $workshop_post->meta['_cmb2_date_start'][0])) {
-    $output .= '– <time datetime="' . date('Y-m-d', $workshop_post->meta['_cmb2_date_end'][0]) . '">' . date('m/j/y', $workshop_post->meta['_cmb2_date_end'][0]) . '</time>';
-  }
-  if (!empty($workshop_post->meta['_cmb2_time'])) {
-    $output .= ' <span class="timespan">' . $workshop_post->meta['_cmb2_time'][0] . '</span>';
-  }
-  $output .= '</div>';
   return $output;
 }
 
@@ -216,7 +211,7 @@ function get_series($post) {
   return (empty($series)) ? '' : $series;
 }
 
-// daily cronjob to import new videos
+// daily cronjob to import new eventbrite events
 // add_action('wp', __NAMESPACE__ . '\\activate_eventbrite_import');
 function activate_eventbrite_import() {
   if (!wp_next_scheduled('eventbrite_import')) {
@@ -260,10 +255,12 @@ function fb_eventbrite_import() {
 
         // Strip out crappy inline styles, unneeded classes, empty span/divs left behind, and images
         $event_html = $event['description']['html'];
-        $event_html = preg_replace('/ style=("|\')(.*?)("|\')/i','',$event_html);
-        $event_html = preg_replace('/ class=("|\')(.*?)("|\')/i','',$event_html);
+        $event_html = preg_replace('/ style="(.*?)"/i','',$event_html);
+        $event_html = preg_replace('/ class="(.*?)"/i','',$event_html);
         $event_html = preg_replace('~<[\/]?(div|span)>~i','',$event_html);
-        // $event_html = strip_tags($event_html, '<p><strong><b><a><br><ul><li><ol><div>');
+        $event_html = preg_replace('~<p>\s+</p>~i','',$event_html);
+        $event_html = preg_replace('~<p>&nbsp;</p>~i','',$event_html);
+        $event_html = preg_replace('~<br( /)?>~i',"\n",$event_html);
 
         $event_title = $event['name']['text'];
         // Pull workshop series title if colon in title
@@ -276,16 +273,16 @@ function fb_eventbrite_import() {
         }
 
         // Insert workshop post
-        $video_post = [
+        $new_post = [
           'post_status' => 'publish',
           'post_type' => 'workshop',
           'post_author' => 1,
           'post_date' => date('Y-m-d H:i:s', $publishedAt),
           'post_date_gmt' => date('Y-m-d H:i:s', $publishedAt),
-          'post_title' => $event_title,
+          'post_title' => sanitize_title($event_title),
           'post_content' => $event_html,
         ];
-        $new_workshop_id = wp_insert_post($video_post);
+        $new_workshop_id = wp_insert_post($new_post);
 
         if ($new_workshop_id) {
           // Download and attach image

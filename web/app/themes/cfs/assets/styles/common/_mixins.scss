@@ -18,6 +18,16 @@
     border-top: 2px solid $color;
   }
 }
+@mixin hr-above() {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 1000em;
+    border-bottom: 1px solid $black;
+  }
+}
 
 // Smooth text
 %smooth {

@@ -22,6 +22,9 @@
       height: 139px;
     }
   }
+  @include media-md {
+      position: fixed;
+  }
 }
 
 // WP admin bar push

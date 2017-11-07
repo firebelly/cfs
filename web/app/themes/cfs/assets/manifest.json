@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "main.js": {
-      "bower": ["slick-carousel", "fitvids"],
+      "bower": ["slick-carousel", "fitvids", "jquery.easing"],
       "files": [
         "scripts/main.js"
       ],

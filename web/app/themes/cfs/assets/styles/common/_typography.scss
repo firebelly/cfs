@@ -12,6 +12,7 @@ $font-header: 'Anton', sans-serif;
 $font-regular: 'Rubik', sans-serif;
 
 .font-display {
+  font-size: 12px;
   font-weight: normal;
   font-family: $font-display;
   text-transform: uppercase;
@@ -49,7 +50,6 @@ h3,
 h4,
 .h4 {
   @extend .font-display;
-  font-size: 12px;
   line-height: 1.5;
 }
 

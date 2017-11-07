@@ -37,6 +37,6 @@
   <?php endwhile; ?>
   </div></div>
 
-  <?php the_posts_navigation(); ?>
+  <?= \Firebelly\Utils\pagination(); ?>
 
 </div></div><!-- /.column-wrap -->

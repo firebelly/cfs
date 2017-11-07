@@ -62,14 +62,7 @@
   margin: vertical-beat(4) 0 0;
 }
 .accordion-title {
-  position: relative;
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    width: 1000em;
-    border-bottom: 1px solid $black;
-  }
+  @include hr-above;
   margin: 0;
   padding: vertical-beat(4) 0;
   cursor: pointer;

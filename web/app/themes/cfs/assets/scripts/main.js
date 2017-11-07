@@ -52,7 +52,8 @@ var CFS = (function($) {
     });
 
     // Smoothscroll links
-    $('a.smoothscroll').click(function(e) {
+    $(document).on('click', 'a.smoothscroll', function(e) {
+      console.log(this);
       e.preventDefault();
       var href = $(this).attr('href');
       _scrollBody($(href));
@@ -61,22 +62,14 @@ var CFS = (function($) {
     // Scroll down to hash after page load
     $(window).load(function() {
       if (window.location.hash) {
-        _scrollBody($(window.location.hash));
+        _scrollBody($(window.location.hash), 500);
       }
     });
 
   } // end init()
 
-  function _scrollBody(element, duration, delay, offset) {
-    if (offset === undefined) {
-      offset = headerOffset - 1;
-    }
-
-    element.velocity('scroll', {
-      duration: duration,
-      delay: delay,
-      offset: -offset,
-    }, 'easeOutSine');
+  function _scrollBody(el, duration) {
+    $('html, body').animate({scrollTop: $(el).offset().top + headerOffset}, duration, 'easeOutSine');
   }
 
   function _initAccordions() {
@@ -263,10 +256,7 @@ var CFS = (function($) {
   // Public functions
   return {
     init: _init,
-    resize: _resize,
-    scrollBody: function(section, duration, delay) {
-      _scrollBody(section, duration, delay);
-    }
+    resize: _resize
   };
 
 })(jQuery);

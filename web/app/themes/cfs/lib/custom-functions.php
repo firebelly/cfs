@@ -197,24 +197,74 @@ function get_registration_details($post) {
   $now = time();
   $output = '<div class="registration">';
   $output .= '<ul class="details"><li>';
-  if (!empty($post->meta['_cmb2_date_start'])) {
-    $output .= '<time datetime="' . date('Y-m-d', $post->meta['_cmb2_date_start'][0]) . '">' . date('m/j/y', $post->meta['_cmb2_date_start'][0]) . '</time>';
-  }
-  if (!empty($post->meta['_cmb2_date_end'])) {
-    $output .= '– <time datetime="' . date('Y-m-d', $post->meta['_cmb2_date_end'][0]) . '">' . date('m/j/y', $post->meta['_cmb2_date_end'][0]) . '</time>';
-  }
+  $output .= \Firebelly\Utils\get_dates($post);
   $output .= '</li>';
-  if (!empty($post->meta['_cmb2_registration_deadline'])) {
+  if (!empty($post->meta['_cmb2_registration_deadline']) && $post->meta['_cmb2_registration_deadline'][0] > $now) {
     $output .= '<li class="applications-due">Applications Due ' . date('Y-m-d', $post->meta['_cmb2_registration_deadline'][0]) . '</li>';
   }
   if (!empty($post->meta['_cmb2_age_minimum']) && !empty($post->meta['_cmb2_age_maximum'])) {
-    $output .= '<li class="ages">Age of Applicants: ' . $post->meta['_cmb2_age_minimum'][0] . ' – ' . $post->meta['_cmb2_age_maximum'][0] . '</li>';
+    $output .= '<li class="ages">Ages ' . $post->meta['_cmb2_age_minimum'][0] . ' – ' . $post->meta['_cmb2_age_maximum'][0] . '</li>';
   }
   $output .= '</ul>';
-  // Check if applications open
-  if (1 || ($now > $post->meta['_cmb2_registration_opens'] && $now < $post->meta['_cmb2_registration_deadline'])) {
-    $output .= '<a class="button -wide" href="#">Apply</a>';
+  if ($post->post_type=='program') {
+    // Check if applications open
+    if ( (!empty($post->meta['_cmb2_registration_opens']) && $now >= $post->meta['_cmb2_registration_opens'][0])
+         && (!empty($post->meta['_cmb2_registration_deadline']) && $now < $post->meta['_cmb2_registration_deadline'][0])
+      ) {
+      $output .= '<a class="button -wide" href="#">Apply</a>';
+    } elseif (!empty($post->meta['_cmb2_registration_opens']) && $now < $post->meta['_cmb2_registration_opens'][0]) {
+      $output .= '<p><a href="#site-footer" class="smoothscroll">Please subscribe to our newsletter to receive updates about when applications open</a></p>';
+    }
+  } elseif ($post->post_type=='workshop') {
+
   }
   $output .= '</div>';
   return $output;
+}
+
+function get_dates($post) {
+  if (empty($post->meta)) $post->meta = get_post_meta($post->ID);
+  $output = '<div class="date">';
+  if (!empty($post->meta['_cmb2_date_start'])) {
+    $output .= '<time datetime="' . date('Y-m-d', $post->meta['_cmb2_date_start'][0]) . '">' . date('m/j/y', $post->meta['_cmb2_date_start'][0]) . '</time>';
+  }
+  if (!empty($post->meta['_cmb2_date_end']) && date('Y-m-d', $post->meta['_cmb2_date_end'][0]) != date('Y-m-d', $post->meta['_cmb2_date_start'][0])) {
+    if (!empty($post->meta['_cmb2_date_start'])) $output .= ' – ';
+    $output .= '<time datetime="' . date('Y-m-d', $post->meta['_cmb2_date_end'][0]) . '">' . date('m/j/y', $post->meta['_cmb2_date_end'][0]) . '</time>';
+  }
+  if (!empty($post->meta['_cmb2_time'])) {
+    $output .= ' <span class="timespan">' . $post->meta['_cmb2_time'][0] . '</span>';
+  }
+  $output .= '</div>';
+  return $output;
+}
+
+function pagination($args=[]) {
+  $defaults = array(
+    'type'      => 'array',
+    'nav_class' => 'pagination',
+    'prev_text' => __('Prev'),
+    'next_text' => __('Next'),
+    'li_class'  => ''
+  );
+  $args = wp_parse_args( $args, $defaults );
+  $page_links = paginate_links( $args );
+  if ( $page_links ) {
+    $r = '';
+    $ul_class = empty($args['ul_class']) ? '' : ' ' . $args['ul_class'];
+    $r .= '<nav class="'. $args['nav_class'] .'" aria-label="navigation">' . "\n\t";
+    $r .= '<ul>' . "\n";
+    foreach ($page_links as $link) {
+      $li_classes = !empty($args['li_class']) ? explode(' ', $args['li_class']) : [];
+      strpos($link, 'current') !== false ? array_push($li_classes, 'active') : ( strpos($link, 'dots') !== false ? array_push($li_classes, 'disabled') : '' );
+      $class = empty($li_classes) ? '' : ' class="' . join(" ", $li_classes) . '"';
+      $after_number = !preg_match('/prev|next|dots/', $link) ? ',' : '';
+      $r .= "\t\t" . '<li' . $class . '>' . $link . $after_number . '</li>' . "\n";
+    }
+    $r .= "\t</ul>";
+    $r .= "\n</nav>";
+    // Remove last comma
+    $r = strrev(implode(strrev(''), explode(strrev(','), strrev($r), 2)));
+    return $r;
+  }
 }

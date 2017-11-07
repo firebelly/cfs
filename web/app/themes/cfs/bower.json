@@ -12,10 +12,10 @@
     "fitvids": "^1.2.0",
     "imagesloaded": "^4.1.3",
     "history.js": "~1.8.0",
-    "velocity": "^1.5.0",
     "slick-carousel": "^1.8.1",
     "waypoints": "^4.0.1",
-    "swipebox": "^1.4.4"
+    "swipebox": "^1.4.4",
+    "jquery.easing": "^1.3.1"
   },
   "overrides": {
     "modernizr": {
@@ -38,7 +38,6 @@
     "jquery": "^3.2.1",
     "modernizr": "^3.5.0",
     "imagesloaded": "^4.1.3",
-    "velocity": "^1.5.0",
     "slick-carousel": "^1.8.1"
   }
 }

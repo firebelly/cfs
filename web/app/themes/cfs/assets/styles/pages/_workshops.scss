@@ -3,11 +3,13 @@
 article.workshop {
   .date {
     @extend .h3;
-    padding-bottom: vertical-beat(7);
     .timespan {
       display: block;
     }
   }
+  // &.has-button .date {
+  //   padding-bottom: vertical-beat(7);
+  // }
 }
 
 // generic wide column
@@ -58,6 +60,7 @@ body.post-type-archive-workshop {
       @include aspect-ratio(480, 324);
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
     }
+    padding-bottom: 40px;
   }
 
   .article-list {
@@ -94,9 +97,12 @@ body.post-type-archive-workshop {
         position: relative;
         .wrap {
           margin: 0 35px;
-          min-height: 300px;
+          // min-height: 200px;
           padding-bottom: vertical-beat(6);
           position: relative;
+        }
+        &.has-button .wrap {
+          // min-height: 300px;
         }
         .button {
           position: absolute;
