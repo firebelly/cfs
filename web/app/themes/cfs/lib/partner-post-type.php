@@ -1,19 +1,19 @@
 <?php
 /**
- * Person post type
+ * Partner post type
  */
 
-namespace Firebelly\PostTypes\Person;
+namespace Firebelly\PostTypes\Partner;
 use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
 
-$persons = new PostType(['name' => 'person', 'plural' => 'People'], [
-  'taxonomies' => ['person_category'],
-  'supports'   => ['title', 'editor', 'thumbnail'],
+$partners = new PostType('partner', [
+  'taxonomies' => ['partner_category'],
+  'supports'   => ['title', 'editor'],
   'rewrite'    => ['with_front' => false],
 ]);
-$persons->taxonomy([
-  'name'     => 'person_category',
-  'plural'   => 'Person Categories',
+$partners->taxonomy([
+  'name'     => 'partner_category',
+  'plural'   => 'Partner Categories',
 ]);
 
 /**
@@ -22,16 +22,16 @@ $persons->taxonomy([
 function metaboxes() {
   $prefix = '_cmb2_';
 
-  $person_info = new_cmb2_box([
-    'id'            => $prefix . 'person_info',
-    'title'         => __( 'Person Info', 'cmb2' ),
-    'object_types'  => ['person'],
+  $partner_info = new_cmb2_box([
+    'id'            => $prefix . 'partner_info',
+    'title'         => __( 'Partner Info', 'cmb2' ),
+    'object_types'  => ['partner'],
     'context'       => 'normal',
     'priority'      => 'high',
   ]);
-  $person_info->add_field([
+  $partner_info->add_field([
     'name'      => 'Title',
-    'id'        => $prefix . 'person_title',
+    'id'        => $prefix . 'partner_title',
     'type'      => 'text_medium',
     // 'desc'      => 'e.g. 20xx Freedom Fellow',
   ]);
@@ -39,8 +39,8 @@ function metaboxes() {
 }
 add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\metaboxes' );
 
-// Update post meta for sorting people by last name
-function person_sort_meta($post_id) {
+// Update post meta for sorting partners by last name
+function partner_sort_meta($post_id) {
   if (wp_is_post_revision($post_id))
     return;
 
@@ -54,21 +54,21 @@ function person_sort_meta($post_id) {
   update_post_meta($post_id, '_cmb2_first_name', $first);
   update_post_meta($post_id, '_cmb2_last_name', $last);
 }
-add_action('save_post_person', __NAMESPACE__.'\person_sort_meta');
+add_action('save_post_partner', __NAMESPACE__.'\partner_sort_meta');
 
 /**
- * Get People
+ * Get partners
  */
-function get_people($options=[]) {
+function get_partners($options=[]) {
   if (empty($options['num_posts'])) $options['num_posts'] = -1;
   $args = [
     'numberposts' => $options['num_posts'],
-    'post_type'   => 'person',
+    'post_type'   => 'partner',
   ];
   if (!empty($options['category'])) {
     $args['tax_query'] = [
       [
-        'taxonomy' => 'person_category',
+        'taxonomy' => 'partner_category',
         'field' => 'slug',
         'terms' => $options['category']
       ]
@@ -76,13 +76,13 @@ function get_people($options=[]) {
   }
 
   // Display all matching posts using article-{$post_type}.php
-  $people_posts = get_posts($args);
-  if (!$people_posts) return false;
+  $partners_posts = get_posts($args);
+  if (!$partners_posts) return false;
   $output = '';
-  foreach ($people_posts as $person_post):
-    $person_post->column_width = $options['column-width'];
+  foreach ($partners_posts as $partner_post):
+    $partner_post->column_width = $options['column-width'];
     ob_start();
-    include(locate_template('templates/article-person.php'));
+    include(locate_template('templates/article-partner.php'));
     $output .= ob_get_clean();
   endforeach;
   return $output;

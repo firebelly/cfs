@@ -44,8 +44,9 @@ article.workshop {
 // Workshop archive/listing pages
 body.tax-workshop_series,
 body.post-type-archive-workshop {
+  // Header is all white, no red like the rest of the -half headers
   .page-header {
-    &.half .page-intro {
+    &.-half .page-intro {
       .color-wrap {
         background: $white;
       }

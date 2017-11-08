@@ -217,7 +217,7 @@ function get_dates($post) {
   if (!empty($post->meta['_cmb2_date_start'])) {
     $output .= '<time datetime="' . date('Y-m-d', $post->meta['_cmb2_date_start'][0]) . '">' . date('m/j/y', $post->meta['_cmb2_date_start'][0]) . '</time>';
   }
-  if (!empty($post->meta['_cmb2_date_end']) && date('Y-m-d', $post->meta['_cmb2_date_end'][0]) != date('Y-m-d', $post->meta['_cmb2_date_start'][0])) {
+  if (!empty($post->meta['_cmb2_date_end']) && (empty($post->meta['_cmb2_date_start']) || date('Y-m-d', $post->meta['_cmb2_date_end'][0]) != date('Y-m-d', $post->meta['_cmb2_date_start'][0]))) {
     if (!empty($post->meta['_cmb2_date_start'])) $output .= ' – ';
     $output .= '<time datetime="' . date('Y-m-d', $post->meta['_cmb2_date_end'][0]) . '">' . date('m/j/y', $post->meta['_cmb2_date_end'][0]) . '</time>';
   }

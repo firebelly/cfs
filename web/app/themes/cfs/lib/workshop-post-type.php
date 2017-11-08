@@ -228,8 +228,8 @@ function fb_eventbrite_import() {
   require_once(ABSPATH . 'wp-admin/includes/image.php');
 
   // Cache categories
-  $workshop_series = get_terms('workshop_series', ['hide_empty' => 0]);
-  // $workshop_types = get_terms('workshop_types', ['hide_empty' => 0]);
+  $workshop_series = get_terms(['taxonomy' => 'workshop_series', 'hide_empty' => 0]);
+  // $workshop_types = get_terms(['taxonomy' => 'workshop_types', 'hide_empty' => 0]);
 
   $workshop_series_titles = []; // Array to check event title to know if we should strip out series title before inserting post
   foreach($workshop_series as $workshop_series_cat)

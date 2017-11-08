@@ -1,0 +1,35 @@
+// Article grids (people, positions, partners)
+
+.article-grid-category {
+  padding-bottom: vertical-beat(4);
+  position: relative;
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 35px;
+    width: 1000em;
+    border-top: 1px solid $white;
+  }
+
+  &:not(.staff) {
+    padding-bottom: 0;
+    article {
+      padding-bottom: 0;
+      margin-bottom: vertical-beat(3);
+      h1 {
+        font: 12px/1.5 $font-display;
+        letter-spacing: .06875em;
+        color: $white;
+      }
+    }
+    p {
+      position: relative;
+      @include notch(top);
+      padding-top: vertical-beat(1);
+      margin-bottom: vertical-beat(1);
+      font-size: 12px;
+    }
+  }
+}

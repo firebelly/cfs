@@ -85,7 +85,7 @@
     }
     .page-titles {
       h1 {
-        margin: vertical-beat(4) 0 vertical-beat(8);
+        margin: vertical-beat(4) 0 vertical-beat(4);
       }
       .p-intro {
         margin-bottom: vertical-beat(4);
@@ -132,21 +132,30 @@
       // Breadcrumb nav
       .crumb {
         color: $white;
+        position: absolute;
+        bottom: vertical-beat(4);
+        left: columns(3,19);
         a {
           color: $white;
           &:hover {
             color: $yellow;
           }
         }
-        &:not(.-text-only) .crumb {
-          position: absolute;
-          bottom: vertical-beat(4);
-          left: columns(3,19);
-        }
       }
       &.-text-only {
         .crumb {
-          margin-bottom: vertical-beat(7);
+          position: relative;
+          bottom: auto;
+          left: auto;
+          margin-bottom: vertical-beat(8);
+        }
+        .page-titles {
+          h3 {
+            margin-bottom: vertical-beat(2);
+          }
+          h1 {
+            margin-bottom: 0;
+          }
         }
       }
     }
