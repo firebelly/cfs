@@ -25,8 +25,8 @@
     }
   }
 
-  // Wide page headers (secondary landing pages)
-  &.wide {
+  // Wide page headers (secondary landing pages, search)
+  &.-wide {
     .page-intro {
       position: relative;
       background: $black;
@@ -48,10 +48,24 @@
         color: $white;
       }
     }
+    // Text-only headers with no bg image (search)
+    &.-text-only {
+      .color-wrap {
+        padding-right: 0;
+      }
+      .page-content {
+        padding-right: columns(1,17);
+      }
+      .page-titles {
+        width: 100%;
+        padding: vertical-beat(4) columns(1,17);
+      }
+    }
+
   }
 
   // Half page headers (tertiary landing pages)
-  &.half {
+  &.-half {
     // .icon-notch {
     //   &.bottom-left {
     //     transform: rotate(90deg);
@@ -101,12 +115,12 @@
     .bg-image {
       height: 600px;
     }
-    &.half {
+    &.-half {
       .page-content {
         min-height: 450px;
       }
     }
-    &.wide {
+    &.-wide {
       .bg-image {
         height: 400px;
       }
@@ -117,15 +131,22 @@
 
       // Breadcrumb nav
       .crumb {
-        position: absolute;
-        bottom: vertical-beat(4);
-        left: columns(3,19);
         color: $white;
         a {
           color: $white;
           &:hover {
             color: $yellow;
           }
+        }
+        &:not(.-text-only) .crumb {
+          position: absolute;
+          bottom: vertical-beat(4);
+          left: columns(3,19);
+        }
+      }
+      &.-text-only {
+        .crumb {
+          margin-bottom: vertical-beat(7);
         }
       }
     }

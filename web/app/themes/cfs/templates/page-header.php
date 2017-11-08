@@ -42,7 +42,7 @@ if (is_singular('workshop') || is_singular('program')) {
 }
 ?>
 
-<header class="page-header half">
+<header class="page-header -half">
   <?php if (!empty($header_bg)): ?>
   <div class="bg-image" <?= $header_bg ?>>
     <?php if ($header_video): ?>

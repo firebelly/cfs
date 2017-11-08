@@ -13,7 +13,7 @@ if (!empty($post)) {
 }
 ?>
 
-<header class="page-header wide">
+<header class="page-header -wide">
   <?php if (!empty($header_bg)): ?>
   <div class="bg-image" <?= $header_bg ?>>
     <?php if ($header_video): ?>

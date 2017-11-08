@@ -4,6 +4,17 @@ namespace Firebelly\Init;
 use Roots\Sage\Assets;
 
 /**
+ * Bump up # search results
+ */
+// function search_queries( $query ) {
+//   if ( !is_admin() && is_search() ) {
+//     $query->set( 'posts_per_page', 40 );
+//   }
+//   return $query;
+// }
+// add_filter( 'pre_get_posts', __NAMESPACE__ . '\\search_queries' );
+
+/**
  * Don't run wpautop before shortcodes are run! wtf Wordpress. from http://stackoverflow.com/a/14685465/1001675
  */
 remove_filter('the_content', 'wpautop');

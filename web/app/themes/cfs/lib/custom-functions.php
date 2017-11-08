@@ -3,17 +3,6 @@
 namespace Firebelly\Utils;
 
 /**
- * Bump up # search results
- */
-function search_queries( $query ) {
-  if ( !is_admin() && is_search() ) {
-    $query->set( 'posts_per_page', 40 );
-  }
-  return $query;
-}
-add_filter( 'pre_get_posts', __NAMESPACE__ . '\\search_queries' );
-
-/**
  * Custom li'l excerpt function
  */
 function get_excerpt( $post, $length=15, $force_content=false ) {
@@ -125,7 +114,7 @@ function fb_crumbs() {
     }
     $return .= " {$separator} " . get_the_title();
   } elseif (is_search()) {
-    $return .= " {$separator} Search: " . get_search_query();
+    $return .= " {$separator} Search Results";
   }
   $return .= '</nav>';
   return $return;
@@ -260,6 +249,10 @@ function pagination($args=[]) {
       $class = empty($li_classes) ? '' : ' class="' . join(" ", $li_classes) . '"';
       $after_number = !preg_match('/prev|next|dots/', $link) ? ',' : '';
       $r .= "\t\t" . '<li' . $class . '>' . $link . $after_number . '</li>' . "\n";
+      // If dots link, remove previous comma
+      if (strpos($link, 'dots') !== false) {
+        $r = strrev(implode(strrev(''), explode(strrev(','), strrev($r), 2)));
+      }
     }
     $r .= "\t</ul>";
     $r .= "\n</nav>";

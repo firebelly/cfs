@@ -1,0 +1,44 @@
+// Search
+
+.search-results {
+  .search-result {
+    @include hr-above;
+    padding: vertical-beat(4) 0 vertical-beat(2);
+    // First result flush with top and no border
+    &:first-of-type {
+      padding-top: 0;
+      &::before {
+        display: none;
+      }
+    }
+    // Tweak header spacing
+    h2 {
+      margin: 0 0 8px;
+      a:hover {
+        color: $yellow;
+      }
+    }
+    p.url {
+      margin: 0;
+      @extend %small-text;
+    }
+  }
+  .pagination {
+    margin-top: 0;
+  }
+
+  .page-content .search-form {
+    padding-top: vertical-beat(2);
+    position: relative;
+    .search-field {
+      border-color: $black;
+    }
+    .go-button {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      @extend .button;
+      min-width: 120px;
+    }
+  }
+}
