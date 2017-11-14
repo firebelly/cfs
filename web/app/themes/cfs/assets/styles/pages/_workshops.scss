@@ -41,6 +41,31 @@ article.workshop {
   }
 }
 
+// Taxonomy page headers
+.taxonomy-header {
+  @include hr-above;
+  z-index: 10;
+  padding: grid(2) 0 grid(.5);
+  a span {
+    text-decoration: underline;
+  }
+  .taxonomy-title {
+    width: columns(10,14);
+  }
+  .taxonomy-clear {
+    width: columns(4,14);
+    position: relative;
+    .icon {
+      position: absolute;
+      top: 8px;
+      right: 0;
+      vertical-align: middle;
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
 // Workshop archive/listing pages
 body.tax-workshop_series,
 body.post-type-archive-workshop {
