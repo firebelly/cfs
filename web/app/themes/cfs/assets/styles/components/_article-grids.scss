@@ -3,6 +3,7 @@
 .article-grid-category {
   padding-bottom: vertical-beat(4);
   position: relative;
+  // White border between each category
   &::after {
     content: '';
     display: block;
@@ -12,7 +13,12 @@
     width: 1000em;
     border-top: 1px solid $white;
   }
+  // No border on last category
+  &:last-of-type::after {
+    display: none;
+  }
 
+  // Staff category styled differently than typical article-grids
   &:not(.staff) {
     padding-bottom: 0;
     article {
@@ -24,12 +30,20 @@
         color: $white;
       }
     }
+    // Job type, Person/Partner title
     p {
       position: relative;
       @include notch(top);
       padding-top: vertical-beat(1);
       margin-bottom: vertical-beat(1);
       font-size: 12px;
+    }
+    // Extra text (from post_content) below title for position, person, job
+    .user-content p {
+      padding-top: 0;
+      &::before {
+        display: none;
+      }
     }
   }
 }

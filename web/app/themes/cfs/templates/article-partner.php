@@ -12,6 +12,6 @@ $partner_image = \Firebelly\Media\get_header_bg($partner_post, ['size' => 'mediu
     <p class="partner-title"><?= $partner_title ?></p>
   <?php endif; ?>
   <?php if (!empty($partner_desc)): ?>
-    <p class="excerpt user-content"><?= $partner_desc ?></p>
+    <div class="user-content"><?= $partner_desc ?></div>
   <?php endif; ?>
 </div></article>

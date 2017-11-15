@@ -8,7 +8,7 @@ use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
 
 $partners = new PostType('partner', [
   'taxonomies' => ['partner_category'],
-  'supports'   => ['title', 'editor'],
+  'supports'   => ['title', 'editor', 'thumbnail'],
   'rewrite'    => ['with_front' => false],
 ]);
 $partners->taxonomy([

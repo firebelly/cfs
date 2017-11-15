@@ -12,6 +12,6 @@ $person_image = \Firebelly\Media\get_header_bg($person_post, ['size' => 'medium'
     <p class="person-title"><?= $person_title ?></p>
   <?php endif; ?>
   <?php if (!empty($person_desc)): ?>
-    <p class="excerpt user-content"><?= $person_desc ?></p>
+    <div class="user-content"><?= $person_desc ?></div>
   <?php endif; ?>
 </div></article>

@@ -31,7 +31,8 @@ $firebelly_includes = [
   'lib/program-post-type.php',         // Programs
   'lib/workshop-post-type.php',        // Workshops
   'lib/person-post-type.php',          // People
-  'lib/partner-post-type.php',          // People
+  'lib/partner-post-type.php',         // Partners
+  'lib/job-post-type.php',             // Jobs
   'lib/site-options.php',              // Custom site options page for admin
 ];
 
