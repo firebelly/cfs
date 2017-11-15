@@ -19,7 +19,7 @@ set :log_level, :info
 # Apache users with .htaccess files:
 # it needs to be added to linked_files so it persists across deploys:
 set :linked_files, fetch(:linked_files, []).push('.env', 'web/.htaccess', 'web/php.ini', 'web/robots.txt')
-set :linked_dirs, fetch(:linked_dirs, []).push('web/app/uploads', 'web/autodiscover')
+set :linked_dirs, fetch(:linked_dirs, []).push('web/app/uploads')
 
 namespace :deploy do
   desc 'Restart application'
@@ -58,13 +58,13 @@ require "#{fetch(:local_abs_path)}/config/webfaction.rb"
 namespace :deploy do
   task :compile_assets do
     run_locally do
-      execute "cd #{fetch(:local_theme_path)} && ./node_modules/.bin/gulp --production"
+      execute "cd #{fetch(:local_theme_path)} && npx gulp --production"
     end
   end
 
   task :ungulp do
     run_locally do
-      execute "cd #{fetch(:local_theme_path)} && ./node_modules/.bin/gulp --development"
+      execute "cd #{fetch(:local_theme_path)} && npx gulp --development"
     end
   end
 
