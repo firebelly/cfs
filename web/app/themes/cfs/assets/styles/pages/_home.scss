@@ -1,11 +1,5 @@
 // Homepage header
 .page-header.homepage {
-  h1 {
-    font-size: 60px;
-    line-height: 1;
-    color: $white;
-    text-transform: uppercase;
-  }
   .page-intro {
     color: $white;
   }
@@ -32,14 +26,8 @@
 
     // Red bar at right
     @include bar('right', $red, 18);
-
   }
 
-  // @include media-xl {
-  //   height: 80vh;
-  //   min-height: 600px;
-  //   max-height: 800px;
-  // }
 }
 
 

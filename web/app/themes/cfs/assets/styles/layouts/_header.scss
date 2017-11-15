@@ -48,12 +48,22 @@
         color: $white;
       }
     }
-    // Text-only headers with no bg image (search)
+    // Text-only headers with no bg image (search, workshops/pages with no featured image)
     &.-text-only {
       .color-wrap {
         padding-right: 0;
       }
+      .color-wrap-secondary {
+        background: $red;
+        padding-left: columns(8,16);
+        .intro-wrap {
+          overflow: hidden; // Avoid collapsing margins
+          padding-left: columns(1,7);
+          background: $white;
+        }
+      }
       .page-content {
+        background: $white;
         padding-right: columns(1,17);
       }
       .page-titles {
