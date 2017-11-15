@@ -151,7 +151,7 @@ var CFS = (function($) {
       e.preventDefault();
       $('.site-header').toggleClass('search-active');
       if ($('.site-header').hasClass('search-active')) {
-        $('.search-form .search-field').focus();
+        $('.site-header .search-field').focus();
       }
     });
     // Mobile menu toggle
