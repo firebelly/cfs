@@ -23,7 +23,7 @@
       margin-right: grid(1);
     }
     .current {
-      color: $gray-lite;
+      text-decoration: underline;
     }
   }
   @include media-md {

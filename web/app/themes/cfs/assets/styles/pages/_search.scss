@@ -1,6 +1,6 @@
 // Search
 
-.search-results {
+body.search {
   .search-result {
     @include hr-above;
     padding: vertical-beat(4) 0 vertical-beat(2);

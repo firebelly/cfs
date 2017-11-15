@@ -295,8 +295,13 @@
   padding-top: 24px;
   form input[type=text] {
     @include theme-color('border-color', $white, 'accent');
+    @include theme-color('color', $white, 'accent');
+    font: 16px/1.5 $font-regular;
     width: columns(5,8);
     float: left;
+    &::placeholder {
+      @include theme-color('color', $white, 'accent');
+    }
     &:valid {
       // Match button sizes
       max-height: 36px;
