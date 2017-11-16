@@ -21,7 +21,7 @@ form {
 		border-bottom: 2px solid $yellow;
 		padding: vertical-beat(.75) $gutter vertical-beat(1) $gutter;
 		&:focus,
-		&:valid {
+		&.has-input {
 			padding: vertical-beat(.25) $gutter vertical-beat(1.5) $gutter;
 			+ label {
 				top: -16px;

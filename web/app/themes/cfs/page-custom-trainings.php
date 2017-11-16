@@ -26,7 +26,7 @@
       <fieldset>
         <h3>What dates are you interested in?</h3>
         <div class="input-item">
-          <input type="text" name="dates" required>
+          <input type="text" name="dates">
           <label for="">Enter Date Here</label>
         </div>
       </fieldset>
@@ -34,7 +34,7 @@
       <fieldset>
         <h3>Basic information</h3>
         <div class="input-item">
-          <input type="text" name="dates" required>
+          <input type="text" name="dates">
           <label for="">Organization Name</label>
         </div>
         <div class="input-item">
@@ -45,13 +45,13 @@
         <div class="grid">
           <div class="one-half -left">
             <div class="input-item">
-              <input type="text" name="dates" required>
+              <input type="text" name="dates">
               <label for="">Contact Phone</label>
             </div>
           </div>
           <div class="one-half -right">
             <div class="input-item">
-              <input type="text" name="dates" required>
+              <input type="text" name="dates">
               <label for="">Contact Email</label>
             </div>
           </div>
@@ -60,13 +60,13 @@
         <div class="grid">
           <div class="one-half -left">
             <div class="input-item">
-              <input type="text" name="dates" required>
+              <input type="text" name="dates">
               <label for="">City</label>
             </div>
           </div>
           <div class="one-half -right">
             <div class="input-item">
-              <input type="text" name="dates" required>
+              <input type="text" name="dates">
               <label for="">State</label>
             </div>
           </div>
@@ -76,27 +76,33 @@
       <fieldset>
         <h3>Additional Information</h3>
         <div class="input-item select">
-          <select name="foo">
-            <option value="#">One</option>
-            <option value="#">Two</option>
+          <select name="type-of-organization">
+            <option value="Foundation">Foundation</option>
+            <option value="Other">Other</option>
           </select>
           <label for="">Type of Organization</label>
           <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg></span>
         </div>
 
         <div class="input-item select">
-          <select name="foo">
-            <option value="#">One</option>
-            <option value="#">Two</option>
+          <select name="size-of-group">
+            <option value="1–5">1–5</option>
+            <option value="6–10">6—10</option>
+            <option value="11–20">11–20</option>
+            <option value="21–30">21—30</option>
+            <option value="31–50">31—50</option>
+            <option value="51+">51+</option>
           </select>
           <label for="">Size of Group</label>
           <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg></span>
         </div>
 
         <div class="input-item select">
-          <select name="foo">
-            <option value="#">One</option>
-            <option value="#">Two</option>
+          <select name="organization-budget">
+            <option value="$0–$50,000">$0–$50,000</option>
+            <option value="$50,001–$100,000">$50,001–$100,000</option>
+            <option value="$100,001–$250,000">$100,001–$250,000</option>
+            <option value="$250,001–$500,000">$250,001–$500,000</option>
           </select>
           <label for="">Organization Budget</label>
           <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg></span>

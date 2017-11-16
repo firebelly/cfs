@@ -189,29 +189,27 @@ var CFS = (function($) {
       lazyLoad: 'ondemand'
     });
 
-    // $('a.lightbox').swipebox({
-    //   autoplayVideos: false,
-    //   loopAtEnd: false,
-    //   afterOpen: function() {
-    //     $('#swipebox-slider .slide:last-of-type').remove();
-    //   }
-    // });
-
   }
 
   function _initForms() {
+    // Buttons that switch between showing two forms
     $('body').on('click', '.switches a', function(e) {
       e.preventDefault();
       var sw = $(this).attr('data-switch');
       $('.switches a').removeClass('active');
       $(this).addClass('active');
-      console.log(sw);
       $('.switch-pane').removeClass('active');
       $('.switch-pane[data-switch=' + sw + ']').addClass('active');
     });
+    $('form input').on('keyup', _checkFormInput);
+    $('form input').on('change', _checkFormInput);
+  }
+  function _checkFormInput(e) {
+    $(e.target).toggleClass('has-input', ($(e.target).val() != ''));
   }
 
   function _initStickyElements() {
+    // Not using this yet, but registration boxes should be sticky as you scroll
     if ($('.scroll-stick').length) {
       var sticky = new Waypoint.Sticky({
         element: $('.scroll-stick')
