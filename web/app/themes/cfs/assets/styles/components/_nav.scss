@@ -49,7 +49,7 @@
   .logo-wordmark {
     position: absolute;
     top: 0;
-    left: columns(1,17);
+    left: columns(1,18);
     svg {
       @include theme-color('fill', $white, 'accent');
       width: 106px;
@@ -156,7 +156,7 @@
     @include bar('left', $black, 17);
 
     a {
-      padding: vertical-beat(2) 16px;
+      padding: vertical-beat(2) 12px;
       color: $white;
       display: inline-block;
       &:hover {
@@ -167,11 +167,12 @@
     // Search and donate have 2px border
     .menu-search a,
     > ul > .menu-donate a {
-      margin-left: $gutter;
+      margin-left: 8px;
       padding: 7px 30px 5px;
       box-shadow: inset 0px 0px 0px 2px $white;
     }
     .menu-search a {
+      margin-left: $gutter;
       text-indent: -9999px;
       position: relative;
       width: 36px;
