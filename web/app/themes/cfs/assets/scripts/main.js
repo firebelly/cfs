@@ -154,8 +154,8 @@ var CFS = (function($) {
         $('.site-header .search-field').focus();
       }
     });
-    $('#menu-main-nav > li:not(.menu-search) > a').append('<svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg>');
-    $('#menu-main-nav > li > a svg').on('click', function(e) {
+    $('#menu-main-nav > li.menu-item-has-children > a').append('<svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg>');
+    $('#menu-main-nav > li.menu-item-has-children > a svg').on('click', function(e) {
       e.preventDefault();
       $(this).parents('li:first').toggleClass('-active');
     });
