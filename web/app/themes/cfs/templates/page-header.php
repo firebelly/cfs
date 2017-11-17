@@ -27,7 +27,13 @@ if (is_post_type_archive('workshop') || is_tax('workshop_series')) {
   // Otherwise get header data from single post
   $header_video = get_post_meta($post->ID, '_cmb2_featured_video', true);
   if (!$header_video) {
-    $header_bg = \Firebelly\Media\get_header_bg($post);
+    if (\Firebelly\Init\is_youth_program()) {
+      // Youth Program sections get untreated image
+      $background_image = get_the_post_thumbnail_url($post, 'large');
+      $header_bg = ' style="background-image:url(' . $background_image . ');"';
+    } else {
+      $header_bg = \Firebelly\Media\get_header_bg($post);
+    }
   } else {
     $header_bg = '';
   }

@@ -42,6 +42,7 @@ $custom_featured_link_text = get_post_meta($post->ID, '_cmb2_custom_featured_lin
 
 <header class="page-header homepage">
   <div class="bg-image" <?= $header_bg ?>>
+    <div class="gradient-l"></div><div class="gradient-b"></div>
     <?php if ($header_video): ?>
     <div class="background-video-wrapper">
       <video class="background-video" playsinline autoplay muted loop poster="">

@@ -15,15 +15,15 @@ body {
 
 body {
   color: $black;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 1.5;
   overflow-x: hidden;
   background: $gray-lite;
   font-family: $font-regular;
-}
 
-.container {
-  margin-top: 84px;
+  @include media-md {
+    font-size: 16px;
+  }
 }
 
 .main {}

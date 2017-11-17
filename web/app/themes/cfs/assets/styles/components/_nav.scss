@@ -1,46 +1,67 @@
 // Primary nav
 
-.site-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 10;
-
-  .brand {
-    margin-top: 9px;
-    font-size: 24px;
-    position: absolute;
-    padding: 0;
-    margin: 0;
-    top: 32px;
-    left: calc(#{columns(1)} - 52px);
-    z-index: 10;
-    svg {
-      @include theme-color('fill', $red);
-      width: 139px;
-      height: 139px;
-    }
-  }
+.container {
   @include media-md {
-      position: fixed;
+    // Space for fixed nav
+    margin-top: 84px;
   }
 }
 
 // WP admin bar push
 .admin-bar {
   .site-header {
-    top: 32px;
+    // top: 46px;
+    @include media-md {
+      top: 32px;
+    }
+  }
+}
+
+.site-header {
+  position: relative;
+  height: 80px;
+  background: $red;
+  border-left: mobile-grid(2) solid $black;
+  border-right: mobile-grid(2) solid $black;
+  .brand {
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    top: 10px;
+    left: mobile-grid(3);
+    svg {
+      @include theme-color('fill', $white);
+      width: 47px;
+      height: 47px;
+    }
+  }
+
+  @include media-md {
+    background: none;
+    border: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    .brand {
+      margin-top: 9px;
+      font-size: 24px;
+      top: 32px;
+      left: calc(#{columns(1)} - 52px);
+      z-index: 10;
+      svg {
+        @include theme-color('fill', $red);
+        width: 139px;
+        height: 139px;
+      }
+    }
   }
 }
 
 .site-nav {
-  position: fixed;
-  top: 0;
-  left: 100%;
-  width: 100%;
+  @include theme-color('background', $red);
   color: $white;
-  height: 85px;
   font: 500 12px/1.5 $font-display;
   letter-spacing: .06875em;
   @extend %smooth;
@@ -48,14 +69,23 @@
 
   .logo-wordmark {
     position: absolute;
-    top: 0;
-    left: columns(1,18);
+    top: 20px;
+    left: mobile-grid(10);
     svg {
       @include theme-color('fill', $white, 'accent');
-      width: 106px;
-      height: 85px;
+      width: 49px;
+      height: 39px;
     }
-    z-index: 10;
+
+    @include media-md {
+      top: 0;
+      left: columns(1,18);
+      svg {
+        width: 106px;
+        height: 85px;
+      }
+      z-index: 10;
+    }
   }
 
   a {
@@ -71,6 +101,7 @@
   }
 
   ul {
+    display: none;
     margin: 0;
     padding: 0;
     li {
@@ -144,16 +175,25 @@
     }
   }
 
+  @include media-md {
+
+  }
+
   @include min-screen($breakpoint-nav) {
     width: columns(17);
     left: auto;
     float: right;
-    @include theme-color('background', $red);
     padding: 0;
     position: relative;
+    height: 85px;
 
     // Black bar at left of nav
     @include bar('left', $black, 17);
+
+    // Show nav
+    ul {
+      display: block;
+    }
 
     a {
       padding: vertical-beat(2) 12px;
@@ -259,14 +299,18 @@
 
 // mobile menu toggle
 .menu-toggle {
-  top: 0;
-  right: 0;
-  padding: 0;
-  width: 35px;
-  height: 35px;
-  border: none;
-  position: fixed;
-  background: $black;
+  position: absolute;
+  top: 20px;
+  right: mobile-grid(3);
+  border: 2px solid $white;
+  border-radius: 0;
+  background: none;
+  @extend .font-display;
+  @include theme-color('border-color', $white, 'accent');
+  @include theme-color('color', $white, 'accent');
+  width: 80px;
+  height: 36px;
+  line-height: 30px;
 
   // States
   &:focus {
@@ -277,9 +321,9 @@
   &.menu-open {
   }
 
-  @include media-md {
-    right: 0;
-  }
+  // @include media-md {
+  //   right: 0;
+  // }
 
   @include min-screen($breakpoint-nav) {
     top: auto;

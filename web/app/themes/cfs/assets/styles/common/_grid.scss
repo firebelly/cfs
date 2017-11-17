@@ -2,6 +2,7 @@
 
 $vertical-beat: 12px;
 $grid: 12px;
+$mobile-grid: 8px;
 $gutter: 24px;
 
 $global-padding: 70px;
@@ -19,6 +20,9 @@ $column-width: 100% / $global-columns;
 }
 @function grid($num) {
   @return $grid * $num;
+}
+@function mobile-grid($num) {
+  @return $mobile-grid * $num;
 }
 
 .grid {

@@ -31,10 +31,14 @@ $font-regular: 'Rubik', sans-serif;
 h1,
 .h1 {
   @extend .font-header;
-  font-size: 60px;
+  font-size: 30px;
   line-height: 1;
   text-transform: uppercase;
   margin: 0 0 vertical-beat(2);
+
+  @include media-md {
+    font-size: 60px;
+  }
 }
 
 h2,
@@ -63,9 +67,13 @@ p {
 p.p-intro {
   @extend %smooth;
   @extend .font-regular;
-  font-size: 24px;
+  font-size: 16px;
   line-height: 1.5;
   font-weight: 500;
+
+  @include media-md {
+    font-size: 24px;
+  }
 }
 
 %small-text {

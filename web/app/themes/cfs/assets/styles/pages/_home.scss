@@ -2,6 +2,7 @@
 .page-header.homepage {
   .page-intro {
     color: $white;
+    padding: 240px mobile-grid(2) mobile-grid(5) mobile-grid(5);
   }
 
   @include media-md {

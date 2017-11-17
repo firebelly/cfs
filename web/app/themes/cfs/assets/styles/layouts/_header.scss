@@ -2,13 +2,27 @@
 
 .page-header {
   position: relative;
-  margin-left: columns(1);
   .bg-image {
     width: 100%;
     background-size: cover;
     background-position: top center;
     position: relative;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+
+    // Gradient overlays
+    .gradient-l,
+    .gradient-b {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to right, rgba(50,50,40,0.5) 0%,rgba(50,50,40,0) 100%);
+    }
+    .gradient-b {
+      background: linear-gradient(to bottom, rgba(50,50,40,0) 50%,rgba(50,50,40,1) 100%);
+    }
   }
 
   .icon-notch {
@@ -23,6 +37,9 @@
     a:hover {
       color: $yellow;
     }
+  }
+  .page-intro {
+    position: relative;
   }
 
   // Wide page headers (secondary landing pages, search)
@@ -91,7 +108,6 @@
       width: columns(10,19);
       height: 400px;
       z-index: 2;
-      // display: none;
     }
     .page-titles {
       h1 {
@@ -122,6 +138,7 @@
 
   // Larger displays
   @include media-md {
+    margin-left: columns(1);
     .bg-image {
       height: 600px;
     }
