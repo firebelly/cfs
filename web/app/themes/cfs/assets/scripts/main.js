@@ -205,7 +205,7 @@ var CFS = (function($) {
     $('form input').on('change', _checkFormInput);
   }
   function _checkFormInput(e) {
-    $(e.target).toggleClass('has-input', ($(e.target).val() != ''));
+    $(e.target).toggleClass('has-input', ($(e.target).val() !== ''));
   }
 
   function _initStickyElements() {
