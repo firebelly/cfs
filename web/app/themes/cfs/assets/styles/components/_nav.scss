@@ -69,7 +69,7 @@
 
   .logo-wordmark {
     position: absolute;
-    top: 20px;
+    top: 16px;
     left: mobile-grid(10);
     svg {
       @include theme-color('fill', $white, 'accent');
