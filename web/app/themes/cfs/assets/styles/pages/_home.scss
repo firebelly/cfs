@@ -24,11 +24,9 @@
         }
       }
     }
-
     // Red bar at right
     @include bar('right', $red, 18);
   }
-
 }
 
 
@@ -36,9 +34,15 @@
 .home.page {
   .featured {
     background: $black;
-    margin-left: columns(2);
-    .button.-red:hover {
-      color: $black;
+    border-left: mobile-grid(2) solid $black;
+    border-right: mobile-grid(2) solid $black;
+
+    @include media-md {
+      border: none;
+      margin-left: columns(2);
+      .button.-red:hover {
+        color: $black;
+      }
     }
   }
 
@@ -46,13 +50,10 @@
   .feature {
     position: relative;
     background: $black;
-    margin: 0 0 0 columns(1,18);
-    >.wrap {
-      padding: vertical-beat(4) columns(2,17) vertical-beat(4) columns(1,17);
-    }
+    padding: mobile-grid(5) mobile-grid(3);
     .image {
       @include aspect-ratio(480, 324);
-      margin: 0 $gutter 0 0;
+      margin-bottom: mobile-grid(2);
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
     }
     h1 {
@@ -62,28 +63,58 @@
       color: $white;
     }
 
+    @include media-md {
+      padding: 0;
+      margin: 0 0 0 columns(1,18);
+      >.wrap {
+        padding: vertical-beat(4) columns(2,17) vertical-beat(4) columns(1,17);
+      }
+      .image {
+        margin: 0 $gutter 0 0;
+      }
+    }
+
     // Featured Program
     &.program-post {
       background: $red;
-      padding: vertical-beat(4) columns(1,18) vertical-beat(4) 0;
-      margin: 0 0 0 columns(1,18);
-      // @include bar('left', $black, 16);
-      // @include bar('right', $red, 16);
       h1 {
         color: $white;
       }
-      >.wrap {
-        padding: 0 columns(1,16);
+
+      @include media-md {
+        padding: vertical-beat(4) columns(1,18) vertical-beat(4) 0;
+        margin: 0 0 0 columns(1,18);
+        >.wrap {
+          padding: 0 columns(1,16);
+        }
       }
     }
 
     // Featured Custom Link
     &.custom-link {
-      .details {
-        padding: 0 $gutter 0 0;
+      // Reorder image & details on smaller screens
+      @include max-screen($breakpoint-md) {
+        .grid {
+          display: flex;
+          flex-direction: column;
+        }
+        .one-half {
+          &.-left {
+            order: 2;
+          }
+          &.-right {
+            order: 1;
+          }
+        }
       }
-      .image {
-        margin: 0;
+
+      @include media-md {
+        .image {
+          margin: 0;
+        }
+        .details {
+          padding: 0 $gutter 0 0;
+        }
       }
     }
 

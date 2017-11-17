@@ -65,6 +65,7 @@
         color: $white;
       }
     }
+
     // Text-only headers with no bg image (search, workshops/pages with no featured image)
     &.-text-only {
       .color-wrap {
@@ -93,14 +94,6 @@
 
   // Half page headers (tertiary landing pages)
   &.-half {
-    // .icon-notch {
-    //   &.bottom-left {
-    //     transform: rotate(90deg);
-    //   }
-    //   &.bottom-right {
-    //     transform: rotate(0deg);
-    //   }
-    // }
     .bg-image {
       position: absolute;
       left: 0;
@@ -129,9 +122,6 @@
       .page-content {
         background: $white;
         padding: vertical-beat(4) columns(1,9);
-      }
-      .page-titles {
-        // background: $white;
       }
     }
   }

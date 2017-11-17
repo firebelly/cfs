@@ -12,7 +12,7 @@
         </div>
         <div class="clear input-submit"><button type="submit" name="subscribe" id="mc-embedded-subscribe" class="button">
           <svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg>
-          <span class="sr-only">Submit</span>
+          <span class="hide-for-medium-up">Subscribe</span>
         </div>
       </div>
       <div id="mce-responses" class="clear">

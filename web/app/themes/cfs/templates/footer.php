@@ -9,6 +9,14 @@
 
       <div class="subscribe">
 
+        <div class="social">
+          <ul>
+            <li><a class="button" href="https://www.facebook.com/<?= \Firebelly\SiteOptions\get_option('facebook_id'); ?>"><svg class="icon icon-facebook" aria-hidden="hidden" role="image"><use xlink:href="#icon-facebook"/></svg><span class="sr-only">Facebook</span></a></li>
+            <li><a class="button" href="https://www.twitter.com/<?= \Firebelly\SiteOptions\get_option('twitter_id'); ?>"><svg class="icon icon-twitter" aria-hidden="hidden" role="image"><use xlink:href="#icon-twitter"/></svg><span class="sr-only">Twitter</span></a></li>
+            <li><a class="button" href="https://www.vimeo.com/<?= \Firebelly\SiteOptions\get_option('vimeo_id'); ?>"><svg class="icon icon-vimeo" aria-hidden="hidden" role="image"><use xlink:href="#icon-vimeo"/></svg><span class="sr-only">Vimeo</span></a></li>
+          </ul>
+        </div>
+
         <div class="newsletter">
           <h3>Subscribe to our newsletter</h3>
           <?php include ('newsletter-form.php'); ?>
@@ -35,14 +43,6 @@
           </div>
         </div>
 
-      </div>
-
-      <div class="social">
-        <ul>
-          <li><a class="button" href="https://www.facebook.com/<?= \Firebelly\SiteOptions\get_option('facebook_id'); ?>"><svg class="icon icon-facebook" aria-hidden="hidden" role="image"><use xlink:href="#icon-facebook"/></svg><span class="sr-only">Facebook</span></a></li>
-          <li><a class="button" href="https://www.twitter.com/<?= \Firebelly\SiteOptions\get_option('twitter_id'); ?>"><svg class="icon icon-twitter" aria-hidden="hidden" role="image"><use xlink:href="#icon-twitter"/></svg><span class="sr-only">Twitter</span></a></li>
-          <li><a class="button" href="https://www.vimeo.com/<?= \Firebelly\SiteOptions\get_option('vimeo_id'); ?>"><svg class="icon icon-vimeo" aria-hidden="hidden" role="image"><use xlink:href="#icon-vimeo"/></svg><span class="sr-only">Vimeo</span></a></li>
-        </ul>
       </div>
 
     </div><!-- .grid -->

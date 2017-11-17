@@ -1,83 +1,31 @@
 .site-footer {
   @include clearfix;
-
   position: relative;
-  padding: vertical-beat(10) 0 vertical-beat(4);
+  padding: mobile-grid(5);
 
-  // black bar above footer
-  &::before {
-    display: block;
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: #{$column-width * 18};
-    height: vertical-beat(8);
-    background: $black;
-  }
-  .brand {
-    margin: 20px 0 0;
-  }
-  .icon-logo {
-    width: 70px;
-    height: 64px;
-    fill: $black;
-    position: absolute;
-    top: 16px;
-    left: -80px;
-
-  }
+  .icon-logo,
   .icon-logo-wordmark {
     fill: $black;
-    width: 72px;
-    height: 58px;
+    display: inline-block;
+    vertical-align: middle;
   }
-
-  .wrap {
-    width: #{$column-width * 16};
-    margin: 0 #{$column-width * 2};
-    position: relative;
-    .brand {
-      float: left;
-      width: #{$column-width * 2};
-    }
+  .icon-logo {
+    width: 39px;
+    height: 35px;
   }
-
-  .subscribe {
-    float: left;
-    width: #{$column-width * 9 * 20/16};
-    padding-left: $gutter;
-    h3 {
-      margin: 0 0 #{$vertical-beat * 2};
-    }
-    .newsletter-form {
-      position: relative;
-      input,
-      label {
-        color: $black;
-        border-color: $black;
-      }
-      .input-item {
-        margin-bottom: 0;
-      }
-    }
-    .input-name {
-      margin-left: -($gutter + 2px);
-    }
-    .input-email {
-    }
-    .input-submit {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-    }
+  .icon-logo-wordmark {
+    width: 36px;
+    height: 29px;
+  }
+  .brand {
+    margin-bottom: mobile-grid(5);
   }
 
   #contact {
     &,
     .contact-notice,
     .copyright {
-      margin-top: #{$vertical-beat * 2};
+      margin-top: vertical-beat(2);
     }
     address,
     p {
@@ -89,14 +37,36 @@
     }
   }
 
+  .subscribe {
+    h3 {
+      margin: 0 0 vertical-beat(2);
+    }
+    .newsletter-form {
+      position: relative;
+      input,
+      label {
+        color: $black;
+        border-color: $black;
+      }
+      margin-bottom: vertical-beat(3);
+    }
+    .input-submit {
+      margin-top: vertical-beat(-1);
+      button {
+        width: 100%;
+      }
+      svg {
+        display: none;
+      }
+    }
+  }
+
   .social {
-    width: #{$column-width * 4 * 20/16};
-    position: absolute;
-    right: 0;
-    top: 0;
+    position: relative;
+    height: 100px;
     li {
       position: absolute;
-      top: 22px;
+      top: 0;
       &:nth-child(1) {
         left: 0;
       }
@@ -110,4 +80,76 @@
     }
   }
 
+  @include media-md {
+    padding: vertical-beat(10) 0 vertical-beat(4);
+
+    // black bar above footer
+    &::before {
+      display: block;
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: columns(18);
+      height: vertical-beat(8);
+      background: $black;
+    }
+
+    .icon-logo {
+      width: 70px;
+      height: 64px;
+      position: absolute;
+      top: 16px;
+      left: -80px;
+    }
+    .icon-logo-wordmark {
+      width: 72px;
+      height: 58px;
+    }
+
+    .wrap {
+      width: columns(16);
+      margin: 0 columns(2);
+      position: relative;
+      .brand {
+        margin-top: 16px;
+        float: left;
+        width: columns(2);
+      }
+    }
+
+    .subscribe {
+      float: left;
+      width: columns(9,16);
+      padding-left: $gutter;
+      .input-name {
+        margin-left: -($gutter + 2px);
+      }
+      .input-item {
+        margin-bottom: 0;
+      }
+      .input-submit {
+        position: absolute;
+        margin: 0;
+        bottom: 0;
+        right: 0;
+        button {
+          width: auto;
+        }
+        svg {
+          display: inline-block;
+        }
+      }
+    }
+
+    .social {
+      width: columns(4,16);
+      position: absolute;
+      right: 0;
+      top: 0;
+      li {
+        top: 22px;
+      }
+    }
+  }
 }
