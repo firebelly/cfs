@@ -20,7 +20,7 @@
 .site-header {
   position: relative;
   height: 80px;
-  background: $red;
+  @include theme-color('background', $red);
   border-left: mobile-grid(2) solid $black;
   border-right: mobile-grid(2) solid $black;
   .brand {
@@ -30,7 +30,7 @@
     top: 10px;
     left: mobile-grid(3);
     svg {
-      @include theme-color('fill', $white);
+      @include theme-color('fill', $white, 'accent');
       width: 47px;
       height: 47px;
     }
@@ -299,6 +299,7 @@
       max-height: 36px;
     }
   }
+  // Go search button
   .go-button {
     width: columns(2,8);
     border-radius: 0;
@@ -314,6 +315,7 @@
       @include theme-color('color', $yellow, 'accent2');
     }
   }
+  // Close search button
   .search-close {
     display: block;
     float: right;
@@ -366,10 +368,10 @@
     display: none;
     width: 12px;
     height: 12px;
-    fill: $white;
+    @include theme-color('fill', $white, 'accent');
   }
 
-  // Open
+  // Mobile nav is open: hide "Menu" and show "X" svg
   &.menu-open {
     span {
       display: none;
@@ -379,7 +381,6 @@
     }
   }
 
-  // States
   &:focus {
     outline: none;
   }
@@ -394,21 +395,28 @@
 @include max-screen($breakpoint-nav) {
   ul#menu-main-nav {
     display: none;
-    a {
-      color: $white;
-      display: block;
-      margin: 0;
-      padding: 0;
-      svg {
-        width: 34px;
-        height: 34px;
-        fill: $white;
-        position: absolute;
-        right: 0;
-        top: 5px;
-        padding: 5px;
-        transform: rotate(90deg);
-        transition: transform .2s steps(4);
+    padding: 120px mobile-grid(3);
+    li {
+      a {
+        display: block;
+        line-height: 1;
+        padding: mobile-grid(2) 0;
+        border-top: 1px solid $white;
+        // color: $white;
+        @include theme-color('border-color', $white, 'accent');
+        @include theme-color('color', $white, 'accent');
+        svg {
+          width: 34px;
+          height: 34px;
+          // fill: $white;
+          @include theme-color('fill', $white, 'accent');
+          position: absolute;
+          right: 0;
+          top: 5px;
+          padding: 5px;
+          transform: rotate(90deg);
+          transition: transform .2s steps(4);
+        }
       }
     }
     .menu-search {
@@ -450,14 +458,6 @@
     }
     ul#menu-main-nav {
       display: block;
-      padding: 120px mobile-grid(3);
-      li {
-        a {
-          line-height: 1;
-          padding: mobile-grid(2) 0;
-          border-top: 1px solid $white;
-        }
-      }
     }
   }
 }

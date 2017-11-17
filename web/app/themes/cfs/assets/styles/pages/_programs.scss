@@ -10,13 +10,25 @@ body.theme-yellow {
       transform: rotate(0deg);
     }
   }
-  .site-nav {
-    > ul > .menu-donate a,
-    .menu-search a {
-      box-shadow: inset 0px 0px 0px 2px $black;
+
+  // My simplified theme-color() mixin doesn't support other body classes, just hardcoding here
+  &.menu-open {
+    .site-header {
+      background: $yellow;
+      border-color: $yellow;
     }
-    .menu-search a svg {
-      fill: $black;
+  }
+
+  @include media-md {
+    .site-nav {
+      > ul > .menu-donate a,
+      .menu-search a {
+        box-shadow: inset 0px 0px 0px 2px $black;
+      }
+      .menu-search a svg {
+        // This didn't fit with any accent or accent2 theming for theme-color(), just hardcoding here
+        fill: $black;
+      }
     }
   }
 }
