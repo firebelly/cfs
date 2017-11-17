@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1b38a351941a501bf6e1095199ce04e1",
+    "content-hash": "69f671ee25dc7ede856011a363613e22",
     "packages": [
         {
             "name": "composer/installers",
@@ -827,7 +827,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://downloads.wordpress.org/plugin/accordion-shortcodes.2.3.3.zip",
-                "reference": "tags/2.3.3",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -867,7 +867,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://downloads.wordpress.org/plugin/intuitive-custom-post-order.3.1.0.zip",
-                "reference": "tags/3.1.0",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -887,7 +887,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://downloads.wordpress.org/plugin/regenerate-thumbnails.2.3.1.zip",
-                "reference": "tags/2.3.1",
+                "reference": null,
                 "shasum": null
             },
             "require": {
@@ -907,7 +907,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://downloads.wordpress.org/plugin/update-from-bottom.1.0.3.zip",
-                "reference": "tags/1.0.3",
+                "reference": null,
                 "shasum": null
             },
             "require": {
