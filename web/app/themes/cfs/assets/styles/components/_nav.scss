@@ -60,12 +60,9 @@
 }
 
 .site-nav {
-  @include theme-color('background', $red);
-  color: $white;
   font: 500 12px/1.5 $font-display;
   letter-spacing: .06875em;
   @extend %smooth;
-  box-shadow: 0 2px 12px 0 rgba(#000, .5);
 
   .logo-wordmark {
     position: absolute;
@@ -101,7 +98,7 @@
   }
 
   ul {
-    display: none;
+    // display: none;
     margin: 0;
     padding: 0;
     li {
@@ -112,75 +109,12 @@
     position: relative;
   }
 
-  .sub-menu {
-    color: $black;
-    max-height: 0;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 2px 4px 0 rgba(#000, .5);
-    li {
-      // Stagger display of submenu items
-      transition: height 0s steps(1);
-      &:nth-child(1) {
-        transition-delay: 0s;
-      }
-      &:nth-child(2) {
-        transition-delay: 0.1s;
-      }
-      &:nth-child(3) {
-        transition-delay: 0.15s;
-      }
-      &:nth-child(4) {
-        transition-delay: 0.2s;
-      }
-      &:nth-child(5) {
-        transition-delay: 0.25s;
-      }
-      height: 0;
-      overflow: hidden;
-    }
-    a {
-      display: block;
-      padding: 30px 0;
-      position: relative;
-      &::after {
-        content: '';
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        // Give a hard edge to faux dropshadow
-        border-top: 1px solid rgba(#000, .25);
-        // Faux dropshadow
-        background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 100%);
-        height: 6px;
-      }
-    }
-    li:first-of-type a {
-      &::after {
-        height: 12px;
-        // Faux dropshadow
-        background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%,rgba(0,0,0,0) 100%);
-      }
-    }
-  }
-  .menu-item-has-children:hover {
-    @include min-screen($breakpoint-nav) {
-      .sub-menu {
-        li {
-          height: 80px;
-        }
-      }
-    }
-  }
-
-  @include media-md {
-
-  }
+  // @include media-md {}
 
   @include min-screen($breakpoint-nav) {
     width: columns(17);
+    @include theme-color('background', $red);
+    box-shadow: 0 2px 12px 0 rgba(#000, .5);
     left: auto;
     float: right;
     padding: 0;
@@ -193,6 +127,10 @@
     // Show nav
     ul {
       display: block;
+      // Hide the dropdown \/ arrows added by js for mobile nav
+      a svg {
+        display: none;
+      }
     }
 
     a {
@@ -263,11 +201,52 @@
       max-height: none;
       overflow: visible;
       box-shadow: 0 2px 4px 0 rgba(#000, .5);
-      &::before {
-        top: 10px;
-      }
+
       li {
-        width: 350px;
+        // Stagger display of submenu items
+        transition: height 0s steps(1);
+        &:nth-child(1) {
+          transition-delay: 0s;
+        }
+        &:nth-child(2) {
+          transition-delay: 0.1s;
+        }
+        &:nth-child(3) {
+          transition-delay: 0.15s;
+        }
+        &:nth-child(4) {
+          transition-delay: 0.2s;
+        }
+        &:nth-child(5) {
+          transition-delay: 0.25s;
+        }
+        height: 0;
+        overflow: hidden;
+      }
+      a {
+        display: block;
+        padding: 30px 0;
+        position: relative;
+        &::after {
+          content: '';
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          // Give a hard edge to faux dropshadow
+          border-top: 1px solid rgba(#000, .25);
+          // Faux dropshadow
+          background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 100%);
+          height: 6px;
+        }
+      }
+      li:first-of-type a {
+        &::after {
+          height: 12px;
+          // Faux dropshadow
+          background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%,rgba(0,0,0,0) 100%);
+        }
       }
     }
 
@@ -289,6 +268,7 @@
         }
         li {
           @include theme-color('background', $red);
+          height: 80px;
           text-align: center;
         }
       }
@@ -297,39 +277,6 @@
   }
 }
 
-// mobile menu toggle
-.menu-toggle {
-  position: absolute;
-  top: 20px;
-  right: mobile-grid(3);
-  border: 2px solid $white;
-  border-radius: 0;
-  background: none;
-  @extend .font-display;
-  @include theme-color('border-color', $white, 'accent');
-  @include theme-color('color', $white, 'accent');
-  width: 80px;
-  height: 36px;
-  line-height: 30px;
-
-  // States
-  &:focus {
-    outline: none;
-  }
-
-  // Open
-  &.menu-open {
-  }
-
-  // @include media-md {
-  //   right: 0;
-  // }
-
-  @include min-screen($breakpoint-nav) {
-    top: auto;
-    display: none;
-  }
-}
 
 // Search form in nav
 .nav-search {
@@ -398,5 +345,119 @@
   }
   .nav-search {
     display: block;
+  }
+}
+
+// Mobile menu toggle
+.menu-toggle {
+  position: absolute;
+  top: 20px;
+  right: mobile-grid(3);
+  border: 2px solid $white;
+  border-radius: 0;
+  background: none;
+  @extend .font-display;
+  @include theme-color('border-color', $white, 'accent');
+  @include theme-color('color', $white, 'accent');
+  padding: 0 16px;
+  height: 36px;
+  line-height: 30px;
+  svg {
+    display: none;
+    width: 12px;
+    height: 12px;
+    fill: $white;
+  }
+
+  // Open
+  &.menu-open {
+    span {
+      display: none;
+    }
+    svg {
+      display: block;
+    }
+  }
+
+  // States
+  &:focus {
+    outline: none;
+  }
+
+  @include min-screen($breakpoint-nav) {
+    top: auto;
+    display: none;
+  }
+}
+
+// Mobile only styling on #menu-main-nav
+@include max-screen($breakpoint-nav) {
+  ul#menu-main-nav {
+    display: none;
+    a {
+      color: $white;
+      display: block;
+      margin: 0;
+      padding: 0;
+      svg {
+        width: 34px;
+        height: 34px;
+        fill: $white;
+        position: absolute;
+        right: 0;
+        top: 5px;
+        padding: 5px;
+        transform: rotate(90deg);
+        transition: transform .2s steps(4);
+      }
+    }
+    .menu-search {
+      display: none;
+    }
+    .sub-menu {
+      max-height: 0;
+      overflow: hidden;
+      margin-left: mobile-grid(5);
+    }
+    li.-active {
+      a svg {
+        transform: rotate(270deg);
+      }
+      .sub-menu {
+          max-height: none;
+      }
+    }
+  }
+  body.menu-open {
+    overflow: hidden;
+    .site-header {
+      .wrap {
+        position: relative;
+      }
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: $red;
+      border-color: $red;
+      height: auto;
+      z-index: 100;
+      overflow-y: scroll;
+    }
+    &.admin-bar .site-header {
+      padding-top: 46px;
+    }
+    ul#menu-main-nav {
+      display: block;
+      padding: 120px mobile-grid(3);
+      li {
+        a {
+          line-height: 1;
+          padding: mobile-grid(2) 0;
+          border-top: 1px solid $white;
+        }
+      }
+    }
   }
 }

@@ -154,9 +154,14 @@ var CFS = (function($) {
         $('.site-header .search-field').focus();
       }
     });
+    $('#menu-main-nav > li:not(.menu-search) > a').append('<svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg>');
+    $('#menu-main-nav > li > a svg').on('click', function(e) {
+      e.preventDefault();
+      $(this).parents('li:first').toggleClass('-active');
+    });
     // Mobile menu toggle
-    $('<button class="menu-toggle">Menu</button>')
-      .prependTo('.site-header')
+    $('<button class="menu-toggle"><span>Menu</span> <svg class="icon icon-x" aria-hidden="hidden" role="image"><title>Close</title><use xlink:href="#icon-x"/></svg></button>')
+      .prependTo('.site-header .wrap')
       .on('click', function(e) {
       if (!$('.site-nav').is('.-active')) {
         _showMobileNav();
