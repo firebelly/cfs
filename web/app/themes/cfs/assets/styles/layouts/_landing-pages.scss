@@ -1,26 +1,20 @@
 // Landing pages
 
 .secondary-nav {
-  margin-left: columns(2);
   background: $black;
   color: $white;
-  padding: vertical-beat(2) columns(2);
+  padding: mobile-grid(3) mobile-grid(5);
   article {
+    padding-bottom: mobile-grid(5);
     .image {
       @include aspect-ratio(192,180);
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
-      margin-bottom: vertical-beat(2);
-    }
-    &:hover {
-      .image {
-        // top: 2px;
-        // box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
-        // transform: scale(1.02);
-      }
+      margin-bottom: mobile-grid(2);
     }
     h1 {
       color: $red;
       @extend .h2;
+      margin-bottom: mobile-grid(0);
     }
 
     // Wider columns get different aspect ratio image
@@ -30,7 +24,13 @@
       }
     }
   }
+  h3 {
+    margin: mobile-grid(5) 0;
+  }
+
   @include media-md {
+    margin-left: columns(2);
+    padding: vertical-beat(2) columns(2);
     .wrap {
       margin: 0 -35px;
     }
@@ -40,6 +40,9 @@
     article {
       position: relative;
       padding-bottom: vertical-beat(2);
+      .image {
+        margin-bottom: vertical-beat(2);
+      }
       .read-more {
         position: absolute;
         bottom: 0;
@@ -50,6 +53,15 @@
       border-right: 1px solid $white;
       &:last-of-type {
         border-right: none;
+      }
+
+      &:hover {
+        // Attempt at hover styles, seemed weird, may bring back
+        .image {
+          // top: 2px;
+          // box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+          // transform: scale(1.02);
+        }
       }
     }
   }

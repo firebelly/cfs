@@ -32,14 +32,26 @@
     transform: scaleX(0);
     transition: transform .1s steps(2);
   }
-  &.active,
-  &:hover {
+
+  // Convoluted separation of shared .active & :hover state styles to avoid mobile hover double-click issues
+  &.active {
     color: $white;
     &::before {
       transform: scaleX(1);
     }
     svg {
       fill: $white;
+    }
+  }
+  @include media-md {
+    &:hover {
+      color: $white;
+      &::before {
+        transform: scaleX(1);
+      }
+      svg {
+        fill: $white;
+      }
     }
   }
   &.-wide {
@@ -53,11 +65,19 @@
     &::before {
       background: $white;
     }
-    &.active,
-    &:hover {
+
+    &.active {
       color: $black;
       svg {
         fill: $black;
+      }
+    }
+    @include media-md {
+      &:hover {
+        color: $black;
+        svg {
+          fill: $black;
+        }
       }
     }
   }
@@ -69,11 +89,19 @@
     &::before {
       background: $red;
     }
-    &.active,
-    &:hover {
+
+    &.active {
       color: $white;
       svg {
         fill: $black;
+      }
+    }
+    @include media-md {
+      &:hover {
+        color: $white;
+        svg {
+          fill: $black;
+        }
       }
     }
   }

@@ -1,7 +1,7 @@
 // Primary nav
 
 .container {
-  @include media-md {
+  @include media-nav {
     // Space for fixed nav
     margin-top: 84px;
   }
@@ -11,7 +11,7 @@
 .admin-bar {
   .site-header {
     // top: 46px;
-    @include media-md {
+    @include media-nav {
       top: 32px;
     }
   }
@@ -20,9 +20,7 @@
 .site-header {
   position: relative;
   height: 80px;
-  @include theme-color('background', $red);
-  border-left: mobile-grid(2) solid $black;
-  border-right: mobile-grid(2) solid $black;
+
   .brand {
     position: absolute;
     padding: 0;
@@ -36,9 +34,13 @@
     }
   }
 
-  @include media-md {
-    background: none;
-    border: none;
+  @include max-screen($breakpoint-nav) {
+    @include theme-color('background', $red);
+    border-left: mobile-grid(2) solid $black;
+    border-right: mobile-grid(2) solid $black;
+  }
+
+  @include media-nav {
     position: fixed;
     top: 0;
     left: 0;
@@ -74,7 +76,7 @@
       height: 39px;
     }
 
-    @include media-md {
+    @include media-nav {
       top: 0;
       left: columns(1,18);
       svg {

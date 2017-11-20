@@ -90,7 +90,7 @@ function fb_crumbs() {
   global $post;
   $separator = '/';
   if (is_front_page()) return '';
-  $return = '<nav class="crumb"><a href="'.home_url().'">Home</a>';
+  $return = '<nav class="crumb"><a href="'.home_url().'">Home</a> ';
   if (is_404()) {
     $return .= " {$separator} 404";
   } else if (is_category()) {

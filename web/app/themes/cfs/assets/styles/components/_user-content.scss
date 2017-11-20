@@ -56,35 +56,3 @@
   }
 
 }
-
-/* Accordion Styles */
-.accordion {
-  margin: vertical-beat(4) 0 0;
-}
-.accordion-title {
-  @include hr-above;
-  margin: 0;
-  padding: vertical-beat(4) 0;
-  cursor: pointer;
-  outline: none;
-  .icon {
-    width: 24px;
-    height: 24px;
-    position: absolute;
-    top: 36px;
-    right: 0;
-    transform: rotate(90deg);
-    transition: transform .2s steps(4);
-  }
-  &[aria-expanded=true] {
-    .icon {
-      transform: rotate(-90deg);
-    }
-  }
-}
-.accordion-content {
-  >p {
-    margin-top: 0px;
-  }
-  padding-bottom: vertical-beat(3);
-}

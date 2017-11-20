@@ -1,6 +1,6 @@
 // Programs page
 
-// Programs get .yellow-theme applied to body from fb_init
+// Youth Program pages get "theme-yellow" class applied to body at \Firebelly\Init\is_youth_program()
 body.theme-yellow {
   .page-header {
     .icon-notch.bottom-left {
@@ -11,7 +11,7 @@ body.theme-yellow {
     }
   }
 
-  // My simplified theme-color() mixin doesn't support other body classes, just hardcoding here
+  // My simplified version of Bryant's theme-color() mixin doesn't support other body classes, just hardcoding here
   &.menu-open {
     .site-header {
       background: $yellow;
@@ -26,23 +26,25 @@ body.theme-yellow {
         box-shadow: inset 0px 0px 0px 2px $black;
       }
       .menu-search a svg {
-        // This didn't fit with any accent or accent2 theming for theme-color(), just hardcoding here
+        // This particular change didn't fit with any accent or accent2 theming for theme-color(), just hardcoding here
         fill: $black;
       }
     }
   }
 }
 
-// Make sure registration info shows
 .single-workshop,
 .single-program {
-  .intro-wrap {
-    min-height: 330px;
-  }
+  // Make sure registration info shows
+  // .intro-wrap {
+  //   min-height: 330px;
+  // }
   .slider {
-    margin-left: columns(2);
     background: $black;
-    padding-left: columns(1,20);
+    @include media-md {
+      margin-left: columns(2);
+      padding-left: columns(1,20);
+    }
   }
 }
 .page-titles {
@@ -51,8 +53,10 @@ body.theme-yellow {
 
 .registration {
   @extend .h3;
-  .button:hover {
-    color: $yellow;
+  @include media-md {
+    .button:hover {
+      color: $yellow;
+    }
   }
   .timespan {
     display: block;

@@ -67,9 +67,11 @@ if (is_singular('workshop') || is_singular('program')) {
         <div class="intro-wrap">
           <?= $registration_html ?>
           <p class="p-intro"><?= $page_intro_quote; ?></p>
-          <?= empty($post->post_content) ? '' : apply_filters('the_content', $post->post_content);?>
         </div>
-        <?= $accordions_html ?>
+        <div class="page-meat user-content">
+          <?= empty($post->post_content) ? '' : apply_filters('the_content', $post->post_content);?>
+          <?= $accordions_html ?>
+        </div>
       </div>
     </div>
   </div><!-- /.page-intro .color-wrap -->
@@ -98,8 +100,10 @@ if (is_singular('workshop') || is_singular('program')) {
         <div class="intro-wrap">
           <?= $registration_html ?>
           <p class="p-intro"><?= $page_intro_quote; ?></p>
-          <?= empty($post->post_content) ? '' : apply_filters('the_content', $post->post_content);?>
         </div>
+      </div>
+      <div class="page-meat user-content">
+        <?= empty($post->post_content) ? '' : apply_filters('the_content', $post->post_content);?>
         <?= $accordions_html ?>
       </div>
     </div>

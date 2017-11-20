@@ -2,6 +2,7 @@
   @include clearfix;
   position: relative;
   padding: mobile-grid(5);
+  border-top: mobile-grid(3) solid $black;
 
   .icon-logo,
   .icon-logo-wordmark {
@@ -82,6 +83,7 @@
 
   @include media-md {
     padding: vertical-beat(10) 0 vertical-beat(4);
+    border: none;
 
     // black bar above footer
     &::before {

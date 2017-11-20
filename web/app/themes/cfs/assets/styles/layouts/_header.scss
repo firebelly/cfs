@@ -2,12 +2,23 @@
 
 .page-header {
   position: relative;
+
+  @include media-md {
+    margin-left: columns(1);
+    .bg-image {
+      height: 600px;
+    }
+  }
+
   .bg-image {
     width: 100%;
     background-size: cover;
     background-position: top center;
     position: relative;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+
+    height: 180px;
+    border-right: mobile-grid(2) solid $black;
 
     // Gradient overlays
     .gradient-l,
@@ -23,10 +34,33 @@
     .gradient-b {
       background: linear-gradient(to bottom, rgba(50,50,40,0) 50%,rgba(50,50,40,1) 100%);
     }
+
+    @include media-md {
+      height: 600px;
+    }
   }
 
+  // Notches at bottom left and right (only on desktop)
   .icon-notch {
     display: none;
+
+    @include media-md {
+      display: block;
+      width: 42px;
+      height: 42px;
+      fill: $black;
+      position: absolute;
+      bottom: -42px;
+      z-index: 1;
+      &.bottom-left {
+        left: -42px;
+        transform: rotate(270deg);
+      }
+      &.bottom-right {
+        right: -42px;
+        transform: rotate(180deg);
+      }
+    }
   }
 
   .crumb {
@@ -34,12 +68,39 @@
     letter-spacing: .06875em;
     font-weight: 500;
     font-size: 12px;
-    a:hover {
-      color: $yellow;
+    color: $white;
+    a {
+      color: $white;
     }
   }
   .page-intro {
     position: relative;
+  }
+
+  // Mobile only styles
+  @include max-screen($breakpoint-md) {
+    .crumb {
+      position: absolute;
+      // Bottom-align text
+      bottom: calc(100% + 20px);
+    }
+    // Wide headers have .crumb inside bg-image
+    &.-wide .crumb {
+      left: mobile-grid(5);
+      bottom: 20px;
+    }
+    .page-titles {
+      @include theme-color('background', $red);
+      @include theme-color('color', $white, 'accent');
+      padding: mobile-grid(3) mobile-grid(3) mobile-grid(2);
+    }
+    .page-meat {
+      padding: mobile-grid(3) mobile-grid(3) mobile-grid(2);
+    }
+    .page-intro {
+      border-left: mobile-grid(2) solid $black;
+      border-right: mobile-grid(2) solid $black;
+    }
   }
 
   // Wide page headers (secondary landing pages, search)
@@ -49,6 +110,31 @@
       background: $black;
       .color-wrap {
         background: $white;
+      }
+      .one-half {
+        hr {}
+      }
+      .intro-text {
+        padding: mobile-grid(5) mobile-grid(3);
+        background: $white;
+      }
+      .page-titles {
+        @include theme-color('background', $red);
+        color: $white;
+      }
+    }
+    @include media-md {
+      .bg-image {
+        height: 400px;
+      }
+      .page-intro {
+        padding-left: columns(1,19);
+        margin-left: columns(1,19);
+      }
+      .intro-text {
+        padding: 0;
+      }
+      .color-wrap {
         padding-right: columns(1,17);
       }
       .one-half {
@@ -57,12 +143,17 @@
           margin-right: -#{columns(2,6)};
         }
       }
-      .intro-text {
-        background: $white;
-      }
-      .page-titles {
-        background: $red;
-        color: $white;
+
+      // Breadcrumb nav
+      .crumb {
+        position: absolute;
+        bottom: vertical-beat(4);
+        left: columns(3,19);
+        a {
+          &:hover {
+            color: $yellow;
+          }
+        }
       }
     }
 
@@ -73,93 +164,19 @@
       }
       .color-wrap-secondary {
         background: $red;
-        padding-left: columns(8,16);
         .intro-wrap {
-          overflow: hidden; // Avoid collapsing margins
-          padding-left: columns(1,7);
+          // overflow: hidden; // Avoid collapsing margins
           background: $white;
         }
       }
       .page-content {
         background: $white;
-        padding-right: columns(1,17);
       }
       .page-titles {
         width: 100%;
-        padding: vertical-beat(4) columns(1,17);
-      }
-    }
-
-  }
-
-  // Half page headers (tertiary landing pages)
-  &.-half {
-    .bg-image {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: columns(10,19);
-      height: 400px;
-      z-index: 2;
-    }
-    .page-titles {
-      h1 {
-        margin: vertical-beat(4) 0 vertical-beat(4);
-      }
-      .p-intro {
-        margin-bottom: vertical-beat(4);
-      }
-    }
-    .page-intro {
-      position: relative;
-      background: $black;
-      margin-left: columns(1,19);
-      padding-left: columns(1,19);
-      .color-wrap {
-        @include theme-color('background', $red);
-        padding-left: columns(8,17);
-      }
-      .page-content {
-        background: $white;
-        padding: vertical-beat(4) columns(1,9);
-      }
-    }
-  }
-
-  // Larger displays
-  @include media-md {
-    margin-left: columns(1);
-    .bg-image {
-      height: 600px;
-    }
-    &.-half {
-      .page-content {
-        min-height: 450px;
-      }
-    }
-    &.-wide {
-      .bg-image {
-        height: 400px;
-      }
-      .page-intro {
-        padding-left: columns(1,19);
-        margin-left: columns(1,19);
       }
 
-      // Breadcrumb nav
-      .crumb {
-        color: $white;
-        position: absolute;
-        bottom: vertical-beat(4);
-        left: columns(3,19);
-        a {
-          color: $white;
-          &:hover {
-            color: $yellow;
-          }
-        }
-      }
-      &.-text-only {
+      @include media-md {
         .crumb {
           position: relative;
           bottom: auto;
@@ -167,6 +184,7 @@
           margin-bottom: vertical-beat(8);
         }
         .page-titles {
+          padding: vertical-beat(4) columns(1,17);
           h3 {
             margin-bottom: vertical-beat(2);
           }
@@ -174,25 +192,69 @@
             margin-bottom: 0;
           }
         }
+        .page-content {
+          padding-right: columns(1,17);
+        }
+        .color-wrap-secondary {
+          padding-left: columns(8,16);
+          .intro-wrap {
+            overflow: hidden; // Avoid collapsing margins
+            padding-left: columns(1,7);
+          }
+        }
       }
     }
 
-    // Notches at bottom left and right
-    .icon-notch {
-      width: 42px;
-      height: 42px;
-      fill: $black;
-      position: absolute;
-      bottom: -42px;
-      z-index: 1;
-      display: block;
-      &.bottom-left {
-        left: -42px;
-        transform: rotate(270deg);
+  }
+
+  // Half page headers (tertiary landing pages)
+  &.-half {
+    .page-titles {
+      h1 {}
+      .p-intro {}
+    }
+    .page-intro {
+      position: relative;
+      background: $black;
+      .color-wrap {
+        @include theme-color('background', $red);
       }
-      &.bottom-right {
-        right: -42px;
-        transform: rotate(180deg);
+      .page-content {
+        background: $white;
+      }
+    }
+
+    @include media-md {
+      .page-content {
+        min-height: 450px;
+      }
+
+      .bg-image {
+        border: none;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: columns(10,19);
+        height: 400px;
+        z-index: 2;
+      }
+      .page-titles {
+        h1 {
+          margin: vertical-beat(4) 0 vertical-beat(4);
+        }
+        .p-intro {
+          margin-bottom: vertical-beat(4);
+        }
+      }
+      .page-intro {
+        margin-left: columns(1,19);
+        padding-left: columns(1,19);
+        .color-wrap {
+          padding-left: columns(8,17);
+        }
+        .page-content {
+          padding: vertical-beat(4) columns(1,9);
+        }
       }
     }
   }

@@ -24,8 +24,13 @@
     content: '';
     position: absolute;
     top: 0;
-    width: 1000em;
+    width: 100%;
     border-bottom: 1px solid $black;
+
+    // Desktop hr goes offscreen
+    @include media-md {
+      width: 1000em;
+    }
   }
 }
 
@@ -121,6 +126,11 @@
     @content;
   }
 }
+@mixin media-nav() {
+  @media screen and (min-width: $breakpoint-nav) {
+    @content;
+  }
+}
 @mixin media-xl() {
   @media screen and (min-width: $breakpoint-xl) {
     @content;
@@ -134,7 +144,7 @@
   }
 }
 @mixin max-screen($res) {
-  @media screen and (max-width: $res) {
+  @media screen and (max-width: $res - 1px) {
     @content;
   }
 }

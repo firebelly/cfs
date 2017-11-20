@@ -1,23 +1,36 @@
 // Donate page
 
 body.donate {
-	.page-header.half .page-intro .page-content {
-		padding-bottom: vertical-beat(1);
-	}
-	.switches {
-		.-left {
-			padding-right: #{$gutter / 2};
-		}
-		.-right {
-			padding-left: #{$gutter / 2};
-		}
-	}
 	.switch-pane {
 		display: none;
 		&.active {
 			display: block;
 		}
 	}
+
+	@include max-screen($breakpoint-md) {
+		// Hide unneeded hr's on mobile around headers
+	  hr {
+	    display: none;
+	  }
+	  .switches div {
+	  	margin-bottom: mobile-grid(2);
+	  }
+	}
+
+	@include media-md {
+		.page-header.half .page-intro .page-content {
+			padding-bottom: vertical-beat(1);
+		}
+		.switches {
+			.-left {
+				padding-right: #{$gutter / 2};
+			}
+			.-right {
+				padding-left: #{$gutter / 2};
+			}
+		}
+	}
+
 }
-.donate-form {
-}
+.donate-form {}

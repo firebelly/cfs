@@ -1,12 +1,50 @@
+// Accordions
 .fb-accordion {
   .accordion-content {
     position: relative;
   }
 }
 
+.accordion {
+  margin: vertical-beat(4) 0 0;
+}
+.accordion-title {
+  @include hr-above;
+  margin: 0;
+  padding: mobile-grid(3) 30px mobile-grid(3) 0;
+  cursor: pointer;
+  outline: none;
+  .icon {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 20px;
+    right: 0;
+    transform: rotate(90deg);
+    transition: transform .2s steps(4);
+  }
+  &[aria-expanded=true] {
+    .icon {
+      transform: rotate(-90deg);
+    }
+  }
+
+  @include media-md {
+    padding: vertical-beat(4) 30px vertical-beat(4) 0;
+    .icon {
+      top: 36px;
+    }
+  }
+}
+.accordion-content {
+  >p {
+    margin-top: 0px;
+  }
+  padding-bottom: vertical-beat(3);
+}
+
 // Accordion media blocks (each accordion can have an associated block of content)
 .media-block {
-  @include theme-color('color', $white, 'accent');
   &.stat {
     dl {
       margin: 0;
@@ -37,23 +75,19 @@
   &.images {
     img {
       display: block;
-      float: left;
-      width: columns(7,10);
       box-shadow: 0 2px 4px 0 rgba(0,0,0,.5);
     }
     figcaption {
       display: block;
-      width: columns(3,10);
-      float: left;
-      padding: 0 columns(1,10) 0 $gutter;
+      margin-top: mobile-grid(2);
       font: 12px/1.5 $font-regular;
     }
   }
 
-  // Desktop
   @include media-md {
     position: absolute;
     bottom: vertical-beat(5);
+    @include theme-color('color', $white, 'accent');
 
     // Make media-block chunkily enter when opening accordion
     opacity: 0;
@@ -72,6 +106,17 @@
     &.images {
       left: -#{columns(11,7)};
       width: columns(10,7);
+
+      img {
+        float: left;
+        width: columns(7,10);
+      }
+
+      figcaption {
+        width: columns(3,10);
+        float: left;
+        padding: 0 columns(1,10) 0 $gutter;
+      }
     }
   }
 }

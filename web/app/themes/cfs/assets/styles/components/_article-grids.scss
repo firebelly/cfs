@@ -1,26 +1,41 @@
 // Article grids (people, positions, partners)
 
 .article-grid-category {
-  padding-bottom: vertical-beat(4);
   position: relative;
+  padding: 0 0 mobile-grid(3);
+  // Staff has slightly different styles
+  &.staff {
+    padding-bottom: 0;
+  }
+
   // White border between each category
   &::after {
     content: '';
     display: block;
     position: absolute;
     bottom: 0;
-    left: 35px;
-    width: 1000em;
     border-top: 1px solid $white;
+    left: 0;
+    width: 100%;
+    @include media-md {
+      left: 35px;
+      width: 1000em;
+    }
   }
   // No border on last category
   &:last-of-type::after {
     display: none;
   }
 
+  @include media-md {
+    padding-bottom: 0;
+    &.staff {
+      padding-bottom: vertical-beat(4);
+    }
+  }
+
   // Staff category styled differently than typical article-grids
   &:not(.staff) {
-    padding-bottom: 0;
     article {
       padding-bottom: 0;
       margin-bottom: vertical-beat(3);
