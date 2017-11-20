@@ -32,6 +32,12 @@ body.search {
     position: relative;
     .search-field {
       border-color: $black;
+
+      &,
+      &:focus,
+      &.has-input {
+        padding: 0 $gutter grid(2) $gutter;
+      }
     }
     .go-button {
       position: absolute;

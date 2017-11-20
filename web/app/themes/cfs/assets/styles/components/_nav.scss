@@ -279,7 +279,6 @@
   }
 }
 
-
 // Search form in nav
 .nav-search {
   display: none;
@@ -296,7 +295,11 @@
     &::placeholder {
       @include theme-color('color', $white, 'accent');
     }
-    &:valid {
+    // Search form has no label, padding always the same
+    &,
+    &:focus,
+    &.has-input {
+      padding: grid(.25) $gutter grid(1.5) $gutter;
       // Match button sizes
       max-height: 36px;
     }
