@@ -20,7 +20,7 @@ body.donate {
 
 	@include media-md {
 		.page-header.half .page-intro .page-content {
-			padding-bottom: vertical-beat(1);
+			padding-bottom: grid(1);
 		}
 		.switches {
 			.-left {

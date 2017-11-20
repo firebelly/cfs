@@ -138,7 +138,7 @@
         padding-right: columns(1,17);
       }
       .one-half {
-        padding: vertical-beat(4) columns(1,17);
+        padding: grid(4) columns(1,17);
         hr {
           margin-right: -#{columns(2,6)};
         }
@@ -147,7 +147,7 @@
       // Breadcrumb nav
       .crumb {
         position: absolute;
-        bottom: vertical-beat(4);
+        bottom: grid(4);
         left: columns(3,19);
         a {
           &:hover {
@@ -181,12 +181,12 @@
           position: relative;
           bottom: auto;
           left: auto;
-          margin-bottom: vertical-beat(8);
+          margin-bottom: grid(8);
         }
         .page-titles {
-          padding: vertical-beat(4) columns(1,17);
+          padding: grid(4) columns(1,17);
           h3 {
-            margin-bottom: vertical-beat(2);
+            margin-bottom: grid(2);
           }
           h1 {
             margin-bottom: 0;
@@ -240,10 +240,10 @@
       }
       .page-titles {
         h1 {
-          margin: vertical-beat(4) 0 vertical-beat(4);
+          margin: grid(4) 0 grid(4);
         }
         .p-intro {
-          margin-bottom: vertical-beat(4);
+          margin-bottom: grid(4);
         }
       }
       .page-intro {
@@ -253,7 +253,7 @@
           padding-left: columns(8,17);
         }
         .page-content {
-          padding: vertical-beat(4) columns(1,9);
+          padding: grid(4) columns(1,9);
         }
       }
     }

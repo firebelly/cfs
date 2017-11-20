@@ -30,7 +30,7 @@
   @include media-md {
     padding-bottom: 0;
     &.staff {
-      padding-bottom: vertical-beat(4);
+      padding-bottom: grid(4);
     }
   }
 
@@ -38,7 +38,7 @@
   &:not(.staff) {
     article {
       padding-bottom: 0;
-      margin-bottom: vertical-beat(3);
+      margin-bottom: grid(3);
       h1 {
         font: 12px/1.5 $font-display;
         letter-spacing: .06875em;
@@ -49,8 +49,8 @@
     p {
       position: relative;
       @include notch(top);
-      padding-top: vertical-beat(1);
-      margin-bottom: vertical-beat(1);
+      padding-top: grid(1);
+      margin-bottom: grid(1);
       font-size: 12px;
     }
     // Extra text (from post_content) below title for position, person, job

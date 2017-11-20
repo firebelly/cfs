@@ -29,7 +29,7 @@ h1,
   font-size: 30px;
   line-height: 1;
   text-transform: uppercase;
-  margin: 0 0 vertical-beat(2);
+  margin: 0 0 grid(2);
 
   @include media-md {
     font-size: 60px;

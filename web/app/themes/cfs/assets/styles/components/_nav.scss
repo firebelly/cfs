@@ -91,7 +91,7 @@
     @include theme-color('color', $black, 'accent');
     display: block;
     text-decoration: none;
-    padding: vertical-beat(3) 0;
+    padding: grid(3) 0;
     line-height: 24px;
   }
   .brand a,
@@ -136,7 +136,7 @@
     }
 
     a {
-      padding: vertical-beat(2) 12px;
+      padding: grid(2) 12px;
       color: $white;
       display: inline-block;
       &:hover {

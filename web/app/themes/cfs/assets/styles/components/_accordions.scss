@@ -6,7 +6,7 @@
 }
 
 .accordion {
-  margin: vertical-beat(4) 0 0;
+  margin: grid(4) 0 0;
 }
 .accordion-title {
   @include hr-above;
@@ -30,7 +30,7 @@
   }
 
   @include media-md {
-    padding: vertical-beat(4) 30px vertical-beat(4) 0;
+    padding: grid(4) 30px grid(4) 0;
     .icon {
       top: 36px;
     }
@@ -40,7 +40,7 @@
   >p {
     margin-top: 0px;
   }
-  padding-bottom: vertical-beat(3);
+  padding-bottom: grid(3);
 }
 
 // Accordion media blocks (each accordion can have an associated block of content)
@@ -51,7 +51,7 @@
     }
     dd {
       @extend .h1;
-      margin: 0 0 vertical-beat(2);
+      margin: 0 0 grid(2);
     }
     dt {
       @extend %small-text;
@@ -62,7 +62,7 @@
       margin: 0;
     }
     p {
-      margin: 0 0 vertical-beat(1);
+      margin: 0 0 grid(1);
       text-transform: uppercase;
       font: 30px/1 $font-header;
     }
@@ -86,7 +86,7 @@
 
   @include media-md {
     position: absolute;
-    bottom: vertical-beat(5);
+    bottom: grid(5);
     @include theme-color('color', $white, 'accent');
 
     // Make media-block chunkily enter when opening accordion

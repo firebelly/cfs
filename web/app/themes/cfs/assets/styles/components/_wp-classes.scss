@@ -10,23 +10,23 @@
 }
 .aligncenter {
   display: block;
-  margin: ($vertical-beat / 2) auto;
+  margin: grid(.5) auto;
   height: auto;
 }
 .alignleft,
 .alignright {
-  margin-bottom: ($vertical-beat / 2);
+  margin-bottom: grid(.5);
   height: auto;
 }
 // @include media-breakpoint-up(sm) {
 //   // Only float if not on an extra small device
 //   .alignleft {
 //     float: left;
-//     margin-right: ($vertical-beat / 2);
+//     margin-right: grid(.5);
 //   }
 //   .alignright {
 //     float: right;
-//     margin-left: ($vertical-beat / 2);
+//     margin-left: grid(.5);
 //   }
 // }
 

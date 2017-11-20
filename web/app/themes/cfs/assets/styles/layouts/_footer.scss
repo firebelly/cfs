@@ -26,7 +26,7 @@
     &,
     .contact-notice,
     .copyright {
-      margin-top: vertical-beat(2);
+      margin-top: grid(2);
     }
     address,
     p {
@@ -40,7 +40,7 @@
 
   .subscribe {
     h3 {
-      margin: 0 0 vertical-beat(2);
+      margin: 0 0 grid(2);
     }
     .newsletter-form {
       position: relative;
@@ -49,10 +49,10 @@
         color: $black;
         border-color: $black;
       }
-      margin-bottom: vertical-beat(3);
+      margin-bottom: grid(3);
     }
     .input-submit {
-      margin-top: vertical-beat(-1);
+      margin-top: grid(-1);
       button {
         width: 100%;
       }
@@ -82,7 +82,7 @@
   }
 
   @include media-md {
-    padding: vertical-beat(10) 0 vertical-beat(4);
+    padding: grid(10) 0 grid(4);
     border: none;
 
     // black bar above footer
@@ -93,7 +93,7 @@
       top: 0;
       right: 0;
       width: columns(18);
-      height: vertical-beat(8);
+      height: grid(8);
       background: $black;
     }
 

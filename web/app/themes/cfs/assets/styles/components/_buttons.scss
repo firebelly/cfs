@@ -1,7 +1,7 @@
 .button {
   display: inline-block;
   border: none;
-  padding: 0 $vertical-beat;
+  padding: 0 grid(1);
   line-height: 60px;
   border: 2px solid $black;
   background: none;

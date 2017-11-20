@@ -67,7 +67,7 @@ body.theme-yellow {
   }
   ul,
   .applications-due {
-    margin-bottom: vertical-beat(1);
+    margin-bottom: grid(1);
   }
   @include media-md {
     position: absolute;

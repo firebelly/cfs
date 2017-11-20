@@ -3,9 +3,12 @@
 .secondary-nav {
   background: $black;
   color: $white;
-  padding: mobile-grid(3) mobile-grid(5);
+  padding: mobile-grid(5) mobile-grid(5) 0;
   article {
     padding-bottom: mobile-grid(5);
+    &:last-of-type {
+      padding-bottom: mobile-grid(3);
+    }
     .image {
       @include aspect-ratio(192,180);
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
@@ -30,18 +33,18 @@
 
   @include media-md {
     margin-left: columns(2);
-    padding: vertical-beat(2) columns(2);
+    padding: grid(4) columns(2) grid(0);
     .wrap {
       margin: 0 -35px;
     }
     h3 {
-      margin: vertical-beat(4) 35px;
+      margin: grid(4) 35px;
     }
     article {
       position: relative;
-      padding-bottom: vertical-beat(2);
+      padding-bottom: grid(2);
       .image {
-        margin-bottom: vertical-beat(2);
+        margin-bottom: grid(2);
       }
       .read-more {
         position: absolute;

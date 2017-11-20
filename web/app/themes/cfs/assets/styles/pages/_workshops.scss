@@ -8,7 +8,7 @@ article.workshop {
     }
   }
   // &.has-button .date {
-  //   padding-bottom: vertical-beat(7);
+  //   padding-bottom: grid(7);
   // }
 }
 
@@ -43,26 +43,44 @@ article.workshop {
 
 // Taxonomy page headers
 .taxonomy-header {
-  @include hr-above;
-  z-index: 10;
-  padding: grid(2) 0 grid(.5);
   a span {
     text-decoration: underline;
   }
   .taxonomy-title {
-    width: columns(10,14);
+    border-bottom: 1px solid $black;
   }
   .taxonomy-clear {
-    width: columns(4,14);
     position: relative;
+    h3 {
+      line-height: 2;
+    }
     .icon {
       position: absolute;
-      top: 8px;
+      top: 0;
       right: 0;
       vertical-align: middle;
       width: 24px;
       height: 24px;
     }
+  }
+
+  @include media-md {
+    .taxonomy-title {
+      width: columns(10,14);
+      border: none;
+    }
+    .taxonomy-clear {
+      width: columns(4,14);
+      h3 {
+        line-height: 1.5;
+      }
+      .icon {
+        top: 8px;
+      }
+    }
+    @include hr-above;
+    z-index: 10;
+    padding: grid(2) 0 grid(.5);
   }
 }
 
@@ -79,19 +97,58 @@ body.post-type-archive-workshop {
   }
 
   article.feature {
-    .one-half.-left {
-      padding-right: $gutter;
-    }
     .image {
       @include aspect-ratio(480, 324);
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
     }
-    padding-bottom: 40px;
+
+    @include media-md {
+      .one-half.-left {
+        padding-right: $gutter;
+      }
+      padding-bottom: 40px;
+    }
+  }
+
+  @include max-screen($breakpoint-md) {
+    // Give border + margins to lower content on mobile
+    .taxonomy-header,
+    article.feature,
+    .article-list {
+      border-left: mobile-grid(2) solid $black;
+      border-right: mobile-grid(2) solid $black;
+      padding: mobile-grid(5) mobile-grid(3);
+    }
+    .article-list {
+      article {
+        border-bottom: 1px solid $black;
+        margin-bottom: mobile-grid(5);
+        padding-bottom: mobile-grid(5);
+      }
+    }
+    // Reorder image-above-text on featured workshop
+    article.feature {
+      .grid {
+        display: flex;
+        flex-direction: column;
+      }
+      .one-half {
+        &.-left {
+          order: 2;
+        }
+        &.-right {
+          order: 1;
+        }
+      }
+      h1 {
+        margin: mobile-grid(3) 0;
+      }
+      padding-bottom: 0;
+    }
+
   }
 
   .article-list {
-    margin: vertical-beat(4) 0;
-    padding-top: vertical-beat(4);
     article {
       h1 a {
         color: $red;
@@ -101,8 +158,8 @@ body.post-type-archive-workshop {
       }
       h3.series {
         position: relative;
-        padding-bottom: vertical-beat(1);
-        margin: 0 0 vertical-beat(2);
+        padding-bottom: grid(1);
+        margin: 0 0 grid(2);
         @include notch(bottom, $black);
         a {
           &:hover {
@@ -117,6 +174,7 @@ body.post-type-archive-workshop {
 
     // Larger displays
     @include media-md {
+      padding-top: grid(4);
       margin: 0 -35px 0;
       article {
         width: 33.33333%;
@@ -124,7 +182,7 @@ body.post-type-archive-workshop {
         .wrap {
           margin: 0 35px;
           // min-height: 200px;
-          padding-bottom: vertical-beat(6);
+          padding-bottom: grid(6);
           position: relative;
         }
         &.has-button .wrap {
@@ -132,7 +190,7 @@ body.post-type-archive-workshop {
         }
         .button {
           position: absolute;
-          bottom: vertical-beat(6);
+          bottom: grid(6);
           left: 0;
         }
         border-right: 1px solid $black;
@@ -143,14 +201,14 @@ body.post-type-archive-workshop {
           &::before {
             content: '';
             position: absolute;
-            top: -#{vertical-beat(6)};
+            top: -#{grid(6)};
             left: 35px;
             width: 1000em;
             height: 1px;
             padding-bottom: 1px;
             background: $black;
-            border-top: vertical-beat(3) solid $white;
-            border-bottom: vertical-beat(3) solid $white;
+            border-top: grid(3) solid $white;
+            border-bottom: grid(3) solid $white;
             z-index: 1;
           }
         }

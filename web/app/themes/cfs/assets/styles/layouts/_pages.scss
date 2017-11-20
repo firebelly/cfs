@@ -15,14 +15,14 @@
       padding-left: columns(8,17);
       >.wrap {
         background: $white;
-        padding: 0 columns(1,9) vertical-beat(4) columns(1,9);
+        padding: 0 columns(1,9) grid(4) columns(1,9);
       }
     }
     hr {
-      margin: vertical-beat(4) -#{columns(2,8)} vertical-beat(4) 0;
+      margin: grid(4) -#{columns(2,8)} grid(4) 0;
     }
     h3 {
-      margin-bottom: vertical-beat(2);
+      margin-bottom: grid(2);
     }
   }
 }

@@ -68,10 +68,12 @@ if (is_singular('workshop') || is_singular('program')) {
           <?= $registration_html ?>
           <p class="p-intro"><?= $page_intro_quote; ?></p>
         </div>
-        <div class="page-meat user-content">
-          <?= empty($post->post_content) ? '' : apply_filters('the_content', $post->post_content);?>
-          <?= $accordions_html ?>
-        </div>
+        <?php if (!empty($post->post_content) || !empty($accordions_html)): ?>
+          <div class="page-meat user-content">
+            <?= empty($post->post_content) ? '' : apply_filters('the_content', $post->post_content);?>
+            <?= $accordions_html ?>
+          </div>
+        <?php endif; ?>
       </div>
     </div>
   </div><!-- /.page-intro .color-wrap -->
@@ -102,10 +104,12 @@ if (is_singular('workshop') || is_singular('program')) {
           <p class="p-intro"><?= $page_intro_quote; ?></p>
         </div>
       </div>
-      <div class="page-meat user-content">
-        <?= empty($post->post_content) ? '' : apply_filters('the_content', $post->post_content);?>
-        <?= $accordions_html ?>
-      </div>
+      <?php if (!empty($post->post_content) || !empty($accordions_html)): ?>
+        <div class="page-meat user-content">
+          <?= empty($post->post_content) ? '' : apply_filters('the_content', $post->post_content);?>
+          <?= $accordions_html ?>
+        </div>
+      <?php endif; ?>
     </div>
   </div></div><!-- /.page-intro .color-wrap -->
 </header>
