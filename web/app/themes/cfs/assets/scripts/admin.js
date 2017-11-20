@@ -5,15 +5,17 @@
 // Good design for good reason for good namespace
 var FB_admin = (function($) {
 
-  var _updateTimer;
+  var _updateTimer,
+  _submitDivHeight;
 
   function _init() {
 
     // Hack the update from bottom plugin to show it earlier
+    _submitDivHeight = $('#submitdiv').height();
     $(window).scroll(function(){
       clearTimeout(_updateTimer);
       _updateTimer = setTimeout(function() {
-        $('#updatefrombottom').toggle( $(window).scrollTop() > $('#submitdiv').height() );
+        $('#updatefrombottom').toggle( $(window).scrollTop() > _submitDivHeight );
       }, 150);
     });
 
