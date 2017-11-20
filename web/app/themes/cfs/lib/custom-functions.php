@@ -152,7 +152,14 @@ function get_accordions($post) {
     if (!empty($accordion['images'])) {
       $accordions_html .= '<div class="media-block images"><figure>';
       foreach ( (array)$accordion['images'] as $attachment_id => $attachment_url ) {
-        $accordions_html .= '<img src="' . \Firebelly\Media\get_header_bg($attachment_url, ['thumb_id' => $attachment_id, 'size' => 'medium_large', 'output' => 'image']) . '">';
+        // Youth Program posts get untreated image
+        if (\Firebelly\Init\is_youth_program()) {
+          if ($image = wp_get_attachment_image_src($attachment_id, 'medium_large')) {
+            $accordions_html .= '<img src="' . $image[0] . '">';
+          }
+        } else {
+          $accordions_html .= '<img src="' . \Firebelly\Media\get_header_bg($attachment_url, ['thumb_id' => $attachment_id, 'size' => 'medium_large', 'output' => 'image']) . '">';
+        }
       }
       if (!empty($accordion['pullquote'])) {
         $accordions_html .= '<figcaption class="image-caption">'.$accordion['pullquote'].'</figcaption>';
