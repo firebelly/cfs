@@ -101,7 +101,12 @@
     left: 0;
     height: 0;
     border-top: 1px solid $black;
-    width: 1000em;
+    width: 100%;
+
+    // Desktop hr goes offscreen
+    @include media-md {
+      width: 1000em;
+    }
   }
 }
 

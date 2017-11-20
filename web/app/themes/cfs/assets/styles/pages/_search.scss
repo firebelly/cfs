@@ -1,9 +1,17 @@
 // Search
 
 body.search {
+  @include max-screen($breakpoint-md) {
+    .one-half.-left {
+      padding: mobile-grid(3) mobile-grid(3) mobile-grid(5);
+    }
+  }
+
   .search-result {
     @include hr-above;
-    padding: grid(4) 0 grid(2);
+    margin: 0 mobile-grid(3);
+    padding: mobile-grid(5) 0 mobile-grid(3);
+
     // First result flush with top and no border
     &:first-of-type {
       padding-top: 0;
@@ -21,6 +29,10 @@ body.search {
     p.url {
       margin: 0;
       @extend %small-text;
+    }
+
+    @include media-md {
+      padding: grid(4) 0 grid(2);
     }
   }
   .pagination {

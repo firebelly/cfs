@@ -2,6 +2,7 @@
 
 .pagination {
   @extend .font-display;
+  background: $white;
   li {
     display: inline-block;
     // margin-right: grid(1);
