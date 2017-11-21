@@ -59,6 +59,9 @@
       }
 
       &:hover {
+        a {
+          color: $white;
+        }
         // Attempt at hover styles, seemed weird, may bring back
         .image {
           // top: 2px;

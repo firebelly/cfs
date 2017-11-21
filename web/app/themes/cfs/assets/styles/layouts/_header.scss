@@ -68,9 +68,8 @@
     letter-spacing: .06875em;
     font-weight: 500;
     font-size: 12px;
-    color: $white;
-    a {
-      color: $white;
+    a:hover {
+      color: $red;
     }
   }
   .page-intro {
@@ -83,6 +82,10 @@
       position: absolute;
       // Bottom-align text
       bottom: calc(100% + 20px);
+      color: $white;
+      a {
+        color: $white;
+      }
     }
     // Wide headers have .crumb inside bg-image
     &.-wide .crumb {
@@ -124,6 +127,12 @@
       }
     }
     @include media-md {
+      .crumb {
+        color: $white;
+        a {
+          color: $white;
+        }
+      }
       .bg-image {
         height: 400px;
       }
