@@ -16,7 +16,7 @@
       <div class="nav-search">
         <form role="search" method="get" class="search-form" action="/">
           <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" class="search-field" placeholder="Keyword(s)" value="" name="s" required>
-          <button type="submit" class="go-button">Search</button>
+          <input type="submit" class="go-button" value="Search">
         </form>
         <a href="#" class="search-close"><svg class="icon icon-x" aria-hidden="hidden" role="image"><use xlink:href="#icon-x"/></svg></a>
       </div>
