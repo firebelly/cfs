@@ -20,7 +20,7 @@ $total_results = $wp_query->found_posts;
           <h1>No Results Found</h1>
         <?php endif; ?>
         <form role="search" method="get" class="search-form" action="/">
-          <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" class="search-field" placeholder="Enter keyword(s)" value="" name="s">
+          <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" class="search-field" placeholder="Enter keyword(s)" value="" name="s" required>
           <button type="submit" class="go-button" aria-label="Search">Go</button>
         </form>
       </div>

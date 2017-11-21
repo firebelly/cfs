@@ -70,12 +70,6 @@ function simplify_tinymce($settings) {
     //   'classes' => 'two-column',
     //   'wrapper' => true,
     // ),
-    // array(
-    //   'title' => 'Three Column',
-    //   'block' => 'div',
-    //   'classes' => 'three-column',
-    //   'wrapper' => true,
-    // ),
     array(
       'title' => 'Button',
       'block' => 'span',
@@ -99,20 +93,26 @@ add_action( 'wp_before_admin_bar_render', function() {
   $wp_admin_bar->remove_menu('customize');
 });
 
-// Default options for all accordion shortcodes
+/**
+ * Default options for all accordion shortcodes
+ */
 add_filter('shortcode_atts_accordion', function($atts) {
   $atts['clicktoclose'] = true;
   $atts['autoclose'] = false;
   return $atts;
 }, 10, 3);
 
-// Custom Admin styles + JS
+/**
+ * Custom Admin styles + JS
+ */
 add_action('admin_enqueue_scripts', function($hook){
   wp_enqueue_style('fb_wp_admin_css', Assets\asset_path('styles/admin.css'));
   wp_enqueue_script('fb_wp_admin_js', Assets\asset_path('scripts/admin.js'), ['jquery'], null, true);
 }, 100);
 
-// Function to determine if we're on a yellow-themed Youth Program page
+/**
+ * Function to determine if we're on a yellow-themed Youth Program page
+ */
 function is_youth_program() {
   global $post;
   // Are we on a program page (all are youth programs), or Alumni Resources?
@@ -123,7 +123,9 @@ function is_youth_program() {
   return false;
 }
 
-// Apply filter
+/**
+ * Add theme-yellow class if on Youth Program page
+ */
 add_filter('body_class', function($classes) {
   if (is_youth_program()) {
     $classes[] = 'theme-yellow';
@@ -132,7 +134,9 @@ add_filter('body_class', function($classes) {
 });
 
 
-// Remove labels from archive/category titles
+/**
+ * Remove labels from archive/category titles
+ */
 add_filter( 'get_the_archive_title', function($title) {
   if ( is_category() ) {
       $title = single_cat_title( '', false );
@@ -145,6 +149,37 @@ add_filter( 'get_the_archive_title', function($title) {
   } elseif ( is_tax() ) {
       $title = single_term_title( '', false );
   }
-
   return $title;
 } );
+
+/**
+ * Also search postmeta
+ */
+function search_join($join) {
+  global $wpdb;
+  if (is_search()) {
+    $join .=' LEFT JOIN '.$wpdb->postmeta. ' ON '. $wpdb->posts . '.ID = ' . $wpdb->postmeta . '.post_id ';
+  }
+  return $join;
+}
+add_filter('posts_join', __NAMESPACE__ . '\search_join');
+
+function search_where($where) {
+  global $wpdb;
+  if (is_search()) {
+    $where = preg_replace(
+      "/\(\s*".$wpdb->posts.".post_title\s+LIKE\s*(\'[^\']+\')\s*\)/",
+      "(".$wpdb->posts.".post_title LIKE $1) OR (".$wpdb->postmeta.".meta_value LIKE $1)", $where);
+  }
+  return $where;
+}
+add_filter('posts_where', __NAMESPACE__ . '\search_where');
+
+function search_distinct($where) {
+  global $wpdb;
+  if (is_search()) {
+    return "DISTINCT";
+  }
+  return $where;
+}
+add_filter('posts_distinct', __NAMESPACE__ . '\search_distinct');

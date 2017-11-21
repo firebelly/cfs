@@ -6,10 +6,17 @@ form {
 	}
 	fieldset {
 		margin: 0;
-		padding: grid(4) 0;
-		border: none;
-		position: relative;
-		@include hr();
+    border: none;
+    padding: mobile-grid(4) 0;
+    position: relative;
+    @include hr();
+    h3 {
+      margin: 0 0 mobile-grid(5);
+    }
+
+    @include media-md {
+  		padding: grid(4) 0;
+    }
 	}
 	input[type=text],
 	input[type=email] {
@@ -38,7 +45,9 @@ form {
 	.input-item {
 		position: relative;
 		margin-bottom: 28px;
+
 		&.select {
+      margin-top: mobile-grid(5);
 			display: block;
 			width: 100%;
 		}
