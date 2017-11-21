@@ -827,7 +827,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://downloads.wordpress.org/plugin/accordion-shortcodes.2.3.3.zip",
-                "reference": null,
+                "reference": "tags/2.3.3",
                 "shasum": null
             },
             "require": {
@@ -867,7 +867,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://downloads.wordpress.org/plugin/intuitive-custom-post-order.3.1.0.zip",
-                "reference": null,
+                "reference": "tags/3.1.0",
                 "shasum": null
             },
             "require": {
@@ -887,7 +887,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://downloads.wordpress.org/plugin/regenerate-thumbnails.2.3.1.zip",
-                "reference": null,
+                "reference": "tags/2.3.1",
                 "shasum": null
             },
             "require": {
@@ -907,7 +907,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://downloads.wordpress.org/plugin/update-from-bottom.1.0.3.zip",
-                "reference": null,
+                "reference": "tags/1.0.3",
                 "shasum": null
             },
             "require": {
