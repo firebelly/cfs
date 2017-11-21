@@ -309,6 +309,7 @@
   // Go search button
   .go-button {
     width: columns(2,8);
+    text-align: center;
     border-radius: 0;
     float: left;
     height: 36px;
@@ -455,7 +456,7 @@
       position: absolute;
       top: 0;
       right: 0;
-      width: mobile-grid(10);
+      width: mobile-grid(12);
     }
   }
   body.menu-open {
