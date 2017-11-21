@@ -411,7 +411,7 @@
       a {
         display: block;
         line-height: 1.4;
-        padding: mobile-grid(2) 0 mobile-grid(1.5);
+        padding: mobile-grid(2) 30px mobile-grid(1.5) 0;
         border-top: 1px solid $white;
         @include theme-color('border-color', $white, 'accent');
         @include theme-color('color', $white, 'accent');
@@ -463,7 +463,12 @@
     }
   }
   body.menu-open {
+    // Disable scroll on body + hide WP adminbar
     overflow: hidden;
+    position: fixed;
+    #wpadminbar {
+      display: none;
+    }
     // Show nav-search when mobile nav is open
     .nav-search {
       display: block;
@@ -472,9 +477,6 @@
       display: none;
     }
     .site-header {
-      .wrap {
-        position: relative;
-      }
       position: fixed;
       top: 0;
       left: 0;
@@ -484,7 +486,9 @@
       border-color: $red;
       height: auto;
       z-index: 100;
-      overflow-y: scroll;
+      .wrap {
+        position: relative;
+      }
     }
     &.admin-bar .site-header {
       padding-top: 46px;
