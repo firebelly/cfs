@@ -282,7 +282,10 @@
 // Search form in nav
 .nav-search {
   display: none;
+  height: 80px;
+
   @include media-md {
+    height: auto;
     float: right;
     margin-right: $gutter;
     width: columns(8);
