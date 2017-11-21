@@ -79,7 +79,7 @@ var CFS = (function($) {
     // Custom fb-accordions
     $('.fb-accordion').each(function() {
       $(this).find('.accordion-title').on('click', function(e) {
-        // e.preventDefault();
+        e.preventDefault();
         if ($(this).hasClass('open')) {
           _closeAccordion(this);
         } else {
@@ -156,7 +156,7 @@ var CFS = (function($) {
     });
     $('#menu-main-nav > li.menu-item-has-children > a').append('<svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg>');
     $('#menu-main-nav > li.menu-item-has-children > a svg').on('click', function(e) {
-      e.preventDefault();
+      // e.preventDefault();
       $(this).parents('li:first').toggleClass('-active');
     });
     // Mobile menu toggle

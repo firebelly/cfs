@@ -27,10 +27,11 @@ form {
 		width: 100%;
 		background: none;
 		border: none;
-		border-left: 2px solid $yellow;
+		border-left: 2px solid $yellow;8
 		border-bottom: 2px solid $yellow;
 		padding: grid(.75) $gutter grid(1) $gutter;
     border-radius: 0;
+    -webkit-appearance: none;
 		&:focus,
 		&.has-input {
 			padding: grid(.25) $gutter grid(1.5) $gutter;
@@ -38,6 +39,7 @@ form {
 				top: -16px;
 			}
 		}
+
     @include max-screen($breakpoint-md) {
       // Avoid zoom on mobile with input:focus
       font-size: 16px;
