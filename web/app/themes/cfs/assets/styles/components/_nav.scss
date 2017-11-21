@@ -291,7 +291,7 @@
     width: columns(8);
     padding-top: 24px;
   }
-  form input[type=text] {
+  form input[type=search] {
     @include theme-color('border-color', $white, 'accent');
     @include theme-color('color', $white, 'accent');
     font: 16px/1.5 $font-regular;
@@ -452,7 +452,7 @@
   .nav-search {
     position: relative;
     margin: 0 mobile-grid(3);
-    form input[type=text] {
+    form input[type=search] {
       width: 100%;
     }
     .go-button {

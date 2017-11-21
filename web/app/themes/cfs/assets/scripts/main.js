@@ -79,7 +79,7 @@ var CFS = (function($) {
     // Custom fb-accordions
     $('.fb-accordion').each(function() {
       $(this).find('.accordion-title').on('click', function(e) {
-        e.preventDefault();
+        // e.preventDefault();
         if ($(this).hasClass('open')) {
           _closeAccordion(this);
         } else {

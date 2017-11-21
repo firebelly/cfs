@@ -18,7 +18,8 @@ form {
   		padding: grid(4) 0;
     }
 	}
-	input[type=text],
+  input[type=text],
+	input[type=search],
 	input[type=email] {
 		padding: 0 $gutter grid(1) $gutter;
 		outline: none;
