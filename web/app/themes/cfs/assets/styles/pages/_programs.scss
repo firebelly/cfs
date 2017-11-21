@@ -19,7 +19,7 @@ body.theme-yellow {
     }
   }
 
-  @include media-md {
+  @include media-nav {
     .site-nav {
       > ul > .menu-donate a,
       .menu-search a {

@@ -27,6 +27,7 @@
     margin: 0;
     top: 10px;
     left: mobile-grid(3);
+    font-size: 30px;
     svg {
       @include theme-color('fill', $white, 'accent');
       width: 47px;
@@ -36,6 +37,19 @@
 
   @include max-screen($breakpoint-nav) {
     @include theme-color('background', $red);
+    &:before {
+      content: '';
+      display: block;
+      z-index: 100;
+      bottom: -8px;
+      left: 0;
+      right: 0;
+      position: absolute;
+      height: 8px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%,rgba(0,0,0,0) 100%);
+    }
+  }
+  @include max-screen($breakpoint-md) {
     border-left: mobile-grid(2) solid $black;
     border-right: mobile-grid(2) solid $black;
   }
@@ -284,13 +298,14 @@
   display: none;
   height: 80px;
 
-  @include media-md {
+  @include media-nav {
     height: auto;
     float: right;
     margin-right: $gutter;
     width: columns(8);
     padding-top: 24px;
   }
+
   form input[type=search] {
     @include theme-color('border-color', $white, 'accent');
     @include theme-color('color', $white, 'accent');
@@ -398,6 +413,18 @@
 
   @include min-screen($breakpoint-nav) {
     top: auto;
+    display: none;
+  }
+}
+
+// Hide some nav elements as we shrink screen
+@include screen($breakpoint-nav, 1240px) {
+  li.menu-support-us {
+    display: none;
+  }
+}
+@include screen($breakpoint-nav, 1070px) {
+  li.menu-about-us {
     display: none;
   }
 }
