@@ -32,10 +32,13 @@
   }
 
   @include media-md {
-   @include hr-above;
-   padding: grid(2) 0;
-   margin-top: grid(4);
+    @include hr-above;
+    padding: grid(2) 0;
+    margin-top: grid(4);
     border: none;
+    a:hover {
+      color: $red;
+    }
     ul {
       margin-left: columns(9, 14);
     }
