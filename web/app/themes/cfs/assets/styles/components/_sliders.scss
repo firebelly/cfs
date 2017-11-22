@@ -19,10 +19,22 @@
     height: 60px;
     border: 2px solid $white;
     cursor: pointer;
+    &::before {
+      background: $white;
+    }
     svg {
       width: 20px;
       height: 20px;
       fill: $white;
+    }
+
+    @include media-md {
+      &:hover {
+        svg {
+          fill: $black;
+        }
+        color: $black;
+      }
     }
   }
   .button-prev {
