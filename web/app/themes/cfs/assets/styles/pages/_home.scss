@@ -1,5 +1,8 @@
 // Homepage header
 .page-header.homepage {
+  .bg-image {
+    height: auto;
+  }
   .page-intro {
     color: $white;
     padding: 200px mobile-grid(2) mobile-grid(5) mobile-grid(5);
