@@ -5,9 +5,6 @@
 
   @include media-md {
     margin-left: columns(1);
-    .bg-image {
-      height: 600px;
-    }
   }
 
   .bg-image {
@@ -15,8 +12,6 @@
     background-size: cover;
     background-position: top center;
     position: relative;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
-
     height: 180px;
     border-right: mobile-grid(2) solid $black;
 
@@ -36,6 +31,7 @@
     }
 
     @include media-md {
+      border: none;
       height: 600px;
     }
   }
@@ -222,6 +218,9 @@
       h1 {}
       .p-intro {}
     }
+    .bg-image {
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    }
     .page-intro {
       position: relative;
       background: $black;
@@ -272,7 +271,8 @@
 // Minimal page header (Thank You pages, 404)
 .page-header.minimal {
   .page-intro {
-    padding: mobile-grid(5) mobile-grid(3);
+    border-left: none;
+    padding: mobile-grid(5) mobile-grid(3) mobile-grid(5) mobile-grid(5);
     color: $white;
     p {
       @extend .p-intro;

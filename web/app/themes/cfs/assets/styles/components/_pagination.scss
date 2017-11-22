@@ -25,6 +25,7 @@
     }
   }
 
+  // Mobile only styles
   @include max-screen($breakpoint-md) {
     border-left: mobile-grid(2) solid $black;
     border-right: mobile-grid(2) solid $black;
@@ -40,7 +41,8 @@
       color: $red;
     }
     ul {
-      margin-left: columns(9, 14);
+      margin-left: columns(8, 14);
+      padding-left: $gutter;
     }
   }
 }
