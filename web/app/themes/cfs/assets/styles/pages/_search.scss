@@ -1,5 +1,25 @@
 // Search
 
+.search-form {
+  padding-top: grid(2);
+  position: relative;
+  .search-field {
+    border-color: $black;
+
+    &,
+    &:focus,
+    &.has-input {
+      padding: 0 $gutter grid(2) $gutter;
+    }
+  }
+  .go-button {
+    @extend .button;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+}
+
 body.search {
   @include max-screen($breakpoint-md) {
     .one-half.-left {
@@ -41,22 +61,9 @@ body.search {
 
   .page-content .search-form {
     padding-top: grid(2);
-    position: relative;
     .search-field {
       border-color: $black;
-
-      &,
-      &:focus,
-      &.has-input {
-        padding: 0 $gutter grid(2) $gutter;
-      }
     }
-    .go-button {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      @extend .button;
-      min-width: 120px;
-    }
+    .go-button {}
   }
 }

@@ -125,8 +125,6 @@
     position: relative;
   }
 
-  // @include media-md {}
-
   @include min-screen($breakpoint-nav) {
     width: columns(17);
     @include theme-color('background', $red);
@@ -191,7 +189,6 @@
     .nav {
       padding-left: 0;
       float: right;
-      // margin-right: #{$column-width * 20/17};
       margin-right: $gutter;
       @include clearfix;
       > li {
@@ -302,43 +299,47 @@
     height: auto;
     float: right;
     margin-right: $gutter;
-    width: columns(8);
     padding-top: 24px;
   }
 
-  form input[type=search] {
-    @include theme-color('border-color', $white, 'accent');
-    @include theme-color('color', $white, 'accent');
-    font: 16px/1.5 $font-regular;
-    width: columns(5,8);
+  .search-form {
+    padding: 0;
     float: left;
-    &::placeholder {
+    margin-right: $gutter;
+    width: 500px;
+    input[type=search] {
+      @include theme-color('border-color', $white, 'accent');
       @include theme-color('color', $white, 'accent');
+      font: 16px/1.5 $font-regular;
+      &::placeholder {
+        @include theme-color('color', $white, 'accent');
+      }
+      // Search form has no label, padding always the same
+      &,
+      &:focus,
+      &.has-input {
+        padding: grid(.25) $gutter grid(1.5) $gutter;
+        // Match button sizes
+        max-height: 36px;
+      }
     }
-    // Search form has no label, padding always the same
-    &,
-    &:focus,
-    &.has-input {
-      padding: grid(.25) $gutter grid(1.5) $gutter;
-      // Match button sizes
-      max-height: 36px;
-    }
-  }
-  // Go search button
-  .go-button {
-    width: columns(2,8);
-    text-align: center;
-    border-radius: 0;
-    float: left;
-    height: 36px;
-    line-height: 30px;
-    background: none;
-    border: none;
-    border: 2px solid $white;
-    @include theme-color('border-color', $white, 'accent');
-    @include theme-color('color', $white, 'accent');
-    &:hover {
-      @include theme-color('color', $yellow, 'accent2');
+    // Go search button
+    .go-button {
+      text-align: center;
+      min-height: 0;
+      line-height: 24px;
+      box-shadow: inset 0px 0px 0px 2px $white;
+      border: none;
+      letter-spacing: .06875em;
+      @include theme-color('color', $white, 'accent');
+      padding: 7px 30px 5px;
+      // No hover state on nav buttons
+      &::before {
+        display: none;
+      }
+      &:hover {
+        @include theme-color('color', $yellow, 'accent2');
+      }
     }
   }
   // Close search button
@@ -367,6 +368,7 @@
   }
 }
 
+// Hide nav/search button when nav search is active
 .site-header.search-active {
   #menu-main-nav {
     display: none;
@@ -429,7 +431,7 @@
   }
 }
 
-// Mobile only styling on #menu-main-nav
+// Mobile only styling on #menu-main-nav (using max-screen to avoid overwriting all these specific styles)
 @include max-screen($breakpoint-nav) {
   ul#menu-main-nav {
     display: none;
@@ -479,14 +481,20 @@
   .nav-search {
     position: relative;
     margin: 0 mobile-grid(3);
-    form input[type=search] {
-      width: 100%;
-    }
-    .go-button {
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: mobile-grid(12);
+    .search-form {
+      width: auto;
+      float: none;
+      margin: 0;
+      input[type=search] {
+        width: 100%;
+      }
+      .go-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0;
+        width: mobile-grid(12);
+      }
     }
   }
   body.menu-open {
