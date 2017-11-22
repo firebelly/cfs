@@ -14,10 +14,7 @@
       endif;
       ?>
       <div class="nav-search">
-        <form role="search" method="get" class="search-form" action="/">
-          <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="search" class="search-field" placeholder="Keyword(s)" value="" name="s" required>
-          <input type="submit" class="go-button" value="Search">
-        </form>
+        <?= get_search_form() ?>
         <a href="#" class="search-close"><svg class="icon icon-x" aria-hidden="hidden" role="image"><use xlink:href="#icon-x"/></svg></a>
       </div>
     </nav>

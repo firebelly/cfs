@@ -268,3 +268,65 @@
     }
   }
 }
+
+// Minimal page header (Thank You pages, 404)
+.page-header.minimal {
+  .page-intro {
+    padding: mobile-grid(5) mobile-grid(3);
+    color: $white;
+    p {
+      @extend .p-intro;
+    }
+    a {
+      @extend .font-display;
+      color: $white;
+    }
+  }
+  .bg-image {
+    border-right: none;
+    height: auto;
+  }
+  .search-form {
+    .search-field {
+      border-color: $white;
+      &::placeholder {
+        color: $white;
+      }
+    }
+    .go-button {
+      &::before {
+        background: $white;
+      }
+      border-color: $white;
+
+      @include media-md {
+        &:hover {
+          color: $black;
+        }
+      }
+    }
+  }
+
+  @include media-md {
+    margin-right: columns(1);
+    .bg-image {
+      border: none;
+    }
+    .page-intro {
+      padding: 170px columns(1,18) $global-padding columns(11,18);
+    }
+
+    // Red bar at right
+    @include bar('right', $red, 18);
+
+    .window-sill {
+      margin-left: columns(1,18);
+      background: $black;
+      > .color-wrap {
+        min-height: grid(4);
+        margin-left: columns(1,17);
+        background: $red;
+      }
+    }
+  }
+}
