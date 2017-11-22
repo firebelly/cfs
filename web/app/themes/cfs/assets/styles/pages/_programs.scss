@@ -21,6 +21,7 @@ body.theme-yellow {
 
   @include media-nav {
     .site-nav {
+      .nav-search .search-form .go-button,
       > ul > .menu-donate a,
       .menu-search a {
         box-shadow: inset 0px 0px 0px 2px $black;
