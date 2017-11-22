@@ -5,10 +5,9 @@
 var CFS = (function($) {
 
   var screen_width = 0,
-      breakpoint_small = false,
-      breakpoint_medium = false,
-      breakpoint_large = false,
-      breakpoint_array = [480,1000,1200],
+      breakpoint_md = false,
+      breakpoint_nav = false,
+      breakpoint_array = [768,950],
       $siteHeader = $('.site-header'),
       $siteNav = $('.site-nav'),
       $document,
@@ -235,16 +234,21 @@ var CFS = (function($) {
   // Called in quick succession as window is resized
   function _resize() {
     screenWidth = document.documentElement.clientWidth;
-    breakpoint_small = (screenWidth > breakpoint_array[0]);
-    breakpoint_medium = (screenWidth > breakpoint_array[1]);
-    breakpoint_large = (screenWidth > breakpoint_array[2]);
-
+    breakpoint_md = (screenWidth > breakpoint_array[0]);
+    breakpoint_nav = (screenWidth > breakpoint_array[1]);
+    if (breakpoint_nav) {
+      // Hide mobile nav on larger screens
+      _hideMobileNav();
+    } else {
+      // Hide nav search form on smaller screens
+      $('.site-header').removeClass('search-active');
+    }
     _setHeaderOffset();
   }
 
   // Header offset w/wo wordpress admin bar
   function _setHeaderOffset() {
-    if (breakpoint_medium) {
+    if (breakpoint_md) {
       if ($('body').hasClass('admin-bar')) {
         wpAdminBar = true;
         headerOffset = $('#wpadminbar').outerHeight() + $('.site-header').outerHeight();
