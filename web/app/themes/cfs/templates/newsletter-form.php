@@ -7,7 +7,7 @@
           <label for="mce-NAME">Name</label>
         </div>
         <div class="grid-item one-half mc-field-group input-email input-item">
-          <input type="text" value="" name="EMAIL" class="required email" id="mce-EMAIL" required>
+          <input type="text" value="" name="EMAIL" class="required email no-error-styles" id="mce-EMAIL" required>
           <label for="mce-EMAIL">Email Address</label>
         </div>
         <div class="clear input-submit"><button type="submit" id="mc-embedded-subscribe" class="button">
