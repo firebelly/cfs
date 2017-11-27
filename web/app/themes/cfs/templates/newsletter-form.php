@@ -10,9 +10,9 @@
           <input type="text" value="" name="EMAIL" class="required email" id="mce-EMAIL" required>
           <label for="mce-EMAIL">Email Address</label>
         </div>
-        <div class="clear input-submit"><button type="submit" name="subscribe" id="mc-embedded-subscribe" class="button">
+        <div class="clear input-submit"><button type="submit" id="mc-embedded-subscribe" class="button">
           <svg class="icon icon-arrow-right" aria-hidden="true"><use xlink:href="#icon-arrow-right"/></svg>
-          <span class="hide-for-medium-up">Subscribe</span>
+          <span class="hide-for-medium-up">Subscribe</span></button>
         </div>
       </div>
       <div id="mce-responses" class="clear">

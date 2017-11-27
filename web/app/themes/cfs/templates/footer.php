@@ -43,9 +43,6 @@
           </div>
         </div>
 
-      </div>
-
-    </div><!-- .grid -->
-
-  </div><!-- .wrap -->
+      </div><!-- /.subscribe -->
+    </div><!-- /.wrap.grid -->
 </footer>
