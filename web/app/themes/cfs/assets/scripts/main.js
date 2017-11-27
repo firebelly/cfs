@@ -73,7 +73,7 @@ var CFS = (function($) {
 
   function _initAccordions() {
     // Add SVG arrow to accordion shortcode titles
-    $('<svg class="icon icon-arrow-right" aria-hidden="true" role="image"><use xlink:href="#icon-arrow-right"/></svg>').appendTo('.accordion:not(.fb-accordion) .accordion-title');
+    $('<svg class="icon icon-arrow-right" aria-hidden="true"><use xlink:href="#icon-arrow-right"/></svg>').appendTo('.accordion:not(.fb-accordion) .accordion-title');
 
     // Custom fb-accordions
     $('.fb-accordion').each(function() {
@@ -145,7 +145,7 @@ var CFS = (function($) {
 
   function _initNav() {
     // Search Icon
-    $('<svg class="icon icon-search" aria-hidden="true" role="image"><title>Search</title><use xlink:href="#icon-search"/></svg>').appendTo('#menu-main-nav .menu-search a');
+    $('<svg class="icon icon-search" aria-hidden="true"><title>Search</title><use xlink:href="#icon-search"/></svg>').appendTo('#menu-main-nav .menu-search a');
     $('body').on('click', '.menu-search a,.nav-search a', function(e) {
       e.preventDefault();
       $('.site-header').toggleClass('search-active');
@@ -153,13 +153,13 @@ var CFS = (function($) {
         $('.site-header .search-field').focus();
       }
     });
-    $('#menu-main-nav > li.menu-item-has-children > a').append('<svg class="icon icon-arrow-right" aria-hidden="true" role="image"><use xlink:href="#icon-arrow-right"/></svg>');
+    $('#menu-main-nav > li.menu-item-has-children > a').append('<svg class="icon icon-arrow-right" aria-hidden="true"><use xlink:href="#icon-arrow-right"/></svg>');
     $('#menu-main-nav > li.menu-item-has-children > a svg').on('click', function(e) {
       e.preventDefault();
       $(this).parents('li:first').toggleClass('-active');
     });
     // Mobile menu toggle
-    $('<button class="menu-toggle"><span>Menu</span> <svg class="icon icon-x" aria-hidden="true" role="image"><title>Close</title><use xlink:href="#icon-x"/></svg></button>')
+    $('<button class="menu-toggle"><span>Menu</span> <svg class="icon icon-x" aria-hidden="true"><title>Close</title><use xlink:href="#icon-x"/></svg></button>')
       .prependTo('.site-header .wrap')
       .on('click', function(e) {
       if (!$('.site-nav').is('.-active')) {
@@ -183,8 +183,8 @@ var CFS = (function($) {
       slide: '.slide-item',
       autoplay: true,
       arrows: true,
-      prevArrow: '<div class="button previous-item button-prev nav-button"><svg class="icon icon-arrow-right" aria-hidden="true" role="image"><use xlink:href="#icon-arrow-right"/></svg><span class="sr-only">Prev</span></div>',
-      nextArrow: '<div class="button next-item button-next nav-button"><svg class="icon icon-arrow-right" aria-hidden="true" role="image"><use xlink:href="#icon-arrow-right"/></svg><span class="sr-only">Next</span></div>',
+      prevArrow: '<div class="button previous-item button-prev nav-button"><svg class="icon icon-arrow-right" aria-hidden="true"><use xlink:href="#icon-arrow-right"/></svg><span class="sr-only">Prev</span></div>',
+      nextArrow: '<div class="button next-item button-next nav-button"><svg class="icon icon-arrow-right" aria-hidden="true"><use xlink:href="#icon-arrow-right"/></svg><span class="sr-only">Next</span></div>',
       dots: false,
       autoplaySpeed: 6000,
       speed: 300,

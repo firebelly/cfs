@@ -15,8 +15,8 @@ $header_bg = \Firebelly\Media\get_header_bg($post);
         ?>
       </div>
     </section>
-    <svg class="icon icon-notch bottom-left" aria-hidden="true" role="image"><use xlink:href="#icon-notch"/></svg>
-    <svg class="icon icon-notch bottom-right" aria-hidden="true" role="image"><use xlink:href="#icon-notch"/></svg>
+    <svg class="icon icon-notch bottom-left" aria-hidden="true"><use xlink:href="#icon-notch"/></svg>
+    <svg class="icon icon-notch bottom-right" aria-hidden="true"><use xlink:href="#icon-notch"/></svg>
   </div>
   <div class="window-sill">
     <div class="color-wrap"></div>

@@ -12,7 +12,7 @@ get_template_part('templates/page', 'header');
       </div>
       <div class="taxonomy-clear grid-item">
         <h3>
-          <a href="/workshops/"><span>Show All Workshops</span> <svg class="icon icon-x" aria-hidden="true" role="image"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-x"></use></svg></a>
+          <a href="/workshops/"><span>Show All Workshops</span> <svg class="icon icon-x" aria-hidden="true"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-x"></use></svg></a>
         </h3>
       </div>
     </div>

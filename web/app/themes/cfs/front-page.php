@@ -61,8 +61,8 @@ $custom_featured_link_text = get_post_meta($post->ID, '_cmb2_custom_featured_lin
         </div>
       </div>
     </section>
-    <svg class="icon icon-notch bottom-left" aria-hidden="true" role="image"><use xlink:href="#icon-notch"/></svg>
-    <svg class="icon icon-notch bottom-right" aria-hidden="true" role="image"><use xlink:href="#icon-notch"/></svg>
+    <svg class="icon icon-notch bottom-left" aria-hidden="true"><use xlink:href="#icon-notch"/></svg>
+    <svg class="icon icon-notch bottom-right" aria-hidden="true"><use xlink:href="#icon-notch"/></svg>
   </div>
 </header>
 

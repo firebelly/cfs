@@ -81,7 +81,7 @@
             <option value="Other">Other</option>
           </select>
           <label for="">Type of Organization</label>
-          <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="true" role="image"><use xlink:href="#icon-arrow-right"/></svg></span>
+          <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="true"><use xlink:href="#icon-arrow-right"/></svg></span>
         </div>
 
         <div class="input-item select">
@@ -94,7 +94,7 @@
             <option value="51+">51+</option>
           </select>
           <label for="">Size of Group</label>
-          <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="true" role="image"><use xlink:href="#icon-arrow-right"/></svg></span>
+          <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="true"><use xlink:href="#icon-arrow-right"/></svg></span>
         </div>
 
         <div class="input-item select">
@@ -105,7 +105,7 @@
             <option value="$250,001–$500,000">$250,001–$500,000</option>
           </select>
           <label for="">Organization Budget</label>
-          <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="true" role="image"><use xlink:href="#icon-arrow-right"/></svg></span>
+          <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="true"><use xlink:href="#icon-arrow-right"/></svg></span>
         </div>
       </fieldset>
 

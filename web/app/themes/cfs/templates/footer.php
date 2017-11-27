@@ -2,8 +2,8 @@
   <div class="wrap grid">
 
     <h1 class="brand"><a href="/">
-      <svg class="icon icon-logo" aria-hidden="true" role="image"><use xlink:href="#icon-logo"/></svg>
-      <svg class="icon icon-logo-wordmark" aria-hidden="true" role="image"><use xlink:href="#icon-logo-wordmark"/></svg>
+      <svg class="icon icon-logo" aria-hidden="true"><use xlink:href="#icon-logo"/></svg>
+      <svg class="icon icon-logo-wordmark" aria-hidden="true"><use xlink:href="#icon-logo-wordmark"/></svg>
       <span class="sr-only"><?= get_bloginfo('name'); ?></span>
     </a></h1>
 
@@ -11,9 +11,9 @@
 
         <div class="social">
           <ul>
-            <li><a class="button" href="https://www.facebook.com/<?= \Firebelly\SiteOptions\get_option('facebook_id'); ?>"><svg class="icon icon-facebook" aria-hidden="true" role="image"><use xlink:href="#icon-facebook"/></svg><span class="sr-only">Facebook</span></a></li>
-            <li><a class="button" href="https://www.twitter.com/<?= \Firebelly\SiteOptions\get_option('twitter_id'); ?>"><svg class="icon icon-twitter" aria-hidden="true" role="image"><use xlink:href="#icon-twitter"/></svg><span class="sr-only">Twitter</span></a></li>
-            <li><a class="button" href="https://www.vimeo.com/<?= \Firebelly\SiteOptions\get_option('vimeo_id'); ?>"><svg class="icon icon-vimeo" aria-hidden="true" role="image"><use xlink:href="#icon-vimeo"/></svg><span class="sr-only">Vimeo</span></a></li>
+            <li><a class="button" href="https://www.facebook.com/<?= \Firebelly\SiteOptions\get_option('facebook_id'); ?>"><svg class="icon icon-facebook" aria-hidden="true"><use xlink:href="#icon-facebook"/></svg><span class="sr-only">Facebook</span></a></li>
+            <li><a class="button" href="https://www.twitter.com/<?= \Firebelly\SiteOptions\get_option('twitter_id'); ?>"><svg class="icon icon-twitter" aria-hidden="true"><use xlink:href="#icon-twitter"/></svg><span class="sr-only">Twitter</span></a></li>
+            <li><a class="button" href="https://www.vimeo.com/<?= \Firebelly\SiteOptions\get_option('vimeo_id'); ?>"><svg class="icon icon-vimeo" aria-hidden="true"><use xlink:href="#icon-vimeo"/></svg><span class="sr-only">Vimeo</span></a></li>
           </ul>
         </div>
 
