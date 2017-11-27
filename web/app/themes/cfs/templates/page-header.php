@@ -90,8 +90,8 @@ if (is_singular('workshop') || is_singular('program')) {
       </video>
     </div>
     <?php endif; ?>
-    <svg class="icon icon-notch bottom-left" aria-hidden="hidden" role="image"><use xlink:href="#icon-notch"/></svg>
-    <svg class="icon icon-notch bottom-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-notch"/></svg>
+    <svg class="icon icon-notch bottom-left" aria-hidden="true" role="image"><use xlink:href="#icon-notch"/></svg>
+    <svg class="icon icon-notch bottom-right" aria-hidden="true" role="image"><use xlink:href="#icon-notch"/></svg>
   </div>
 
   <div class="page-intro"><div class="color-wrap">

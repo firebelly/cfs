@@ -25,7 +25,7 @@ if (!empty($post)) {
     </div>
     <?php endif; ?>
     <?= Firebelly\Utils\fb_crumbs() ?>
-    <svg class="icon icon-notch bottom-left" aria-hidden="hidden" role="image"><use xlink:href="#icon-notch"/></svg>
+    <svg class="icon icon-notch bottom-left" aria-hidden="true" role="image"><use xlink:href="#icon-notch"/></svg>
   </div>
   <?php endif; ?>
   <div class="page-intro"><div class="color-wrap">

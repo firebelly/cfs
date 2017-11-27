@@ -133,7 +133,7 @@ function get_accordions($post) {
 
     if (!empty($accordion['accordion_title'])) {
       // Accordion title
-      $accordions_html .= '<h3 id="accordion-t'.$i.'" class="accordion-title" role="tab" aria-controls="accordion-c'.$i.'" aria-selected="false" aria-expanded="false" tabindex="0">'.$accordion['accordion_title'].'<svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"></use></svg></h3>';
+      $accordions_html .= '<h3 id="accordion-t'.$i.'" class="accordion-title" role="tab" aria-controls="accordion-c'.$i.'" aria-selected="false" aria-expanded="false" tabindex="0">'.$accordion['accordion_title'].'<svg class="icon icon-arrow-right" aria-hidden="true" role="image"><use xlink:href="#icon-arrow-right"></use></svg></h3>';
     }
     // Accordion content
     $accordions_html .= '<div id="accordion-c'.$i.'" class="accordion-content" role="tabpanel" aria-labelledby="accordion-t'.$i.'" aria-hidden="true" style="display:none">';

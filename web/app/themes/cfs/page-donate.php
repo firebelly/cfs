@@ -117,7 +117,7 @@
           <option value="CFS T-shirt 2XL">CFS T-shirt 2XL</option>
         </select>
         <label>Choose a thank you gift</label>
-        <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg></span>
+        <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="true" role="image"><use xlink:href="#icon-arrow-right"/></svg></span>
       </div>
 
       <button class="button -red -wide">Complete Donation</button>

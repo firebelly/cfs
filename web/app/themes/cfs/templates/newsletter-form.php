@@ -11,7 +11,7 @@
           <label for="mce-EMAIL">Email Address</label>
         </div>
         <div class="clear input-submit"><button type="submit" name="subscribe" id="mc-embedded-subscribe" class="button">
-          <svg class="icon icon-arrow-right" aria-hidden="hidden" role="image"><use xlink:href="#icon-arrow-right"/></svg>
+          <svg class="icon icon-arrow-right" aria-hidden="true" role="image"><use xlink:href="#icon-arrow-right"/></svg>
           <span class="hide-for-medium-up">Subscribe</span>
         </div>
       </div>
