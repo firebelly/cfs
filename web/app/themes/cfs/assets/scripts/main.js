@@ -213,10 +213,12 @@ var CFS = (function($) {
 
     // Add .has-touched for styling errors (otherwise :invalid shows error styling before form is interacted with)
     $('form input[required]').one('blur keydown', function() {
-      $(this).addClass('has-touched').parent('form').addClass('has-touched');
+      if (!$(this).hasClass('no-error-styles')) {
+        $(this).addClass('has-touched').parent('form').addClass('has-touched');
+      }
     });
     $('form [type=submit]').on('click', function() {
-      $(this).parent('form').find('input[required]').addClass('has-touched');
+      $(this).parent('form').find('input[required]:not(.no-error-styles)').addClass('has-touched');
     });
   }
   function _checkFormInput(e) {
