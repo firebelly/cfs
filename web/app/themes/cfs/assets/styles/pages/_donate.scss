@@ -7,6 +7,9 @@ body.donate {
 			display: block;
 		}
 	}
+	form .input-item.select {
+		margin-top: 50px;
+	}
 
 	@include max-screen($breakpoint-md) {
 		// Hide unneeded hr's on mobile around headers

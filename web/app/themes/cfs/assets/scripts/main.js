@@ -203,6 +203,11 @@ var CFS = (function($) {
       $('.switch-pane[data-switch=' + sw + ']').addClass('active');
     });
 
+    $('.donate-recurring input[type=radio]').on('change', function() {
+      var level = $(this).parent().find('.description').text();
+      $('.donate-recurring input[name=os0]').val(level);
+    });
+
     // Add .has-input for styling when field is changed
     $('form input').on('keyup change', _checkFormInput);
 

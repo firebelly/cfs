@@ -114,25 +114,18 @@ class FbSiteOptions {
 
     // Set our CMB2 fields
 
-    // $cmb->add_field( array(
-    //   'name' => __( 'Schedule PDF', 'firebelly' ),
-    //   'desc' => __( 'The pdf course schedule that is linked to on the home page and programs page.' ),
-    //   'id'   => 'schedule_pdf',
-    //   'type' => 'file',
-    // ) );
-
-    // $cmb->add_field( array(
-    //   'name' => __( 'Scholarship Application Form', 'firebelly' ),
-    //   'desc' => __( 'The url to the online form, which will show up wherever<br> the scholarship form is referenced throughout the site', 'firebelly' ),
-    //   'id'   => 'scholarship_application_form',
-    //   'type' => 'text_url',
-    // ) );
+    $cmb->add_field( array(
+      'name' => __( 'PayPal ID', 'firebelly' ),
+      'id'   => 'paypal_id',
+      'type' => 'text',
+      'before_row' => '<h3>Donations</h3>',
+    ) );
 
     $cmb->add_field( array(
       'name' => __( 'Twitter ID', 'firebelly' ),
       'id'   => 'twitter_id',
       'type' => 'text',
-      'before_row' => '<hr><h3>Footer Links & Info</h3>',
+      'before_row' => '<h3>Footer Links & Info</h3>',
     ) );
 
     $cmb->add_field( array(
@@ -187,7 +180,7 @@ class FbSiteOptions {
       'desc' => __( 'Used for OG tags, set up at https://developers.facebook.com/apps/', 'firebelly' ),
       'id'   => 'facebook_app_id',
       'type' => 'text',
-      'before_row' => '<hr><h3>Facebook Sharing</h3>',
+      'before_row' => '<h3>Facebook Sharing</h3>',
     ) );
 
     $cmb->add_field( array(
