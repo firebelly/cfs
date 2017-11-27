@@ -52,3 +52,23 @@ figure {
 address {
   font-style: normal;
 }
+
+.alert {
+  background: $black;
+  color: $white;
+  text-align: center;
+  z-index: 1000;
+  padding: mobile-grid(3);
+  p {
+    margin: 0;
+  }
+  a {
+    color: $white;
+    text-decoration: underline;
+  }
+
+  @include media-md {
+    padding: grid(3);
+    margin-left: columns(2);
+  }
+}

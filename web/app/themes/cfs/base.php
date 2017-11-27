@@ -10,11 +10,6 @@ use Roots\Sage\Wrapper;
   <?php get_template_part('templates/head'); ?>
   <body <?php body_class(); ?>>
     <div class="hide" aria-hidden="hidden"><?php include_once(get_template_directory().'/dist/svgs/build/svgs-defs.svg'); ?></div>
-    <!--[if IE]>
-      <div class="alert alert-warning">
-        <?php _e('You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.', 'sage'); ?>
-      </div>
-    <![endif]-->
     <?php
       do_action('get_header');
       get_template_part('templates/header');
@@ -22,6 +17,11 @@ use Roots\Sage\Wrapper;
     <div class="wrap container" role="document">
       <div class="content row">
         <main class="main">
+          <!--[if IE]>
+            <div class="alert alert-warning">
+              <p><?php _e('You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.', 'sage'); ?></p>
+            </div>
+          <![endif]-->
           <?php include Wrapper\template_path(); ?>
         </main><!-- /.main -->
         <?php if (Setup\display_sidebar()) : ?>
