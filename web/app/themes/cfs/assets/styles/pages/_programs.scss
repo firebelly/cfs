@@ -2,6 +2,7 @@
 
 // Youth Program pages get "theme-yellow" class applied to body at \Firebelly\Init\is_youth_program()
 body.theme-yellow {
+  // Notches are rotated differently on Youth Program pages
   .page-header {
     .icon-notch.bottom-left {
       transform: rotate(90deg);
@@ -11,12 +12,15 @@ body.theme-yellow {
     }
   }
 
-  // My simplified version of Bryant's theme-color() mixin doesn't support other body classes, just hardcoding here
+  // My simplified version of Bryant's theme-color() mixin doesn't support add'l body classes, just hardcoding here
   &.menu-open {
     .site-header {
       background: $yellow;
       border-color: $yellow;
     }
+  }
+  .nav-search .search-form .go-button {
+    box-shadow: inset 0px 0px 0px 2px $black;
   }
 
   @include media-nav {

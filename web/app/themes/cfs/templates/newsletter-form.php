@@ -1,9 +1,9 @@
 <div id="mc_embed_signup">
-  <form action="#" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate newsletter-form" target="_blank" novalidate>
+  <form action="#" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate newsletter-form" target="_blank">
     <div id="mc_embed_signup_scroll">
       <div class="grid">
         <div class="grid-item one-half mc-field-group input-name input-item">
-          <input type="text" value="" name="NAME" class="" id="mce-NAME" required>
+          <input type="text" value="" name="NAME" class="" id="mce-NAME">
           <label for="mce-NAME">Name</label>
         </div>
         <div class="grid-item one-half mc-field-group input-email input-item">

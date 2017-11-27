@@ -337,8 +337,10 @@
       &::before {
         display: none;
       }
-      &:hover {
-        @include theme-color('color', $yellow, 'accent2');
+      @include media-md {
+        &:hover {
+          @include theme-color('color', $yellow, 'accent2');
+        }
       }
     }
   }

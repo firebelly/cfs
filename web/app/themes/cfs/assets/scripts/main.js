@@ -169,12 +169,10 @@ var CFS = (function($) {
       }
     });
   }
-
   function _showMobileNav() {
     $('.menu-toggle, body').addClass('menu-open');
     $('.site-nav').addClass('-active');
   }
-
   function _hideMobileNav() {
     $('.menu-toggle, body').removeClass('menu-open');
     $('.site-nav').removeClass('-active');
@@ -192,7 +190,6 @@ var CFS = (function($) {
       speed: 300,
       lazyLoad: 'ondemand'
     });
-
   }
 
   function _initForms() {
@@ -205,8 +202,17 @@ var CFS = (function($) {
       $('.switch-pane').removeClass('active');
       $('.switch-pane[data-switch=' + sw + ']').addClass('active');
     });
-    $('form input').on('keyup', _checkFormInput);
-    $('form input').on('change', _checkFormInput);
+
+    // Add .has-input for styling when field is changed
+    $('form input').on('keyup change', _checkFormInput);
+
+    // Add .has-touched for styling errors (otherwise :invalid shows error styling before form is interacted with)
+    $('form input:required').one('blur keydown', function() {
+      $(this).addClass('has-touched').parent('form').addClass('has-touched');
+    });
+    $('form [type=submit]').on('click', function() {
+      $(this).parent('form').find('input:required').addClass('has-touched');
+    });
   }
   function _checkFormInput(e) {
     $(e.target).toggleClass('has-input', ($(e.target).val() !== ''));

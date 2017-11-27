@@ -109,7 +109,7 @@
         </div>
       </fieldset>
 
-      <button class="button -red -wide">Submit</button>
+      <button type="submit" class="button -red -wide">Submit</button>
     </form>
   </div>
 </div></div>
