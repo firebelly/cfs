@@ -1,4 +1,4 @@
-<footer class="site-footer" role="contentinfo" id="site-footer">
+<footer class="site-footer" id="site-footer">
   <div class="wrap grid">
 
     <h1 class="brand"><a href="/">
