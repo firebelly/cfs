@@ -5,6 +5,8 @@ RewriteBase /
 RewriteRule ^person\/(.*)$ /about-us/people/ [R=301,L]
 RewriteRule ^job\/(.*)$ /about-us/join-us/ [R=301,L]
 RewriteRule ^partner\/(.*)$ /support-us/partners-supporters/ [R=301,L]
+# redirect Upcoming Workshops page
+RewriteRule ^workshops-trainings/upcoming-workshops/$ /workshops/ [R=301,L]
 </IfModule>
 # END Custom redirects
 

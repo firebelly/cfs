@@ -183,3 +183,22 @@ function search_distinct($where) {
   return $where;
 }
 add_filter('posts_distinct', __NAMESPACE__ . '\search_distinct');
+
+
+/**
+ * Add custom links to the admin bar
+ */
+function custom_admin_bar() {
+  global $wp_admin_bar;
+  // If workshop archive/taxonomy page, add Edit Page link to edit Upcoming Workshops post
+  if (is_post_type_archive('workshop') || is_tax('workshop_series')) {
+    $workshop_post = get_page_by_title('Upcoming Workshops');
+    $wp_admin_bar->add_menu( array(
+      'parent' => false,
+      'id' => 'edit',
+      'title' => 'Edit Page',
+      'href' => get_edit_post_link($workshop_post->ID),
+    ));
+  }
+}
+add_action('wp_before_admin_bar_render', __NAMESPACE__ . '\custom_admin_baradmin_bar');
