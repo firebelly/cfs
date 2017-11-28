@@ -72,3 +72,22 @@ address {
     margin-left: columns(2);
   }
 }
+
+// Front end edit links
+.edit-link {
+  display: none;
+}
+@include media-md {
+  .edit-link {
+    position: absolute;
+    top: 10px;
+    left: $gutter;
+    background: $red;
+    color: $white;
+    padding: 4px 8px;
+    z-index: 10;
+  }
+  article:hover .edit-link {
+    display: block;
+  }
+}
