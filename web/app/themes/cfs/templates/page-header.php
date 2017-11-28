@@ -47,7 +47,7 @@ $page_intro_quote = get_post_meta($post->ID, '_cmb2_intro_quote', true);
 $accordions_html = Firebelly\Utils\get_accordions($post);
 
 // Pull registration details for Workshop or Program posts
-if (is_singular('workshop') || is_singular('program')) {
+if ($post->post_type=='workshop' || $post->post_type=='program') {
   $registration_html = \Firebelly\Utils\get_registration_details($post);
 }
 ?>

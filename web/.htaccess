@@ -16,6 +16,9 @@ RewriteRule ^programs/freedom-fellowship/$ /program/freedom-fellowship/ [R=301,L
 RewriteRule ^programs/freedom-project-healus/$ /program/project-healus/ [R=301,L]
 RewriteRule ^programs/young-leaders-for-justice/$ /program/youth-leaders-for-justice/ [R=301,L]
 
+# Redirect weirdo Moments of Justice workshop to faux-page at /support-us/
+RewriteRule ^workshops/moments-of-justice/$ /support-us/moments-of-justice/ [R=301,L]
+
 </IfModule>
 # END Custom redirects
 
