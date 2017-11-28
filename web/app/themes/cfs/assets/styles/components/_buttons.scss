@@ -4,12 +4,12 @@
   background: none;
   border: none;
   border-radius: 0;
-  padding: 0 grid(1);
+  padding: grid(1);
   line-height: 60px;
+  text-align: center;
   border: 2px solid $black;
   min-height: 60px;
   min-width: 60px;
-  text-align: center;
   @extend .font-display;
   z-index: 1;
   svg {
@@ -109,4 +109,12 @@
 input.button,
 button.button {
   border-radius: 0;
+}
+
+// Flexbox supported, vertically center buttons
+.flexbox .button {
+  display: flex;
+  line-height: 1.4;
+  align-items: center;
+  justify-content: center;
 }

@@ -28,6 +28,11 @@
         "scripts/customizer.js"
       ]
     },
+    "modernizr-custom.js": {
+      "files": [
+        "scripts/modernizr-custom.js"
+      ]
+    },
     "jquery.js": {
       "bower": ["jquery"]
     },
