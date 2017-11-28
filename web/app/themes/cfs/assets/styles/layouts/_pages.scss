@@ -26,3 +26,14 @@
     }
   }
 }
+
+@include media-md {
+  .button-twins {
+    .-left {
+      padding-right: #{$gutter / 2};
+    }
+    .-right {
+      padding-left: #{$gutter / 2};
+    }
+  }
+}

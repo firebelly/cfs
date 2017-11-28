@@ -25,14 +25,6 @@ body.donate {
 		.page-header.half .page-intro .page-content {
 			padding-bottom: grid(1);
 		}
-		.switches {
-			.-left {
-				padding-right: #{$gutter / 2};
-			}
-			.-right {
-				padding-left: #{$gutter / 2};
-			}
-		}
 	}
 
 }

@@ -175,6 +175,19 @@ function get_workshops($options=[]) {
   return $output;
 }
 
+function get_workshop_by_slug($slug){
+  $posts = get_posts([
+    'name' => $slug,
+    'posts_per_page' => 1,
+    'post_type' => 'workshop',
+    'post_status' => 'publish'
+  ]);
+  if(!$posts) {
+    return false;
+  }
+  return $posts[0];
+}
+
 /**
  * Get featured workshops
  * @param  array  $args Extra args for get_posts()

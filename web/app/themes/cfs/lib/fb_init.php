@@ -189,7 +189,8 @@ add_filter('posts_distinct', __NAMESPACE__ . '\search_distinct');
  * Add custom links to the admin bar
  */
 function custom_admin_bar() {
-  global $wp_admin_bar;
+  global $wp_admin_bar, $post;
+
   // If workshop archive/taxonomy page, add Edit Page link to edit Upcoming Workshops post
   if (is_post_type_archive('workshop') || is_tax('workshop_series')) {
     $workshop_post = get_page_by_title('Upcoming Workshops');
@@ -197,6 +198,15 @@ function custom_admin_bar() {
       'parent' => false,
       'id' => 'edit',
       'title' => 'Edit Page',
+      'href' => get_edit_post_link($workshop_post->ID),
+    ));
+  } else if (is_singular('page') && $post->post_name=='moments-of-justice') {
+    $wp_admin_bar->remove_menu('edit');
+    $workshop_post = \Firebelly\PostTypes\Workshop\get_workshop_by_slug('moments-of-justice');
+    $wp_admin_bar->add_menu( array(
+      'parent' => false,
+      'id' => 'edit',
+      'title' => 'Edit Workshop',
       'href' => get_edit_post_link($workshop_post->ID),
     ));
   }

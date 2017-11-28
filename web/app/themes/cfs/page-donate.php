@@ -2,7 +2,7 @@
 
 <div class="secondary-content"><div class="color-wrap">
   <div class="wrap">
-    <div class="switches grid">
+    <div class="switches button-twins grid">
       <div class="one-half -left">
         <a href="#" class="button -red -wide" data-switch="recurring">Give Monthly</a>
       </div>

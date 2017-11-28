@@ -91,7 +91,11 @@ function fb_crumbs() {
   $separator = '/';
   if (is_front_page()) return '';
   $return = '<nav class="crumb"><a href="'.home_url().'">Home</a> ';
-  if (is_404()) {
+
+  if ($post->post_name=='moments-of-justice') {
+    // Omg help, mega kludgetastical — MOJ is a workshop in a strange land
+    $return .= "{$separator} <a href=\"/support-us/\">Support Us</a> {$separator} " . $post->post_title;
+  } else if (is_404()) {
     $return .= " {$separator} 404";
   } else if (is_category()) {
     $return .= get_the_category(" {$separator} ");
@@ -108,7 +112,7 @@ function fb_crumbs() {
     // todo: check for post_type and if not page, show link to listing page (e.g. /programs/)
     $return .= " {$separator} " . get_the_title();
   } elseif (is_page()) {
-    if ($post->post_parent) {
+     if ($post->post_parent) {
       $parent_page = get_page($post->post_parent);
       $return .= "{$separator} <a href=\"".get_permalink($parent_page).'">' . get_the_title($parent_page) . '</a>';
     }

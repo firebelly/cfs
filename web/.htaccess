@@ -2,12 +2,14 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteBase /
-RewriteRule ^person\/(.*)$ /about-us/people/ [R=301,L]
-RewriteRule ^job\/(.*)$ /about-us/join-us/ [R=301,L]
-RewriteRule ^partner\/(.*)$ /support-us/partners-supporters/ [R=301,L]
 
 # Redirect Upcoming Workshops page
 RewriteRule ^workshops-trainings/upcoming-workshops/$ /workshops/ [R=301,L]
+
+# Redirect single posts to landing pages for people/jobs/partners
+RewriteRule ^person\/(.*)$ /about-us/people/ [R=301,L]
+RewriteRule ^job\/(.*)$ /about-us/join-us/ [R=301,L]
+RewriteRule ^partner\/(.*)$ /support-us/partners-supporters/ [R=301,L]
 
 # Redirect landing page nav child pages that don't really exist
 RewriteRule ^programs/freedom-fellowship/$ /program/freedom-fellowship/ [R=301,L]
