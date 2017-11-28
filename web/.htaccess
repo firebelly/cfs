@@ -5,8 +5,15 @@ RewriteBase /
 RewriteRule ^person\/(.*)$ /about-us/people/ [R=301,L]
 RewriteRule ^job\/(.*)$ /about-us/join-us/ [R=301,L]
 RewriteRule ^partner\/(.*)$ /support-us/partners-supporters/ [R=301,L]
+
 # redirect Upcoming Workshops page
 RewriteRule ^workshops-trainings/upcoming-workshops/$ /workshops/ [R=301,L]
+
+# redirect landing page nav child pages that don't really exist
+RewriteRule ^programs/freedom-fellowship/$ /program/freedom-fellowship/ [R=301,L]
+RewriteRule ^programs/freedom-project-healus/$ /program/project-healus/ [R=301,L]
+RewriteRule ^programs/young-leaders-for-justice/$ /program/youth-leaders-for-justice/ [R=301,L]
+
 </IfModule>
 # END Custom redirects
 
