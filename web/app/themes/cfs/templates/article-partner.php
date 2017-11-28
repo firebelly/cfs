@@ -4,6 +4,7 @@ $partner_desc = apply_filters('the_content', $partner_post->post_content);
 $partner_image = \Firebelly\Media\get_header_bg($partner_post, ['size' => 'medium'])
 ?>
 <article class="partner <?= $partner_post->column_width ?>"><div class="wrap">
+  <?= \Firebelly\Utils\admin_edit_link($partner_post) ?>
   <?php if ($partner_image): ?>
     <div class="image" <?= $partner_image ?>></div>
   <?php endif; ?>

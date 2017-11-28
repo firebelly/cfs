@@ -22,10 +22,8 @@ if (count($child_pages)==2) {
   <div class="wrap"><div class="grid">
     <?php foreach ($child_pages as $child_page): ?>
       <article class="child-page <?= $column_class ?> bigclicky"><div class="wrap">
+        <?= \Firebelly\Utils\admin_edit_link($child_page) ?>
         <?php
-        if (current_user_can('edit_posts', $child_page->ID)) {
-          echo '<a class="edit-link" href="'.get_edit_post_link($child_page->ID).'">Edit</a>';
-        }
         $nav_excerpt = get_post_meta($child_page->ID, '_cmb2_nav_excerpt', true);
         if (empty($nav_excerpt)) {
           $nav_excerpt = Firebelly\Utils\get_excerpt($child_page);
