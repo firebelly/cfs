@@ -19,7 +19,6 @@ if (is_post_type_archive('workshop') || is_tax('workshop_series')) {
   } else {
     $header_bg = '';
   }
-  $page_intro_quote = get_post_meta($post->ID, '_cmb2_intro_quote', true);
   $page_title = $post->post_title;
 
 } else if (!empty($post)) {
@@ -37,9 +36,12 @@ if (is_post_type_archive('workshop') || is_tax('workshop_series')) {
   } else {
     $header_bg = '';
   }
-  $page_intro_quote = get_post_meta($post->ID, '_cmb2_intro_quote', true);
 
 }
+
+// Pull custom title / intro fields
+$page_intro_title = get_post_meta($post->ID, '_cmb2_intro_title', true);
+$page_intro_quote = get_post_meta($post->ID, '_cmb2_intro_quote', true);
 
 // Pull post's "accordions" — repeating blocks of content with attached media/quote
 $accordions_html = Firebelly\Utils\get_accordions($post);
@@ -58,7 +60,7 @@ if (is_singular('workshop') || is_singular('program')) {
     <div class="grid">
       <div class="page-titles">
         <?= Firebelly\Utils\fb_crumbs() ?>
-        <h1><?= $page_title; ?></h1>
+        <h1><?= !empty($page_intro_title) ? $page_intro_title : $page_title; ?></h1>
       </div>
     </div>
 
@@ -98,7 +100,7 @@ if (is_singular('workshop') || is_singular('program')) {
     <div class="page-content">
       <div class="page-titles">
         <?= Firebelly\Utils\fb_crumbs() ?>
-        <h1><?= $page_title; ?></h1>
+        <h1><?= !empty($page_intro_title) ? $page_intro_title : $page_title; ?></h1>
         <div class="intro-wrap">
           <?= $registration_html ?>
           <p class="p-intro"><?= $page_intro_quote; ?></p>

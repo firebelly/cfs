@@ -7,9 +7,10 @@ if (!empty($post)) {
   } else {
     $header_bg = '';
   }
+  $page_intro_title = get_post_meta($post->ID, '_cmb2_intro_title', true);
   $page_intro_quote = get_post_meta($post->ID, '_cmb2_intro_quote', true);
 } else {
-  $page_intro_quote = $header_video = $header_bg = '';
+  $page_intro_quote = $page_intro_title = $header_video = $header_bg = '';
 }
 ?>
 
@@ -31,7 +32,7 @@ if (!empty($post)) {
   <div class="page-intro"><div class="color-wrap">
     <div class="page-content grid">
       <div class="one-half -left page-titles">
-        <h1><?= Titles\title(); ?></h1>
+        <h1><?= !empty($page_intro_title) ? $page_intro_title : Titles\title(); ?></h1>
         <p class="p-intro"><?= $page_intro_quote; ?></p>
       </div>
       <div class="one-half -right intro-text user-content">

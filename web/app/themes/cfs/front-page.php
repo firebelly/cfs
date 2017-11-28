@@ -9,6 +9,7 @@ if (!$header_video) {
 } else {
   $header_bg = '';
 }
+$page_intro_title = get_post_meta($post->ID, '_cmb2_intro_title', true);
 $page_intro_quote = get_post_meta($post->ID, '_cmb2_intro_quote', true);
 
 // Get featured posts
@@ -51,7 +52,7 @@ $custom_featured_link_text = get_post_meta($post->ID, '_cmb2_custom_featured_lin
     </div>
     <?php endif; ?>
     <section class="page-intro">
-      <h1><?php bloginfo('description'); ?></h1>
+      <h1><?= !empty($page_intro_title) ? $page_intro_title : get_bloginfo('description'); ?></h1>
       <div class="page-content user-content grid">
         <div class="one-half -left">
           <p class="p-intro"><?= $page_intro_quote; ?></p>
