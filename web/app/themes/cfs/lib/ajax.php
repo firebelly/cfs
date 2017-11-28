@@ -74,35 +74,3 @@ function is_ajax() {
 // }
 // add_action( 'wp_ajax_load_more_posts', __NAMESPACE__ . '\\load_more_posts' );
 // add_action( 'wp_ajax_nopriv_load_more_posts', __NAMESPACE__ . '\\load_more_posts' );
-
-/**
- * Load post in modal
- */
-function load_post_modal() {
-
-  if(!empty($_REQUEST['post_url'])) {
-    $post_id = url_to_postid($_REQUEST['post_url']);
-    if ($post_id) {
-      $post = get_post($post_id);
-      $post_type = get_post_type($post);
-      $page_name = $post->post_name;
-
-      if ($post_type == 'post') {
-        $news_post = $post;
-        include(locate_template('templates/article-news.php'));
-      } elseif ($post_type == 'page') {
-        include(locate_template('page-'.$page_name.'.php'));
-      } else {
-        include(locate_template('templates/content-single-'.$post_type.'.php'));
-      }
-    } else {
-      echo 'Post not found.';
-    }
-  } else {
-    echo 'Post not found.';
-  }
-
-  if (is_ajax()) die();
-}
-add_action( 'FB_AJAX_load_post_modal', __NAMESPACE__ . '\\load_post_modal' );
-add_action( 'FB_AJAX_nopriv_load_post_modal', __NAMESPACE__ . '\\load_post_modal' );

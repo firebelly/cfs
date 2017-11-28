@@ -4,34 +4,14 @@
 // Good Design for Good Reason for Good Namespace
 var CFS = (function($) {
 
-  var screen_width = 0,
-      breakpoint_md = false,
+  var breakpoint_md = false,
       breakpoint_nav = false,
-      breakpoint_array = [768,950],
-      $siteHeader = $('.site-header'),
-      $siteNav = $('.site-nav'),
-      $document,
-      $sidebar,
-      headerOffset,
-      loadingTimer,
-      History = window.History,
-      State,
-      root_url = History.getRootUrl(),
-      relative_url,
-      original_url,
-      original_page_title = document.title,
-      page_cache = {},
-      ajax_handler_url = '/app/themes/cfs/lib/ajax-handler.php',
-      page_at;
+      breakpoint_array = [768, 950],
+      headerOffset;
 
   function _init() {
-    // Cache some common DOM queries
-    $document = $(document);
-    $('body').addClass('loaded');
-
     // Set screen size vars
     _resize();
-    _setHeaderOffset();
 
     // Fit them vids!
     $('main').fitVids();
@@ -203,6 +183,7 @@ var CFS = (function($) {
       $('.switch-pane[data-switch=' + sw + ']').addClass('active');
     });
 
+    // Set additional hidden input for donation description as you select radio buttons
     $('.donate-recurring input[type=radio]').on('change', function() {
       var level = $(this).parent().find('.description').text();
       $('.donate-recurring input[name=os0]').val(level);
@@ -225,8 +206,8 @@ var CFS = (function($) {
     $(e.target).toggleClass('has-input', ($(e.target).val() !== ''));
   }
 
+  // Not using this yet, but registration boxes should be sticky as you scroll
   function _initStickyElements() {
-    // Not using this yet, but registration boxes should be sticky as you scroll
     if ($('.scroll-stick').length) {
       var sticky = new Waypoint.Sticky({
         element: $('.scroll-stick')
