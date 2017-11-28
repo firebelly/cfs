@@ -110,7 +110,7 @@ var CFS = (function($) {
     $(document).on('click', '.bigclicky', function(e) {
       if (!$(e.target).is('a')) {
         e.preventDefault();
-        var link = $(this).find('a:first');
+        var link = $(this).find('a:not(.edit-link):first');
         var href = link.attr('href');
         if (href) {
           if (e.metaKey || link.attr('target')) {
