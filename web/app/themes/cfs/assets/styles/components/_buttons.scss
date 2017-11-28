@@ -4,8 +4,8 @@
   background: none;
   border: none;
   border-radius: 0;
-  padding: grid(1);
-  line-height: 60px;
+  padding: 20px grid(1) 0;
+  line-height: 1.4;
   text-align: center;
   border: 2px solid $black;
   min-height: 60px;
@@ -115,6 +115,7 @@ button.button {
 .flexbox .button {
   display: flex;
   line-height: 1.4;
+  padding: 0 grid(1);
   align-items: center;
   justify-content: center;
 }

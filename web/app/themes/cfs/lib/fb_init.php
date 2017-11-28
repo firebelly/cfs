@@ -200,7 +200,10 @@ function custom_admin_bar() {
       'title' => 'Edit Page',
       'href' => get_edit_post_link($workshop_post->ID),
     ));
-  } else if (is_singular('page') && $post->post_name=='moments-of-justice') {
+  }
+
+  // Moments of Justice is an odd duck, a page showing a workshop post, so show Edit Workshop link instead
+  if (is_singular('page') && $post->post_name=='moments-of-justice') {
     $wp_admin_bar->remove_menu('edit');
     $workshop_post = \Firebelly\PostTypes\Workshop\get_workshop_by_slug('moments-of-justice');
     $wp_admin_bar->add_menu( array(

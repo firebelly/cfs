@@ -3,6 +3,11 @@
   position: relative;
   padding: mobile-grid(5);
   border-top: mobile-grid(3) solid $black;
+  .button {
+    padding: 0;
+    line-height: 60px;
+    height: 60px;
+  }
 
   .icon-logo,
   .icon-logo-wordmark {
@@ -150,7 +155,7 @@
       right: 0;
       top: 0;
       li {
-        top: 22px;
+        top: 24px;
       }
     }
   }
