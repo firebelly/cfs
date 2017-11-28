@@ -5,7 +5,7 @@ namespace Firebelly\Ajax;
  * Add wp_ajax_url variable to global js scope
  */
 function wp_ajax_url() {
-  wp_localize_script('sage_js', 'wp_ajax_url', admin_url( 'admin-ajax.php'));
+  wp_localize_script('sage/js', 'wp_ajax_url', admin_url( 'admin-ajax.php'));
 }
 add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\wp_ajax_url', 100);
 
@@ -74,3 +74,57 @@ function is_ajax() {
 // }
 // add_action( 'wp_ajax_load_more_posts', __NAMESPACE__ . '\\load_more_posts' );
 // add_action( 'wp_ajax_nopriv_load_more_posts', __NAMESPACE__ . '\\load_more_posts' );
+
+/**
+ * AJAX add contact to Constant Barf .. er, I mean Contact
+ */
+function add_cc_contact() {
+  // Check for email
+  if (empty($_REQUEST['EMAIL']) || !is_email($_REQUEST['EMAIL'])) {
+    wp_send_json_error(['message' => 'Invalid email.']);
+  }
+  // Get name
+  $name = !empty($_REQUEST['NAME']) ? $_REQUEST['NAME'] : '';
+  if (strpos($name, ' ') !== FALSE) {
+    list($first, $last) = preg_split('/ ([^ ]+)$/', $name, 0, PREG_SPLIT_DELIM_CAPTURE);
+  } else {
+    $first = '';
+    $last = $name;
+  }
+
+  $client = new \GuzzleHttp\Client();
+  $res = $client->request('GET', 'https://api.constantcontact.com/v2/contacts?email=' . $_REQUEST['EMAIL'] . '&api_key=' . getenv('CONSTANT_CONTACT_APIKEY'), [
+    'headers' => [
+      'Authorization' => 'Bearer ' . getenv('CONSTANT_CONTACT_ACCESS_TOKEN')
+    ]
+  ]);
+  if ($res->getStatusCode() == '200') {
+    $data = json_decode($res->getBody());
+    if (count($data->results) > 0) {
+      wp_send_json_error(['message' => 'You are already subscribed.']);
+    } else {
+      $res = $client->request('POST', 'https://api.constantcontact.com/v2/contacts?api_key=' . getenv('CONSTANT_CONTACT_APIKEY'), [
+        'json' => [
+          'lists' => [
+            [ 'id' => '1795823311' ]
+          ],
+          'email_addresses' => [
+            [ 'email_address' => $_REQUEST['EMAIL'] ]
+          ],
+          'first_name' => $first,
+          'last_name' => $last
+        ],
+        'headers' => [
+          'Authorization' => 'Bearer ' . getenv('CONSTANT_CONTACT_ACCESS_TOKEN')
+        ]
+      ]);
+      if ($res->getStatusCode() == '200') {
+        wp_send_json_success(['message' => 'You were subscribed successfully.']);
+      }
+    }
+  } else {
+    wp_send_json_error(['message' => 'There was an error sending the request.']);
+  }
+}
+add_action( 'wp_ajax_add_cc_contact', __NAMESPACE__ . '\\add_cc_contact' );
+add_action( 'wp_ajax_nopriv_add_cc_contact', __NAMESPACE__ . '\\add_cc_contact' );

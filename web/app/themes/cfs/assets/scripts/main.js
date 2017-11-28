@@ -201,6 +201,25 @@ var CFS = (function($) {
     $('form [type=submit]').on('click', function() {
       $(this).parent('form').find('input[required]:not(.no-error-styles)').addClass('has-touched');
     });
+
+    // Newsletter form in footer
+    $('footer form.newsletter-form').on('submit', function(e) {
+      e.preventDefault();
+      var EMAIL = $('footer form.newsletter-form input[name=EMAIL]').val();
+      var NAME = $('footer form.newsletter-form input[name=NAME]').val();
+      $.ajax({
+        url: wp_ajax_url,
+        method: 'get',
+        dataType: 'json',
+        data: {
+          action: 'add_cc_contact',
+          EMAIL: EMAIL,
+          NAME: NAME
+        }
+      }).done(function(response) {
+        alert(response.data.message);
+      });
+    });
   }
   function _checkFormInput(e) {
     $(e.target).toggleClass('has-input', ($(e.target).val() !== ''));
