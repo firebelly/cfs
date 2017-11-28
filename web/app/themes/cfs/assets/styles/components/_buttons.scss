@@ -1,12 +1,14 @@
 .button {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.4;
+  padding: 0 grid(1);
   position: relative;
-  display: inline-block;
   background: none;
   border: none;
   border-radius: 0;
-  padding: 20px grid(1) 0;
-  line-height: 1.4;
-  text-align: center;
+  align-items: center;
   border: 2px solid $black;
   min-height: 60px;
   min-width: 60px;
@@ -112,10 +114,7 @@ button.button {
 }
 
 // Flexbox supported, vertically center buttons
-.flexbox .button {
-  display: flex;
-  line-height: 1.4;
-  padding: 0 grid(1);
-  align-items: center;
-  justify-content: center;
+.no-flexbox .button {
+  display: inline-block;
+  padding: 20px grid(1) 0;
 }
