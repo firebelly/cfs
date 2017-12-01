@@ -93,37 +93,41 @@ function add_cc_contact() {
   }
 
   $client = new \GuzzleHttp\Client();
-  $res = $client->request('GET', 'https://api.constantcontact.com/v2/contacts?email=' . $_REQUEST['EMAIL'] . '&api_key=' . getenv('CONSTANT_CONTACT_APIKEY'), [
-    'headers' => [
-      'Authorization' => 'Bearer ' . getenv('CONSTANT_CONTACT_ACCESS_TOKEN')
-    ]
-  ]);
-  if ($res->getStatusCode() == '200') {
+  try {
+    $res = $client->request('GET', 'https://api.constantcontact.com/v2/contacts?email=' . $_REQUEST['EMAIL'] . '&api_key=' . getenv('CONSTANT_CONTACT_APIKEY'), [
+      'headers' => [
+        'Authorization' => 'Bearer ' . getenv('CONSTANT_CONTACT_ACCESS_TOKEN')
+      ]
+    ]);
+
     $data = json_decode($res->getBody());
     if (count($data->results) > 0) {
       wp_send_json_error(['message' => 'You are already subscribed.']);
     } else {
-      $res = $client->request('POST', 'https://api.constantcontact.com/v2/contacts?api_key=' . getenv('CONSTANT_CONTACT_APIKEY'), [
-        'json' => [
-          'lists' => [
-            [ 'id' => '1795823311' ]
+      try {
+        $res = $client->request('POST', 'https://api.constantcontact.com/v2/contacts?api_key=' . getenv('CONSTANT_CONTACT_APIKEY'), [
+          'json' => [
+            'lists' => [
+              [ 'id' => getenv('CONSTANT_CONTACT_LIST_ID') ]
+            ],
+            'email_addresses' => [
+              [ 'email_address' => $_REQUEST['EMAIL'] ]
+            ],
+            'first_name' => $first,
+            'last_name' => $last
           ],
-          'email_addresses' => [
-            [ 'email_address' => $_REQUEST['EMAIL'] ]
-          ],
-          'first_name' => $first,
-          'last_name' => $last
-        ],
-        'headers' => [
-          'Authorization' => 'Bearer ' . getenv('CONSTANT_CONTACT_ACCESS_TOKEN')
-        ]
-      ]);
-      if ($res->getStatusCode() == '200') {
+          'headers' => [
+            'Authorization' => 'Bearer ' . getenv('CONSTANT_CONTACT_ACCESS_TOKEN')
+          ]
+        ]);
         wp_send_json_success(['message' => 'You were subscribed successfully.']);
+
+      } catch (\Exception $e) {
+        wp_send_json_error(['message' => 'There was an error sending the subscribe request.']);
       }
     }
-  } else {
-    wp_send_json_error(['message' => 'There was an error sending the request.']);
+  } catch (\Exception $e) {
+    wp_send_json_error(['message' => 'There was an error sending the email check request.']);
   }
 }
 add_action( 'wp_ajax_add_cc_contact', __NAMESPACE__ . '\\add_cc_contact' );
