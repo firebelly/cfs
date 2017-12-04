@@ -8,7 +8,7 @@ use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
 use PostTypes\Taxonomy;
 use jamiehollern\eventbrite\Eventbrite; // see https://github.com/jamiehollern/eventbrite
 
-$cpt = new PostType('workshop', [
+$cpt = new PostType(['name' => 'workshop', 'slug' => 'workshop'], [
   'taxonomies' => ['workshop_type', 'workshop_series'],
   'supports'   => ['title', 'editor', 'thumbnail'],
   'has_archive' => true,
@@ -62,6 +62,7 @@ $workshop_type->register();
 
 $workshop_series = new Taxonomy([
   'name'     => 'workshop_series',
+  'slug'     => 'workshop_series',
   'plural'   => 'Workshop Series',
 ]);
 $workshop_series->columns()->add([
@@ -200,33 +201,42 @@ function get_workshops($options=[]) {
     'post_type'   => 'workshop',
     'meta_key'    => '_cmb2_date_start',
     'orderby'     => 'meta_value_num',
-  ];
-  if (!empty($options['tax_query'])) {
-    $args['tax_query'] = [
+    'tax_query'   => [
       [
         'taxonomy' => 'workshop_type',
-        'field'    => 'id',
-        'terms'    => $options['workshop_type']
+        'field'    => 'slug',
+        'terms'    => 'eventbrite-event'
       ]
-    ];
+    ],
+  ];
+  if (!empty($options['workshop_series'])) {
+    $args['tax_query'][] =
+      [
+        'taxonomy' => 'workshop_series',
+        'field'    => 'id',
+        'terms'    => $options['workshop_series']
+      ];
   }
   // Make sure we're only pulling upcoming or past workshops
   $args['order'] = !empty($options['past_workshops']) ? 'DESC' : 'ASC';
-  $args['meta_query'] = [
-    [
-      'key'     => '_cmb2_date_end',
-      'value'   => current_time('timestamp'),
-      'compare' => (!empty($options['past_workshops']) ? '<=' : '>')
-    ],
-    [
-      'key' => '_cmb2_workshop_type',
-    ]
-  ];
+  // $args['meta_query'] = [
+  //   [
+  //     'key'     => '_cmb2_date_end',
+  //     'value'   => current_time('timestamp'),
+  //     'compare' => (!empty($options['past_workshops']) ? '<=' : '>')
+  //   ],
+  // ];
 
   // Display all matching workshops using article-workshop.php
   $workshop_posts = get_posts($args);
   if (!$workshop_posts) return false;
   $output = '';
+
+  // Just return array of posts?
+  if ($options['output'] == 'array') {
+    return $workshop_posts;
+  }
+
   foreach ($workshop_posts as $workshop_post):
     ob_start();
     include(locate_template('templates/article-workshop.php'));
@@ -266,6 +276,23 @@ function get_featured_workshops($args=[]) {
     ]
   ], $args);
   return get_posts($featured_args);
+}
+/**
+ * Get featured Workshop Series
+ */
+function get_featured_workshop_series() {
+  $terms = get_terms('workshop_series', [
+    'hide_empty' => false,
+    'meta_key' => '_cmb2_featured',
+    'meta_value' => 'on'
+  ]);
+  if (!empty($terms)) {
+    // Set featured_image attribute
+    $terms[0]->image = get_term_meta($terms[0]->term_id, '_cmb2_featured_image', true);
+    $terms[0]->image_id = get_term_meta($terms[0]->term_id, '_cmb2_featured_image_id', true);
+    return $terms[0];
+  }
+  return false;
 }
 
 function get_registration_button($workshop_post) {
@@ -393,7 +420,7 @@ function fb_eventbrite_import() {
           }
 
           // Set workshop_type as Eventbrite Event
-          wp_set_object_terms($new_workshop_id, $eventbrite_workshop_type->ID, 'workshop_type');
+          wp_set_object_terms($new_workshop_id, $eventbrite_workshop_type->term_id, 'workshop_type');
 
           // Set workshop_series category if we were able to extract a series title (colon in the title)
           if (!empty($event_workshop_series)) {

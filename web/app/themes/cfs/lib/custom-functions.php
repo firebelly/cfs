@@ -276,7 +276,11 @@ function pagination($args=[]) {
 /**
  * Edit post link for various front end areas
  */
-function admin_edit_link($post) {
-  $link = get_edit_post_link($post->ID);
+function admin_edit_link($post_or_term) {
+  if (!empty($post_or_term->term_id)) {
+    $link = get_edit_term_link($post_or_term->term_id);
+  } else {
+    $link = get_edit_post_link($post_or_term->ID);
+  }
   return !empty($link) ? '<a class="edit-link" href="'.$link.'">Edit</a>' : '';
 }

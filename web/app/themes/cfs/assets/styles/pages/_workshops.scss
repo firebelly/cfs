@@ -97,6 +97,7 @@ body.post-type-archive-workshop {
   }
 
   article.feature {
+    position: relative;
     .image {
       @include aspect-ratio(480, 324);
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);

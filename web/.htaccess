@@ -7,9 +7,9 @@ RewriteBase /
 RewriteRule ^workshops-trainings/upcoming-workshops/$ /workshops/ [R=301,L]
 
 # Redirect single posts to landing pages for people/jobs/partners
-RewriteRule ^person\/(.*)$ /about-us/people/ [R=301,L]
-RewriteRule ^job\/(.*)$ /about-us/join-us/ [R=301,L]
-RewriteRule ^partner\/(.*)$ /support-us/partners-supporters/ [R=301,L]
+RewriteRule ^person/(.*)$ /about-us/people/ [R=301,L]
+RewriteRule ^jobs/(.*)$ /about-us/join-us/ [R=301,L]
+RewriteRule ^partners/(.*)$ /support-us/partners-supporters/ [R=301,L]
 
 # Redirect landing page nav child pages that don't really exist
 RewriteRule ^programs/freedom-fellowship/$ /program/freedom-fellowship/ [R=301,L]
@@ -31,4 +31,5 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
 </IfModule>
+
 # END WordPress

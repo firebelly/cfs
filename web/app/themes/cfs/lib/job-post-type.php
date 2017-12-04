@@ -10,6 +10,7 @@ $jobs = new PostType('job', [
   'supports'   => ['title', 'editor'],
   'rewrite'    => ['with_front' => false],
 ]);
+$jobs->register();
 
 /**
  * CMB2 custom fields

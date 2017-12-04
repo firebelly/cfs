@@ -7,7 +7,7 @@ namespace Firebelly\PostTypes\Person;
 use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
 use PostTypes\Taxonomy;
 
-$persons = new PostType(['name' => 'person', 'plural' => 'People'], [
+$persons = new PostType(['name' => 'person', 'plural' => 'People', 'slug' => 'person'], [
   'taxonomies' => ['person_category'],
   'supports'   => ['title', 'editor', 'thumbnail'],
   'rewrite'    => ['with_front' => false],
@@ -17,6 +17,7 @@ $persons->register();
 // Custom taxonomy
 $person_category = new Taxonomy([
   'name'     => 'person_category',
+  'slug'     => 'person_category',
   'plural'   => 'Person Categories',
 ]);
 $person_category->register();

@@ -13,6 +13,7 @@ $partners = new PostType('partner', [
 ]);
 $partners->taxonomy([
   'name'     => 'partner_category',
+  'slug'     => 'partner_category',
   'plural'   => 'Partner Categories',
 ]);
 
