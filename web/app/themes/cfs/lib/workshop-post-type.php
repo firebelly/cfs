@@ -5,6 +5,7 @@
 
 namespace Firebelly\PostTypes\Workshop;
 use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
+use PostTypes\Taxonomy;
 use jamiehollern\eventbrite\Eventbrite; // see https://github.com/jamiehollern/eventbrite
 
 $cpt = new PostType('workshop', [
@@ -12,11 +13,6 @@ $cpt = new PostType('workshop', [
   'supports'   => ['title', 'editor', 'thumbnail'],
   'has_archive' => true,
   'rewrite'    => ['with_front' => false, 'slug' => 'workshops'],
-]);
-$cpt->taxonomy('workshop_type');
-$cpt->taxonomy([
-  'name'     => 'workshop_series',
-  'plural'   => 'Workshop Series',
 ]);
 
 $cpt->columns()->set([
@@ -54,6 +50,72 @@ $cpt->columns()->populate('time', function($column, $post_id) {
 $cpt->columns()->populate('featured', function($column, $post_id) {
   echo (get_post_meta($post_id, '_cmb2_featured', true)) ? '&check;' : '';
 });
+
+// Register CPT with Wordpress
+$cpt->register();
+
+/**
+ * Custom taxonomies
+ */
+$workshop_type = new Taxonomy('workshop_type');
+$workshop_type->register();
+
+$workshop_series = new Taxonomy([
+  'name'     => 'workshop_series',
+  'plural'   => 'Workshop Series',
+]);
+$workshop_series->columns()->add([
+  'featured' => __('Featured')
+]);
+$workshop_series->columns()->populate('featured', function($content, $column, $term_id) {
+  echo (get_term_meta($term_id, '_cmb2_featured', true)) ? '&check;' : '';
+});
+$workshop_series->register();
+
+/**
+ * Only allow one Workshop Series to be featured
+ */
+function check_featured($term_id, $taxonomy) {
+  global $wpdb;
+  if (!empty($_REQUEST['_cmb2_featured'])) {
+    $wpdb->query("DELETE FROM wp_termmeta WHERE meta_key='_cmb2_featured'");
+    $wpdb->query("INSERT INTO wp_termmeta SET meta_key='_cmb2_featured', meta_value='on', term_id={$term_id}");
+  }
+}
+add_action('edited_workshop_series', __NAMESPACE__ . '\check_featured', 10, 2);
+
+/**
+ * CMB2 fields for workshop series
+ */
+function term_metaboxes(){
+  $prefix = '_cmb2_';
+
+  $workshop_series_options = new_cmb2_box([
+    'id'               => $prefix . 'edit',
+    'title'            => __( 'Workshop Series Options', 'cmb2' ),
+    'object_types'     => ['term'],
+    'taxonomies'       => ['workshop_series'],
+    'new_term_section' => true,
+ ]);
+
+  $workshop_series_options->add_field([
+    'name'     => __( 'Featured', 'cmb2' ),
+    'desc'     => __( 'If checked, will show as featured series on Upcoming Workshops', 'cmb2' ),
+    'id'       => $prefix . 'featured',
+    'type'     => 'checkbox',
+    'on_front' => false,
+    // 'show_names'    => false,
+  ]);
+
+  $workshop_series_options->add_field([
+   'name' => __( 'Featured Image', 'cmb2' ),
+   'desc' => __( 'Shown next to title + description on Upcoming Workshops', 'cmb2' ),
+   'id'   => $prefix . 'featured_image',
+   'type' => 'file',
+ ]);
+
+}
+add_filter( 'cmb2_admin_init', __NAMESPACE__ . '\term_metaboxes' );
 
 /**
  * CMB2 custom fields
@@ -224,7 +286,29 @@ function get_series($post) {
   return (empty($series)) ? '' : $series;
 }
 
-// daily cronjob to import new eventbrite events
+/**
+ * Alter archive page queries to just pull workshops of term "Eventbrite Event"
+ */
+add_action('pre_get_posts', __NAMESPACE__ . '\\custom_query_vars');
+function custom_query_vars($query) {
+  if (!is_admin() && $query->is_main_query()) {
+    if (is_post_type_archive('workshop')) {
+      $query->set('tax_query', [
+        [
+          'taxonomy' => 'workshop_type',
+          'field' => 'slug',
+          'terms' => 'eventbrite-event',
+        ]
+      ]);
+    }
+  }
+  return $query;
+}
+
+
+/**
+ * Daily cronjob to import new Eventbrite events
+ */
 // add_action('wp', __NAMESPACE__ . '\\activate_eventbrite_import');
 function activate_eventbrite_import() {
   if (!wp_next_scheduled('eventbrite_import')) {
@@ -242,6 +326,7 @@ function fb_eventbrite_import() {
 
   // Cache categories
   $workshop_series = get_terms(['taxonomy' => 'workshop_series', 'hide_empty' => 0]);
+  $eventbrite_workshop_type = get_term_by('slug', 'eventbrite-event', 'workshop_type');
   // $workshop_types = get_terms(['taxonomy' => 'workshop_types', 'hide_empty' => 0]);
 
   $workshop_series_titles = []; // Array to check event title to know if we should strip out series title before inserting post
@@ -287,7 +372,7 @@ function fb_eventbrite_import() {
 
         // Insert workshop post
         $new_post = [
-          'post_status' => 'publish',
+          'post_status' => 'draft',
           'post_type' => 'workshop',
           'post_author' => 1,
           'post_date' => date('Y-m-d H:i:s', $publishedAt),
@@ -308,6 +393,9 @@ function fb_eventbrite_import() {
               set_post_thumbnail($new_workshop_id, $attachments[0]->ID);
             }
           }
+
+          // Set workshop_type as Eventbrite Event
+          wp_set_object_terms($new_workshop_id, $eventbrite_workshop_type->ID, 'workshop_type');
 
           // Set workshop_series category if we were able to extract a series title (colon in the title)
           if (!empty($event_workshop_series)) {
