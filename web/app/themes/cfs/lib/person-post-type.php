@@ -5,16 +5,21 @@
 
 namespace Firebelly\PostTypes\Person;
 use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
+use PostTypes\Taxonomy;
 
 $persons = new PostType(['name' => 'person', 'plural' => 'People'], [
   'taxonomies' => ['person_category'],
   'supports'   => ['title', 'editor', 'thumbnail'],
   'rewrite'    => ['with_front' => false],
 ]);
-$persons->taxonomy([
+$persons->register();
+
+// Custom taxonomy
+$person_category = new Taxonomy([
   'name'     => 'person_category',
   'plural'   => 'Person Categories',
 ]);
+$person_category->register();
 
 /**
  * CMB2 custom fields
