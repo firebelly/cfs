@@ -5,17 +5,22 @@
 
 namespace Firebelly\PostTypes\Partner;
 use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
+use PostTypes\Taxonomy;
 
 $partners = new PostType('partner', [
   'taxonomies' => ['partner_category'],
   'supports'   => ['title', 'editor', 'thumbnail'],
   'rewrite'    => ['with_front' => false],
 ]);
-$partners->taxonomy([
+$partners->register();
+
+// Custom taxonomy
+$partner_category = new Taxonomy([
   'name'     => 'partner_category',
   'slug'     => 'partner_category',
   'plural'   => 'Partner Categories',
 ]);
+$partner_category->register();
 
 /**
  * CMB2 custom fields
