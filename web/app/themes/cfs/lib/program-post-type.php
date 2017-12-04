@@ -5,13 +5,17 @@
 
 namespace Firebelly\PostTypes\Program;
 use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
+use PostTypes\Taxonomy;
+
+// Custom taxonomy for Programs
+$tax = new Taxonomy('program_type');
+$tax->register();
 
 $cpt = new PostType('program', [
   'taxonomies' => ['program_type'],
   'supports'   => ['title', 'editor', 'thumbnail'],
   'rewrite'    => ['with_front' => false],
 ]);
-$cpt->taxonomy('program_type');
 
 /**
  * Admin columns
@@ -50,6 +54,9 @@ $cpt->columns()->populate('time', function($column, $post_id) {
 $cpt->columns()->populate('featured', function($column, $post_id) {
   echo (get_post_meta($post_id, '_cmb2_featured', true)) ? '&check;' : '';
 });
+
+// Register CPT with Wordpress
+$cpt->register();
 
 /**
  * CMB2 custom fields

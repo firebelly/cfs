@@ -95,7 +95,7 @@ function term_metaboxes(){
     'title'            => __( 'Workshop Series Options', 'cmb2' ),
     'object_types'     => ['term'],
     'taxonomies'       => ['workshop_series'],
-    'new_term_section' => true,
+    'new_term_section' => false,
  ]);
 
   $workshop_series_options->add_field([
@@ -103,8 +103,6 @@ function term_metaboxes(){
     'desc'     => __( 'If checked, will show as featured series on Upcoming Workshops', 'cmb2' ),
     'id'       => $prefix . 'featured',
     'type'     => 'checkbox',
-    'on_front' => false,
-    // 'show_names'    => false,
   ]);
 
   $workshop_series_options->add_field([
