@@ -30,8 +30,13 @@ body {
 
 // Default link styles
 a {
-  color: $brand-primary;
+  color: $black;
   text-decoration: none;
+  @include media-md {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
 
 ul {
