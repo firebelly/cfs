@@ -48,6 +48,7 @@
     height: 0;
     border: 0;
     border-bottom: 1px solid $black;
+    @include theme-color('border-color', $black, 'accent3');
     margin: grid(4) 0;
     + p {
       margin-bottom: 0;

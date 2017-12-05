@@ -1,6 +1,10 @@
 // General form styles
 
 form {
+  // remove ugly webkit yellow autofill background
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px $white inset;
+  }
 	label:not(.control) {
 		padding: 0 $gutter grid(1) $gutter;
 	}
@@ -66,6 +70,7 @@ form {
 		}
 	}
 	label:not(.control) {
+    cursor: text;
 		transition: padding .1s steps(2), top .1s steps(2);
 		@extend .font-display;
 		margin: 0;
@@ -117,14 +122,26 @@ form {
     z-index: -1; /* Put the input behind the label so it doesn't overlay text */
   }
 }
+// Vertical center with flexbox if available
+.flexbox {
+  .control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .control-text {
+    flex: 1;
+  }
+}
 
 .control-indicator {
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 0;
   display: block;
   width: 36px;
   height: 36px;
+  margin-top: -18px;
   background-color: $white;
   border: 2px solid $black;
   background-position: center center;
@@ -134,19 +151,19 @@ form {
 
 /* Focus */
 // .control input:focus ~ .control-indicator {
-//   box-shadow: 0 0 0 .075rem #fff, 0 0 0 .2rem $yellow;
+//   box-shadow: 0 0 0 .075rem $white, 0 0 0 .2rem $yellow;
 // }
 
 /* Checked state */
 .control input:checked ~ .control-indicator {
-  color: #fff;
+  color: $white;
   background-color: $white;
 }
 
 /* Active */
 .control input:active ~ .control-indicator {
-  color: #fff;
-  background-color: $gray-lite;
+  color: $white;
+  background-color: darken($gray-lite, 5%);
 }
 
 /* Checkbox modifiers */
@@ -220,12 +237,12 @@ form {
 
 /* Focus */
 .select select:focus {
-  // box-shadow: 0 0 0 .075rem #fff, 0 0 0 .2rem $black;
+  // box-shadow: 0 0 0 .075rem $white, 0 0 0 .2rem $black;
 }
 
 /* Active/open */
 .select select:active {
-  // color: #fff;
+  // color: $white;
   // background-color: $black;
 }
 
@@ -245,6 +262,6 @@ form {
 
   /* <option> elements inherit styles from <select>, so reset them. */
   .select option {
-    background-color: #fff;
+    background-color: $white;
   }
 }

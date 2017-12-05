@@ -52,6 +52,7 @@
   @include max-screen($breakpoint-md) {
     border-left: mobile-grid(2) solid $black;
     border-right: mobile-grid(2) solid $black;
+    @include theme-color('border-color', $black, 'accent3');
   }
 
   @include media-nav {
@@ -136,6 +137,9 @@
 
     // Black bar at left of nav
     @include bar('left', $black, 17);
+    &::before {
+      @include theme-color('background', $black, 'accent3');
+    }
 
     // Show nav
     ul {
@@ -159,8 +163,7 @@
     .menu-search a,
     > ul > .menu-donate a {
       margin-left: 8px;
-      padding: 7px 30px 5px;
-      box-shadow: inset 0px 0px 0px 2px $white;
+      padding: 5px 30px 3px;
     }
     .menu-search a {
       margin-left: $gutter;
@@ -177,8 +180,8 @@
       svg {
         display: block;
         position: absolute;
-        top: 12px;
-        left: 12px;
+        top: 10px;
+        left: 10px;
         width: 12px;
         height: 12px;
         fill: $white;
@@ -289,6 +292,56 @@
   }
 }
 
+// Good lord — all of this is to emulate the .button hover states for nav donate/search/close buttons
+@include media-md {
+  .site-nav {
+    .menu-search a,
+    > ul > .menu-donate a {
+      border: 2px solid $white;
+      @include theme-color('border-color', $white, 'accent');
+      @include theme-color('color', $white, 'accent');
+      position: relative;
+      z-index: 2;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        @include theme-color('background', $white, 'accent');
+        z-index: -1;
+        transform: scaleX(0);
+        transition: transform .1s steps(2);
+      }
+      &:hover {
+        @include theme-color('color', $red);
+        text-decoration: none;
+        &::before {
+          transform: scaleX(1);
+        }
+        svg {
+          @include theme-color('fill', $red);
+        }
+      }
+    }
+  }
+  .site-header .nav-search .search-form .go-button,
+  .site-header .nav-search .search-close {
+    @include theme-color('border-color', $white, 'accent');
+    @include theme-color('color', $white, 'accent');
+    &::before {
+      @include theme-color('background', $white, 'accent');
+    }
+    &:hover {
+      @include theme-color('color', $red);
+      svg {
+        @include theme-color('fill', $red);
+      }
+    }
+  }
+}
+
 // Search form in nav
 .nav-search {
   display: none;
@@ -327,15 +380,12 @@
       text-align: center;
       min-height: 0;
       line-height: 24px;
-      box-shadow: inset 0px 0px 0px 2px $white;
       border: none;
       letter-spacing: .06875em;
+      border: 2px solid $white;
+      @include theme-color('border-color', $white, 'accent');
       @include theme-color('color', $white, 'accent');
-      padding: 7px 30px 5px;
-      // No hover state on nav buttons
-      &::before {
-        display: none;
-      }
+      padding: 5px 30px 3px;
       @include media-md {
         &:hover {
           @include theme-color('color', $yellow, 'accent2');
@@ -349,6 +399,8 @@
     float: right;
     width: 36px;
     height: 36px;
+    min-width: 0;
+    min-height: 0;
     padding: 0;
     border: 2px solid $white;
     @include theme-color('border-color', $white, 'accent');
@@ -393,6 +445,7 @@
   padding: 0 16px;
   height: 36px;
   line-height: 30px;
+  letter-spacing: .06875em;
   svg {
     display: none;
     width: 12px;

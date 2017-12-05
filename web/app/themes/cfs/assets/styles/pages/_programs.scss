@@ -2,6 +2,12 @@
 
 // Youth Program pages get "theme-yellow" class applied to body at \Firebelly\Init\is_youth_program()
 body.theme-yellow {
+  // Base link text + link colors for Youth Programs
+  &,
+  a {
+    color: $brown-dark;
+  }
+
   // Notches are rotated differently on Youth Program pages
   .page-header {
     .icon-notch.bottom-left {
@@ -19,51 +25,27 @@ body.theme-yellow {
       border-color: $yellow;
     }
   }
-  .nav-search .search-form .go-button {
-    box-shadow: inset 0px 0px 0px 2px $black;
-  }
-
-  .user-content {
-    a {
-      color: $brown;
-    }
-  }
 
   @include media-nav {
     .site-nav {
-      .nav-search .search-form .go-button,
-      > ul > .menu-donate a,
-      .menu-search a {
-        box-shadow: inset 0px 0px 0px 2px $black;
-      }
       .menu-search a svg {
         // This particular change didn't fit with any accent or accent2 theming for theme-color(), just hardcoding here
-        fill: $black;
+        fill: $brown-dark;
       }
     }
   }
 }
 
-.single-workshop,
-.single-program {
-  // Make sure registration info shows
-  // .intro-wrap {
-  //   min-height: 330px;
-  // }
-  .slider {
-    background: $black;
-    @include media-md {
-      margin-left: columns(2);
-      padding-left: columns(1,20);
-    }
-  }
-}
 .page-titles {
   position: relative;
 }
-
+// Shared styles Programs/Workshops
 .registration {
   @extend .h3;
+  .button {
+    color: $brown-dark;
+    border-color: $brown-dark;
+  }
   @include media-md {
     .button:hover {
       color: $yellow;

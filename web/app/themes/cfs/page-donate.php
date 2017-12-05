@@ -26,32 +26,42 @@
       <label class="control radio">
         <input type="radio" name="amount" value="25">
         <span class="control-indicator"></span>
-        <span class="amount">$25</span>
-        <span class="description">Pays for <strong>transit cards</strong> for a Freedom Fellow to participate our Summer Leadership Institute.</span>
+        <span class="control-text">
+          <span class="amount">$25</span>
+          <span class="description">Pays for <strong>transit cards</strong> for a Freedom Fellow to participate our Summer Leadership Institute.</span>
+        </span>
       </label>
       <label class="control radio">
         <input type="radio" name="amount" value="60">
         <span class="control-indicator"></span>
-        <span class="amount">$60</span>
-        <span class="description">Covers the <strong>stipends</strong> for two youth to facilitate an "Understanding Adultism" training for adults.</span>
+        <span class="control-text">
+          <span class="amount">$60</span>
+          <span class="description">Covers the <strong>stipends</strong> for two youth to facilitate an "Understanding Adultism" training for adults.</span>
+        </span>
       </label>
       <label class="control radio">
         <input type="radio" name="amount" value="100" required>
         <span class="control-indicator"></span>
-        <span class="amount">$100</span>
-        <span class="description">Provides <strong>healthy meals</strong> for our Project HealUs program.</span>
+        <span class="control-text">
+          <span class="amount">$100</span>
+          <span class="description">Provides <strong>healthy meals</strong> for our Project HealUs program.</span>
+        </span>
       </label>
       <label class="control radio">
         <input type="radio" name="amount" value="250" required>
         <span class="control-indicator"></span>
-        <span class="amount">$250</span>
-        <span class="description">Underwrites the cost of an emerging organizer to attend our Rev Up Training Institute.</span>
+        <span class="control-text">
+          <span class="amount">$250</span>
+          <span class="description">Underwrites the cost of an emerging organizer to attend our Rev Up Training Institute.</span>
+        </span>
       </label>
       <label class="control radio">
         <input type="radio" name="amount" value="500" required>
         <span class="control-indicator"></span>
-        <span class="amount">$500</span>
-        <span class="description">Sponsors a Freedom Fellow.</span>
+        <span class="control-text">
+          <span class="amount">$500</span>
+          <span class="description">Sponsors a Freedom Fellow.</span>
+        </span>
       </label>
       <button class="button -red -wide">Complete Donation</button>
     </form>
@@ -77,32 +87,42 @@
       <label class="control radio">
         <input type="radio" name="a3" value="10" required>
         <span class="control-indicator"></span>
-        <span class="amount">$10</span>
-        <span class="description">Collaborator</span>
+        <span class="control-text">
+          <span class="amount">$10</span>
+          <span class="description">Collaborator</span>
+        </span>
       </label>
       <label class="control radio">
         <input type="radio" name="a3" value="20" required>
         <span class="control-indicator"></span>
-        <span class="amount">$20</span>
-        <span class="description">Organizer</span>
+        <span class="control-text">
+          <span class="amount">$20</span>
+          <span class="description">Organizer</span>
+        </span>
       </label>
       <label class="control radio">
         <input type="radio" name="a3" value="30" required>
         <span class="control-indicator"></span>
-        <span class="amount">$30</span>
-        <span class="description">Partner</span>
+        <span class="control-text">
+          <span class="amount">$30</span>
+          <span class="description">Partner</span>
+        </span>
       </label>
       <label class="control radio">
         <input type="radio" name="a3" value="50" required>
         <span class="control-indicator"></span>
-        <span class="amount">$50</span>
-        <span class="description">Catalyst</span>
+        <span class="control-text">
+          <span class="amount">$50</span>
+          <span class="description">Catalyst</span>
+        </span>
       </label>
       <label class="control radio">
         <input type="radio" name="a3" value="100" required>
         <span class="control-indicator"></span>
-        <span class="amount">$100</span>
-        <span class="description">Visionary</span>
+        <span class="control-text">
+          <span class="amount">$100</span>
+          <span class="description">Visionary</span>
+        </span>
       </label>
 
       <div class="input-item select">
@@ -120,7 +140,7 @@
         <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="true"><use xlink:href="#icon-arrow-right"/></svg></span>
       </div>
 
-      <button class="button -red -wide">Complete Donation</button>
+      <button class="button -red -wide">Complete via PayPal</button>
     </form>
   </div>
 </div></div>

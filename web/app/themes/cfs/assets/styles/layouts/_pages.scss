@@ -4,6 +4,11 @@
   background: $white;
   border-right: mobile-grid(2) solid $black;
   border-left: mobile-grid(2) solid $black;
+  @include theme-color('border-color', $black, 'accent3');
+
+  .wrap {
+    overflow: hidden; // Avoid collapsing margins
+  }
 
   @include media-md {
     border: none;

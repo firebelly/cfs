@@ -43,9 +43,11 @@
 @mixin theme-color($property, $default, $map: 'primary') {
   $theme-map: '.theme-yellow' $yellow, '.theme-red' $red;
   @if ($map == 'accent') {
-    $theme-map: '.theme-yellow' $black, '.theme-red' $white;
+    $theme-map: '.theme-yellow' $brown-dark, '.theme-red' $white;
   } @elseif ($map == 'accent2') {
     $theme-map: '.theme-yellow' $red, '.theme-red' $yellow;
+  } @elseif ($map == 'accent3') {
+    $theme-map: '.theme-yellow' $brown-dark, '.theme-red' $black;
   }
 
   #{$property}: $default;

@@ -3,6 +3,7 @@
   position: relative;
   padding: mobile-grid(5);
   border-top: mobile-grid(3) solid $black;
+  @include theme-color('border-color', $black, 'accent3');
   .button {
     padding: 0;
     line-height: 60px;
@@ -11,7 +12,7 @@
 
   .icon-logo,
   .icon-logo-wordmark {
-    fill: $black;
+    @include theme-color('fill', $black, 'accent3');
     display: inline-block;
     vertical-align: middle;
   }
@@ -51,8 +52,8 @@
       position: relative;
       input,
       label {
-        color: $black;
-        border-color: $black;
+        @include theme-color('color', $black, 'accent3');
+        @include theme-color('border-color', $black, 'accent3');
       }
       margin-bottom: grid(3);
     }
@@ -99,7 +100,7 @@
       right: 0;
       width: columns(18);
       height: grid(8);
-      background: $black;
+      @include theme-color('background', $black, 'accent3');
     }
 
     .icon-logo {

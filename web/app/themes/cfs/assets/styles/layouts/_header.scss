@@ -14,6 +14,7 @@
     position: relative;
     height: 180px;
     border-right: mobile-grid(2) solid $black;
+    @include theme-color('border-color', $black, 'accent3');
 
     // Gradient overlays
     .gradient-l,
@@ -44,7 +45,7 @@
       display: block;
       width: 42px;
       height: 42px;
-      fill: $black;
+      @include theme-color('fill', $black, 'accent3');
       position: absolute;
       bottom: -42px;
       z-index: 1;
@@ -99,6 +100,7 @@
     .page-intro {
       border-left: mobile-grid(2) solid $black;
       border-right: mobile-grid(2) solid $black;
+      @include theme-color('border-color', $black, 'accent3');
     }
   }
 
@@ -222,6 +224,7 @@
     .page-intro {
       position: relative;
       background: $black;
+      @include theme-color('background', $black, 'accent3');
       .color-wrap {
         @include theme-color('background', $red);
       }

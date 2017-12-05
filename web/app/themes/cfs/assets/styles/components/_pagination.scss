@@ -2,7 +2,7 @@
 
 .pagination {
   @extend .font-display;
-  background: $gray-lite;
+  background: $white;
   li {
     display: inline-block;
     // margin-right: grid(1);
@@ -29,6 +29,7 @@
   @include max-screen($breakpoint-md) {
     border-left: mobile-grid(2) solid $black;
     border-right: mobile-grid(2) solid $black;
+    @include theme-color('background-color', $black, 'accent3');
     padding: 0 mobile-grid(3) mobile-grid(5);
   }
 

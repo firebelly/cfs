@@ -71,7 +71,7 @@ var CFS = (function($) {
   function _openAccordion(el) {
     var $el = $(el);
     // _scrollBody($el, 250);
-    $el.next().clearQueue().stop().slideDown(250, function() {
+    $el.next().addClass('open').clearQueue().stop().slideDown(250, function() {
       $el.next().find('.media-block').addClass('active');
     });
     $el.addClass('open read')
@@ -89,10 +89,10 @@ var CFS = (function($) {
     if ($el.next().find('.media-block')) {
       $el.next().find('.media-block').removeClass('active');
       setTimeout(function() {
-        $el.removeClass('open').next().slideUp(250);
+        $el.removeClass('open').next().removeClass('open').slideUp(250);
       }, 200);
     } else {
-      $el.removeClass('open').next().slideUp(250);
+      $el.removeClass('open').next().removeClass('open').slideUp(250);
     }
 
     // Set accessibility attributes
@@ -173,6 +173,10 @@ var CFS = (function($) {
   }
 
   function _initForms() {
+    // Clicking on label gives input focus
+    $('body').on('click', '.input-item label', function(e) {
+      $(this).prev('input').focus();
+    });
     // Buttons that switch between showing two forms
     $('body').on('click', '.switches a', function(e) {
       e.preventDefault();

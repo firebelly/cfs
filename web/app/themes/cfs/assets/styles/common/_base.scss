@@ -18,7 +18,7 @@ body {
   font-size: 12px;
   line-height: 1.5;
   overflow-x: hidden;
-  background: $gray-lite;
+  background: $white;
   font-family: $font-regular;
 
   @include media-md {
@@ -91,6 +91,11 @@ address {
     color: $white;
     padding: 4px 8px;
     z-index: 10;
+    @include media-md {
+      &:hover {
+        text-decoration: none;
+      }
+    }
   }
   article:hover .edit-link {
     display: block;

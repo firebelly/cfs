@@ -12,7 +12,7 @@ function metaboxes() {
   $image_slideshow = new_cmb2_box([
     'id'            => 'image_slideshow',
     'title'         => esc_html__( 'Image Slideshow', 'cmb2' ),
-    'object_types'  => ['program'],
+    'object_types'  => ['program', 'workshop'],
     'context'       => 'side',
     'priority'      => 'low',
     'closed'        => true,

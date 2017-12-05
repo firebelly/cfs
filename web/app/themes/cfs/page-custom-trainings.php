@@ -1,25 +1,28 @@
 <?php get_template_part('templates/page', 'header'); ?>
 
-<div class="secondary-content"><div class="color-wrap">
+<div class="secondary-content user-content"><div class="color-wrap">
   <div class="wrap">
     <form action="#" method="post" class="custom-trainings-form">
+      <hr>
+      <h2>Request Form</h2>
+
       <fieldset class="active">
         <h3>Which workshop(s) are you interested in? <span class="note">Check all that apply.</span></h3>
 
         <label class="control checkbox">
           <input type="checkbox" name="checkbox">
           <span class="control-indicator"></span>
-          Understanding Adultism & Building Partnership with Youth
+          <span class="control-text">Understanding Adultism & Building Partnership with Youth</span>
         </label>
         <label class="control checkbox">
           <input type="checkbox" name="checkbox">
           <span class="control-indicator"></span>
-          Identity, Power & Oppression
+          <span class="control-text">Identity, Power & Oppression</span>
         </label>
         <label class="control checkbox">
           <input type="checkbox" name="checkbox">
           <span class="control-indicator"></span>
-          Working with LGBTQ Youth
+          <span class="control-text">Working with LGBTQ Youth</span>
         </label>
       </fieldset>
 

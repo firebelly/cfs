@@ -10,6 +10,7 @@
 }
 .accordion-title {
   @include hr-above;
+  transition: padding .2s;
   margin: 0;
   padding: mobile-grid(3) 30px mobile-grid(3) 0;
   letter-spacing: .06875em;
@@ -45,6 +46,9 @@
     margin-top: 0px;
   }
   padding-bottom: grid(3);
+  &.open {
+    padding-bottom: grid(2);
+  }
 }
 
 // Accordion media blocks (each accordion can have an associated block of content)

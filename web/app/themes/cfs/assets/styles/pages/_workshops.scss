@@ -118,6 +118,7 @@ body.post-type-archive-workshop {
     .article-list {
       border-left: mobile-grid(2) solid $black;
       border-right: mobile-grid(2) solid $black;
+      @include theme-color('border-color', $black, 'accent3');
       padding: mobile-grid(5) mobile-grid(3);
     }
     .article-list {

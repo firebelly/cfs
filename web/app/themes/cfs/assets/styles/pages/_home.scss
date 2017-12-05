@@ -40,6 +40,7 @@
     background: $black;
     border-left: mobile-grid(2) solid $black;
     border-right: mobile-grid(2) solid $black;
+    @include theme-color('border-color', $black, 'accent3');
 
     @include media-md {
       border: none;
@@ -98,6 +99,9 @@
         margin: 0 0 0 columns(1,18);
         >.wrap {
           padding: 0 columns(1,16);
+        }
+        .button:hover {
+          color: $red;
         }
       }
     }
