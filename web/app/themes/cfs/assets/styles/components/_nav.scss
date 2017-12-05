@@ -20,6 +20,7 @@
 .site-header {
   position: relative;
   height: 80px;
+  max-width: 1440px;
 
   .brand {
     position: absolute;
@@ -58,7 +59,7 @@
   @include media-nav {
     position: fixed;
     top: 0;
-    left: 0;
+    right: 0;
     width: 100%;
     z-index: 10;
     .brand {

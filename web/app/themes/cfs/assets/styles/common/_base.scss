@@ -26,7 +26,10 @@ body {
   }
 }
 
-.main {}
+body {
+  max-width: 1440px;
+  float: right;
+}
 
 // Default link styles
 a {
