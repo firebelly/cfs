@@ -12,6 +12,7 @@
   @include hr-above;
   margin: 0;
   padding: mobile-grid(3) 30px mobile-grid(3) 0;
+  letter-spacing: .06875em;
   cursor: pointer;
   outline: none;
   .icon {
@@ -31,6 +32,9 @@
 
   @include media-md {
     padding: grid(4) 30px grid(4) 0;
+    &.open {
+      padding: grid(4) 30px grid(2.5) 0;
+    }
     .icon {
       top: 42px;
     }

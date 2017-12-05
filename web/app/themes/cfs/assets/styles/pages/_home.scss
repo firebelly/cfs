@@ -61,7 +61,10 @@
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
     }
     h1 {
-      color: $red;
+      &,
+      a {
+        color: $red;
+      }
       margin-bottom: mobile-grid(1);
     }
     p {
@@ -84,7 +87,10 @@
       background: $red;
       padding-bottom: mobile-grid(5);
       h1 {
-        color: $white;
+        &,
+        a {
+          color: $white;
+        }
       }
 
       @include media-md {

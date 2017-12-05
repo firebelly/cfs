@@ -4,11 +4,16 @@
 .user-content {
   @include clearfix();
 
-  h1,h2,h3,h4,h5,h6 {
-
+  ol,
+  ul,
+  figcaption,
+  p {
+    @extend %smooth;
+    letter-spacing: .06875em;
   }
 
   p {
+    margin: 0 0 grid(2);
     &:first-of-type {
       margin-top: 0;
     }
@@ -20,20 +25,22 @@
 
   ol,
   ul {
-    padding: 0;
+    margin: 0;
+    padding: 0 0 0 2.25em;
     li {
-      ol,
-      ul {
-
-      }
+      margin: 0 0 grid(2);
     }
   }
 
-  ul {
-    padding-left: 1.25em;
-    li {
-      padding: grid(1) 0 grid(1.5);
-      list-style: disc;
+  // Smaller bullets than "disc" on lists
+  ul li {
+    list-style-type: none;
+    position: relative;
+    &:before {
+      content: '•';
+      display: block;
+      position: absolute;
+      left: -1.5em;
     }
   }
 
@@ -41,9 +48,13 @@
     height: 0;
     border: 0;
     border-bottom: 1px solid $black;
-    margin: grid(4) 0 grid(5);
+    margin: grid(4) 0;
     + p {
       margin-bottom: 0;
+    }
+    @include media-md {
+      // On desktop, hr is flush right with body
+      margin-right: -1000em;
     }
   }
 

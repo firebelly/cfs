@@ -52,12 +52,6 @@ h4,
   line-height: 1.5;
 }
 
-figcaption,
-p {
-  @extend %smooth;
-  letter-spacing: .06875em;
-}
-
 .p-intro,
 p.p-intro {
   @extend %smooth;

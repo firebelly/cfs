@@ -47,6 +47,7 @@
   @include media-md {
     &:hover {
       color: $white;
+      text-decoration: none;
       &::before {
         transform: scaleX(1);
       }
