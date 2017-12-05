@@ -154,9 +154,6 @@
       padding: grid(2) 12px;
       color: $white;
       display: inline-block;
-      &:hover {
-        @include theme-color('color', $yellow, 'accent2');
-      }
     }
 
     // Search and donate have 2px border

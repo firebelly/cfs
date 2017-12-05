@@ -10,7 +10,7 @@ $person_image = \Firebelly\Media\get_header_bg($person_post, ['size' => 'medium'
   <?php endif; ?>
   <h1 class="h3"><?= $person_post->post_title ?></h1>
   <?php if (!empty($person_title)): ?>
-    <p class="person-title"><?= $person_title ?></p>
+    <p class="title"><?= $person_title ?></p>
   <?php endif; ?>
   <?php if (!empty($person_desc)): ?>
     <div class="user-content"><?= $person_desc ?></div>

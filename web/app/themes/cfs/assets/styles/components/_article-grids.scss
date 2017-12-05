@@ -3,6 +3,7 @@
 .article-grid-category {
   position: relative;
   padding: 0 0 mobile-grid(3);
+
   // Staff has slightly different styles
   &.staff {
     padding-bottom: 0;
@@ -22,6 +23,37 @@
       width: 1000em;
     }
   }
+  article {
+    .wrap h1 {
+      font: 12px/1.5 $font-display;
+      letter-spacing: .06875em;
+      color: $white;
+      a {
+        color: $white;
+      }
+    }
+
+    p {
+      position: relative;
+      margin-bottom: grid(1.5);
+      font-size: 12px;
+
+      // Job type, Person/Partner title
+      &.title {
+        padding-top: grid(.75);
+        margin-top: grid(1.75);
+        @include notch(top);
+      }
+    }
+    // Extra text (from post_content) below title for position, person, job
+    .user-content p {
+      padding-top: 0;
+      &::before {
+        display: none;
+      }
+    }
+  }
+
   // No border on last category
   &:last-of-type::after {
     display: none;
@@ -39,26 +71,6 @@
     article {
       padding-bottom: 0;
       padding-bottom: grid(3);
-      h1 {
-        font: 12px/1.5 $font-display;
-        letter-spacing: .06875em;
-        color: $white;
-      }
-    }
-    // Job type, Person/Partner title
-    p {
-      position: relative;
-      @include notch(top);
-      padding-top: grid(1);
-      margin-bottom: grid(1);
-      font-size: 12px;
-    }
-    // Extra text (from post_content) below title for position, person, job
-    .user-content p {
-      padding-top: 0;
-      &::before {
-        display: none;
-      }
     }
   }
 }

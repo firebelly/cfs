@@ -6,7 +6,7 @@ $job_desc = apply_filters('the_content', $job_post->post_content);
 	<?= \Firebelly\Utils\admin_edit_link($job_post) ?>
   <h1 class="h3"><?= $job_post->post_title ?></h1>
   <?php if (!empty($job_type)): ?>
-    <p class="job-type"><?= $job_type ?></p>
+    <p class="title"><?= $job_type ?></p>
   <?php endif; ?>
   <?php if (!empty($job_desc)): ?>
     <div class="excerpt user-content"><?= $job_desc ?></div>

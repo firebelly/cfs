@@ -5,9 +5,7 @@
   @include clearfix();
 
   ol,
-  ul,
-  figcaption,
-  p {
+  ul {
     @extend %smooth;
     letter-spacing: .06875em;
   }
