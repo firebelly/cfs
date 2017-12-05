@@ -3,6 +3,9 @@
 .pagination {
   @extend .font-display;
   background: $white;
+  ul {
+    text-align: right;
+  }
   li {
     display: inline-block;
     // margin-right: grid(1);
@@ -38,9 +41,5 @@
     padding: grid(2) 0;
     margin-top: grid(4);
     border: none;
-    ul {
-      margin-left: columns(8, 14);
-      padding-left: $gutter;
-    }
   }
 }
