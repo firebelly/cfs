@@ -38,9 +38,6 @@
     padding: grid(2) 0;
     margin-top: grid(4);
     border: none;
-    a:hover {
-      color: $red;
-    }
     ul {
       margin-left: columns(8, 14);
       padding-left: $gutter;
