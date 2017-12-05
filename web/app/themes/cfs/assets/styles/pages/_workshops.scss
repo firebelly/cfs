@@ -34,8 +34,10 @@ article.workshop {
       &::before {
         background: $white;
       }
-      &:hover {
-        color: $black;
+      @include media-md {
+        &:hover {
+          color: $black;
+        }
       }
     }
   }
@@ -154,20 +156,12 @@ body.post-type-archive-workshop {
     article {
       h1 a {
         color: $red;
-        // &:hover {
-        //   color: $yellow;
-        // }
       }
       h3.series {
         position: relative;
         padding-bottom: grid(1);
         margin: 0 0 grid(2);
         @include notch(bottom, $black);
-        a {
-          &:hover {
-            color: $red;
-          }
-        }
       }
       .button {
         width: 100%;
