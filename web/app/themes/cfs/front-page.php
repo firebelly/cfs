@@ -75,7 +75,7 @@ $custom_featured_link_text = get_post_meta($post->ID, '_cmb2_custom_featured_lin
         <div class="image" <?= \Firebelly\Media\get_header_bg($featured_program, ['size' => 'medium_large']) ?>></div>
       </div>
       <div class="one-half -right">
-        <h1><?= $featured_program->post_title ?></h1>
+        <h1><a href="<?= get_permalink($featured_program) ?>"><?= $featured_program->post_title ?></a></h1>
         <div class="user-content excerpt">
           <p><?= Firebelly\Utils\get_excerpt($featured_program) ?></p>
         </div>
@@ -89,7 +89,7 @@ $custom_featured_link_text = get_post_meta($post->ID, '_cmb2_custom_featured_lin
     <article class="feature custom-link bigclicky">
       <div class="wrap grid">
         <div class="one-half -left details">
-          <h1><?= $custom_featured_title ?></h1>
+          <h1><a href="<?= $custom_featured_link ?>"><?= $custom_featured_title ?></a></h1>
           <div class="user-content excerpt">
             <?= apply_filters('the_content', $custom_featured_body) ?>
           </div>
@@ -111,7 +111,7 @@ $custom_featured_link_text = get_post_meta($post->ID, '_cmb2_custom_featured_lin
         <div class="image" <?= \Firebelly\Media\get_header_bg($featured_workshop, ['size' => 'medium_large']) ?>></div>
       </div>
       <div class="one-half -right">
-        <h1><?= $featured_workshop->post_title ?></h1>
+        <h1><a href="<?= get_permalink($featured_workshop) ?>"><?= $featured_workshop->post_title ?></a></h1>
         <div class="user-content excerpt">
           <p><?= Firebelly\Utils\get_excerpt($featured_workshop) ?></p>
         </div>
