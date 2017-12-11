@@ -68,6 +68,20 @@ form {
 			display: block;
 			width: 100%;
 		}
+    svg {
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      fill: $red;
+      display: none;
+    }
+    &.invalid {
+      svg {
+        display: block;
+      }
+    }
 	}
 	label:not(.control) {
     cursor: text;

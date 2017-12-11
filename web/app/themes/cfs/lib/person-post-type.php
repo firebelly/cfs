@@ -12,6 +12,7 @@ $persons = new PostType(['name' => 'person', 'plural' => 'People', 'slug' => 'pe
   'supports'   => ['title', 'editor', 'thumbnail'],
   'rewrite'    => ['with_front' => false],
 ]);
+$persons->filters(['person_category']);
 $persons->register();
 
 // Custom taxonomy

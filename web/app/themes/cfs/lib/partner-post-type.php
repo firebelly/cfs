@@ -12,6 +12,7 @@ $partners = new PostType('partner', [
   'supports'   => ['title', 'editor', 'thumbnail'],
   'rewrite'    => ['with_front' => false],
 ]);
+$partners->filters(['partner_category']);
 $partners->register();
 
 // Custom taxonomy

@@ -15,7 +15,7 @@ function metaboxes() {
     'object_types'  => ['program', 'workshop'],
     'context'       => 'side',
     'priority'      => 'low',
-    'closed'        => true,
+    // 'closed'        => true,
   ]);
   $image_slideshow->add_field([
     'name'       => __( 'Images', 'cmb2' ),

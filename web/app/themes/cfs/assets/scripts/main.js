@@ -32,7 +32,6 @@ var CFS = (function($) {
 
     // Smoothscroll links
     $(document).on('click', 'a.smoothscroll', function(e) {
-      console.log(this);
       e.preventDefault();
       var href = $(this).attr('href');
       _scrollBody($(href));
@@ -173,6 +172,11 @@ var CFS = (function($) {
   }
 
   function _initForms() {
+    // Add SVGs to required form elements for error states
+    $('form input[required]').each(function() {
+      $('<svg class="icon icon-circle-x" aria-hidden="true" role="presentation"><use xlink:href="#icon-circle-x"/></svg>').appendTo($(this).parent());
+    });
+
     // Clicking on label gives input focus
     $('body').on('click', '.input-item label', function(e) {
       $(this).prev('input').focus();
@@ -227,6 +231,7 @@ var CFS = (function($) {
   }
   function _checkFormInput(e) {
     $(e.target).toggleClass('has-input', ($(e.target).val() !== ''));
+    $(e.target).parent().toggleClass('invalid', ($(e.target).attr('required') && $(e.target).val() == ''));
   }
 
   // Not using this yet, but registration boxes should be sticky as you scroll
