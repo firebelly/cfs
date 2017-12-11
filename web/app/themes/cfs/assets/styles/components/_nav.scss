@@ -357,6 +357,9 @@
     float: left;
     margin-right: $gutter;
     width: 500px;
+    svg.icon-circle-x {
+      display: none;
+    }
     input[type=search] {
       @include theme-color('border-color', $white, 'accent');
       @include theme-color('color', $white, 'accent');

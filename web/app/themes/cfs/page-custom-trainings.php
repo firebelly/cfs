@@ -1,6 +1,6 @@
 <?php get_template_part('templates/page', 'header'); ?>
 
-<div class="secondary-content user-content"><div class="color-wrap">
+<div class="secondary-content user-content" id="request-form"><div class="color-wrap">
   <div class="wrap">
     <form action="#" method="post" class="custom-trainings-form">
       <hr>
@@ -10,19 +10,37 @@
         <h3>Which workshop(s) are you interested in? <span class="note">Check all that apply.</span></h3>
 
         <label class="control checkbox">
-          <input type="checkbox" name="checkbox">
+          <input type="checkbox" name="workshops[]" value="Understanding Adultism & Building Partnership with Youth">
           <span class="control-indicator"></span>
-          <span class="control-text">Understanding Adultism & Building Partnership with Youth</span>
+          <span class="control-text ">Understanding Adultism & Building Partnership with Youth</span>
         </label>
         <label class="control checkbox">
-          <input type="checkbox" name="checkbox">
+          <input type="checkbox" name="workshops[]" value="Identity, Power & Oppression">
           <span class="control-indicator"></span>
           <span class="control-text">Identity, Power & Oppression</span>
         </label>
         <label class="control checkbox">
-          <input type="checkbox" name="checkbox">
+          <input type="checkbox" name="workshops[]" value="Working with LGBTQ Youth">
           <span class="control-indicator"></span>
           <span class="control-text">Working with LGBTQ Youth</span>
+        </label>
+        <label class="control checkbox">
+          <input type="checkbox" name="workshops[]" value="Navigating the Grey Zone">
+          <span class="control-indicator"></span>
+          <span class="control-text">
+            Navigating the Grey Zone
+            <span class="description">(About navigating boundaries when working with youth)</span>
+          </span>
+        </label>
+        <label class="control checkbox">
+          <input type="checkbox" name="workshops[]" value="White Folks and Racial Justice">
+          <span class="control-indicator"></span>
+          <span class="control-text">White folks and racial justice</span>
+        </label>
+        <label class="control checkbox">
+          <input type="checkbox" name="workshops[]" value="Other">
+          <span class="control-indicator"></span>
+          <span class="control-text">Other</span>
         </label>
       </fieldset>
 
@@ -37,24 +55,24 @@
       <fieldset>
         <h3>Basic information</h3>
         <div class="input-item">
-          <input type="text" name="dates">
+          <input type="text" name="organization">
           <label for="">Organization Name</label>
         </div>
         <div class="input-item">
-          <input type="text" name="dates" required>
+          <input type="text" name="name" required>
           <label for="">Contact Name</label>
         </div>
 
         <div class="grid">
           <div class="one-half -left">
             <div class="input-item">
-              <input type="text" name="dates">
+              <input type="text" name="phone" required>
               <label for="">Contact Phone</label>
             </div>
           </div>
           <div class="one-half -right">
             <div class="input-item">
-              <input type="text" name="dates">
+              <input type="text" name="email" required>
               <label for="">Contact Email</label>
             </div>
           </div>
@@ -63,13 +81,13 @@
         <div class="grid">
           <div class="one-half -left">
             <div class="input-item">
-              <input type="text" name="dates">
+              <input type="text" name="city">
               <label for="">City</label>
             </div>
           </div>
           <div class="one-half -right">
             <div class="input-item">
-              <input type="text" name="dates">
+              <input type="text" name="state">
               <label for="">State</label>
             </div>
           </div>
@@ -111,6 +129,11 @@
           <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="true"><use xlink:href="#icon-arrow-right"/></svg></span>
         </div>
       </fieldset>
+
+      <input type="hidden" name="application_type" value="<?= $application_type ?>">
+      <input name="action" type="hidden" value="application_submission">
+
+      <?php wp_nonce_field( 'application_form', 'application_form_nonce' ); ?>
 
       <button type="submit" class="button -red -wide">Submit</button>
     </form>

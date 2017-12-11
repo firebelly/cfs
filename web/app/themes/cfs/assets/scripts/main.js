@@ -173,8 +173,14 @@ var CFS = (function($) {
 
   function _initForms() {
     // Add SVGs to required form elements for error states
-    $('form input[required]').each(function() {
-      $('<svg class="icon icon-circle-x" aria-hidden="true" role="presentation"><use xlink:href="#icon-circle-x"/></svg>').appendTo($(this).parent());
+    $('form input').each(function() {
+      // Initial state of inputs with value
+      if ($(this).val()!=='' && $(this).attr('type')!=='select') {
+        $(this).addClass('has-input').parent().addClass('has-input');
+      }
+      if ($(this).prop('required') && $(this).attr('type')!=='radio') {
+        $('<svg class="icon icon-circle-x" aria-hidden="true" role="presentation"><use xlink:href="#icon-circle-x"/></svg>').appendTo($(this).parent());
+      }
     });
 
     // Clicking on label gives input focus
@@ -198,7 +204,7 @@ var CFS = (function($) {
     });
 
     // Add .has-input for styling when field is changed
-    $('form input').on('keyup change blur', _checkFormInput);
+    $('form input,select').on('keyup change blur', _checkFormInput);
 
     // Add .has-touched for styling errors (otherwise :invalid shows error styling before form is interacted with)
     $('form input[required]').one('blur keydown', function() {
@@ -207,12 +213,18 @@ var CFS = (function($) {
       }
     });
     $('form [type=submit]').on('click', function() {
-      $(this).parent('form').find('input[required]:not(.no-error-styles)').addClass('has-touched');
+      console.log('foo');
+      // Add has-touched to trigger styles on submit
+      $(this).parent('form').find('input[required]:not(.no-error-styles)').each(function() {
+        $(this).toggleClass('has-input', has_input).parent().toggleClass('has-input', has_input);
+        $(this).parent().toggleClass('invalid', ($(this).prop('required') && $(this).val() === ''));
+      });
     });
 
     // Newsletter form in footer
     $('footer form.newsletter-form').on('submit', function(e) {
       e.preventDefault();
+
       var EMAIL = $('footer form.newsletter-form input[name=EMAIL]').val();
       var NAME = $('footer form.newsletter-form input[name=NAME]').val();
       $.ajax({
@@ -230,8 +242,14 @@ var CFS = (function($) {
     });
   }
   function _checkFormInput(e) {
-    $(e.target).toggleClass('has-input', ($(e.target).val() !== ''));
-    $(e.target).parent().toggleClass('invalid', ($(e.target).attr('required') && $(e.target).val() == ''));
+    // Ignore tab keyup (would trigger error class when tabbing into field)
+    if (e.which === 9) {
+      return;
+    }
+
+    var has_input = $(e.target).val() !== '';
+    $(e.target).toggleClass('has-input', has_input).parent().toggleClass('has-input', has_input);
+    $(e.target).parent().toggleClass('invalid', ($(e.target).prop('required') && $(e.target).val() === ''));
   }
 
   // Not using this yet, but registration boxes should be sticky as you scroll
