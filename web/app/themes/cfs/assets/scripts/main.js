@@ -198,7 +198,7 @@ var CFS = (function($) {
     });
 
     // Add .has-input for styling when field is changed
-    $('form input').on('keyup change', _checkFormInput);
+    $('form input').on('keyup change blur', _checkFormInput);
 
     // Add .has-touched for styling errors (otherwise :invalid shows error styling before form is interacted with)
     $('form input[required]').one('blur keydown', function() {
