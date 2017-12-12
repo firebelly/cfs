@@ -20,7 +20,6 @@
 .site-header {
   position: relative;
   height: 80px;
-  max-width: 1600px;
 
   .brand {
     position: absolute;
@@ -288,6 +287,14 @@
     }
 
   }
+  @include min-screen(1300px) {
+    a {
+      padding: grid(2) 16px;
+      color: $white;
+      display: inline-block;
+    }
+  }
+
 }
 
 // Good lord — all of this is to emulate the .button hover states for nav donate/search/close buttons

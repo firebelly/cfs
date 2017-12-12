@@ -16,6 +16,10 @@
     border-right: mobile-grid(2) solid $black;
     @include theme-color('border-color', $black, 'accent3');
 
+    @include min-screen(1600px) {
+      background-position: center 25%;
+    }
+
     // Gradient overlays
     .gradient-l,
     .gradient-b {
