@@ -7,7 +7,21 @@ body.theme-yellow {
   a {
     color: $brown-dark;
   }
-
+  .button {
+    color: $brown-dark;
+    border-color: $brown-dark;
+    svg {
+      fill: $brown-dark;
+    }
+    &::before {
+      background: $brown-dark;
+    }
+    &:hover {
+      svg {
+        fill: $white;
+      }
+    }
+  }
   // Notches are rotated differently on Youth Program pages
   .page-header {
     .icon-notch.bottom-left {
@@ -42,10 +56,6 @@ body.theme-yellow {
 // Shared styles Programs/Workshops
 .registration {
   @extend .h3;
-  .button {
-    color: $brown-dark;
-    border-color: $brown-dark;
-  }
   @include media-md {
     .button:hover {
       color: $yellow;

@@ -1,11 +1,11 @@
 <form action="#" class="newsletter-form">
   <div class="grid">
     <div class="grid-item one-half mc-field-group input-name input-item">
-      <input type="text" name="NAME">
+      <input type="text" name="NAME" autocomplete="section-footer name">
       <label>Name</label>
     </div>
     <div class="grid-item one-half mc-field-group input-email input-item">
-      <input type="text" name="EMAIL" class="required email" required>
+      <input type="text" name="EMAIL" class="required email" required autocomplete="section-footer email">
       <label>Email Address</label>
     </div>
     <div class="clear input-submit"><button type="submit" class="button">
