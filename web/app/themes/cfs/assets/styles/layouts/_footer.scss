@@ -56,9 +56,13 @@
         @include theme-color('border-color', $black, 'accent3');
       }
       margin-bottom: grid(3);
+      .input-item svg.icon-circle-x {
+        right: 50px;
+      }
     }
     .input-submit {
       margin-top: grid(-1);
+      background: $white;
       button {
         width: 100%;
       }

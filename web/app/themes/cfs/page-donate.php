@@ -24,7 +24,7 @@
       <hr>
       <h3>Choose an Amount</h3>
       <label class="control radio">
-        <input type="radio" name="amount" value="25">
+        <input type="radio" name="amount" value="25" required>
         <span class="control-indicator"></span>
         <span class="control-text">
           <span class="amount">$25</span>
@@ -40,7 +40,7 @@
         </span>
       </label>
       <label class="control radio">
-        <input type="radio" name="amount" value="100" required>
+        <input type="radio" name="amount" value="100">
         <span class="control-indicator"></span>
         <span class="control-text">
           <span class="amount">$100</span>
@@ -48,7 +48,7 @@
         </span>
       </label>
       <label class="control radio">
-        <input type="radio" name="amount" value="250" required>
+        <input type="radio" name="amount" value="250">
         <span class="control-indicator"></span>
         <span class="control-text">
           <span class="amount">$250</span>
@@ -56,7 +56,7 @@
         </span>
       </label>
       <label class="control radio">
-        <input type="radio" name="amount" value="500" required>
+        <input type="radio" name="amount" value="500">
         <span class="control-indicator"></span>
         <span class="control-text">
           <span class="amount">$500</span>
@@ -93,7 +93,7 @@
         </span>
       </label>
       <label class="control radio">
-        <input type="radio" name="a3" value="20" required>
+        <input type="radio" name="a3" value="20">
         <span class="control-indicator"></span>
         <span class="control-text">
           <span class="amount">$20</span>
@@ -101,7 +101,7 @@
         </span>
       </label>
       <label class="control radio">
-        <input type="radio" name="a3" value="30" required>
+        <input type="radio" name="a3" value="30">
         <span class="control-indicator"></span>
         <span class="control-text">
           <span class="amount">$30</span>
@@ -109,7 +109,7 @@
         </span>
       </label>
       <label class="control radio">
-        <input type="radio" name="a3" value="50" required>
+        <input type="radio" name="a3" value="50">
         <span class="control-indicator"></span>
         <span class="control-text">
           <span class="amount">$50</span>
@@ -117,7 +117,7 @@
         </span>
       </label>
       <label class="control radio">
-        <input type="radio" name="a3" value="100" required>
+        <input type="radio" name="a3" value="100">
         <span class="control-indicator"></span>
         <span class="control-text">
           <span class="amount">$100</span>

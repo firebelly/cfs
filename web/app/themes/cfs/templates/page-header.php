@@ -70,6 +70,7 @@ if ($post->post_type=='workshop' || $post->post_type=='program') {
           <?= $registration_html ?>
           <p class="p-intro"><?= $page_intro_quote; ?></p>
         </div>
+
         <?php if (!empty($post->post_content) || !empty($accordions_html)): ?>
           <div class="page-meat user-content">
             <?= empty($post->post_content) ? '' : apply_filters('the_content', $post->post_content);?>
@@ -106,9 +107,13 @@ if ($post->post_type=='workshop' || $post->post_type=='program') {
           <p class="p-intro"><?= $page_intro_quote; ?></p>
         </div>
       </div>
+
       <?php if (!empty($post->post_content) || !empty($accordions_html)): ?>
         <div class="page-meat user-content">
           <?= empty($post->post_content) ? '' : apply_filters('the_content', $post->post_content);?>
+          <?php if ($post->post_title=='Custom Trainings'): ?>
+            <a href="#request-form" class="button request-form">Request Form</a>
+          <?php endif; ?>
           <?= $accordions_html ?>
         </div>
       <?php endif; ?>

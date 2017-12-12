@@ -10,7 +10,7 @@
   .bg-image {
     width: 100%;
     background-size: cover;
-    background-position: center;
+    background-position: 0 30%;
     position: relative;
     height: 180px;
     border-right: mobile-grid(2) solid $black;
@@ -134,7 +134,7 @@
         }
       }
       .bg-image {
-        height: 400px;
+        height: 460px;
       }
       .page-intro {
         padding-left: columns(1,19);

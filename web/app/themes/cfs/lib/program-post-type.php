@@ -55,6 +55,9 @@ $cpt->columns()->populate('featured', function($column, $post_id) {
   echo (get_post_meta($post_id, '_cmb2_featured', true)) ? '&check;' : '';
 });
 
+// Admin filters
+$cpt->filters(['program_type']);
+
 // Register CPT with Wordpress
 $cpt->register();
 

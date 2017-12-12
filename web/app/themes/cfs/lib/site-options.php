@@ -36,7 +36,7 @@ class FbSiteOptions {
    */
   public function __construct() {
     // Set our title
-    $this->title = __( 'Site Options', 'firebelly' );
+    $this->title = __( 'Site Options', 'cmb2' );
   }
 
   /**
@@ -115,79 +115,86 @@ class FbSiteOptions {
     // Set our CMB2 fields
 
     $cmb->add_field( array(
-      'name' => __( 'PayPal ID', 'firebelly' ),
+      'name' => __( 'PayPal ID', 'cmb2' ),
       'id'   => 'paypal_id',
       'type' => 'text',
       'before_row' => '<h3>Donations</h3>',
     ) );
 
     $cmb->add_field( array(
-      'name' => __( 'Twitter ID', 'firebelly' ),
+      'name' => __( 'Twitter ID', 'cmb2' ),
       'id'   => 'twitter_id',
       'type' => 'text',
       'before_row' => '<h3>Footer Links & Info</h3>',
     ) );
 
     $cmb->add_field( array(
-      'name' => __( 'Facebook ID', 'firebelly' ),
+      'name' => __( 'Facebook ID', 'cmb2' ),
       'id'   => 'facebook_id',
       'type' => 'text',
     ) );
 
     $cmb->add_field( array(
-      'name' => __( 'Vimeo ID', 'firebelly' ),
+      'name' => __( 'Vimeo ID', 'cmb2' ),
       'id'   => 'vimeo_id',
       'type' => 'text',
     ) );
 
     $cmb->add_field( array(
-      'name' => __( 'Contact Street Address', 'firebelly' ),
+      'name' => __( 'Contact Street Address', 'cmb2' ),
       'id'   => 'contact_address',
       'desc' => __( 'Address shown in the footer'),
       'type' => 'text',
     ) );
 
     $cmb->add_field( array(
-      'name' => __( 'Contact City, State & Postal Code', 'firebelly' ),
+      'name' => __( 'Contact City, State & Postal Code', 'cmb2' ),
       'id'   => 'contact_locality',
       'desc' => __( 'Ex: Chicago, IL 60605'),
       'type' => 'text',
     ) );
 
     $cmb->add_field( array(
-      'name' => __( 'Contact Phone Number', 'firebelly' ),
+      'name' => __( 'Contact Phone Number', 'cmb2' ),
       'id'   => 'contact_phone',
       'desc' => __( 'Phone number shown in the footer'),
       'type' => 'text',
     ) );
 
     $cmb->add_field( array(
-      'name' => __( 'Contact Email', 'firebelly' ),
+      'name' => __( 'Contact Email', 'cmb2' ),
       'id'   => 'contact_email',
       'desc' => __( 'Email shown in the footer'),
       'type' => 'text_email',
     ) );
 
     $cmb->add_field( array(
-      'name' => __( 'Contact Notice', 'firebelly' ),
+      'name' => __( 'Contact Notice', 'cmb2' ),
       'id'   => 'contact_notice',
       'desc' => __( 'Notice shown in the footer'),
       'type' => 'textarea_small',
     ) );
 
     $cmb->add_field( array(
-      'name' => __( 'Facebook App ID', 'firebelly' ),
-      'desc' => __( 'Used for OG tags, set up at https://developers.facebook.com/apps/', 'firebelly' ),
+      'name' => __( 'Facebook App ID', 'cmb2' ),
+      'desc' => __( 'Used for OG tags, set up at https://developers.facebook.com/apps/', 'cmb2' ),
       'id'   => 'facebook_app_id',
       'type' => 'text',
       'before_row' => '<h3>Facebook Sharing</h3>',
     ) );
 
     $cmb->add_field( array(
-      'name' => __( 'Default Facebook Sharing Image', 'firebelly' ),
-      'desc'    => __( 'This will be used if unable to find an image for shared post/page', 'firebelly' ),
+      'name' => __( 'Default Facebook Sharing Image', 'cmb2' ),
+      'desc'    => __( 'This will be used if unable to find an image for shared post/page', 'cmb2' ),
       'id'   => 'default_metatag_image',
       'type' => 'file',
+    ) );
+
+    $cmb->add_field( array(
+      'name' => __( 'Notifications Email', 'cmb2' ),
+      'id'   => 'notification_email',
+      'type' => 'text',
+      'before_row' => '<h3>Notifications</h3>',
     ) );
 
   }
@@ -204,7 +211,7 @@ class FbSiteOptions {
       return;
     }
 
-    add_settings_error( $this->key . '-notices', '', __( 'Settings updated.', 'firebelly' ), 'updated' );
+    add_settings_error( $this->key . '-notices', '', __( 'Settings updated.', 'cmb2' ), 'updated' );
     settings_errors( $this->key . '-notices' );
   }
 

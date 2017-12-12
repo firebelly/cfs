@@ -1,10 +1,12 @@
 // General form styles
 
 form {
-  // remove ugly webkit yellow autofill background
+  // Remove ugly webkit yellow autofill background
   input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 30px $white inset;
   }
+
+  // Control labels are for checkboxes, etc
 	label:not(.control) {
 		padding: 0 $gutter grid(1) $gutter;
 	}
@@ -31,11 +33,13 @@ form {
 		width: 100%;
 		background: none;
 		border: none;
-		border-left: 2px solid $yellow;
-		border-bottom: 2px solid $yellow;
+		border-left: 2px solid $brown-dark;
+		border-bottom: 2px solid $brown-dark;
 		padding: grid(.75) $gutter grid(1) $gutter;
     border-radius: 0;
     -webkit-appearance: none;
+
+    // Push label up on focus or if has-input
 		&:focus,
 		&.has-input {
 			padding: grid(.25) $gutter grid(1.5) $gutter;
@@ -43,18 +47,9 @@ form {
 				top: -16px;
 			}
 		}
-    &.has-touched:required:invalid {
-      border-color: $red;
-      border-width: 6px;
-      + label {
-        color: $red;
-        border-color: $red;
-        border-width: 6px;
-        padding-left: 20px;
-      }
-    }
+
+    // Avoid zoom on mobile with input:focus
     @include max-screen($breakpoint-md) {
-      // Avoid zoom on mobile with input:focus
       font-size: 16px;
     }
 	}
@@ -68,7 +63,53 @@ form {
 			display: block;
 			width: 100%;
 		}
+
+    // Error (X) svg, hidden by default
+    svg.icon-circle-x {
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      fill: $red;
+      display: none;
+    }
+
+    // Input has been interacted with and is invalid
+    &.invalid {
+      svg {
+        display: block;
+      }
+      input[type=text],
+      input[type=search],
+      input[type=email] {
+        border-color: $red;
+        border-width: 6px;
+        + label {
+          color: $red;
+          border-color: $red;
+          border-width: 6px;
+          padding-left: 20px;
+        }
+      }
+    }
+
+    // Input has been interacted with and is valid
+    &.has-input:not(.invalid) {
+      input[type=text],
+      input[type=search],
+      input[type=email],
+      select {
+        border-color: $yellow;
+        + label {
+          color: $yellow;
+          border-color: $yellow;
+        }
+      }
+    }
 	}
+
+  // All non-checkbox/radio labels
 	label:not(.control) {
     cursor: text;
 		transition: padding .1s steps(2), top .1s steps(2);
@@ -80,8 +121,8 @@ form {
 		position: absolute;
 		top: 0;
 		left: 0;
-		color: $yellow;
-		border-left: 2px solid $yellow;
+		color: $brown-dark;
+		border-left: 2px solid $brown-dark;
 	}
 	// Subheads
 	h3 .note {
@@ -187,68 +228,84 @@ form {
 .select {
   position: relative;
   display: inline-block;
-  color: $black;
+  @include theme-color('color', $black, 'accent3');
   font-size: 16px;
-}
-.select select {
-  display: block;
-  width: 100%;
-  margin: 0;
-  // padding: grid(1) $gutter;
-  padding: grid(.25) $gutter grid(1.5) $gutter;
-  line-height: 1;
-  color: $black;
-  background: none;
-  border: none;
-  border-radius: 0;
-  border-left: 2px solid $yellow;
-  border-bottom: 2px solid $yellow;
-  cursor: pointer;
-  outline: 0;
-  appearance: none;
-  + label {
-  	top: -16px;
+
+  select {
+    display: block;
+    width: 100%;
+    margin: 0;
+    // padding: grid(1) $gutter;
+    padding: grid(.25) $gutter grid(1.5) $gutter;
+    line-height: 1;
+    color: $black;
+    background: none;
+    border: none;
+    border-radius: 0;
+    border-left: 2px solid $black;
+    border-bottom: 2px solid $black;
+    @include theme-color('border-color', $black, 'accent3');
+    cursor: pointer;
+    outline: 0;
+    appearance: none;
+    + label {
+    	top: -16px;
+    }
   }
-}
-/* Undo the Firefox inner focus ring */
-.select select:focus:-moz-focusring {
-  color: transparent;
-  text-shadow: 0 0 0 #000;
-}
-/* Dropdown arrow */
-.select .arrow {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: grid(5);
-  height: grid(5);
-  pointer-events: none;
-  border: 2px solid $yellow;
-  svg {
-  	position: absolute;
-  	top: 16px;
-  	left: 17px;
-  	width: 24px;
-  	height: 24px;
-	  fill: $yellow;
-	  transform: rotate(90deg);
+
+  &.has-input:not(.invalid) {
+    .arrow {
+      border-color: $yellow;
+    }
+    .arrow svg {
+      fill: $yellow;
+    }
   }
-}
 
-/* Focus */
-.select select:focus {
-  // box-shadow: 0 0 0 .075rem $white, 0 0 0 .2rem $black;
-}
+  /* Undo the Firefox inner focus ring */
+  select:focus:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+  }
 
-/* Active/open */
-.select select:active {
-  // color: $white;
-  // background-color: $black;
-}
+  /* Dropdown arrow */
+  .arrow {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: grid(5);
+    height: grid(5);
+    pointer-events: none;
+    border: 2px solid $brown-dark;
+    @include theme-color('border-color', $black, 'accent3');
 
-/* Hide the arrow in IE10 and up */
-.select select::-ms-expand {
-  display: none;
+    svg {
+    	position: absolute;
+    	top: 16px;
+    	left: 17px;
+    	width: 24px;
+    	height: 24px;
+  	  // fill: $brown-dark;
+      @include theme-color('fill', $black, 'accent3');
+  	  transform: rotate(90deg);
+    }
+  }
+
+  /* Focus */
+  select:focus {
+    // box-shadow: 0 0 0 .075rem $white, 0 0 0 .2rem $black;
+  }
+
+  /* Active/open */
+  select:active {
+    // color: $white;
+    // background-color: $black;
+  }
+
+  /* Hide the arrow in IE10 and up */
+  select::-ms-expand {
+    display: none;
+  }
 }
 
 /* Media query to target Firefox only */
