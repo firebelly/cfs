@@ -18,7 +18,7 @@
         </div>
 
         <div class="newsletter">
-          <h3>Subscribe to our newsletter</h3>
+          <h3>Stay Updated</h3>
           <?php include ('newsletter-form.php'); ?>
         </div>
 

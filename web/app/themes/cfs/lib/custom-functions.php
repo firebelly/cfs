@@ -216,7 +216,7 @@ function get_registration_details($post) {
       $output .= '<p><a href="#site-footer" class="smoothscroll">Please subscribe to our newsletter to receive updates about when applications open</a></p>';
     }
   } elseif ($post->post_type=='workshop') {
-
+    $output .= \Firebelly\PostTypes\Workshop\get_registration_button($post);
   }
   $output .= '</div>';
   return $output;

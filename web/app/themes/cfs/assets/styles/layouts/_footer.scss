@@ -50,11 +50,6 @@
     }
     .newsletter-form {
       position: relative;
-      input,
-      label {
-        @include theme-color('color', $black, 'accent3');
-        @include theme-color('border-color', $black, 'accent3');
-      }
       margin-bottom: grid(3);
       .input-item svg.icon-circle-x {
         right: 50px;

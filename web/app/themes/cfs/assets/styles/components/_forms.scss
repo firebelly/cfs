@@ -7,11 +7,11 @@ form {
   }
 
   // Control labels are for checkboxes, etc
-	label:not(.control) {
-		padding: 0 $gutter grid(1) $gutter;
-	}
-	fieldset {
-		margin: 0;
+  label:not(.control) {
+    padding: 0 $gutter grid(1) $gutter;
+  }
+  fieldset {
+    margin: 0;
     border: none;
     padding: mobile-grid(4) 0;
     position: relative;
@@ -21,48 +21,49 @@ form {
     }
 
     @include media-md {
-  		padding: grid(4) 0;
+      padding: grid(4) 0;
     }
-	}
+  }
   input[type=text],
-	input[type=search],
-	input[type=email] {
-		padding: 0 $gutter grid(1) $gutter;
-		outline: none;
-		display: block;
-		width: 100%;
-		background: none;
-		border: none;
-		border-left: 2px solid $brown-dark;
-		border-bottom: 2px solid $brown-dark;
-		padding: grid(.75) $gutter grid(1) $gutter;
+  input[type=search],
+  input[type=email] {
+    padding: 0 $gutter grid(1) $gutter;
+    outline: none;
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    border-left: 2px solid $black;
+    border-bottom: 2px solid $black;
+    @include theme-color('border-color', $black, 'accent3');
+    padding: grid(.75) $gutter grid(1) $gutter;
     border-radius: 0;
     -webkit-appearance: none;
 
     // Push label up on focus or if has-input
-		&:focus,
-		&.has-input {
-			padding: grid(.25) $gutter grid(1.5) $gutter;
-			+ label {
-				top: -16px;
-			}
-		}
+    &:focus,
+    &.has-input {
+      padding: grid(.25) $gutter grid(1.5) $gutter;
+      + label {
+        top: -16px;
+      }
+    }
 
     // Avoid zoom on mobile with input:focus
     @include max-screen($breakpoint-md) {
       font-size: 16px;
     }
-	}
+  }
 
-	.input-item {
-		position: relative;
-		margin-bottom: 28px;
+  .input-item {
+    position: relative;
+    margin-bottom: 28px;
 
-		&.select {
+    &.select {
       margin-top: mobile-grid(5);
-			display: block;
-			width: 100%;
-		}
+      display: block;
+      width: 100%;
+    }
 
     // Error (X) svg, hidden by default
     svg.icon-circle-x {
@@ -107,31 +108,32 @@ form {
         }
       }
     }
-	}
+  }
 
   // All non-checkbox/radio labels
-	label:not(.control) {
+  label:not(.control) {
     cursor: text;
-		transition: padding .1s steps(2), top .1s steps(2);
-		@extend .font-display;
-		margin: 0;
-		padding-bottom: 4px;
-		line-height: 1;
-		display: block;
-		position: absolute;
-		top: 0;
-		left: 0;
-		color: $brown-dark;
-		border-left: 2px solid $brown-dark;
-	}
-	// Subheads
-	h3 .note {
-		display: block;
-		text-transform: none;
-		letter-spacing: .06875em;
-		font: 12px/1.5 $font-regular;
-		margin: 5px 0 grid(3);
-	}
+    transition: padding .1s steps(2), top .1s steps(2);
+    @extend .font-display;
+    margin: 0;
+    padding-bottom: 4px;
+    line-height: 1;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-left: 2px solid $black;
+    @include theme-color('color', $black, 'accent3');
+    @include theme-color('border-color', $black, 'accent3');
+  }
+  // Subheads
+  h3 .note {
+    display: block;
+    text-transform: none;
+    letter-spacing: .06875em;
+    font: 12px/1.5 $font-regular;
+    margin: 5px 0 grid(3);
+  }
 }
 
 // Search form
@@ -154,8 +156,8 @@ form {
   min-height: 36px;
   font: 12px/1.5 $font-display;
   .description {
-  	display: block;
-  	font: 12px/1.5 $font-regular;
+    display: block;
+    font: 12px/1.5 $font-regular;
   }
   input {
     position: absolute;
@@ -209,7 +211,7 @@ form {
 
 /* Checkbox modifiers */
 .checkbox input:checked ~ .control-indicator {
-	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE4IDE4Ij48cGF0aCBmaWxsPSIjMzIzMjI4IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0wIDBoMTh2MThIMHoiLz48L3N2Zz4=);
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE4IDE4Ij48cGF0aCBmaWxsPSIjMzIzMjI4IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0wIDBoMTh2MThIMHoiLz48L3N2Zz4=);
 }
 
 /* Radio modifiers */
@@ -218,7 +220,7 @@ form {
 }
 .radio input:checked ~ .control-indicator {
   // background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNy4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgOCA4IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA4IDgiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPHBhdGggZmlsbD0iI0ZGRkZGRiIgZD0iTTQsMUMyLjMsMSwxLDIuMywxLDRzMS4zLDMsMywzczMtMS4zLDMtM1M1LjcsMSw0LDF6Ii8+DQo8L3N2Zz4NCg==);
-	background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE4IDE4Ij48cGF0aCBmaWxsPSIjMzIzMjI4IiBkPSJNOSAwQzMuOSAwIDAgMy45IDAgOXMzLjkgOSA5IDkgOS0zLjkgOS05LTMuOS05LTktOXoiLz48L3N2Zz4=);
+  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDE4IDE4Ij48cGF0aCBmaWxsPSIjMzIzMjI4IiBkPSJNOSAwQzMuOSAwIDAgMy45IDAgOXMzLjkgOSA5IDkgOS0zLjkgOS05LTMuOS05LTktOXoiLz48L3N2Zz4=);
 }
 
 /*
@@ -249,7 +251,7 @@ form {
     outline: 0;
     appearance: none;
     + label {
-    	top: -16px;
+      top: -16px;
     }
   }
 
@@ -280,14 +282,14 @@ form {
     @include theme-color('border-color', $black, 'accent3');
 
     svg {
-    	position: absolute;
-    	top: 16px;
-    	left: 17px;
-    	width: 24px;
-    	height: 24px;
-  	  // fill: $brown-dark;
+      position: absolute;
+      top: 16px;
+      left: 17px;
+      width: 24px;
+      height: 24px;
+      // fill: $brown-dark;
       @include theme-color('fill', $black, 'accent3');
-  	  transform: rotate(90deg);
+      transform: rotate(90deg);
     }
   }
 

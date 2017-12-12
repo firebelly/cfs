@@ -18,6 +18,7 @@ body.theme-yellow {
     }
     @include media-md {
       &:hover {
+        color: $yellow;
         svg {
           fill: $white;
         }
