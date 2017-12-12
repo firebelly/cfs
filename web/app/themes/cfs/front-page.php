@@ -69,10 +69,10 @@ $custom_featured_link_text = get_post_meta($post->ID, '_cmb2_custom_featured_lin
 
 <section class="featured">
   <?php if ($featured_program): ?>
-  <article class="feature program-post bigclicky">
+  <article class="feature program-post">
     <div class="wrap grid">
       <div class="one-half -left">
-        <div class="image" <?= \Firebelly\Media\get_header_bg($featured_program, ['size' => 'medium_large']) ?>></div>
+        <a href="<?= get_permalink($featured_program) ?>" class="image" <?= \Firebelly\Media\get_header_bg($featured_program, ['size' => 'medium_large']) ?>></a>
       </div>
       <div class="one-half -right">
         <h1><a href="<?= get_permalink($featured_program) ?>"><?= $featured_program->post_title ?></a></h1>
@@ -86,7 +86,7 @@ $custom_featured_link_text = get_post_meta($post->ID, '_cmb2_custom_featured_lin
   <?php endif; ?>
 
   <?php if ($custom_featured_title): ?>
-    <article class="feature custom-link bigclicky">
+    <article class="feature custom-link">
       <div class="wrap grid">
         <div class="one-half -left details">
           <h1><a href="<?= $custom_featured_link ?>"><?= $custom_featured_title ?></a></h1>
@@ -97,7 +97,7 @@ $custom_featured_link_text = get_post_meta($post->ID, '_cmb2_custom_featured_lin
         </div>
         <div class="one-half -right">
           <?php if ($custom_featured_image): ?>
-            <div class="image" <?= \Firebelly\Media\get_header_bg($custom_featured_image, ['thumb_id' => $custom_featured_image_id, 'size' => 'medium_large']) ?>></div>
+            <a href="<?= $custom_featured_link ?>" class="image" <?= \Firebelly\Media\get_header_bg($custom_featured_image, ['thumb_id' => $custom_featured_image_id, 'size' => 'medium_large']) ?>></a>
           <?php endif; ?>
         </div>
       </div>
@@ -105,10 +105,10 @@ $custom_featured_link_text = get_post_meta($post->ID, '_cmb2_custom_featured_lin
   <?php endif; ?>
 
   <?php if ($featured_workshop): ?>
-  <article class="feature workshop-post bigclicky">
+  <article class="feature workshop-post">
     <div class="wrap grid">
       <div class="one-half -left">
-        <div class="image" <?= \Firebelly\Media\get_header_bg($featured_workshop, ['size' => 'medium_large']) ?>></div>
+        <a href="<?= get_permalink($featured_workshop) ?>" class="image" <?= \Firebelly\Media\get_header_bg($featured_workshop, ['size' => 'medium_large']) ?>></a>
       </div>
       <div class="one-half -right">
         <h1><a href="<?= get_permalink($featured_workshop) ?>"><?= $featured_workshop->post_title ?></a></h1>

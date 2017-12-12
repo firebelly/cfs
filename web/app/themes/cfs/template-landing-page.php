@@ -21,7 +21,7 @@ if (count($child_pages)==2) {
 <div class="secondary-nav">
   <div class="wrap"><div class="grid">
     <?php foreach ($child_pages as $child_page): ?>
-      <article class="child-page <?= $column_class ?> bigclicky"><div class="wrap">
+      <article class="child-page <?= $column_class ?>"><div class="wrap">
         <?= \Firebelly\Utils\admin_edit_link($child_page) ?>
         <?php
         $nav_excerpt = get_post_meta($child_page->ID, '_cmb2_nav_excerpt', true);
@@ -35,9 +35,9 @@ if (count($child_pages)==2) {
         }
         ?>
         <?php if ($header_bg = \Firebelly\Media\get_header_bg($child_page, ['size' => 'medium'])): ?>
-          <div class="image" <?= $header_bg ?>></div>
+          <a href="<?= $nav_button_link ?>" class="image" <?= $header_bg ?>></a>
         <?php endif; ?>
-        <h1><?= $child_page->post_title ?></h1>
+        <h1><a href="<?= $nav_button_link ?>"><?= $child_page->post_title ?></a></h1>
         <p class="excerpt"><?= $nav_excerpt ?></p>
         <a href="<?= $nav_button_link ?>" class="read-more"><?= $nav_button_text ?></a>
       </div></article>

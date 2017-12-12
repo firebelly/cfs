@@ -15,7 +15,9 @@
       margin-bottom: mobile-grid(2);
     }
     h1 {
-      color: $red;
+      &,a {
+        color: $red;
+      }
       @extend .h2;
       margin-bottom: mobile-grid(0);
     }
@@ -57,18 +59,6 @@
       &:last-of-type {
         padding-bottom: grid(2);
         border-right: none;
-      }
-
-      &:hover {
-        a {
-          color: $white;
-        }
-        // Attempt at hover styles, seemed weird, may bring back
-        .image {
-          // top: 2px;
-          // box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
-          // transform: scale(1.02);
-        }
       }
     }
   }

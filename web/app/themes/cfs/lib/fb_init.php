@@ -21,6 +21,13 @@ remove_filter('the_content', 'wpautop');
 add_filter('the_content', 'wpautop' , 99);
 add_filter('the_content', 'shortcode_unautop',100);
 
+function clean_up_content($content) {
+  // Convert <span class="button"><a></span> to <a class="button">
+  $content = preg_replace('/<span class=\\\"button\\\"><a(.*)<\/a><\/span>/', '<a class=\"button\"$1</a>', $content);
+  return $content;
+}
+add_filter('content_save_pre', __NAMESPACE__ . '\\clean_up_content', 10, 1);
+
 /**
  * Various theme defaults
  */

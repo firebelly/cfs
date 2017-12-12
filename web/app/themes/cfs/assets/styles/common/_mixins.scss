@@ -70,6 +70,7 @@
 
 // Aspect ratio padding mixin
 @mixin aspect-ratio($width, $height) {
+  display: block;
   background-size: cover;
   background-position: center;
   position: relative;
