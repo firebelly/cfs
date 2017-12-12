@@ -55,6 +55,7 @@
       }
       border-right: 1px solid $white;
       &:last-of-type {
+        padding-bottom: grid(2);
         border-right: none;
       }
 

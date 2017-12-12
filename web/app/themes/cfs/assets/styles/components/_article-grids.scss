@@ -15,7 +15,6 @@
     display: block;
     position: absolute;
     bottom: 0;
-    border-top: grid(4) solid $black;
     border-bottom: 1px solid $white;
     left: 0;
     width: 100%;
@@ -55,15 +54,33 @@
     }
   }
 
-  // No border on last category
+  // No white border on last category (but keep desktop $black border-top)
   &:last-of-type::after {
-    display: none;
+    border-bottom: none;
   }
 
   @include media-md {
-    padding-bottom: 0;
+    &::after {
+      // blacks out hanging vertical white borders on bottom
+      border-top: grid(4) solid $black;
+    }
+    &:not(.staff) {
+      // Remove border on every fourth item
+      article:nth-child(4n+0) {
+        border: 0;
+      }
+    }
+    .wrap {
+      min-height: 50px;
+    }
+    padding-bottom: grid(0);
     &.staff {
       padding-bottom: grid(4);
+
+      // Remove border on every third item
+      article:nth-child(3n+0) {
+        border: 0;
+      }
     }
   }
 
