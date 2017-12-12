@@ -55,24 +55,24 @@
       <fieldset>
         <h3>Basic information</h3>
         <div class="input-item">
-          <input type="text" name="organization">
+          <input type="text" name="organization" autocomplete="section-trainings organization">
           <label for="">Organization Name</label>
         </div>
         <div class="input-item">
-          <input type="text" name="name" required>
+          <input type="text" name="name" required autocomplete="section-trainings name">
           <label for="">Contact Name</label>
         </div>
 
         <div class="grid">
           <div class="one-half -left">
             <div class="input-item">
-              <input type="text" name="phone" required>
+              <input type="text" name="phone" required autocomplete="section-trainings tel">
               <label for="">Contact Phone</label>
             </div>
           </div>
           <div class="one-half -right">
             <div class="input-item">
-              <input type="text" name="email" required>
+              <input type="text" name="email" required autocomplete="section-trainings email">
               <label for="">Contact Email</label>
             </div>
           </div>
@@ -81,13 +81,13 @@
         <div class="grid">
           <div class="one-half -left">
             <div class="input-item">
-              <input type="text" name="city">
+              <input type="text" name="city" autocomplete="section-trainings address-level2">
               <label for="">City</label>
             </div>
           </div>
           <div class="one-half -right">
             <div class="input-item">
-              <input type="text" name="state">
+              <input type="text" name="state" autocomplete="section-trainings address-level1">
               <label for="">State</label>
             </div>
           </div>
