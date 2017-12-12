@@ -174,11 +174,12 @@ var CFS = (function($) {
   function _initForms() {
     // Add SVGs to required form elements for error states
     $('form input').each(function() {
+      var $this = $(this);
       // Initial state of inputs with value
-      if ($(this).val()!=='' && $(this).attr('type')!=='select') {
-        $(this).addClass('has-input').parent().addClass('has-input');
+      if ($this.val()!=='' && $this.attr('type')!=='select') {
+        $this.addClass('has-input').parent().addClass('has-input');
       }
-      if ($(this).prop('required') && $(this).attr('type')!=='radio') {
+      if ($this.prop('required') && $this.attr('type')!=='radio' && !$this.hasClass('no-error-styles')) {
         $('<svg class="icon icon-circle-x" aria-hidden="true" role="presentation"><use xlink:href="#icon-circle-x"/></svg>').appendTo($(this).parent());
       }
     });
