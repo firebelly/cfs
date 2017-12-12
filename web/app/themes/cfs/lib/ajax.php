@@ -105,7 +105,7 @@ function add_cc_contact() {
       wp_send_json_error(['message' => 'You are already subscribed.']);
     } else {
       try {
-        $res = $client->request('POST', 'https://api.constantcontact.com/v2/contacts?api_key=' . getenv('CONSTANT_CONTACT_APIKEY'), [
+        $res = $client->request('POST', 'https://api.constantcontact.com/v2/contacts?api_key=' . getenv('CONSTANT_CONTACT_APIKEY') . '&action_by=ACTION_BY_VISITOR', [
           'json' => [
             'lists' => [
               [ 'id' => getenv('CONSTANT_CONTACT_LIST_ID') ]
