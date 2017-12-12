@@ -7,7 +7,7 @@ body.theme-yellow {
   a {
     color: $brown-dark;
   }
-  .button {
+  .button:not(.slick-arrow) {
     color: $brown-dark;
     border-color: $brown-dark;
     svg {
@@ -16,9 +16,23 @@ body.theme-yellow {
     &::before {
       background: $brown-dark;
     }
-    &:hover {
-      svg {
-        fill: $white;
+    @include media-md {
+      &:hover {
+        svg {
+          fill: $white;
+        }
+      }
+    }
+  }
+  .slider {
+    .button-prev,
+    .button-next {
+      @include media-md {
+        &:hover {
+          svg {
+            fill: $brown-dark;
+          }
+        }
       }
     }
   }
