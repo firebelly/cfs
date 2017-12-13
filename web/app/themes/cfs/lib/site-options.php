@@ -115,16 +115,16 @@ class FbSiteOptions {
     // Set our CMB2 fields
 
     $cmb->add_field( array(
-      'name' => __( 'PayPal ID', 'cmb2' ),
-      'id'   => 'paypal_id',
-      'type' => 'text',
+      'name'       => __( 'PayPal ID', 'cmb2' ),
+      'id'         => 'paypal_id',
+      'type'       => 'text',
       'before_row' => '<h3>Donations</h3>',
     ) );
 
     $cmb->add_field( array(
-      'name' => __( 'Twitter ID', 'cmb2' ),
-      'id'   => 'twitter_id',
-      'type' => 'text',
+      'name'       => __( 'Twitter ID', 'cmb2' ),
+      'id'         => 'twitter_id',
+      'type'       => 'text',
       'before_row' => '<h3>Footer Links & Info</h3>',
     ) );
 
@@ -176,26 +176,35 @@ class FbSiteOptions {
     ) );
 
     $cmb->add_field( array(
-      'name' => __( 'Facebook App ID', 'cmb2' ),
-      'desc' => __( 'Used for OG tags, set up at https://developers.facebook.com/apps/', 'cmb2' ),
-      'id'   => 'facebook_app_id',
-      'type' => 'text',
+      'name'             => __( 'Constant Contact List', 'cmb2' ),
+      'desc'             => __( 'What list to add contacts to using form in footer', 'cmb2' ),
+      'id'               => 'default_cc_list_id',
+      'type'             => 'select',
+      'show_option_none' => true,
+      'options_cb'       => '\Firebelly\ConstantContact\get_cc_lists',
+    ) );
+
+    $cmb->add_field( array(
+      'name'       => __( 'Facebook App ID', 'cmb2' ),
+      'desc'       => __( 'Used for OG tags, set up at https://developers.facebook.com/apps/', 'cmb2' ),
+      'id'         => 'facebook_app_id',
+      'type'       => 'text',
       'before_row' => '<h3>Facebook Sharing</h3>',
     ) );
 
     $cmb->add_field( array(
       'name' => __( 'Default Facebook Sharing Image', 'cmb2' ),
-      'desc'    => __( 'This will be used if unable to find an image for shared post/page', 'cmb2' ),
+      'desc' => __( 'This will be used if unable to find an image for shared post/page', 'cmb2' ),
       'id'   => 'default_metatag_image',
       'type' => 'file',
     ) );
 
-    $cmb->add_field( array(
-      'name' => __( 'Notifications Email', 'cmb2' ),
-      'id'   => 'notification_email',
-      'type' => 'text',
-      'before_row' => '<h3>Notifications</h3>',
-    ) );
+    // $cmb->add_field( array(
+    //   'name' => __( 'Notifications Email', 'cmb2' ),
+    //   'id'   => 'notifications_email',
+    //   'type' => 'text',
+    //   'before_row' => '<h3>Notifications</h3>',
+    // ) );
 
   }
 

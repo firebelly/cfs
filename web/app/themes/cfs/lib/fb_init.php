@@ -21,13 +21,6 @@ remove_filter('the_content', 'wpautop');
 add_filter('the_content', 'wpautop' , 99);
 add_filter('the_content', 'shortcode_unautop',100);
 
-function clean_up_content($content) {
-  // Convert <span class="button"><a></span> to <a class="button">
-  $content = preg_replace('/<span class=\\\"button\\\"><a(.*)<\/a><\/span>/', '<a class=\"button\"$1</a>', $content);
-  return $content;
-}
-add_filter('content_save_pre', __NAMESPACE__ . '\\clean_up_content', 10, 1);
-
 /**
  * Various theme defaults
  */
@@ -94,7 +87,20 @@ function simplify_tinymce($settings) {
 }
 add_filter('tiny_mce_before_init', __NAMESPACE__ . '\\simplify_tinymce');
 
-// Remove Customize link from admin bar
+/**
+ * Clean up content before saving post
+ */
+function clean_up_content($content) {
+  // Convert <span class="button"><a></span> to <a class="button"> (can't just add class to element w/ tinymce style formats, has to have wrapper)
+  $content = preg_replace('/<span class=\\\"button\\\"><a(.*)<\/a><\/span>/', '<a class=\"button\"$1</a>', $content);
+  return $content;
+}
+add_filter('content_save_pre', __NAMESPACE__ . '\\clean_up_content', 10, 1);
+
+
+/**
+ * Remove unused Customize link from admin bar
+ */
 add_action( 'wp_before_admin_bar_render', function() {
   global $wp_admin_bar;
   $wp_admin_bar->remove_menu('customize');

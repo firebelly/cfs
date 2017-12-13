@@ -7,6 +7,9 @@
   // Staff has slightly different styles
   &.staff {
     padding-bottom: 0;
+    h3 {
+      margin-top: 0;
+    }
   }
 
   // White border between each category

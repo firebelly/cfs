@@ -207,14 +207,7 @@ function get_registration_details($post) {
   }
   $output .= '</ul>';
   if ($post->post_type=='program') {
-    // Check if applications open
-    if ( (!empty($post->meta['_cmb2_registration_opens']) && $now >= $post->meta['_cmb2_registration_opens'][0])
-         && (!empty($post->meta['_cmb2_registration_deadline']) && $now < $post->meta['_cmb2_registration_deadline'][0])
-      ) {
-      $output .= '<a class="button -wide" href="#">Apply</a>';
-    } elseif (!empty($post->meta['_cmb2_registration_opens']) && $now < $post->meta['_cmb2_registration_opens'][0]) {
-      $output .= '<p><a href="#site-footer" class="smoothscroll">Please subscribe to our newsletter to receive updates about when applications open</a></p>';
-    }
+    $output .= \Firebelly\PostTypes\Program\get_registration_button($post);
   } elseif ($post->post_type=='workshop') {
     $output .= \Firebelly\PostTypes\Workshop\get_registration_button($post);
   }

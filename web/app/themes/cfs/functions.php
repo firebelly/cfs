@@ -33,8 +33,9 @@ $firebelly_includes = [
   'lib/person-post-type.php',          // People
   'lib/partner-post-type.php',         // Partners
   'lib/job-post-type.php',             // Jobs
-  'lib/applicant-post-type.php',             // Jobs
+  // 'lib/applicant-post-type.php',    // Applicants to forms (custom trainings primarily) — decided to not use but leaving here in case is useful in future
   'lib/site-options.php',              // Custom site options page for admin
+  'lib/constant-contact.php',          // Constant Contact API functions
 ];
 
 $sage_includes = array_merge($sage_includes, $firebelly_includes);

@@ -1,7 +1,7 @@
 <!-- currently unused as they're moving to google forms, argh -->
 <div class="secondary-content user-content" id="request-form"><div class="color-wrap">
   <div class="wrap">
-    <form action="#" method="post" class="custom-trainings-form">
+    <form action="<?= admin_url('admin-ajax.php') ?>" method="post" class="custom-trainings-form">
       <hr>
       <h2>Request Form</h2>
 
@@ -47,7 +47,7 @@
         <h3>What dates are you interested in?</h3>
         <div class="input-item">
           <input type="text" name="dates">
-          <label for="">Enter Date Here</label>
+          <label>Enter Date Here</label>
         </div>
       </fieldset>
 
@@ -55,24 +55,24 @@
         <h3>Basic information</h3>
         <div class="input-item">
           <input type="text" name="organization" autocomplete="section-trainings organization">
-          <label for="">Organization Name</label>
+          <label>Organization Name</label>
         </div>
         <div class="input-item">
           <input type="text" name="name" required autocomplete="section-trainings name">
-          <label for="">Contact Name</label>
+          <label>Contact Name</label>
         </div>
 
         <div class="grid">
           <div class="one-half -left">
             <div class="input-item">
               <input type="text" name="phone" required autocomplete="section-trainings tel">
-              <label for="">Contact Phone</label>
+              <label>Contact Phone</label>
             </div>
           </div>
           <div class="one-half -right">
             <div class="input-item">
               <input type="text" name="email" required autocomplete="section-trainings email">
-              <label for="">Contact Email</label>
+              <label>Contact Email</label>
             </div>
           </div>
         </div>
@@ -81,13 +81,13 @@
           <div class="one-half -left">
             <div class="input-item">
               <input type="text" name="city" autocomplete="section-trainings address-level2">
-              <label for="">City</label>
+              <label>City</label>
             </div>
           </div>
           <div class="one-half -right">
             <div class="input-item">
               <input type="text" name="state" autocomplete="section-trainings address-level1">
-              <label for="">State</label>
+              <label>State</label>
             </div>
           </div>
         </div>
@@ -100,7 +100,7 @@
             <option value="Foundation">Foundation</option>
             <option value="Other">Other</option>
           </select>
-          <label for="">Type of Organization</label>
+          <label>Type of Organization</label>
           <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="true"><use xlink:href="#icon-arrow-right"/></svg></span>
         </div>
 
@@ -113,7 +113,7 @@
             <option value="31–50">31—50</option>
             <option value="51+">51+</option>
           </select>
-          <label for="">Size of Group</label>
+          <label>Size of Group</label>
           <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="true"><use xlink:href="#icon-arrow-right"/></svg></span>
         </div>
 
@@ -124,14 +124,13 @@
             <option value="$100,001–$250,000">$100,001–$250,000</option>
             <option value="$250,001–$500,000">$250,001–$500,000</option>
           </select>
-          <label for="">Organization Budget</label>
+          <label>Organization Budget</label>
           <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="true"><use xlink:href="#icon-arrow-right"/></svg></span>
         </div>
       </fieldset>
 
-      <input type="hidden" name="application_type" value="<?= $application_type ?>">
+      <input type="hidden" name="application_type" value="custom trainings">
       <input name="action" type="hidden" value="application_submission">
-
       <?php wp_nonce_field( 'application_form', 'application_form_nonce' ); ?>
 
       <button type="submit" class="button -red -wide">Submit</button>

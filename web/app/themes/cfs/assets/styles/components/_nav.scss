@@ -584,6 +584,10 @@
       .wrap {
         position: relative;
       }
+      // Hide dropshadow
+      &:before {
+        display: none;
+      }
     }
     &.admin-bar .site-header {
       padding-top: 46px;

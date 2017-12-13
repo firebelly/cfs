@@ -138,6 +138,26 @@ function metaboxes() {
     'id'        => $prefix . 'registration_deadline',
     'type'      => 'text_datetime_timestamp'
   ]);
+  $program_when->add_field([
+    'name'      => esc_html__( 'Registration URL', 'cmb2' ),
+    'id'        => $prefix . 'registration_url',
+    'type'      => 'text',
+    'desc'      => 'Link used for Apply button, e.g. http://example.com/',
+  ]);
+  $program_when->add_field([
+    'name'      => esc_html__( 'Registration Closed', 'cmb2' ),
+    'id'        => $prefix . 'registration_closed',
+    'type'      => 'checkbox',
+    'desc'      => 'Manually close registrations by checking this',
+  ]);
+  $program_when->add_field([
+    'name'             => esc_html__( 'Constant Contact List', 'cmb2' ),
+    'id'               => $prefix . 'cc_list_id',
+    'type'             => 'select',
+    'show_option_none' => true,
+    'options_cb'       => '\Firebelly\ConstantContact\get_cc_lists',
+    'desc'             => 'Users can sign up to this list for info when Registration isn\'t open. If left blank, defaults to Web Signups list.',
+  ]);
 }
 
 /**
@@ -199,4 +219,22 @@ function get_featured_programs($args=[]) {
     ]
   ], $args);
   return get_posts($featured_args);
+}
+
+function get_registration_button($program_post) {
+  $output = '';
+
+  // Check if registration open
+  if ( empty($program_post->meta['_cmb2_registration_closed'][0])
+       && !empty($program_post->meta['_cmb2_registration_url'][0])
+       && (!empty($program_post->meta['_cmb2_registration_opens']) && $now >= $program_post->meta['_cmb2_registration_opens'][0])
+       && (!empty($program_post->meta['_cmb2_registration_deadline']) && $now < $program_post->meta['_cmb2_registration_deadline'][0])
+    ) {
+    $output .= '<a target="_blank" class="button -wide" href="'.$program_post->meta['_cmb2_registration_url'][0].'">Apply</a>';
+  } else {
+    $cc_list_id = !empty($program_post->meta['_cmb2_cc_list_id'][0]) ? $program_post->meta['_cmb2_cc_list_id'][0] : \Firebelly\SiteOptions\get_option('default_cc_list_id');
+    $output .= '<p><a data-cc-list-id="'.$cc_list_id.'" href="#site-footer" class="subscribe-to-newsletter">Subscribe to our newsletter to receive updates about when applications open</a></p>';
+  }
+
+  return $output;
 }

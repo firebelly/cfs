@@ -18,21 +18,6 @@ $cpt->register();
 function metaboxes( array $meta_boxes ) {
   $prefix = '_cmb2_'; // Start with underscore to hide from custom fields list
 
-  $meta_boxes['applicant_attachments'] = array(
-    'id'            => 'applicant_attachments',
-    'title'         => __( 'Attachments', 'cmb2' ),
-    'object_types'  => array( 'applicant', ),
-    'context'       => 'normal',
-    'priority'      => 'high',
-    'show_names'    => true,
-    'fields'        => array(
-      array(
-        'id'   => $prefix . 'attachments',
-        'type' => 'file_list',
-      ),
-    ),
-  );
-
   $meta_boxes['applicant_details'] = array(
     'id'            => 'applicant_details',
     'title'         => __( 'Details', 'cmb2' ),
@@ -110,7 +95,7 @@ add_filter( 'cmb2_meta_boxes', __NAMESPACE__ . '\metaboxes' );
 function new_applicant() {
   $errors = [];
   $attachments = $attachments_size = [];
-  $notification_email = false;
+  $notifications_email = false;
 
   $applicant_post = array(
     'post_title'    => 'Application from ' . $_POST['application_name'],
@@ -123,36 +108,27 @@ function new_applicant() {
 
     update_post_meta($post_id, '_cmb2_application_type', $_POST['application_type']);
     update_post_meta($post_id, '_cmb2_organization', $_POST['organization']);
+    update_post_meta($post_id, '_cmb2_name', $_POST['name']);
     update_post_meta($post_id, '_cmb2_email', $_POST['email']);
     update_post_meta($post_id, '_cmb2_phone', $_POST['phone']);
     update_post_meta($post_id, '_cmb2_city', $_POST['city']);
     update_post_meta($post_id, '_cmb2_state', $_POST['state']);
 
-    $notification_email = \Firebelly\SiteOptions\get_option('notification_email');
+    $notifications_email = \Firebelly\SiteOptions\get_option('notifications_email');
 
-    // Send email if notification_email was set for position or in site_options for internships/portfolio
-    if ($notification_email) {
+    // Send email if notifications_email was set for position or in site_options for internships/portfolio
+    if ($notifications_email) {
       $headers = ['From: ' . get_bloginfo('name') . '<www-data@' . preg_replace('-http(s)?://-','',getenv('WP_HOME')) . '>'];
-      $message .= $_POST['application_first_name'] . ' ' . $_POST['application_last_name'] . "\n";
-      $message .= 'Email: ' . $_POST['application_email'] . "\n";
-      $message .= 'Phone: ' . $_POST['application_phone'] . "\n\n";
+      $message .= $_POST['name'] . "\n";
+      $message .= 'Email: ' . $_POST['email'] . "\n";
+      $message .= 'Phone: ' . $_POST['phone'] . "\n\n";
       $message .= "Edit in WordPress:\n" . admin_url('post.php?post='.$post_id.'&action=edit') . "\n";
-      if (!empty($attachments)) {
-        $message .= "\nFiles uploaded:\n";
-        foreach ($attachments as $attachment_id => $attachment_url) {
-          // Add home_url (if not there) to make these links
-          if (strpos($attachment_url, get_home_url())===false) {
-            $attachment_url = get_home_url().$attachment_url;
-          }
-          $message .= $attachment_url . "\n";
-        }
-      }
-      wp_mail($notification_email, $subject, $message, $headers);
+      wp_mail($notifications_email, $subject, $message, $headers);
     }
 
     // Send quick receipt email to applicant
-    $applicant_message = "Thank you for your interest. We have received your submission and will be getting in touch.\n\n";
-    wp_mail($_POST['application_email'], 'Thank you for your interest in ' . get_bloginfo('name'), $applicant_message, ['From: ' . get_bloginfo('name') . ' <www-data@' . preg_replace('-http(s)?://-','',getenv('WP_HOME')) . '>']);
+    $applicant_message = "Thank you for your interest. We have received your application and will be getting in touch.\n\n";
+    wp_mail($_POST['email'], 'Thank you for your interest in ' . get_bloginfo('name'), $applicant_message, ['From: ' . get_bloginfo('name') . ' <www-data@' . preg_replace('-http(s)?://-','',getenv('WP_HOME')) . '>']);
 
   } else {
     $errors[] = 'Error inserting post';
@@ -185,7 +161,7 @@ function application_submission() {
       }
 
       // Check for valid Email
-      if (!is_email($_POST['application_email'])) {
+      if (!is_email($_POST['email'])) {
         wp_send_json_error(['message' => 'Invalid email']);
       } else {
 
@@ -205,5 +181,5 @@ function application_submission() {
   }
   wp_send_json_error(['message' => 'Invalid post']);
 }
-add_action('FB_AJAX_application_submission', __NAMESPACE__ . '\\application_submission');
-add_action('FB_AJAX_nopriv_application_submission', __NAMESPACE__ . '\\application_submission');
+add_action('wp_ajax_application_submission', __NAMESPACE__ . '\\application_submission');
+add_action('wp_ajax_nopriv_application_submission', __NAMESPACE__ . '\\application_submission');

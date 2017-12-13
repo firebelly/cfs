@@ -66,7 +66,6 @@ var CFS = (function($) {
       });
     });
   }
-
   function _openAccordion(el) {
     var $el = $(el);
     // _scrollBody($el, 250);
@@ -82,7 +81,6 @@ var CFS = (function($) {
         'aria-hidden': 'false'
       });
   }
-
   function _closeAccordion(el) {
     var $el = $(el);
     if ($el.next().find('.media-block')) {
@@ -132,6 +130,7 @@ var CFS = (function($) {
         $('.site-header .search-field').focus();
       }
     });
+    // Add svg arrows for mobile nav submenus
     $('#menu-main-nav > li.menu-item-has-children > a').append('<svg class="icon icon-arrow-right" aria-hidden="true"><use xlink:href="#icon-arrow-right"/></svg>');
     $('#menu-main-nav > li.menu-item-has-children > a svg').on('click', function(e) {
       e.preventDefault();
@@ -157,6 +156,7 @@ var CFS = (function($) {
     $('.site-nav').removeClass('-active');
   }
 
+  // Init slideshows with custom buttons
   function _initSlickSliders() {
     $('.slider').slick({
       slide: '.slide-item',
@@ -171,7 +171,17 @@ var CFS = (function($) {
     });
   }
 
+  // Init form behavior
   function _initForms() {
+    // Program page subscribe links scroll down to footer, change cc_list_id, and give focus to Name field
+    $('body').on('click', 'a.subscribe-to-newsletter', function(e) {
+      e.preventDefault();
+      var cc_list_id = $(this).attr('data-cc-list-id');
+      $('#site-footer .newsletter-form input[name="cc_list_id"]').val(cc_list_id);
+      _scrollBody($('#site-footer'));
+      $('#site-footer input[name="cc_name"]').focus();
+    });
+
     // Add SVGs to required form elements for error states
     $('form input').each(function() {
       var $this = $(this);
@@ -188,7 +198,8 @@ var CFS = (function($) {
     $('body').on('click', '.input-item label', function(e) {
       $(this).prev('input').focus();
     });
-    // Buttons that switch between showing two forms
+
+    // Buttons that switch between showing two forms (Donate page)
     $('body').on('click', '.switches a', function(e) {
       e.preventDefault();
       var sw = $(this).attr('data-switch');
@@ -225,25 +236,18 @@ var CFS = (function($) {
     // Newsletter form in footer
     $('footer form.newsletter-form').on('submit', function(e) {
       e.preventDefault();
-
-      var EMAIL = $('footer form.newsletter-form input[name=EMAIL]').val();
-      var NAME = $('footer form.newsletter-form input[name=NAME]').val();
       $.ajax({
         url: wp_ajax_url,
-        method: 'get',
+        method: 'post',
         dataType: 'json',
-        data: {
-          action: 'add_cc_contact',
-          EMAIL: EMAIL,
-          NAME: NAME
-        }
+        data: $(this).serialize()
       }).done(function(response) {
         alert(response.data.message);
       });
     });
   }
   function _checkFormInput(e) {
-    // Ignore tab keyup (would trigger error class when tabbing into field)
+    // Ignore tab keyup (would trigger error class when tabbing into field for the first time)
     if (e.which === 9) {
       return;
     }

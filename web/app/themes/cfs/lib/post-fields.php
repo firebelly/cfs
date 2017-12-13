@@ -42,6 +42,7 @@ function metaboxes() {
 
   /**
    * Repeating media/quote/stat blocks used on Programs and Workshops
+   * (Uses tabbed groups from https://gist.github.com/natebeaty/39672b0d96eedf621dadf24c8ddc9a32)
    */
 
   $cmb_group = new_cmb2_box([

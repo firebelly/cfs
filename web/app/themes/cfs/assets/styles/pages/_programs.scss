@@ -68,6 +68,7 @@ body.theme-yellow {
 .page-titles {
   position: relative;
 }
+
 // Shared styles Programs/Workshops
 .registration {
   @extend .h3;
@@ -92,5 +93,13 @@ body.theme-yellow {
     top: 400px;
     left: -#{columns(8,7)};
     width: columns(6,7);
+  }
+  form {
+    fieldset {
+      &::before {
+        display: none;
+      }
+      padding: grid(2) 0 0;
+    }
   }
 }
