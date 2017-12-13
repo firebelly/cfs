@@ -44,6 +44,9 @@
   display: none;
   @include media-md {
     display: block;
+    &.-inline {
+      display: inline-block;
+    }
   }
 }
 .hide-for-medium-up {

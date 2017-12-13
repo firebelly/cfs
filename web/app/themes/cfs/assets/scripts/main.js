@@ -186,7 +186,7 @@ var CFS = (function($) {
     $('form input').each(function() {
       var $this = $(this);
       // Initial state of inputs with value
-      if ($this.val()!=='' && $this.attr('type')!=='select') {
+      if ($this.val()!=='' && $this.attr('type')!=='hidden') {
         $this.addClass('has-input').parent().addClass('has-input');
       }
       if ($this.prop('required') && $this.attr('type')!=='radio' && !$this.hasClass('no-error-styles')) {

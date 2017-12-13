@@ -136,7 +136,7 @@
           <option value="CFS T-shirt XL">CFS T-shirt XL</option>
           <option value="CFS T-shirt 2XL">CFS T-shirt 2XL</option>
         </select>
-        <label>Choose a thank you gift</label>
+        <label>Choose a <span class="show-for-medium-up -inline">thank you</span> gift</span></label>
         <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="true"><use xlink:href="#icon-arrow-right"/></svg></span>
       </div>
 
