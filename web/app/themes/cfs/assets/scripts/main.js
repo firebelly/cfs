@@ -176,6 +176,8 @@ var CFS = (function($) {
     // Program page subscribe links scroll down to footer, change cc_list_id, and give focus to Name field
     $('body').on('click', 'a.subscribe-to-newsletter', function(e) {
       e.preventDefault();
+      var program_title = $('.page-titles h1').text();
+      $('#site-footer .newsletter h3').text('Stay Updated on ' + program_title);
       var cc_list_id = $(this).attr('data-cc-list-id');
       $('#site-footer .newsletter-form input[name="cc_list_id"]').val(cc_list_id);
       _scrollBody($('#site-footer'));

@@ -51,8 +51,11 @@
     .newsletter-form {
       position: relative;
       margin-bottom: grid(3);
-      .input-item svg.icon-circle-x {
-        right: 50px;
+      @include media-md {
+        // Make room for [>] button
+        .input-item svg.icon-circle-x {
+          right: 50px;
+        }
       }
     }
     .input-submit {
