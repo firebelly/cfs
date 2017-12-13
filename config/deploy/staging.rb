@@ -1,8 +1,9 @@
 set :application, 'cfs_staging'
 set :stage, :staging
-set :domain, 'cfs.firebelly.co'
+set :domain, 'cfs2007.webfactional.com'
+# set :domain, 'staging.chicagofreedomschool.org'
 set :php, 'php70'
-set :login, 'firebelly'
+set :login, 'cfs2007'
 
 # Simple Role Syntax
 # ==================

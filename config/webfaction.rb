@@ -192,7 +192,7 @@ namespace :deploy do
     # Create symbolic PHP app pointing to current dir
     if !wf_obj_exists('apps', 'name', "#{fetch(:application)}_web")
       begin
-        puts "Creating symbolic app '#{fetch(:application)}_web' of type 'symlink#{fetch(:php).gsub(/php/,'')}'..."
+        puts "Creating symbolic app '#{fetch(:application)}_web' of type 'symlink#{fetch(:php).gsub(/php/,'')}' with '#{release_path.join('web').to_s}'..."
         ret = @wf_server.call('create_app', @wf_session, "#{fetch(:application)}_web", "symlink#{fetch(:php).gsub(/php/,'').to_s}", false, release_path.join('web').to_s);
         puts ret
       rescue Exception => e

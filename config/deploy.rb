@@ -1,7 +1,7 @@
 set :application, 'cfs'
-set :domain, 'cfs.firebelly.co'
+set :domain, 'chicagofreedomschool.org'
 set :theme, 'cfs'
-set :login, 'firebelly'
+set :login, 'cfs2007'
 set :repo_url, 'git@github.com:firebelly/cfs.git'
 set :php, 'php70'
 
