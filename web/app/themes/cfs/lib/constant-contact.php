@@ -39,10 +39,13 @@ function newsletter_subscribe() {
     if (!empty($data->results)) {
       // Existing contact
       $contact = $data->results[0];
+      $contact_lists = [];
 
       // Check if user is already on the requested list
       $already_subscribed = false;
       foreach($contact->lists as $list) {
+        // Build array of existing lists for contact
+        $contact_lists[] = [ 'id' => $list->id ];
         if ($list->id == $cc_list_id) {
           $already_subscribed = true;
         }
@@ -58,9 +61,7 @@ function newsletter_subscribe() {
               'email_addresses' => [
                 [ 'email_address' => $_REQUEST['cc_email'] ]
               ],
-              'lists' => [
-                [ 'id' => $cc_list_id ]
-              ]
+              'lists' => $contact_lists
             ],
             'headers' => [
               'Authorization' => 'Bearer ' . getenv('CONSTANT_CONTACT_ACCESS_TOKEN')
