@@ -40,6 +40,10 @@ function metaboxes() {
     'name'      => 'Title',
     'id'        => $prefix . 'person_title',
     'type'      => 'text_medium',
+    'column'    => array(
+      'position' => 2,
+        'name'     => 'Title',
+      ),
     // 'desc'      => 'e.g. 20xx Freedom Fellow',
   ]);
 
