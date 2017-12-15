@@ -289,11 +289,22 @@ function get_featured_workshop_series() {
     'meta_key' => '_cmb2_featured',
     'meta_value' => 'on'
   ]);
+  // Found a featured workshop?
   if (!empty($terms)) {
-    // Set featured_image attribute
-    $terms[0]->image = get_term_meta($terms[0]->term_id, '_cmb2_featured_image', true);
-    $terms[0]->image_id = get_term_meta($terms[0]->term_id, '_cmb2_featured_image_id', true);
-    return $terms[0];
+    $featured_series = $terms[0];
+    // Get image for featured series, first trying an image for category
+    $featured_series_image = get_term_meta($featured_series->term_id, '_cmb2_featured_image', true);
+    if (!empty($featured_series_image)) {
+      $featured_series_image_id = get_term_meta($featured_series->term_id, '_cmb2_featured_image_id', true);
+      $featured_series->image = \Firebelly\Media\get_header_bg($featured_series_image, ['size' => 'medium_large', 'thumb_id' => $featured_series_image_id]);
+    } else {
+      $series_posts = get_workshops(['workshop_series' => $featured_series->term_id , 'output' => 'array']);
+      foreach($series_posts as $workshop_post) {
+        if (!empty($featured_series->image)) continue;
+        $featured_series->image = \Firebelly\Media\get_header_bg($workshop_post, ['size' => 'medium_large']);
+      }
+    }
+    return $featured_series;
   }
   return false;
 }
