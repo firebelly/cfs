@@ -91,6 +91,12 @@ function metaboxes() {
     ',
   ]);
   $cmb_group->add_group_field($group_field_id, [
+    'name'        => 'Always Open Accordion',
+    'desc'        => 'If checked, accordion content will be open on page load',
+    'id'          => 'accordion_always_open',
+    'type'        => 'checkbox',
+  ]);
+  $cmb_group->add_group_field($group_field_id, [
     'name'        => 'Accordion Body',
     'id'          => 'accordion_body',
     'type'        => 'wysiwyg',
@@ -104,7 +110,7 @@ function metaboxes() {
     'description' => 'Paste in a Vimeo URL, e.g. https://vimeo.com/101102896',
     'id'          => 'video_url',
     'type'        => 'text',
-    'before_row'   => '<div class="tab-content tab-content-2">',
+    'before_row'   => '<div class="tab-content tab-content-2"><h3>(Choose One)</h3>',
   ]);
 
   $cmb_group->add_group_field($group_field_id, [

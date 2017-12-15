@@ -162,6 +162,12 @@ function metaboxes() {
       'pattern'   => '\d*',
     ],
   ]);
+  $workshop_info->add_field([
+    'name'        => 'Sold Out?',
+    'id'          => $prefix . 'sold_out',
+    'type'        => 'checkbox',
+    'desc'        => 'If checked, will show disabled Sold Out button',
+  ]);
 
   $workshop_when = new_cmb2_box([
     'id'            => 'workshop_when',
@@ -311,11 +317,11 @@ function get_featured_workshop_series() {
 
 function get_registration_button($workshop_post) {
   $output = '';
-  if ($workshop_post->sold_out) {
-    $output = '<a class="button black disabled" href="#">Sold Out</a>';
+  if (!empty($workshop_post->meta['_cmb2_sold_out'])) {
+    $output = '<a class="button -wide disabled">Sold Out</a>';
   } elseif (!empty($workshop_post->meta['_cmb2_eventbrite_url'][0])
                 && $workshop_post->meta['_cmb2_date_end'][0] > time()) {
-    $output = '<a class="button black" href="' . $workshop_post->meta['_cmb2_eventbrite_url'][0] .'">Register</a>';
+    $output = '<a class="button -wide" href="' . $workshop_post->meta['_cmb2_eventbrite_url'][0] .'">Register</a>';
   }
   return $output;
 }

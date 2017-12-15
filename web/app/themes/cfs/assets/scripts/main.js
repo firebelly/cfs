@@ -29,6 +29,9 @@ var CFS = (function($) {
         _hideMobileNav();
       }
     });
+    $('body').on('click', 'a[href="#"]', function(e) {
+      e.preventDefault();
+    });
 
     // Smoothscroll links
     $(document).on('click', 'a.smoothscroll', function(e) {
@@ -51,12 +54,12 @@ var CFS = (function($) {
   }
 
   function _initAccordions() {
-    // Add SVG arrow to accordion shortcode titles
+    // Add SVG arrow to accordion_shortcode titles
     $('<svg class="icon icon-arrow-right" aria-hidden="true"><use xlink:href="#icon-arrow-right"/></svg>').appendTo('.accordion:not(.fb-accordion) .accordion-title');
 
     // Custom fb-accordions
     $('.fb-accordion').each(function() {
-      $(this).find('.accordion-title').on('click', function(e) {
+      $(this).find('.accordion-title:not(.always-open)').on('click', function(e) {
         e.preventDefault();
         if ($(this).hasClass('open')) {
           _closeAccordion(this);
