@@ -44,15 +44,26 @@
   display: block;
 }
 
-.cmb-row.-half {
-  float: left;
-  width: 49%;
-  &:nth-child(2) {
-    float: right;
-    &:after {
-      content: '';
-      display: table;
-      clear: both;
+@media screen and (min-width: 768px) {
+  .cmb-row.-half {
+    .cmb-th,
+    .cmb-td {
+      float: none;
+      width: 100%;
+      input {
+        width: 100%;
+      }
+    }
+    float: left;
+    width: 20%;
+    &:nth-child(2) {
+      float: right;
+      width: 78%;
+      &:after {
+        content: '';
+        display: table;
+        clear: both;
+      }
     }
   }
 }
