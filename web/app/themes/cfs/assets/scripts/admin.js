@@ -23,6 +23,7 @@ var FB_admin = (function($) {
     $('#eventbrite-import-form').on('submit', function(e) {
       e.preventDefault();
       window.scrollTo(0,0);
+      $('#eventbrite-import-submit').prop('disabled', true).val('Please wait...');
 
       // Show spinner + Working text after submitting
       var $log = $('#eventbrite-import-form .log-output')
@@ -43,6 +44,7 @@ var FB_admin = (function($) {
           if (data.stats.exec_time) {
             $('<p><b>Import took ' + data.stats.exec_time + ' seconds.</b></p>').appendTo($log)
           }
+          $('#eventbrite-import-submit').prop('disabled', false).val('Run Importer');
         }
       });
 

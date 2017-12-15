@@ -310,12 +310,9 @@ function get_registration_button($workshop_post) {
 }
 
 function check_img_exists($url) {
-  $sql = $wpdb->prepare(
-      "SELECT post_id FROM {$wpdb->postmeta }
-      WHERE meta_key = '_wp_attached_file' AND meta_value LIKE %s",
-      '%'.$wpdb->esc_like($url).'%'
-  );
-  $post_id = $wpdb->get_var($sql);
+  global $wpdb;
+  $post_id = $wpdb->get_var("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '_wp_attached_file' AND meta_value LIKE '%{$url}%'");
+  return $post_id;
 }
 
 function get_series($post) {
@@ -387,7 +384,7 @@ function fb_eventbrite_import() {
 
     foreach ( $events['body']['events'] as $event ) {
       $update_notices = [];
-      if ($num_imported>5) continue;
+      // if ($num_imported>5) continue;
       $workshop_id = $event_workshop_series = null;
       $event_exists = $wpdb->get_var($wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s", '_cmb2_eventbrite_id', $event['id'] ));
       if (!$event_exists) {
@@ -428,12 +425,18 @@ function fb_eventbrite_import() {
         if ($new_workshop_id) {
           // Download and attach image
           if (!empty($event['logo']['original']['url'])) {
-            media_sideload_image($event['logo']['original']['url'], $new_workshop_id);
-            // Get ID of new attachment to make it featured image (this is *almost* a feature of WP atm: https://core.trac.wordpress.org/ticket/19629, at some point we can change 'src' to 'id' above)
-            $attachments = get_posts(['numberposts'=>'1', 'post_parent'=>$new_workshop_id, 'post_type'=>'attachment']); // Get attachment posts to find last inserted
-            if (count($attachments) > 0) {
-              // Set image as the post thumbnail
-              set_post_thumbnail($new_workshop_id, $attachments[0]->ID);
+            // Check if image is already in media library
+            $existing_id = check_img_exists(basename($event['logo']['original']['url']));
+            if ($existing_id) {
+              set_post_thumbnail($new_workshop_id, $existing_id);
+            } else {
+              media_sideload_image($event['logo']['original']['url'], $new_workshop_id);
+              // Get ID of new attachment to make it featured image (this is *almost* a feature of WP atm: https://core.trac.wordpress.org/ticket/19629, at some point we can change 'src' to 'id' above)
+              $attachments = get_posts(['numberposts'=>'1', 'post_parent'=>$new_workshop_id, 'post_type'=>'attachment']); // Get attachment posts to find last inserted
+              if (count($attachments) > 0) {
+                // Set image as the post thumbnail
+                set_post_thumbnail($new_workshop_id, $attachments[0]->ID);
+              }
             }
           }
 
