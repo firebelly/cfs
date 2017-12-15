@@ -309,6 +309,15 @@ function get_registration_button($workshop_post) {
   return $output;
 }
 
+function check_img_exists($url) {
+  $sql = $wpdb->prepare(
+      "SELECT post_id FROM {$wpdb->postmeta }
+      WHERE meta_key = '_wp_attached_file' AND meta_value LIKE %s",
+      '%'.$wpdb->esc_like($url).'%'
+  );
+  $post_id = $wpdb->get_var($sql);
+}
+
 function get_series($post) {
   $series = \Firebelly\Utils\get_first_term($post, 'workshop_series');
   return (empty($series)) ? '' : $series;
@@ -346,6 +355,9 @@ function activate_eventbrite_import() {
 // add_action( 'eventbrite_import', __NAMESPACE__ . '\\eventbrite_import' );
 function fb_eventbrite_import() {
   global $wpdb;
+  $log = ['error' => [], 'notice' => [], 'stats' => []];
+  $time_start = microtime(true);
+  $i = $num_skipped = $num_updated = $num_imported = 0;
 
   // Pull in libraries for media_sideload_image()
   require_once(ABSPATH . 'wp-admin/includes/media.php');
@@ -364,15 +376,18 @@ function fb_eventbrite_import() {
   // Connect to Eventbrite API (uses .env token)
   $eventbrite = new Eventbrite(getenv('EVENTBRITE_OAUTH_TOKEN'));
 
+  // Temp disable autocommit
+  $wpdb->query('SET autocommit = 0;');
+
   try {
 
     // Get all user events
     $events = $eventbrite->get('users/me/owned_events/', ['expand' => 'ticket_classes']);
-    $imported = 0;
+    $log['notice'][] = 'Eventbrite API: '.count($events['body']['events']).' total events found';
 
     foreach ( $events['body']['events'] as $event ) {
-      $imported++;
-      if ($imported>15) continue;
+      $update_notices = [];
+      if ($num_imported>5) continue;
       $workshop_id = $event_workshop_series = null;
       $event_exists = $wpdb->get_var($wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s", '_cmb2_eventbrite_id', $event['id'] ));
       if (!$event_exists) {
@@ -405,7 +420,7 @@ function fb_eventbrite_import() {
           'post_author' => 1,
           'post_date' => date('Y-m-d H:i:s', $publishedAt),
           'post_date_gmt' => date('Y-m-d H:i:s', $publishedAt),
-          'post_title' => sanitize_title($event_title),
+          'post_title' => $event_title,
           'post_content' => $event_html,
         ];
         $new_workshop_id = wp_insert_post($new_post);
@@ -438,10 +453,14 @@ function fb_eventbrite_import() {
             }
           }
 
+          $num_imported++;
           $workshop_id = $new_workshop_id;
+          $log['notice'][] = 'New workshop #'.$workshop_id.' created for <b>'.$event_title.'</b>';
         }
       } else {
         $workshop_id = $wpdb->get_var($wpdb->prepare( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s", '_cmb2_eventbrite_id', $event['id'] ));
+        $num_updated++;
+        // $log['notice'][] = 'Existing workshop #'.$workshop_id.' found for "'.$event['name']['text'].'"';
       }
 
       if ($workshop_id) {
@@ -473,6 +492,7 @@ function fb_eventbrite_import() {
               $ticket_price_arr[] = $ticket_class['cost']['major_value'];
           }
           update_post_meta($workshop_id, '_cmb2_tickets_available', $tickets_available);
+          $update_notices[] = 'tickets available: '.$tickets_available;
 
           // Set price text to range of ticket prices (or single price)
           if (!empty($ticket_price_arr)) {
@@ -481,13 +501,75 @@ function fb_eventbrite_import() {
               $price_txt .= ' – $' . max($ticket_price_arr);
             }
             update_post_meta($workshop_id, '_cmb2_cost', $price_txt);
+           $update_notices[] = 'cost: '.$price_txt;
           }
+        }
+        if (!empty($update_notices)) {
+          $log['notice'][] = 'Workshop #'.$workshop_id.' updated with ' . implode(', ', $update_notices) . ' <a target="_blank" href="' . get_edit_post_link($workshop_id) . '">Edit Workshop</a>';
         }
       }
     }
 
   } catch ( Exception $e ) {
-    echo 'Error fetching events: ' . $e->getMessage();
+    $log['error'][] = 'Error fetching events: ' . $e->getMessage();
     wp_mail( 'developer@firebellydesign.com', 'CFS error', 'Error fetching events: ' . $e->getMessage() );
   }
+
+  // Commit query queue
+  $wpdb->query('COMMIT;');
+  $wpdb->query('SET autocommit = 1;');
+
+  // Build response notices
+  if ($num_skipped)
+    $log['notice'][] = sprintf("Skipped %s entries", $num_skipped);
+
+  if ($num_updated)
+    $log['notice'][] = sprintf("Updated %s entries", $num_updated);
+
+  if ($num_imported)
+    $log['notice'][] = sprintf("Imported %s entries", $num_imported);
+
+  $exec_time = microtime(true) - $time_start;
+  $log['stats']['exec_time'] = sprintf("%.2f", $exec_time);
+
+  if (\Firebelly\Ajax\is_ajax()) {
+    return $log;
+  } else {
+    print_r($log);
+  }
+}
+
+/**
+ * Handle AJAX response from Eventbrite Import form
+ */
+add_action('wp_ajax_eventbrite_import', __NAMESPACE__ . '\eventbrite_import');
+function eventbrite_import() {
+  $return = fb_eventbrite_import();
+  wp_send_json($return);
+}
+
+/**
+ * Show link to Eventbrite Import page
+ */
+add_action('admin_menu', __NAMESPACE__ . '\eventbrite_import_admin_menu');
+function eventbrite_import_admin_menu() {
+  add_submenu_page('edit.php?post_type=workshop', 'Eventbrite Import', 'Eventbrite Import', 'manage_options', 'eventbrite-import', __NAMESPACE__ . '\eventbrite_import_admin_form');
+}
+
+/**
+ * Basic Eventbrite Import admin page
+ */
+function eventbrite_import_admin_form() {
+?>
+  <div class="wrap">
+    <h2>Eventbrite Importer</h2>
+    <p>This runs every night as an automated cronjob, but you can also run it manually here.</p>
+    <form method="post" id="eventbrite-import-form" enctype="multipart/form-data" action="<?= admin_url('admin-ajax.php') ?>">
+      <div class="progress-bar"><div class="progress-done"></div></div>
+      <div class="log-output"></div>
+      <input type="hidden" name="action" value="eventbrite_import">
+      <p class="submit"><input type="submit" class="button" id="eventbrite-import-submit" name="submit" value="Run Importer"></p>
+    </form>
+  </div>
+<?php
 }
