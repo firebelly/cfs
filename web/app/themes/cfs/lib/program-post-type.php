@@ -7,12 +7,7 @@ namespace Firebelly\PostTypes\Program;
 use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
 use PostTypes\Taxonomy;
 
-// Custom taxonomy for Programs
-$tax = new Taxonomy('program_type');
-$tax->register();
-
 $cpt = new PostType('program', [
-  'taxonomies' => ['program_type'],
   'supports'   => ['title', 'editor', 'thumbnail'],
   'rewrite'    => ['with_front' => false],
 ]);
@@ -23,7 +18,6 @@ $cpt = new PostType('program', [
 $cpt->columns()->set([
     'cb' => '<input type="checkbox" />',
     'title' => esc_html__( 'Title', 'cmb2' ),
-    'program_type' => esc_html__( 'Type', 'cmb2' ),
     'date_start' => esc_html__( 'Date Start', 'cmb2' ),
     'date_end' => esc_html__( 'Date End', 'cmb2' ),
     'time' => esc_html__( 'Time', 'cmb2' ),
@@ -54,9 +48,6 @@ $cpt->columns()->populate('time', function($column, $post_id) {
 $cpt->columns()->populate('featured', function($column, $post_id) {
   echo (get_post_meta($post_id, '_cmb2_featured', true)) ? '&check;' : '';
 });
-
-// Admin filters
-$cpt->filters(['program_type']);
 
 // Register CPT with Wordpress
 $cpt->register();
@@ -171,15 +162,6 @@ function get_programs($options=[]) {
     'meta_key'    => '_cmb2_date_start',
     'orderby'     => 'meta_value_num',
   ];
-  if (!empty($options['tax_query'])) {
-    $args['tax_query'] = [
-      [
-        'taxonomy' => 'program_type',
-        'field'    => 'id',
-        'terms'    => $options['program_type']
-      ]
-    ];
-  }
   // Make sure we're only pulling upcoming or past programs
   $args['order'] = !empty($options['past_programs']) ? 'DESC' : 'ASC';
   $args['meta_query'] = [
@@ -187,9 +169,6 @@ function get_programs($options=[]) {
       'key'     => '_cmb2_date_end',
       'value'   => current_time('timestamp'),
       'compare' => (!empty($options['past_programs']) ? '<=' : '>')
-    ],
-    [
-      'key' => '_cmb2_program_type',
     ]
   ];
 
