@@ -45,6 +45,9 @@
   >p {
     margin-top: 0px;
   }
+  a {
+    text-decoration: underline;
+  }
   padding-bottom: grid(3);
   &.open {
     padding-bottom: grid(2);
