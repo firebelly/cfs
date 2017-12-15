@@ -1,31 +1,30 @@
 // Donate page
 
-body.donate {
-	.switch-pane {
-		display: none;
-		&.active {
-			display: block;
-		}
-	}
-	form .input-item.select {
-		margin-top: 50px;
-	}
-
-	@include max-screen($breakpoint-md) {
-		// Hide unneeded hr's on mobile around headers
-	  hr {
-	    display: none;
-	  }
-	  .switches div {
-	  	margin-bottom: mobile-grid(2);
-	  }
-	}
-
-	@include media-md {
-		.page-header.half .page-intro .page-content {
-			padding-bottom: grid(1);
-		}
-	}
-
+.switches div {
+  margin-bottom: mobile-grid(2);
 }
-.donate-form {}
+
+body.donate {
+  .switch-pane {
+    display: none;
+    &.active {
+      display: block;
+    }
+  }
+  form .input-item.select {
+    margin-top: 50px;
+  }
+
+  @include max-screen($breakpoint-md) {
+    // Hide unneeded hr's on mobile around headers
+    hr {
+      display: none;
+    }
+  }
+
+  @include media-md {
+    .page-header.half .page-intro .page-content {
+      padding-bottom: grid(1);
+    }
+  }
+}

@@ -1,4 +1,10 @@
-<?php get_template_part('templates/page', 'header'); ?>
+<?php
+/*
+  Template name: Donate
+*/
+
+get_template_part('templates/page', 'header');
+?>
 
 <div class="secondary-content"><div class="color-wrap">
   <div class="wrap">
@@ -23,46 +29,23 @@
       <h2>Give Once</h2>
       <hr>
       <h3>Choose an Amount</h3>
-      <label class="control radio">
-        <input type="radio" name="amount" value="25" required>
-        <span class="control-indicator"></span>
-        <span class="control-text">
-          <span class="amount">$25</span>
-          <span class="description">Pays for <strong>transit cards</strong> for a Freedom Fellow to participate our Summer Leadership Institute.</span>
-        </span>
-      </label>
-      <label class="control radio">
-        <input type="radio" name="amount" value="60">
-        <span class="control-indicator"></span>
-        <span class="control-text">
-          <span class="amount">$60</span>
-          <span class="description">Covers the <strong>stipends</strong> for two youth to facilitate an "Understanding Adultism" training for adults.</span>
-        </span>
-      </label>
-      <label class="control radio">
-        <input type="radio" name="amount" value="100">
-        <span class="control-indicator"></span>
-        <span class="control-text">
-          <span class="amount">$100</span>
-          <span class="description">Provides <strong>healthy meals</strong> for our Project HealUs program.</span>
-        </span>
-      </label>
-      <label class="control radio">
-        <input type="radio" name="amount" value="250">
-        <span class="control-indicator"></span>
-        <span class="control-text">
-          <span class="amount">$250</span>
-          <span class="description">Underwrites the cost of an emerging organizer to attend our Rev Up Training Institute.</span>
-        </span>
-      </label>
-      <label class="control radio">
-        <input type="radio" name="amount" value="500">
-        <span class="control-indicator"></span>
-        <span class="control-text">
-          <span class="amount">$500</span>
-          <span class="description">Sponsors a Freedom Fellow.</span>
-        </span>
-      </label>
+      <?php
+      $options = get_post_meta($post->ID, 'donation_single_options', true );
+      foreach ((array)$options as $key=>$option){
+        $description = !empty($option['description']) ? $option['description'] : '';
+        $amount = !empty($option['amount']) ? str_replace('$','',$option['amount']) : '';
+        if ($amount) {
+            echo '      <label class="control radio">
+            <input type="radio" name="amount" value="'.$amount.'" required>
+            <span class="control-indicator"></span>
+            <span class="control-text">
+              <span class="amount">$'.$amount.'</span>
+              <span class="description">'.$description.'</span>
+            </span>
+          </label>';
+        }
+      }
+      ?>
       <button class="button -red -wide">Complete Donation</button>
     </form>
 
@@ -84,57 +67,36 @@
       <h2>Give Monthly</h2>
       <hr>
       <h3>Choose an Amount</h3>
-      <label class="control radio">
-        <input type="radio" name="a3" value="10" required>
-        <span class="control-indicator"></span>
-        <span class="control-text">
-          <span class="amount">$10</span>
-          <span class="description">Collaborator</span>
-        </span>
-      </label>
-      <label class="control radio">
-        <input type="radio" name="a3" value="20">
-        <span class="control-indicator"></span>
-        <span class="control-text">
-          <span class="amount">$20</span>
-          <span class="description">Organizer</span>
-        </span>
-      </label>
-      <label class="control radio">
-        <input type="radio" name="a3" value="30">
-        <span class="control-indicator"></span>
-        <span class="control-text">
-          <span class="amount">$30</span>
-          <span class="description">Partner</span>
-        </span>
-      </label>
-      <label class="control radio">
-        <input type="radio" name="a3" value="50">
-        <span class="control-indicator"></span>
-        <span class="control-text">
-          <span class="amount">$50</span>
-          <span class="description">Catalyst</span>
-        </span>
-      </label>
-      <label class="control radio">
-        <input type="radio" name="a3" value="100">
-        <span class="control-indicator"></span>
-        <span class="control-text">
-          <span class="amount">$100</span>
-          <span class="description">Visionary</span>
-        </span>
-      </label>
+      <?php
+      $options = get_post_meta($post->ID, 'donation_multiple_options', true );
+      foreach ((array)$options as $key=>$option){
+        $description = !empty($option['description']) ? $option['description'] : '';
+        $amount = !empty($option['amount']) ? str_replace('$','',$option['amount']) : '';
+        if ($amount) {
+            echo '      <label class="control radio">
+            <input type="radio" name="a3" value="'.$amount.'" required>
+            <span class="control-indicator"></span>
+            <span class="control-text">
+              <span class="amount">$'.$amount.'</span>
+              <span class="description">'.$description.'</span>
+            </span>
+          </label>';
+        }
+      }
+      ?>
 
       <div class="input-item select">
         <input type="hidden" name="on1" value="Thank you gift">
         <select name="os1">
-          <option value="No thanks">No gift, thanks</option>
-          <option value="CFS Tote Bag">CFS Tote Bag</option>
-          <option value="CFS T-shirt S">CFS T-shirt S</option>
-          <option value="CFS T-shirt M">CFS T-shirt M</option>
-          <option value="CFS T-shirt L">CFS T-shirt L</option>
-          <option value="CFS T-shirt XL">CFS T-shirt XL</option>
-          <option value="CFS T-shirt 2XL">CFS T-shirt 2XL</option>
+          <?php
+          $options = get_post_meta($post->ID, 'donation_gift_options', true );
+          foreach ((array)$options as $key=>$option){
+            $description = !empty($option['description']) ? $option['description'] : '';
+            if ($amount) {
+              echo '<option value="'.$description.'">'.$description.'</option>';
+            }
+          }
+          ?>
         </select>
         <label>Choose a <span class="show-for-medium-up -inline">thank you</span> gift</span></label>
         <span class="arrow"><svg class="icon icon-arrow-right" aria-hidden="true"><use xlink:href="#icon-arrow-right"/></svg></span>

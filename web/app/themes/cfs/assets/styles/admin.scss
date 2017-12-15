@@ -43,3 +43,16 @@
 .cmb2-tabs .tab-content.current {
   display: block;
 }
+
+.cmb-row.-half {
+  float: left;
+  width: 49%;
+  &:nth-child(2) {
+    float: right;
+    &:after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+  }
+}

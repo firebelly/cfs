@@ -4,6 +4,8 @@ if (!$post):
   echo '<div class="alert"><p>Moments of Justice workshop not found.</p></div>';
 else:
   get_template_part('templates/page', 'header');
+
+$sponsorship_packet = \Firebelly\SiteOptions\get_option('sponsorship_packet');
 ?>
 <div class="secondary-content"><div class="color-wrap">
   <div class="wrap">
@@ -12,7 +14,7 @@ else:
         <a href="/support-us/donate/" class="button -red -wide">Donate</a>
       </div>
       <div class="one-half -right">
-        <a href="" class="button -red -wide">Download Sponsorship Packet</a>
+        <a href="<?= $sponsorship_packet ?>" class="button -red -wide">Download Sponsorship Packet</a>
       </div>
     </div>
   </div>
