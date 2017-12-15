@@ -8,6 +8,21 @@ namespace Firebelly\Fields\Posts;
 function metaboxes() {
   $prefix = '_cmb2_';
 
+  // Moments of Justice fields
+  $page_intro = new_cmb2_box([
+    'id'            => $prefix . 'moments_justice_fields',
+    'title'         => esc_html__( 'Moments of Justice options', 'cmb2' ),
+    'object_types'  => ['workshop'],
+    'show_on'       => ['key' => 'id', 'value' => '452'],
+    'context'       => 'side',
+    'priority'      => 'low',
+  ]);
+  $page_intro->add_field([
+    'name'       => esc_html__( 'Sponsorship Packet PDF', 'cmb2' ),
+    'id'         => $prefix .'sponsorship_packet',
+    'type'       => 'file',
+  ]);
+
   // Parent navigation fields
   $image_slideshow = new_cmb2_box([
     'id'            => 'image_slideshow',
@@ -28,7 +43,7 @@ function metaboxes() {
   $post_is_featured = new_cmb2_box([
     'id'            => $prefix . 'post_is_featured',
     'title'         => esc_html__( 'Is this a featured post on the homepage?', 'cmb2' ),
-    'object_types'  => ['post', 'program', 'workshop'],
+    'object_types'  => ['post', 'program'],
     'context'       => 'side',
     'priority'      => 'default',
     'show_names'    => false,

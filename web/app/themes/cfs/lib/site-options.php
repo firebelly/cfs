@@ -115,14 +115,6 @@ class FbSiteOptions {
     // Set our CMB2 fields
 
     $cmb->add_field( array(
-      'name'       => __( 'Sponsorship Packet PDF', 'cmb2' ),
-      'id'         => 'sponsorship_packet',
-      'type'       => 'file',
-      'desc'       => 'Used for link on Moments of Justice page',
-      'before_row' => '<h3>Misc</h3>',
-    ) );
-
-    $cmb->add_field( array(
       'name'       => __( 'PayPal ID', 'cmb2' ),
       'id'         => 'paypal_id',
       'type'       => 'text',
