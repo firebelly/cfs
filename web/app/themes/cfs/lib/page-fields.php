@@ -39,7 +39,7 @@ function metaboxes() {
     'object_types'  => ['page'],
     'context'       => 'side',
     'priority'      => 'low',
-    'closed'        => true,
+    // 'closed'        => true,
     'show_on_cb'    => '\Firebelly\CMB2\cmb_is_child_page',
   ]);
   $parent_page_navigation->add_field([
