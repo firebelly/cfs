@@ -147,7 +147,7 @@ function metaboxes() {
     'type'             => 'select',
     'show_option_none' => true,
     'options_cb'       => '\Firebelly\ConstantContact\get_cc_lists',
-    'desc'             => 'Users can sign up to this list for info when Registration isn\'t open. If left blank, defaults to Web Signups list.',
+    'desc'             => 'If a list is selected, will show "Subscribe to our newsletter to receive updates about when applications open" link when registrations are closed.',
   ]);
 }
 
@@ -211,8 +211,9 @@ function get_registration_button($program_post) {
     ) {
     $output .= '<a target="_blank" class="button -wide" href="'.$program_post->meta['_cmb2_registration_url'][0].'">Apply</a>';
   } else {
-    $cc_list_id = !empty($program_post->meta['_cmb2_cc_list_id'][0]) ? $program_post->meta['_cmb2_cc_list_id'][0] : \Firebelly\SiteOptions\get_option('default_cc_list_id');
-    $output .= '<p><a data-cc-list-id="'.$cc_list_id.'" href="#site-footer" class="subscribe-to-newsletter">Subscribe to our newsletter to receive updates about when applications open</a></p>';
+    if (!empty($program_post->meta['_cmb2_cc_list_id'][0])) {
+      $output .= '<p><a data-cc-list-id="'.$program_post->meta['_cmb2_cc_list_id'][0].'" href="#site-footer" class="subscribe-to-newsletter">Subscribe to our newsletter to receive updates about when applications open</a></p>';
+    }
   }
 
   return $output;
