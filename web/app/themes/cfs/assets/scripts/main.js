@@ -7,7 +7,9 @@ var CFS = (function($) {
   var breakpoint_md = false,
       breakpoint_nav = false,
       breakpoint_array = [768, 950],
-      headerOffset;
+      headerOffset,
+      _footerFlashTimer,
+      _footerFlashCount = 3;
 
   function _init() {
     // Set screen size vars
@@ -27,6 +29,7 @@ var CFS = (function($) {
     $(document).keyup(function(e) {
       if (e.keyCode === 27) {
         _hideMobileNav();
+        _closeFooterFlash();
       }
     });
     $('body').on('click', 'a[href="#"]', function(e) {
@@ -38,6 +41,12 @@ var CFS = (function($) {
       e.preventDefault();
       var href = $(this).attr('href');
       _scrollBody($(href));
+    });
+
+    // [X] close button on footer flash
+    $(document).on('click', '.footer-flash a.close', function(e) {
+      e.preventDefault();
+      _closeFooterFlash();
     });
 
     // Scroll down to hash after page load
@@ -236,7 +245,6 @@ var CFS = (function($) {
       }
     });
     $('form [type=submit]').on('click', function() {
-      console.log('foo');
       // Add has-touched to trigger styles on submit
       $(this).parent('form').find('input[required]:not(.no-error-styles)').each(function() {
         $(this).toggleClass('has-input', has_input).parent().toggleClass('has-input', has_input);
@@ -253,7 +261,7 @@ var CFS = (function($) {
         dataType: 'json',
         data: $(this).serialize()
       }).done(function(response) {
-        alert(response.data.message);
+        _footerFlash(response.data.message);
       });
     });
   }
@@ -314,6 +322,27 @@ var CFS = (function($) {
     } else {
       headerOffset = 0;
     }
+  }
+
+  function _footerFlash(message) {
+    // Set messaging and show footer flash
+    $('.footer-flash h3').text(message);
+    $('.footer-flash').addClass('active');
+    // Show countdown timer to close flash
+    _footerFlashTimer = setInterval(function(){
+      if (_footerFlashCount > 1) {
+        _footerFlashCount--;
+        $('.footer-flash .flash-count').text(_footerFlashCount);
+      } else {
+        _closeFooterFlash();
+      }
+    }, 1000);
+  }
+  function _closeFooterFlash() {
+    $('.footer-flash').removeClass('active');
+    clearInterval(_footerFlashTimer);
+    _footerFlashCount = 3;
+    $('.footer-flash .flash-count').text(_footerFlashCount);
   }
 
   // Public functions
