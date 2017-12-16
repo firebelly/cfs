@@ -46,6 +46,16 @@ get_template_part('templates/page', 'header');
         }
       }
       ?>
+      <label class="control radio other-amount">
+        <input type="radio" name="amount" value="" required>
+        <span class="control-indicator"></span>
+        <span class="control-text">
+          <div class="input-item">
+            <input type="text" value="">
+            <label>Other (Enter Amount)</label>
+          </div>
+        </span>
+      </label>
       <button class="button -red -wide">Complete Donation</button>
     </form>
 

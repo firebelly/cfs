@@ -220,6 +220,12 @@ var CFS = (function($) {
       $('.donate-recurring input[name=os0]').val(level);
     });
 
+    // Other value handling in donation form
+    $('.donate-form .other-amount input[type=text]').on('focus change keyup', function(e) {
+      var val = $(this).val();
+      $(this).parents('.control:first').find('input[type=radio]').prop('checked', true).val(val);
+    });
+
     // Add .has-input for styling when field is changed
     $('form input,select').on('keyup change blur', _checkFormInput);
 
