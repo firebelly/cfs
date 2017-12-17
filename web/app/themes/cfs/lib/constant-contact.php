@@ -93,7 +93,7 @@ function newsletter_subscribe() {
             'Authorization' => 'Bearer ' . getenv('CONSTANT_CONTACT_ACCESS_TOKEN')
           ]
         ]);
-        wp_send_json_success(['message' => 'You were subscribed successfully.']);
+        wp_send_json_success(['message' => 'Thank you for subscribing!']);
 
       } catch (\Exception $e) {
         wp_send_json_error(['message' => 'There was an error adding a new contact to list.']);

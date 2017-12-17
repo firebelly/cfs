@@ -261,6 +261,10 @@ var CFS = (function($) {
         dataType: 'json',
         data: $(this).serialize()
       }).done(function(response) {
+        if (response.data.success) {
+          // If successful, clear out form
+          $('footer form.newsletter-form')[0].reset();
+        }
         _footerFlash(response.data.message);
       });
     });
