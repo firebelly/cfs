@@ -199,12 +199,14 @@ class FbSiteOptions {
       'type' => 'file',
     ) );
 
-    // $cmb->add_field( array(
-    //   'name' => __( 'Notifications Email', 'cmb2' ),
-    //   'id'   => 'notifications_email',
-    //   'type' => 'text',
-    //   'before_row' => '<h3>Notifications</h3>',
-    // ) );
+    $cmb->add_field( array(
+      'name'       => __( 'Eventbrite Notifications Email', 'cmb2' ),
+      'id'         => 'eventbrite_notifications_email',
+      'type'       => 'text',
+      'desc'       => 'Receives summary of new events when importer is run',
+      'before_row' => '<h3>Notifications</h3>',
+      'after_row'  => '<br>',
+    ) );
 
   }
 
