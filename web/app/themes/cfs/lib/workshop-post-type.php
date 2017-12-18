@@ -561,7 +561,7 @@ function fb_eventbrite_import() {
   $log['html_log'] = $html_log;
 
   $eventbrite_notifications_email = \Firebelly\SiteOptions\get_option('eventbrite_notifications_email');
-  if ($num_imported>0 && !empty($eventbrite_notifications_email)) {
+  if (!empty($eventbrite_notifications_email)) {
     add_filter('wp_mail_content_type', __NAMESPACE__ . '\set_html_email');
     wp_mail($eventbrite_notifications_email, 'CFS Eventbrite Import '.date('Y-m-d'), $log['html_log']);
     remove_filter('wp_mail_content_type', __NAMESPACE__ . '\set_html_email');
