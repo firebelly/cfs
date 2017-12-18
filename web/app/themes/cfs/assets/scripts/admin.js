@@ -35,15 +35,7 @@ var FB_admin = (function($) {
         data: $(this).serialize(),
         success: function(data) {
           // Display log messages from import script
-          if (data.notice && data.notice.length > 0) {
-            $log.html('<h3>Notices:</h3><ul><li>' + data.notice.join('</li><li>') + '</li></ul>');
-          }
-          if (data.error && data.error.length > 0) {
-            $('<h3>Errors:</h3><ul><li>' + data.error.join('</li><li>') + '</li></ul>').appendTo($log);
-          }
-          if (data.stats.exec_time) {
-            $('<p><b>Import took ' + data.stats.exec_time + ' seconds.</b></p>').appendTo($log)
-          }
+          $log.html(data.html_log)
           $('#eventbrite-import-submit').prop('disabled', false).val('Run Importer');
         }
       });

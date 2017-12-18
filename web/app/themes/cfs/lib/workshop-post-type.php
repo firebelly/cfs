@@ -326,6 +326,7 @@ function get_registration_button($workshop_post) {
   return $output;
 }
 
+// Unused as this didn't work w/ the crazy Eventbrite URLs
 function check_img_exists($url) {
   global $wpdb;
   $post_id = $wpdb->get_var("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '_wp_attached_file' AND meta_value LIKE '%{$url}%'");
@@ -360,13 +361,13 @@ function custom_query_vars($query) {
 /**
  * Daily cronjob to import new Eventbrite events
  */
-// add_action('wp', __NAMESPACE__ . '\\activate_eventbrite_import');
+add_action('wp', __NAMESPACE__ . '\\activate_eventbrite_import');
 function activate_eventbrite_import() {
   if (!wp_next_scheduled('eventbrite_import')) {
     wp_schedule_event(current_time('timestamp'), 'twicedaily', 'eventbrite_import');
   }
 }
-// add_action( 'eventbrite_import', __NAMESPACE__ . '\\eventbrite_import' );
+add_action( 'eventbrite_import', __NAMESPACE__ . '\\eventbrite_import' );
 function fb_eventbrite_import() {
   global $wpdb;
   $log = ['error' => [], 'notice' => [], 'stats' => []];
@@ -401,8 +402,20 @@ function fb_eventbrite_import() {
 
     foreach ( $events['body']['events'] as $event ) {
       $update_notices = [];
-      // if ($num_imported>5) continue;
+      // Abort if already imported 5 workshops as PHP keeps timing out (hopefully this never happens after complete import)
+      if ($num_imported>5) continue;
       $workshop_id = $event_workshop_series = null;
+      $event_title = $event['name']['text'];
+
+      // Pull workshop series title if colon in title
+      if (strpos($event_title, ':')!==FALSE) {
+        $event_workshop_series = substr($event_title, 0, strpos($event_title, ':'));
+        // If matches a workshop series, strip from the title
+        if (in_array($event_workshop_series, $workshop_series_titles)) {
+          $event_title = trim(substr($event_title, strpos($event_title, ':')+1));
+        }
+      }
+
       $event_exists = $wpdb->get_var($wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s", '_cmb2_eventbrite_id', $event['id'] ));
       if (!$event_exists) {
         // Get timestamp of date event created
@@ -416,16 +429,6 @@ function fb_eventbrite_import() {
         $event_html = preg_replace('~<p>\s+</p>~i','',$event_html);
         $event_html = preg_replace('~<p>&nbsp;</p>~i','',$event_html);
         $event_html = preg_replace('~<br( /)?>~i',"\n",$event_html);
-
-        $event_title = $event['name']['text'];
-        // Pull workshop series title if colon in title
-        if (strpos($event_title, ':')!==FALSE) {
-          $event_workshop_series = substr($event_title, 0, strpos($event_title, ':'));
-          // If matches a workshop series, strip from the title
-          if (in_array($event_workshop_series, $workshop_series_titles)) {
-            $event_title = trim(substr($event_title, strpos($event_title, ':')+1));
-          }
-        }
 
         // Insert workshop post
         $new_post = [
@@ -442,18 +445,12 @@ function fb_eventbrite_import() {
         if ($new_workshop_id) {
           // Download and attach image
           if (!empty($event['logo']['original']['url'])) {
-            // Check if image is already in media library
-            $existing_id = check_img_exists(basename($event['logo']['original']['url']));
-            if ($existing_id) {
-              set_post_thumbnail($new_workshop_id, $existing_id);
-            } else {
-              media_sideload_image($event['logo']['original']['url'], $new_workshop_id);
-              // Get ID of new attachment to make it featured image (this is *almost* a feature of WP atm: https://core.trac.wordpress.org/ticket/19629, at some point we can change 'src' to 'id' above)
-              $attachments = get_posts(['numberposts'=>'1', 'post_parent'=>$new_workshop_id, 'post_type'=>'attachment']); // Get attachment posts to find last inserted
-              if (count($attachments) > 0) {
-                // Set image as the post thumbnail
-                set_post_thumbnail($new_workshop_id, $attachments[0]->ID);
-              }
+            media_sideload_image($event['logo']['original']['url'], $new_workshop_id);
+            // Get ID of new attachment to make it featured image (this is *almost* a feature of WP atm: https://core.trac.wordpress.org/ticket/19629, at some point we can change 'src' to 'id' above)
+            $attachments = get_posts(['numberposts'=>'1', 'post_parent'=>$new_workshop_id, 'post_type'=>'attachment']); // Get attachment posts to find last inserted
+            if (count($attachments) > 0) {
+              // Set image as the post thumbnail
+              set_post_thumbnail($new_workshop_id, $attachments[0]->ID);
             }
           }
 
@@ -475,7 +472,7 @@ function fb_eventbrite_import() {
 
           $num_imported++;
           $workshop_id = $new_workshop_id;
-          $log['notice'][] = 'New workshop #'.$workshop_id.' created for <b>'.$event_title.'</b>';
+          $log['notice'][] = '<h3>New workshop #'.$workshop_id.' created for <a target="_blank" href="' . get_edit_post_link($workshop_id) . '">'.$event_title.'</a></h3>';
         }
       } else {
         $workshop_id = $wpdb->get_var($wpdb->prepare( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s", '_cmb2_eventbrite_id', $event['id'] ));
@@ -525,7 +522,7 @@ function fb_eventbrite_import() {
           }
         }
         if (!empty($update_notices)) {
-          $log['notice'][] = 'Workshop #'.$workshop_id.' updated with ' . implode(', ', $update_notices) . ' <a target="_blank" href="' . get_edit_post_link($workshop_id) . '">Edit Workshop</a>';
+          $log['notice'][] = 'Workshop #'.$workshop_id.' <a target="_blank" href="' . get_edit_post_link($workshop_id) . '">'.$event_title.'</a> updated with ' . implode(', ', $update_notices);
         }
       }
     }
@@ -552,11 +549,30 @@ function fb_eventbrite_import() {
   $exec_time = microtime(true) - $time_start;
   $log['stats']['exec_time'] = sprintf("%.2f", $exec_time);
 
+  $html_log = '';
+  // Build HTML log
+  if (!empty($log['notice'])) {
+    $html_log .= '<h3>Notices:</h3><ul><li>' . join('</li><li>', $log['notice']) . '</li></ul>';
+  }
+  if (!empty($log['error'])) {
+    $html_log .= '<h3>Errors:</h3><ul><li>' . join('</li><li>', $log['error']) . '</li></ul>';
+  }
+  $html_log .= '<p><b>Import took ' . $log['stats']['exec_time'] . ' seconds.</b></p>';
+  $log['html_log'] = $html_log;
+
+  $eventbrite_notifications_email = \Firebelly\SiteOptions\get_option('eventbrite_notifications_email');
+  if ($num_imported>0 && !empty($eventbrite_notifications_email)) {
+    add_filter('wp_mail_content_type', __NAMESPACE__ . '\set_html_email');
+    wp_mail($eventbrite_notifications_email, 'CFS Eventbrite Import '.date('Y-m-d'), $log['html_log']);
+    remove_filter('wp_mail_content_type', __NAMESPACE__ . '\set_html_email');
+  }
+
   if (\Firebelly\Ajax\is_ajax()) {
     return $log;
-  } else {
-    print_r($log);
   }
+}
+function set_html_email() {
+  return 'text/html';
 }
 
 /**
