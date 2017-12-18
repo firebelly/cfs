@@ -106,7 +106,7 @@ function metaboxes() {
     */
   $donate_multiple_fields = new_cmb2_box([
     'id'            => 'donation_multiple_fields',
-    'title'         => __( 'Multiple Donation Options', 'cmb2' ),
+    'title'         => __( 'Monthly Donation Options', 'cmb2' ),
     'object_types'  => ['page'],
     'context'       => 'normal',
     'show_on'       => ['key' => 'page-template', 'value' => 'page-donate.php'],
@@ -118,7 +118,7 @@ function metaboxes() {
     'type'        => 'group',
     'show_on'       => ['key' => 'page-template', 'value' => 'page-donate.php'],
     'options'     => array(
-      'group_title'   => __( 'Option {#}', 'cmb2' ), // since version 1.1.4, {#} gets replaced by row number
+      'group_title'   => __( 'Option {#}', 'cmb2' ),
       'add_button'    => __( 'Add Another Option', 'cmb2' ),
       'remove_button' => __( 'Remove Option', 'cmb2' ),
       'sortable'      => true,
