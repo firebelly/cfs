@@ -51,7 +51,7 @@ get_template_part('templates/page', 'header');
         <span class="control-indicator"></span>
         <span class="control-text">
           <div class="input-item">
-            <input type="text" value="">
+            <input type="text" value="" pattern="[\d\.]*">
             <label>Other (Enter Amount)</label>
           </div>
         </span>

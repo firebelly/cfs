@@ -233,6 +233,9 @@ var CFS = (function($) {
     $('.donate-form .other-amount input[type=text]').on('focus change keyup', function(e) {
       var val = $(this).val();
       $(this).parents('.control:first').find('input[type=radio]').prop('checked', true).val(val);
+    }).on('invalid', function(e) {
+      // Custom HTML5 validation message
+      this.setCustomValidity('Please enter a number.');
     });
 
     // Add .has-input for styling when field is changed
