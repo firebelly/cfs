@@ -202,6 +202,7 @@ function get_featured_programs($args=[]) {
 
 function get_registration_button($program_post) {
   $output = '';
+  $now = time();
 
   // Check if registration open
   if ( empty($program_post->meta['_cmb2_registration_closed'][0])
