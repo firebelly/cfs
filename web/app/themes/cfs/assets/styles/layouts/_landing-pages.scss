@@ -44,7 +44,7 @@
     }
     article {
       position: relative;
-      padding-bottom: grid(2);
+      padding-bottom: grid(3);
       .image {
         margin-bottom: grid(2);
       }
@@ -57,7 +57,7 @@
       }
       border-right: 1px solid $white;
       &:last-of-type {
-        padding-bottom: grid(2);
+        padding-bottom: grid(3);
         border-right: none;
       }
     }

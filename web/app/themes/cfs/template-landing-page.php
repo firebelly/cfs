@@ -10,6 +10,7 @@ $child_pages = get_children([
   'post_parent' => $post->ID,
   'post_type'   => 'page',
   'num_posts'   => 4,
+  'post_status' => 'publish'
 ]);
 if (count($child_pages)==2) {
   $column_class = 'one-half';

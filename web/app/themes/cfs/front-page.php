@@ -28,8 +28,7 @@ $featured_args = [
 $featured_programs = get_posts($featured_args);
 $featured_program = ($featured_programs) ? $featured_programs[0] : null;
 
-$featured_workshops = get_posts(array_merge($featured_args, ['post_type' => 'workshop']));
-$featured_workshop = ($featured_workshops) ? $featured_workshops[0] : null;
+$featured_workshop_series = \Firebelly\PostTypes\Workshop\get_featured_workshop_series();
 
 // Custom featured block fields
 $custom_featured_title = get_post_meta($post->ID, '_cmb2_custom_featured_title', true);
@@ -104,18 +103,18 @@ $custom_featured_link_text = get_post_meta($post->ID, '_cmb2_custom_featured_lin
     </article>
   <?php endif; ?>
 
-  <?php if ($featured_workshop): ?>
+  <?php if ($featured_workshop_series): ?>
   <article class="feature workshop-post">
     <div class="wrap grid">
       <div class="one-half -left">
-        <a href="<?= get_permalink($featured_workshop) ?>" class="image" <?= \Firebelly\Media\get_header_bg($featured_workshop, ['size' => 'medium_large']) ?>></a>
+        <a href="<?= get_term_link($featured_workshop_series) ?>" class="image" <?= $featured_workshop_series->image ?>></a>
       </div>
       <div class="one-half -right">
-        <h1><a href="<?= get_permalink($featured_workshop) ?>"><?= $featured_workshop->post_title ?></a></h1>
+        <h1><a href="<?= get_term_link($featured_workshop_series) ?>"><?= $featured_workshop_series->name ?></a></h1>
         <div class="user-content excerpt">
-          <p><?= Firebelly\Utils\get_excerpt($featured_workshop) ?></p>
+          <p><?= $featured_workshop_series->description ?></p>
         </div>
-        <a href="<?= get_permalink($featured_workshop) ?>" class="button -wide -red">Train With Us</a>
+        <a href="<?= get_term_link($featured_workshop_series) ?>" class="button -wide -red">Train With Us</a>
       </div>
     </div>
   </article>

@@ -14,6 +14,16 @@
   min-width: 60px;
   @extend .font-display;
   z-index: 1;
+  &.disabled {
+    opacity: .25;
+    cursor: default;
+    &:hover {
+      color: inherit !important;
+    }
+    &::before {
+      display: none !important;
+    }
+  }
   svg {
     vertical-align: middle;
     transition: fill .1s steps(2), margin .1s steps(2);

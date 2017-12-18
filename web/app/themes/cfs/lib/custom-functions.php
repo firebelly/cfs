@@ -134,13 +134,13 @@ function get_accordions($post) {
   $accordions_html = '<div class="accordion fb-accordion" role="tablist" aria-multiselectable="true">';
   foreach ($accordions as $accordion) {
     $i = 1;
-
+    $always_open = (!empty($accordion['accordion_always_open']) ? ' always-open open' : '');
     if (!empty($accordion['accordion_title'])) {
       // Accordion title
-      $accordions_html .= '<h3 id="accordion-t'.$i.'" class="accordion-title" role="tab" aria-controls="accordion-c'.$i.'" aria-selected="false" aria-expanded="false" tabindex="0">'.$accordion['accordion_title'].'<svg class="icon icon-arrow-right" aria-hidden="true"><use xlink:href="#icon-arrow-right"></use></svg></h3>';
+      $accordions_html .= '<h3 id="accordion-t'.$i.'" class="accordion-title'.$always_open.'" role="tab" aria-controls="accordion-c'.$i.'" aria-selected="false" aria-expanded="false" tabindex="0">'.$accordion['accordion_title'].'<svg class="icon icon-arrow-right" aria-hidden="true"><use xlink:href="#icon-arrow-right"></use></svg></h3>';
     }
     // Accordion content
-    $accordions_html .= '<div id="accordion-c'.$i.'" class="accordion-content" role="tabpanel" aria-labelledby="accordion-t'.$i.'" aria-hidden="true" style="display:none">';
+    $accordions_html .= '<div id="accordion-c'.$i.'" class="accordion-content'.$always_open.'" role="tabpanel" aria-labelledby="accordion-t'.$i.'"'.($always_open ? '' : ' aria-hidden="true" style=" display:none"').'>';
     // Main body
     if (!empty($accordion['accordion_body'])) {
       $accordions_html .= '<div class="accordion-body user-content">'.apply_filters('the_content', $accordion['accordion_body']).'</div>';
@@ -150,11 +150,11 @@ function get_accordions($post) {
 
     // Video URL
     if (!empty($accordion['video_url'])) {
-      $accordions_html .= '<div class="media-block video">'.$accordion['video_url'].'</div>';
+      $accordions_html .= '<div class="media-block '.($always_open ? 'active' : '').' video">'.wp_oembed_get($accordion['video_url']).'</div>';
     }
     // Image(s) + optional caption
     if (!empty($accordion['images'])) {
-      $accordions_html .= '<div class="media-block images"><figure>';
+      $accordions_html .= '<div class="media-block '.($always_open ? 'active' : '').' images"><figure>';
       foreach ( (array)$accordion['images'] as $attachment_id => $attachment_url ) {
         // Youth Program posts get untreated image
         if (\Firebelly\Init\is_youth_program()) {
@@ -171,13 +171,13 @@ function get_accordions($post) {
       $accordions_html .= '</figure></div>';
     } else if (!empty($accordion['pullquote'])) {
       // Standalone pull-quote
-      $accordions_html .= '<div class="media-block pull-quote"><blockquote><p>'.$accordion['pullquote'].'</p>';
+      $accordions_html .= '<div class="media-block '.($always_open ? 'active' : '').' pull-quote"><blockquote><p>'.$accordion['pullquote'].'</p>';
       $accordions_html .= !empty($accordion['pullquote_author']) ? ' <cite>– '.$accordion['pullquote_author'].'</cite>' : '';
       $accordions_html .= '</blockquote></div>';
     }
     // Stat figure + optional label
     if (!empty($accordion['stat_figure'])) {
-      $accordions_html .= '<div class="media-block stat"><dl><dd>'.$accordion['stat_figure'].'</dd>';
+      $accordions_html .= '<div class="media-block '.($always_open ? 'active' : '').' stat"><dl><dd>'.$accordion['stat_figure'].'</dd>';
       if (!empty($accordion['stat_label'])) {
         $accordions_html .= '<dt>'.$accordion['stat_label'].'</dt>';
       }

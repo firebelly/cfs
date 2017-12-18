@@ -16,4 +16,5 @@ $workshop_button = \Firebelly\PostTypes\Workshop\get_registration_button($worksh
     <p class="workshop-title"><?= $workshop_title ?></p>
   <?php endif; ?>
   <?= \Firebelly\Utils\get_dates($workshop_post); ?>
+  <?= $workshop_button ?>
 </div></article>

@@ -71,17 +71,18 @@ body.theme-yellow {
 
 // Shared styles Programs/Workshops
 .registration {
+  @include theme-color('color', $white, 'accent');
   @extend .h3;
   @include media-md {
     .button:hover {
-      color: $yellow;
+      @include theme-color('color', $red);
     }
   }
   .timespan {
     display: block;
   }
   a:not(.button) {
-    color: $black;
+    @include theme-color('color', $white, 'accent');
     text-decoration: underline;
   }
   ul,

@@ -7,7 +7,9 @@ var CFS = (function($) {
   var breakpoint_md = false,
       breakpoint_nav = false,
       breakpoint_array = [768, 950],
-      headerOffset;
+      headerOffset,
+      _footerFlashTimer,
+      _footerFlashCount = 3;
 
   function _init() {
     // Set screen size vars
@@ -27,7 +29,11 @@ var CFS = (function($) {
     $(document).keyup(function(e) {
       if (e.keyCode === 27) {
         _hideMobileNav();
+        _closeFooterFlash();
       }
+    });
+    $('body').on('click', 'a[href="#"]', function(e) {
+      e.preventDefault();
     });
 
     // Smoothscroll links
@@ -35,6 +41,12 @@ var CFS = (function($) {
       e.preventDefault();
       var href = $(this).attr('href');
       _scrollBody($(href));
+    });
+
+    // [X] close button on footer flash
+    $(document).on('click', '.footer-flash a.close', function(e) {
+      e.preventDefault();
+      _closeFooterFlash();
     });
 
     // Scroll down to hash after page load
@@ -51,12 +63,12 @@ var CFS = (function($) {
   }
 
   function _initAccordions() {
-    // Add SVG arrow to accordion shortcode titles
+    // Add SVG arrow to accordion_shortcode titles
     $('<svg class="icon icon-arrow-right" aria-hidden="true"><use xlink:href="#icon-arrow-right"/></svg>').appendTo('.accordion:not(.fb-accordion) .accordion-title');
 
     // Custom fb-accordions
     $('.fb-accordion').each(function() {
-      $(this).find('.accordion-title').on('click', function(e) {
+      $(this).find('.accordion-title:not(.always-open)').on('click', function(e) {
         e.preventDefault();
         if ($(this).hasClass('open')) {
           _closeAccordion(this);
@@ -217,6 +229,12 @@ var CFS = (function($) {
       $('.donate-recurring input[name=os0]').val(level);
     });
 
+    // Other value handling in donation form
+    $('.donate-form .other-amount input[type=text]').on('focus change keyup', function(e) {
+      var val = $(this).val();
+      $(this).parents('.control:first').find('input[type=radio]').prop('checked', true).val(val);
+    });
+
     // Add .has-input for styling when field is changed
     $('form input,select').on('keyup change blur', _checkFormInput);
 
@@ -227,7 +245,6 @@ var CFS = (function($) {
       }
     });
     $('form [type=submit]').on('click', function() {
-      console.log('foo');
       // Add has-touched to trigger styles on submit
       $(this).parent('form').find('input[required]:not(.no-error-styles)').each(function() {
         $(this).toggleClass('has-input', has_input).parent().toggleClass('has-input', has_input);
@@ -244,7 +261,11 @@ var CFS = (function($) {
         dataType: 'json',
         data: $(this).serialize()
       }).done(function(response) {
-        alert(response.data.message);
+        if (response.data.success) {
+          // If successful, clear out form
+          $('footer form.newsletter-form')[0].reset();
+        }
+        _footerFlash(response.data.message);
       });
     });
   }
@@ -305,6 +326,27 @@ var CFS = (function($) {
     } else {
       headerOffset = 0;
     }
+  }
+
+  function _footerFlash(message) {
+    // Set messaging and show footer flash
+    $('.footer-flash h3').text(message);
+    $('.footer-flash').addClass('active');
+    // Show countdown timer to close flash
+    _footerFlashTimer = setInterval(function(){
+      if (_footerFlashCount > 1) {
+        _footerFlashCount--;
+        $('.footer-flash .flash-count').text(_footerFlashCount);
+      } else {
+        _closeFooterFlash();
+      }
+    }, 1000);
+  }
+  function _closeFooterFlash() {
+    $('.footer-flash').removeClass('active');
+    clearInterval(_footerFlashTimer);
+    _footerFlashCount = 3;
+    $('.footer-flash .flash-count').text(_footerFlashCount);
   }
 
   // Public functions

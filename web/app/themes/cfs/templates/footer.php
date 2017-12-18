@@ -45,4 +45,9 @@
 
       </div><!-- /.subscribe -->
     </div><!-- /.wrap.grid -->
+    <div class="footer-flash">
+      <h3 class="h1">Thank you for<br>Subscribing!</h3>
+      <p>This message will close in <span class="flash-count">3</span>.</p>
+      <a href="#" class="close"><svg class="icon icon-x" aria-hidden="true"><use xlink:href="#icon-x"/></svg></a>
+    </div>
 </footer>

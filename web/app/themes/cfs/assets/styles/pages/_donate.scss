@@ -14,6 +14,17 @@ body.donate {
   form .input-item.select {
     margin-top: 50px;
   }
+  // Other field
+  .control.other-amount {
+    .input-item {
+      margin-bottom: 0;
+    }
+    input[type=text] {
+      z-index: 1;
+      opacity: 1;
+      position: relative;
+    }
+  }
 
   @include max-screen($breakpoint-md) {
     // Hide unneeded hr's on mobile around headers

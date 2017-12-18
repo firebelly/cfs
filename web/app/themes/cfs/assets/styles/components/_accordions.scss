@@ -17,6 +17,7 @@
   cursor: pointer;
   outline: none;
   .icon {
+    display: none;
     width: 24px;
     height: 24px;
     position: absolute;
@@ -24,6 +25,12 @@
     right: 0;
     transform: rotate(90deg);
     transition: transform .2s steps(4);
+  }
+  &:not(.always-open) {
+    cursor: pointer;
+    .icon {
+      display: block;
+    }
   }
   &[aria-expanded=true] {
     .icon {
@@ -44,6 +51,9 @@
 .accordion-content {
   >p {
     margin-top: 0px;
+  }
+  a {
+    text-decoration: underline;
   }
   padding-bottom: grid(3);
   &.open {
@@ -131,6 +141,7 @@
       left: -#{columns(8,7)};
       width: columns(6,7);
     }
+    &.video,
     &.images {
       left: -#{columns(11,7)};
       width: columns(10,7);

@@ -5,16 +5,6 @@
   <?php
   $featured_workshop_series = \Firebelly\PostTypes\Workshop\get_featured_workshop_series();
   if ($featured_workshop_series):
-    // Get featured image from
-    if (!empty($featured_workshop_series->image)) {
-      $featured_image = \Firebelly\Media\get_header_bg($featured_workshop_series->image, ['size' => 'medium_large', 'thumb_id' => $featured_workshop_series->image_id]);
-    } else {
-      $series_posts = \Firebelly\PostTypes\Workshop\get_workshops(['workshop_series' => $featured_workshop_series->term_id , 'output' => 'array']);
-      foreach($series_posts as $workshop_post) {
-        if (!empty($featured_image)) continue;
-        $featured_image = \Firebelly\Media\get_header_bg($workshop_post, ['size' => 'medium_large']);
-      }
-    }
   ?>
 
   <article class="workshop feature"><div class="wrap">
@@ -28,7 +18,7 @@
         <a href="<?= get_term_link($featured_workshop_series) ?>" class="button -wide -black">Show All <?= $featured_workshop_series->name ?></a>
       </div>
       <div class="one-half -right">
-        <div class="image" <?= $featured_image ?>></div>
+        <div class="image" <?= $featured_workshop_series->image ?>></div>
       </div>
     </div>
   </div></article>

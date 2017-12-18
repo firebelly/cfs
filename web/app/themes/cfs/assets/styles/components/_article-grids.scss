@@ -40,7 +40,6 @@
       position: relative;
       margin-bottom: grid(1.5);
       font-size: 12px;
-
       // Job type, Person/Partner title
       &.title {
         padding-top: grid(.75);
@@ -54,6 +53,10 @@
       &::before {
         display: none;
       }
+      a {
+        color: $white;
+        text-decoration: underline;
+      }
     }
   }
 
@@ -65,7 +68,7 @@
   @include media-md {
     &::after {
       // blacks out hanging vertical white borders on bottom
-      border-top: grid(4) solid $black;
+      border-top: grid(3) solid $black;
     }
     &:not(.staff) {
       // Remove border on every fourth item
@@ -78,7 +81,7 @@
     }
     padding-bottom: grid(0);
     &.staff {
-      padding-bottom: grid(4);
+      padding-bottom: grid(0);
 
       // Remove border on every third item
       article:nth-child(3n+0) {
