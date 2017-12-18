@@ -36,9 +36,9 @@ if (file_exists($env_config)) {
  * Set up SMTP settings (uses plugin wp-mail-smtp)
  */
 if (!empty(env('SMTP_PASSWORD'))) {
-	define( 'WPMS_ON', true );
-	define( 'WPMS_SMTP_USER', env('SMTP_USER') );
-	define( 'WPMS_SMTP_PASS', env('SMTP_PASSWORD') );
+	define('WPMS_ON', true);
+	define('WPMS_SMTP_USER', env('SMTP_USER'));
+	define('WPMS_SMTP_PASS', env('SMTP_PASSWORD'));
 }
 
 /**

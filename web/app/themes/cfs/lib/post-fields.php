@@ -63,9 +63,9 @@ function metaboxes() {
   $cmb_group = new_cmb2_box([
     'id'           => $prefix . 'accordions_group',
     'title'        => esc_html__( 'Accordions', 'cmb2' ),
-    'priority'      => 'low',
-    // 'closed'      => true,
+    'priority'     => 'low',
     'object_types' => ['program', 'workshop', 'page', 'post'],
+    'show_on_cb'   => '\Firebelly\CMB2\cmb_is_not_front_page',
   ]);
   $group_field_id = $cmb_group->add_field([
     'id'          => $prefix . 'accordions',

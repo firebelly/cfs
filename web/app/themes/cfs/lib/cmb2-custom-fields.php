@@ -9,8 +9,16 @@ namespace Firebelly\CMB2;
  * show_on_cb filter to only show for child pages
  */
 function cmb_is_child_page($cmb) {
-  $has_parent = $cmb->object_id() && get_post_ancestors( $cmb->object_id() );
+  $has_parent = $cmb->object_id() && get_post_ancestors( $cmb->object_id());
   return $has_parent;
+}
+
+/**
+ * show_on_cb filter to not show on front page
+ */
+function cmb_is_not_front_page( $cmb ) {
+  $is_not_front_page = $cmb->object_id() && $cmb->object_id() != get_option('page_on_front');
+  return $is_not_front_page;
 }
 
 /**
