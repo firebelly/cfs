@@ -15,10 +15,12 @@ class EventbriteImporter {
   private $num_updated = 0;
   private $num_imported = 0;
   private $eventbrite;
+  private $force_update_meta;
 
-  function do_import() {
+  function do_import($force_update_meta=false) {
     $page = 1;
     $time_start = microtime(true);
+    $this->force_update_meta = $force_update_meta;
 
     // Pull in libraries for media_sideload_image()
     require_once(ABSPATH . 'wp-admin/includes/media.php');
@@ -110,11 +112,11 @@ class EventbriteImporter {
     foreach ($events as $event ) {
       $update_notices = [];
 
-      // Abort if already imported 5 workshops as PHP times out importing & RESIZING images (hopefully this never happens after complete import)
+      // Abort if already imported 5 workshops as PHP times out importing & resizing images (hopefully this never happens after complete import)
       // if ($this->num_imported>5) continue;
 
       // If event status is not "started" or "live"
-      if (!in_array($event['status'], ['started','live'])) {
+      if (!$this->force_update_meta && !in_array($event['status'], ['started','live'])) {
         $this->log['notice'][] = 'Event status is "'.$event['status'].'" so skipping: "'.$event['name']['text'].'"';
         $this->num_skipped++;
         continue;
@@ -132,7 +134,7 @@ class EventbriteImporter {
         }
       }
 
-      $event_exists = $wpdb->get_var($wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s", '_cmb2_eventbrite_id', $event['id'] ));
+      $event_exists = $wpdb->get_var($wpdb->prepare( "SELECT COUNT(*) FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s", $this->prefix.'eventbrite_id', $event['id'] ));
       if (!$event_exists) {
         // Get timestamp of date event created
         $publishedAt = strtotime($event['created']);
@@ -156,22 +158,22 @@ class EventbriteImporter {
           'post_title' => $event_title,
           'post_content' => $event_html,
         ];
-        $new_workshop_id = wp_insert_post($new_post);
+        $workshop_id = wp_insert_post($new_post);
 
-        if ($new_workshop_id) {
+        if ($workshop_id) {
           // Download and attach image
           if (!empty($event['logo']['original']['url'])) {
-            media_sideload_image($event['logo']['original']['url'], $new_workshop_id);
+            media_sideload_image($event['logo']['original']['url'], $workshop_id);
             // Get ID of new attachment to make it featured image (this is *almost* a feature of WP atm: https://core.trac.wordpress.org/ticket/19629, at some point we can change 'src' to 'id' above)
-            $attachments = get_posts(['numberposts'=>'1', 'post_parent'=>$new_workshop_id, 'post_type'=>'attachment']); // Get attachment posts to find last inserted
+            $attachments = get_posts(['numberposts'=>'1', 'post_parent'=>$workshop_id, 'post_type'=>'attachment']); // Get attachment posts to find last inserted
             if (count($attachments) > 0) {
               // Set image as the post thumbnail
-              set_post_thumbnail($new_workshop_id, $attachments[0]->ID);
+              set_post_thumbnail($workshop_id, $attachments[0]->ID);
             }
           }
 
           // Set workshop_type as Eventbrite Event
-          wp_set_object_terms($new_workshop_id, $eventbrite_workshop_type->term_id, 'workshop_type');
+          wp_set_object_terms($workshop_id, $eventbrite_workshop_type->term_id, 'workshop_type');
 
           // Set workshop_series category if we were able to extract a series title (colon in the title)
           if (!empty($event_workshop_series)) {
@@ -182,26 +184,52 @@ class EventbriteImporter {
               }
             }
             if (!empty($cat_ids)) {
-              wp_set_object_terms($new_workshop_id, $cat_ids, 'workshop_series');
+              wp_set_object_terms($workshop_id, $cat_ids, 'workshop_series');
             }
           }
 
           $this->num_imported++;
-          $workshop_id = $new_workshop_id;
           $this->log['notice'][] = '<h3>New workshop #'.$workshop_id.' created for <a target="_blank" href="' . get_edit_post_link($workshop_id) . '">'.$event_title.'</a></h3>';
         }
       } else {
-        $workshop_id = $wpdb->get_var($wpdb->prepare( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s", '_cmb2_eventbrite_id', $event['id'] ));
+        $workshop_id = $wpdb->get_var($wpdb->prepare( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s", $this->prefix.'eventbrite_id', $event['id'] ));
         $this->num_updated++;
         // $this->log['notice'][] = 'Existing workshop #'.$workshop_id.' found for "'.$event['name']['text'].'"';
       }
 
       if ($workshop_id) {
         // Set (or update if existing event) various custom fields
-        update_post_meta($workshop_id, '_cmb2_eventbrite_id', $event['id'] );
-        update_post_meta($workshop_id, '_cmb2_eventbrite_url', $event['url']);
-        update_post_meta($workshop_id, '_cmb2_date_start', strtotime($event['start']['local']));
-        update_post_meta($workshop_id, '_cmb2_date_end', strtotime($event['end']['local']));
+        update_post_meta($workshop_id, $this->prefix.'eventbrite_id', $event['id'] );
+        update_post_meta($workshop_id, $this->prefix.'eventbrite_url', $event['url']);
+        update_post_meta($workshop_id, $this->prefix.'date_start', strtotime($event['start']['local']));
+        update_post_meta($workshop_id, $this->prefix.'date_end', strtotime($event['end']['local']));
+
+        // Event has a venue?
+        if (!empty($event['venue_id'])) {
+          try {
+            // Pull venue details from API
+            $venue = $this->eventbrite->get('venues/'.$event['venue_id'].'/');
+
+            // Set venue and address meta fields
+            update_post_meta($workshop_id, $this->prefix.'venue', $venue['body']['name']);
+            $address = [
+              'address-1' => $venue['body']['address']['address_1'],
+              'address-2' => $venue['body']['address']['address_2'],
+              'city' => $venue['body']['address']['city'],
+              'state' => $venue['body']['address']['region'],
+              'zip' => $venue['body']['address']['postal_code'],
+            ];
+            update_post_meta($workshop_id, $this->prefix.'address', $address);
+
+            // Set lat/long, even though unused at this time
+            update_post_meta($workshop_id, $this->prefix.'latitude', $venue['body']['address']['latitude']);
+            update_post_meta($workshop_id, $this->prefix.'longitude', $venue['body']['address']['longitude']);
+
+          } catch ( Exception $e ) {
+            $this->log['error'][] = 'Error fetching event venue: ' . $e->getMessage();
+            wp_mail( 'developer@firebellydesign.com', 'CFS error', 'Error fetching event venue: ' . $e->getMessage() );
+          }
+        }
 
         // Build time string
         $time_txt = date('g:ia', strtotime($event['start']['local']));
@@ -209,7 +237,7 @@ class EventbriteImporter {
         if (date('m-d-y', strtotime($event['start']['local'])) == date('m-d-y', strtotime($event['end']['local']))) {
           $time_txt .= ' – ' . date('g:ia', strtotime($event['end']['local']));
         }
-        update_post_meta($workshop_id, '_cmb2_time', $time_txt);
+        update_post_meta($workshop_id, $this->prefix.'time', $time_txt);
 
         // If not free event, get ticket info
         if (empty($event['is_free'])) {
@@ -230,7 +258,7 @@ class EventbriteImporter {
                   $ticket_price_arr[] = $ticket_class['cost']['major_value'];
               }
             }
-            update_post_meta($workshop_id, '_cmb2_tickets_available', $tickets_available);
+            update_post_meta($workshop_id, $this->prefix.'tickets_available', $tickets_available);
             $update_notices[] = 'tickets available: '.$tickets_available;
 
             // Set price text to range of ticket prices (or single price)
@@ -239,13 +267,13 @@ class EventbriteImporter {
               if (count($ticket_price_arr) > 1 && min($ticket_price_arr) != max($ticket_price_arr)) {
                 $price_txt .= ' – $' . max($ticket_price_arr);
               }
-              update_post_meta($workshop_id, '_cmb2_cost', $price_txt);
+              update_post_meta($workshop_id, $this->prefix.'cost', $price_txt);
               $update_notices[] = 'cost: '.$price_txt;
             }
 
           } catch ( Exception $e ) {
             $this->log['error'][] = 'Error fetching event tickets: ' . $e->getMessage();
-            wp_mail( 'developer@firebellydesign.com', 'CFS error', 'Error fetching paginated events: ' . $e->getMessage() );
+            wp_mail( 'developer@firebellydesign.com', 'CFS error', 'Error fetching event tickets: ' . $e->getMessage() );
           }
 
         }

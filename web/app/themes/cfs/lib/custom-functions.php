@@ -205,6 +205,24 @@ function get_registration_details($post) {
   if (!empty($post->meta['_cmb2_age_minimum']) && !empty($post->meta['_cmb2_age_maximum'])) {
     $output .= '<li class="ages">Ages ' . $post->meta['_cmb2_age_minimum'][0] . ' – ' . $post->meta['_cmb2_age_maximum'][0] . '</li>';
   }
+  if (!empty($post->meta['_cmb2_address'])) {
+    $output .= '<li class="address">';
+    $output .= !empty($post->meta['_cmb2_venue'][0]) ? $post->meta['_cmb2_venue'][0].'<br>' : '';
+    $address = wp_parse_args(unserialize($post->meta['_cmb2_address'][0]), [
+      'address-1' => '',
+      'address-2' => '',
+      'city'      => '',
+      'state'     => '',
+      'zip'       => '',
+    ]);
+    $output .= $address['address-1'];
+    $output .= !empty($address['address-2']) ? '<br>'.$address['address-2'] : '';
+    $output .= !empty($address['city']) ? '<br>'.$address['city'] : '';
+    $output .= !empty($address['state']) ? ', '.$address['state'] : '';
+    $output .= !empty($address['zip']) ? ' '.$address['zip'] : '';
+    $output .= '</li>';
+  }
+
   $output .= '</ul>';
   if ($post->post_type=='program') {
     $output .= \Firebelly\PostTypes\Program\get_registration_button($post);

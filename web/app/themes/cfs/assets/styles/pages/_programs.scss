@@ -85,9 +85,12 @@ body.theme-yellow {
     @include theme-color('color', $white, 'accent');
     text-decoration: underline;
   }
-  ul,
-  .applications-due {
+  .address,
+  .date {
     margin-bottom: grid(1);
+  }
+  .details {
+    margin-bottom: grid(2);
   }
   @include media-md {
     position: absolute;

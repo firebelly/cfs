@@ -132,13 +132,21 @@ function metaboxes() {
     'priority'      => 'high',
   ]);
   $workshop_info->add_field([
-    'name'      => 'Details',
-    'id'        => $prefix . 'workshop_details',
-    'type'      => 'wysiwyg',
-    'options' => [
-      'textarea_rows' => 10,
-    ]
+    'name'      => esc_html__( 'Intro Quote', 'cmb2' ),
+    'id'        => $prefix . 'intro_quote',
+    'type'      => 'textarea_small',
   ]);
+  $workshop_info->add_field([
+    'name'      => 'Venue',
+    'id'        => $prefix . 'venue',
+    'type'      => 'text',
+  ]);
+  $workshop_info->add_field([
+    'name'      => 'Address',
+    'id'        => $prefix . 'address',
+    'type'      => 'address',
+  ]);
+
   $workshop_info->add_field([
     'name'        => 'Cost',
     'id'          => $prefix . 'cost',
@@ -164,7 +172,7 @@ function metaboxes() {
     'name'        => 'Sold Out?',
     'id'          => $prefix . 'sold_out',
     'type'        => 'checkbox',
-    'desc'        => 'If checked, will show disabled Sold Out button',
+    'desc'        => 'If checked, will show grayed-out Sold Out button',
   ]);
 
   $workshop_when = new_cmb2_box([

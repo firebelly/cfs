@@ -85,9 +85,20 @@
         color: $white;
       }
     }
+    &.-text-only {
+      .crumb {
+        position: relative;
+        bottom: auto;
+        margin: 0 0 mobile-grid(2);
+      }
+      .intro-wrap {
+        background: $red;
+        color: $white;
+      }
+    }
     // Wide headers have .crumb inside bg-image
-    &.-wide .crumb {
-      left: mobile-grid(5);
+    &.-wide:not(.-text-only) .crumb {
+      left: mobile-grid(3);
       bottom: 20px;
     }
     .page-titles {
@@ -171,8 +182,11 @@
       .color-wrap-secondary {
         background: $red;
         .intro-wrap {
-          // overflow: hidden; // Avoid collapsing margins
+          padding: mobile-grid(2) mobile-grid(3);
+        }
+        .page-meat {
           background: $white;
+          padding: mobile-grid(3) mobile-grid(3);
         }
       }
       .page-content {
@@ -180,6 +194,9 @@
       }
       .page-titles {
         width: 100%;
+        h1 {
+          margin-bottom: 0;
+        }
       }
 
       @include media-md {
@@ -203,9 +220,19 @@
         }
         .color-wrap-secondary {
           padding-left: columns(8,16);
+          .page-meat,
           .intro-wrap {
-            overflow: hidden; // Avoid collapsing margins
+            background: $white;
+            // overflow: hidden; // Avoid collapsing margins
             padding-left: columns(1,7);
+          }
+          .intro-wrap {
+            position: relative;
+            .registration {
+              top: grid(4);
+              left: -#{columns(7,8)};
+              width: columns(6,8);
+            }
           }
         }
       }
@@ -235,6 +262,10 @@
     }
 
     @include media-md {
+      .gradient-l,
+      .gradient-b {
+        display: none;
+      }
       .page-content {
         min-height: 450px;
       }

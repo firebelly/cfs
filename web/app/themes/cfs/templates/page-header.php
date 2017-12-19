@@ -86,6 +86,7 @@ if ($post->post_type=='workshop' || $post->post_type=='program') {
 
 <header class="page-header -half">
   <div class="bg-image" <?= $header_bg ?>>
+    <div class="gradient-l"></div><div class="gradient-b"></div>
     <?php if ($header_video): ?>
     <div class="background-video-wrapper">
       <video class="background-video" playsinline autoplay muted loop poster="">
