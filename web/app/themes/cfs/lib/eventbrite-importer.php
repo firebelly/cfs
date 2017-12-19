@@ -20,6 +20,8 @@ class EventbriteImporter {
   function do_import($force_update_meta=false) {
     $page = 1;
     $time_start = microtime(true);
+
+    // If set to true, will force updating venue and ticket/cost fields of non-live events
     $this->force_update_meta = $force_update_meta;
 
     // Pull in libraries for media_sideload_image()
