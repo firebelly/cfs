@@ -16,9 +16,12 @@
       margin-top: 0;
     }
   }
-
-  a:not(.button) {
+  a {
     text-decoration: underline;
+  }
+  // for some reason a:not(.button) wasn't working in WP
+  a.button {
+    text-decoration: none;
   }
 
   ol,
