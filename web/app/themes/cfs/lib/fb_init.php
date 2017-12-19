@@ -199,13 +199,13 @@ add_filter('posts_distinct', __NAMESPACE__ . '\search_distinct');
 
 
 /**
- * Add custom links to the admin bar
+ * Add custom links to the admin bar (trying to maintain the Edit Page link-at-top-of-page paradigm as much as possible)
  */
 function custom_admin_bar() {
   global $wp_admin_bar, $post;
 
   // If workshop archive/taxonomy page, add Edit Page link to edit Upcoming Workshops post
-  if (is_post_type_archive('workshop') || is_tax('workshop_series')) {
+  if (!is_admin() && (is_post_type_archive('workshop') || is_tax('workshop_series'))) {
     $workshop_post = get_page_by_title('Upcoming Workshops');
     $wp_admin_bar->add_menu( array(
       'parent' => false,
