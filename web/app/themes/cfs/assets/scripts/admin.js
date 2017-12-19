@@ -27,7 +27,7 @@ var FB_admin = (function($) {
 
       // Show spinner + Working text after submitting
       var $log = $('#eventbrite-import-form .log-output')
-      $log.html('<p><img src="/wp/wp-admin/images/spinner-2x.gif" style="display:inline-block; width:20px; height:auto;"> Working... (be patient, can take a long time)</p>');
+      $log.html('<p><img src="/wp/wp-admin/images/spinner-2x.gif" style="display:inline-block; width:20px; height:auto;"> Working... (be patient, can take a while if there are new events)</p>');
 
       $.ajax({
         type: 'POST',
