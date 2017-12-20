@@ -102,7 +102,7 @@ function term_metaboxes(){
 
   $workshop_series_options->add_field([
     'name'     => __( 'Featured', 'cmb2' ),
-    'desc'     => __( 'If checked, will show as featured series on Upcoming Workshops', 'cmb2' ),
+    'desc'     => __( 'If checked, will show as featured series on Upcoming Workshops and the homepage', 'cmb2' ),
     'id'       => $prefix . 'featured',
     'type'     => 'checkbox',
   ]);
