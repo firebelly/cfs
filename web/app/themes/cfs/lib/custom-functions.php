@@ -199,7 +199,9 @@ function get_registration_details($post) {
   $output .= '<ul class="details"><li>';
   $output .= \Firebelly\Utils\get_dates($post);
   $output .= '</li>';
-  if (!empty($post->meta['_cmb2_registration_deadline']) && $post->meta['_cmb2_registration_deadline'][0] > $now) {
+  if (!empty($post->meta['_cmb2_registration_opens']) && $post->meta['_cmb2_registration_deadline'][0] > $now) {
+    $output .= '<li class="applications-due">Applications Open ' . date('Y-m-d', $post->meta['_cmb2_registration_opens'][0]) . '</li>';
+  } else if (!empty($post->meta['_cmb2_registration_deadline']) && $post->meta['_cmb2_registration_deadline'][0] > $now) {
     $output .= '<li class="applications-due">Applications Due ' . date('Y-m-d', $post->meta['_cmb2_registration_deadline'][0]) . '</li>';
   }
   if (!empty($post->meta['_cmb2_age_minimum']) && !empty($post->meta['_cmb2_age_maximum'])) {
