@@ -147,7 +147,7 @@ function metaboxes() {
     'type'             => 'select',
     'show_option_none' => true,
     'options_cb'       => '\Firebelly\ConstantContact\get_cc_lists',
-    'desc'             => 'If a list is selected, will show "Subscribe to our newsletter to receive updates about when applications open" link when registrations are closed.',
+    'desc'             => 'If a list is selected, will show "Subscribe to our newsletter to receive updates about when applications open" link when applications are closed.',
   ]);
 }
 
