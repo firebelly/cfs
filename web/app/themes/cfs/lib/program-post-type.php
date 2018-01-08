@@ -130,16 +130,16 @@ function metaboxes() {
     'type'      => 'text_datetime_timestamp'
   ]);
   $program_when->add_field([
-    'name'      => esc_html__( 'Registration URL', 'cmb2' ),
+    'name'      => esc_html__( 'Applications URL', 'cmb2' ),
     'id'        => $prefix . 'registration_url',
     'type'      => 'text',
     'desc'      => 'Link used for Apply button, e.g. http://example.com/',
   ]);
   $program_when->add_field([
-    'name'      => esc_html__( 'Registration Closed', 'cmb2' ),
+    'name'      => esc_html__( 'Applications Closed', 'cmb2' ),
     'id'        => $prefix . 'registration_closed',
     'type'      => 'checkbox',
-    'desc'      => 'Manually close registrations by checking this',
+    'desc'      => 'Manually close applications by checking this',
   ]);
   $program_when->add_field([
     'name'             => esc_html__( 'Constant Contact List', 'cmb2' ),
