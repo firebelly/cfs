@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f8ad6a7208148ca627716cc140f90f1",
+    "content-hash": "29cb2cc566c16e91f002ffac146d4a97",
     "packages": [
         {
             "name": "composer/installers",
@@ -878,26 +878,6 @@
             "homepage": "https://wordpress.org/plugins/intuitive-custom-post-order/"
         },
         {
-            "name": "wpackagist-plugin/regenerate-thumbnails",
-            "version": "2.3.1",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/regenerate-thumbnails/",
-                "reference": "tags/2.3.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/regenerate-thumbnails.2.3.1.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/regenerate-thumbnails/"
-        },
-        {
             "name": "wpackagist-plugin/update-from-bottom",
             "version": "1.0.3",
             "source": {
@@ -919,15 +899,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-mail-smtp",
-            "version": "1.1.0",
+            "version": "1.2.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-mail-smtp/",
-                "reference": "tags/1.1.0"
+                "reference": "tags/1.2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-mail-smtp.1.1.0.zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-mail-smtp.1.2.2.zip",
                 "reference": null,
                 "shasum": null
             },

@@ -43,7 +43,6 @@
     "roots/soil": "^3.7",
     "jjgrainger/posttypes": "^2.0",
     "wpackagist-plugin/intuitive-custom-post-order": "^3.1",
-    "wpackagist-plugin/regenerate-thumbnails": "^2.3.1",
     "wpackagist-plugin/accordion-shortcodes": "^2.3",
     "wpackagist-plugin/update-from-bottom": "^1.0",
     "jamiehollern/eventbrite": "^1.0",
