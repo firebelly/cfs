@@ -166,11 +166,6 @@
         position: absolute;
         bottom: grid(4);
         left: columns(3,19);
-        a {
-          &:hover {
-            color: $yellow;
-          }
-        }
       }
     }
 
