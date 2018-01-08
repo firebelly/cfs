@@ -120,12 +120,12 @@ function metaboxes() {
     'type'      => 'text_medium',
   ]);
   $program_when->add_field([
-    'name'      => esc_html__( 'Registration Opens', 'cmb2' ),
+    'name'      => esc_html__( 'Applications Open', 'cmb2' ),
     'id'        => $prefix . 'registration_opens',
     'type'      => 'text_datetime_timestamp'
   ]);
   $program_when->add_field([
-    'name'      => esc_html__( 'Registration Deadline', 'cmb2' ),
+    'name'      => esc_html__( 'Application Deadline', 'cmb2' ),
     'id'        => $prefix . 'registration_deadline',
     'type'      => 'text_datetime_timestamp'
   ]);
@@ -213,7 +213,12 @@ function get_registration_button($program_post) {
     $output .= '<a target="_blank" class="button -wide" href="'.$program_post->meta['_cmb2_registration_url'][0].'">Apply</a>';
   } else {
     if (!empty($program_post->meta['_cmb2_cc_list_id'][0])) {
-      $output .= '<p><a data-cc-list-id="'.$program_post->meta['_cmb2_cc_list_id'][0].'" href="#site-footer" class="subscribe-to-newsletter">Subscribe to our newsletter to receive updates about when applications open</a></p>';
+      // Adjust copy if we know when applications open
+      if (!empty($program_post->meta['_cmb2_registration_opens']) && $now < $program_post->meta['_cmb2_registration_opens'][0]) {
+        $output .= '<p><a data-cc-list-id="'.$program_post->meta['_cmb2_cc_list_id'][0].'" href="#site-footer" class="subscribe-to-newsletter">Subscribe to our newsletter to receive updates about this program</a></p>';
+      } else {
+        $output .= '<p><a data-cc-list-id="'.$program_post->meta['_cmb2_cc_list_id'][0].'" href="#site-footer" class="subscribe-to-newsletter">Subscribe to our newsletter to receive updates about when applications open</a></p>';
+      }
     }
   }
 
