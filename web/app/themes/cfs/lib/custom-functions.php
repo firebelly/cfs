@@ -5,7 +5,7 @@ namespace Firebelly\Utils;
 /**
  * Custom li'l excerpt function
  */
-function get_excerpt( $post, $length=15, $force_content=false ) {
+function get_excerpt($post, $length=15, $force_content=false) {
   $excerpt = trim($post->post_excerpt);
   if (!$excerpt || $force_content) {
     $excerpt = $post->post_content;
@@ -296,4 +296,19 @@ function admin_edit_link($post_or_term) {
     $link = get_edit_post_link($post_or_term->ID);
   }
   return !empty($link) ? '<a class="edit-link" href="'.$link.'">Edit</a>' : '';
+}
+
+/**
+ * Edit post link for cronjobs
+ */
+function cronjob_edit_link($id=0, $context = 'display') {
+  if (!$post = get_post($id))
+    return;
+  $action = '&action=edit';
+
+  $post_type_object = get_post_type_object($post->post_type);
+  if (!$post_type_object)
+    return;
+
+  return apply_filters('get_edit_post_link', admin_url(sprintf($post_type_object->_edit_link . $action, $post->ID)), $post->ID, $context);
 }

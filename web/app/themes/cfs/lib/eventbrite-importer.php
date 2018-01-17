@@ -191,7 +191,7 @@ class EventbriteImporter {
           }
 
           $this->num_imported++;
-          $this->log['notice'][] = '<h3>New workshop #'.$workshop_id.' created for <a target="_blank" href="' . get_edit_post_link($workshop_id) . '">'.$event_title.'</a></h3>';
+          $this->log['notice'][] = '<h3>New workshop #'.$workshop_id.' created for <a target="_blank" href="' . \Firebelly\Utils\cronjob_edit_link($workshop_id) . '">'.$event_title.'</a></h3>';
         }
       } else {
         $workshop_id = $wpdb->get_var($wpdb->prepare( "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = %s", $this->prefix.'eventbrite_id', $event['id'] ));
@@ -280,7 +280,7 @@ class EventbriteImporter {
 
         }
         if (!empty($update_notices)) {
-          $this->log['notice'][] = 'Workshop #'.$workshop_id.' <a target="_blank" href="' . get_edit_post_link($workshop_id) . '">'.$event_title.'</a> updated with ' . implode(', ', $update_notices);
+          $this->log['notice'][] = 'Workshop #'.$workshop_id.' <a target="_blank" href="' . \Firebelly\Utils\cronjob_edit_link($workshop_id) . '">'.$event_title.'</a> updated with ' . implode(', ', $update_notices);
         }
       }
     }
