@@ -127,12 +127,13 @@ class EventbriteImporter {
       $workshop_id = $event_workshop_series = null;
       $event_title = $event['name']['text'];
 
-      // Pull workshop series title if colon in title
-      if (strpos($event_title, ':')!==FALSE) {
-        $event_workshop_series = substr($event_title, 0, strpos($event_title, ':'));
+      // Pull workshop series title if colon in title (or " - ")
+      if (strpos($event_title, ':')!==FALSE || strpos($event_title, ' - ')!==FALSE) {
+        $separator = strpos($event_title, ':')!==FALSE ? ':' : ' - ';
+        $event_workshop_series = substr($event_title, 0, strpos($event_title, $separator));
         // If matches a workshop series, strip from the title
         if (in_array($event_workshop_series, $this->workshop_series_titles)) {
-          $event_title = trim(substr($event_title, strpos($event_title, ':')+1));
+          $event_title = trim(substr($event_title, strpos($event_title, $separator) + strlen($separator)));
         }
       }
 
@@ -175,7 +176,7 @@ class EventbriteImporter {
           }
 
           // Set workshop_type as Eventbrite Event
-          wp_set_object_terms($workshop_id, $eventbrite_workshop_type->term_id, 'workshop_type');
+          wp_set_object_terms($workshop_id, $this->eventbrite_workshop_type->term_id, 'workshop_type');
 
           // Set workshop_series category if we were able to extract a series title (colon in the title)
           if (!empty($event_workshop_series)) {
