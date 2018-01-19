@@ -29,6 +29,10 @@ function metaboxes() {
     'name'      => 'Type',
     'id'        => $prefix . 'job_type',
     'type'      => 'text_medium',
+    'column'    => array(
+      'position' => 2,
+        'name'     => 'Type',
+      ),
     // 'desc'      => 'e.g. 20xx Freedom Fellow',
   ]);
 
