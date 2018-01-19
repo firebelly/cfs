@@ -20,7 +20,7 @@ $cpt->columns()->add([
     'time' => __('Time'),
     'featured' => __('Featured'),
 ]);
-$cpt->columns()->hide(['workshop_type', 'date']);
+$cpt->columns()->hide(['workshop_type', 'date', 'featured']);
 $cpt->columns()->sortable([
     'date_start' => ['_cmb2_date_start', true],
     'date_end' => ['_cmb2_date_end', true]
