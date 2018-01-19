@@ -412,3 +412,17 @@ function eventbrite_import_admin_form() {
   </div>
 <?php
 }
+
+/**
+ * Alter WP query for Workshop archive pages to sort by date_start
+ */
+
+function workshop_query($query){
+  global $wp_the_query;
+  if ($wp_the_query === $query && !is_admin() && is_post_type_archive('workshop')) {
+    $query->set('orderby', 'meta_value_num');
+    $query->set('meta_key', '_cmb2_date_start');
+    $query->set('order', 'ASC');
+  }
+}
+add_action('pre_get_posts', __NAMESPACE__ . '\\workshop_query');
