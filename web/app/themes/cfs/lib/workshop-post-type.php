@@ -14,16 +14,13 @@ $cpt = new PostType(['name' => 'workshop', 'slug' => 'workshop'], [
   'rewrite'    => ['with_front' => false, 'slug' => 'workshops'],
 ]);
 
-$cpt->columns()->set([
-    'cb' => '<input type="checkbox" />',
-    'title' => __('Title'),
-    'workshop_series' => __('Series'),
+$cpt->columns()->add([
     'date_start' => __('Date Start'),
     'date_end' => __('Date End'),
     'time' => __('Time'),
     'featured' => __('Featured'),
-    // 'date' => __('Date')
 ]);
+$cpt->columns()->hide(['workshop_type', 'date', 'featured']);
 $cpt->columns()->sortable([
     'date_start' => ['_cmb2_date_start', true],
     'date_end' => ['_cmb2_date_end', true]
@@ -428,3 +425,17 @@ function eventbrite_import_admin_form() {
   </div>
 <?php
 }
+
+/**
+ * Alter WP query for Workshop archive pages to sort by date_start
+ */
+
+function workshop_query($query){
+  global $wp_the_query;
+  if ($wp_the_query === $query && !is_admin() && is_post_type_archive('workshop')) {
+    $query->set('orderby', 'meta_value_num');
+    $query->set('meta_key', '_cmb2_date_start');
+    $query->set('order', 'ASC');
+  }
+}
+add_action('pre_get_posts', __NAMESPACE__ . '\\workshop_query');
