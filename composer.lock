@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "29cb2cc566c16e91f002ffac146d4a97",
+    "content-hash": "a924134e41e57c6963c1338a2b3e0ff5",
     "packages": [
         {
             "name": "composer/installers",
@@ -876,6 +876,26 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/intuitive-custom-post-order/"
+        },
+        {
+            "name": "wpackagist-plugin/search-exclude",
+            "version": "1.2.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/search-exclude/",
+                "reference": "tags/1.2.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/search-exclude.1.2.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/search-exclude/"
         },
         {
             "name": "wpackagist-plugin/update-from-bottom",
