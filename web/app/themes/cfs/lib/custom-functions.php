@@ -199,10 +199,11 @@ function get_registration_details($post) {
   $output .= '<ul class="details"><li>';
   $output .= \Firebelly\Utils\get_dates($post);
   $output .= '</li>';
-  if (!empty($post->meta['_cmb2_registration_opens']) && $post->meta['_cmb2_registration_deadline'][0] > $now) {
-    $output .= '<li class="applications-due">Applications Open ' . date('m/j/Y', $post->meta['_cmb2_registration_opens'][0]) . '</li>';
-  } else if (!empty($post->meta['_cmb2_registration_deadline']) && $post->meta['_cmb2_registration_deadline'][0] > $now) {
-    $output .= '<li class="applications-due">Applications Due ' . date('m/j/Y', $post->meta['_cmb2_registration_deadline'][0]) . '</li>';
+  if (!empty($post->meta['_cmb2_registration_opens']) && $post->meta['_cmb2_registration_opens'][0] > $now) {
+    $output .= '<li class="applications-due">Applications Open ' . date('m/d/Y', $post->meta['_cmb2_registration_opens'][0]) . '</li>';
+  }
+  if (!empty($post->meta['_cmb2_registration_deadline']) && $post->meta['_cmb2_registration_deadline'][0] > $now) {
+    $output .= '<li class="applications-due">Applications Due ' . date('m/d/Y', $post->meta['_cmb2_registration_deadline'][0]) . '</li>';
   }
   if (!empty($post->meta['_cmb2_age_minimum']) && !empty($post->meta['_cmb2_age_maximum'])) {
     $output .= '<li class="ages">Ages ' . $post->meta['_cmb2_age_minimum'][0] . ' – ' . $post->meta['_cmb2_age_maximum'][0] . '</li>';
@@ -239,11 +240,11 @@ function get_dates($post) {
   if (empty($post->meta)) $post->meta = get_post_meta($post->ID);
   $output = '<div class="date">';
   if (!empty($post->meta['_cmb2_date_start'])) {
-    $output .= '<time datetime="' . date('Y-m-d', $post->meta['_cmb2_date_start'][0]) . '">' . date('m/j/y', $post->meta['_cmb2_date_start'][0]) . '</time>';
+    $output .= '<time datetime="' . date('Y-m-d', $post->meta['_cmb2_date_start'][0]) . '">' . date('m/d/y', $post->meta['_cmb2_date_start'][0]) . '</time>';
   }
   if (!empty($post->meta['_cmb2_date_end']) && (empty($post->meta['_cmb2_date_start']) || date('Y-m-d', $post->meta['_cmb2_date_end'][0]) != date('Y-m-d', $post->meta['_cmb2_date_start'][0]))) {
     if (!empty($post->meta['_cmb2_date_start'])) $output .= ' – ';
-    $output .= '<time datetime="' . date('Y-m-d', $post->meta['_cmb2_date_end'][0]) . '">' . date('m/j/y', $post->meta['_cmb2_date_end'][0]) . '</time>';
+    $output .= '<time datetime="' . date('Y-m-d', $post->meta['_cmb2_date_end'][0]) . '">' . date('m/d/y', $post->meta['_cmb2_date_end'][0]) . '</time>';
   }
   if (!empty($post->meta['_cmb2_time'])) {
     $output .= ' <span class="timespan">' . $post->meta['_cmb2_time'][0] . '</span>';
