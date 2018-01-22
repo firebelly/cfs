@@ -13,7 +13,7 @@ function metaboxes() {
     'id'            => $prefix . 'moments_justice_fields',
     'title'         => esc_html__( 'Moments of Justice options', 'cmb2' ),
     'object_types'  => ['workshop'],
-    'show_on'       => ['key' => 'id', 'value' => '452'],
+    'show_on_cb'    => '\Firebelly\CMB2\cmb_is_moments_of_justice',
     'context'       => 'side',
     'priority'      => 'low',
   ]);

@@ -22,6 +22,20 @@ function cmb_is_not_front_page( $cmb ) {
 }
 
 /**
+ * show_on_cb filter if post title matches "moments of justice"
+ */
+function cmb_is_moments_of_justice( $cmb ) {
+  $return = false;
+  if ($cmb->object_id()) {
+    $post = get_post($cmb->object_id());
+    if (preg_match('/moments of justice/i', $post->post_title)) {
+      $return = true;
+    }
+  }
+  return $return;
+}
+
+/**
  * Get post options for CMB2 select
  */
 function get_post_options( $query_args ) {
