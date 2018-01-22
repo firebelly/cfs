@@ -229,7 +229,9 @@ function custom_admin_bar() {
 }
 add_action('wp_before_admin_bar_render', __NAMESPACE__ . '\custom_admin_bar');
 
-
+/**
+ * Remove unused Posts link in WP admin sidebar (CFS has no blog)
+ */
 add_action('admin_menu', function() {
   remove_menu_page('edit.php');
 });
