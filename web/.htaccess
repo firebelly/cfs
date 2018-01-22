@@ -19,6 +19,23 @@ RewriteRule ^partners/(.*)$ /support-us/partners-supporters/ [R=301,L]
 # Redirect weirdo Moments of Justice workshop to faux-page at /support-us/
 RewriteRule ^workshops/moments-of-justice/$ /support-us/moments-of-justice/ [R=301,L]
 
+# Old site URLs
+RewriteRule ^cfs-board-of-directors/?$ /about-us/people/ [R=301,L]
+RewriteRule ^cfs-youth-leadership-board/?$ /about-us/people/ [R=301,L]
+RewriteRule ^staff/ /about-us/people/?$ [R=301,L]
+RewriteRule ^what-we-do/evaluation/?$ /about-us/approach/ [R=301,L]
+RewriteRule ^youth-led-campaigns/?$ /workshops/ [R=301,L]
+RewriteRule ^young-leaders-for-justice/?$ /workshops/ [R=301,L]
+RewriteRule ^what-we-do/training-and-organizing-3/?$ /workshops/ [R=301,L]
+RewriteRule ^support/foundation-partners/?$ /support-us/partners-supporters/ [R=301,L]
+RewriteRule ^what-we-do/collaboration-and-partnership/?$ /support-us/partners-supporters/ [R=301,L]
+RewriteRule ^contact-us/?$ /#contact [R=301,L,NE]
+RewriteRule ^getinvolved/?$ /support-us/donate/ [R=301,L]
+RewriteRule ^jobs-volunteers-interns/?$ /about-us/join-us/ [R=301,L]
+RewriteRule ^tenth-anniversary/?$ / [R=301,L]
+RewriteRule ^blog/(.*) / [R=301,L]
+RewriteRule ^kaba-library / [R=301,L]
+
 </IfModule>
 # END Custom redirects
 
