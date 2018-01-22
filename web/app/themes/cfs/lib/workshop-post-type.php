@@ -273,6 +273,19 @@ function get_workshop_by_slug($slug){
   return $posts[0];
 }
 
+function get_workshop_like_title($title) {
+  global $wpdb;
+  $sql = $wpdb->prepare('SELECT ID FROM wp_posts
+          WHERE post_type = "workshop"
+          AND post_title LIKE %s ORDER BY ID DESC LIMIT 1',
+          '%'.$wpdb->esc_like($title).'%');
+  $results = $wpdb->get_results($sql);
+  if ($results) {
+    return get_post($results[0]->ID);
+  }
+  return false;
+}
+
 /**
  * Get featured workshops
  * @param  array  $args Extra args for get_posts()

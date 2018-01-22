@@ -200,9 +200,9 @@ function get_registration_details($post) {
   $output .= \Firebelly\Utils\get_dates($post);
   $output .= '</li>';
   if (!empty($post->meta['_cmb2_registration_opens']) && $post->meta['_cmb2_registration_deadline'][0] > $now) {
-    $output .= '<li class="applications-due">Applications Open ' . date('Y-m-d', $post->meta['_cmb2_registration_opens'][0]) . '</li>';
+    $output .= '<li class="applications-due">Applications Open ' . date('m/j/Y', $post->meta['_cmb2_registration_opens'][0]) . '</li>';
   } else if (!empty($post->meta['_cmb2_registration_deadline']) && $post->meta['_cmb2_registration_deadline'][0] > $now) {
-    $output .= '<li class="applications-due">Applications Due ' . date('Y-m-d', $post->meta['_cmb2_registration_deadline'][0]) . '</li>';
+    $output .= '<li class="applications-due">Applications Due ' . date('m/j/Y', $post->meta['_cmb2_registration_deadline'][0]) . '</li>';
   }
   if (!empty($post->meta['_cmb2_age_minimum']) && !empty($post->meta['_cmb2_age_maximum'])) {
     $output .= '<li class="ages">Ages ' . $post->meta['_cmb2_age_minimum'][0] . ' – ' . $post->meta['_cmb2_age_maximum'][0] . '</li>';

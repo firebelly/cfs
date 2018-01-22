@@ -216,9 +216,9 @@ function custom_admin_bar() {
   }
 
   // Moments of Justice is an odd duck, a page showing a workshop post, so show Edit Workshop link instead
-  if (is_singular('page') && $post->post_name=='moments-of-justice') {
+  if (is_singular('page') && preg_match('/Moments of Justice/',$post->post_title)) {
     $wp_admin_bar->remove_menu('edit');
-    $workshop_post = \Firebelly\PostTypes\Workshop\get_workshop_by_slug('moments-of-justice');
+    $workshop_post = \Firebelly\PostTypes\Workshop\get_workshop_like_title('Moments of Justice');
     $wp_admin_bar->add_menu( array(
       'parent' => false,
       'id' => 'edit',

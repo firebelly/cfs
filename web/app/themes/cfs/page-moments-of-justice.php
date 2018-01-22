@@ -3,7 +3,7 @@
   Template name: Moments of Justice
 */
 
-$post = \Firebelly\PostTypes\Workshop\get_workshop_by_slug('moments-of-justice');
+$post = \Firebelly\PostTypes\Workshop\get_workshop_like_title('Moments of Justice');
 if (!$post):
   echo '<div class="alert"><p>Moments of Justice workshop not found.</p></div>';
 else:
