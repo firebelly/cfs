@@ -1,8 +1,4 @@
 <?php
-/*
-  Template name: Rev Up redirect
-*/
-
 // Redirect to most recent Rev Up workshop (or homepage if none is available)
 $revup_post = \Firebelly\PostTypes\Workshop\get_workshop_like_title('Rev Up');
 if ($revup_post) {
