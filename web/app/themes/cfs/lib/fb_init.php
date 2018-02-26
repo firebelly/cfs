@@ -88,7 +88,7 @@ function simplify_tinymce($settings) {
 add_filter('tiny_mce_before_init', __NAMESPACE__ . '\\simplify_tinymce');
 
 /**
- * Clean up content before saving post
+ * Clean up content before saving post (and also cmb2 wysiwyg fields)
  */
 function clean_up_content($content) {
   // Convert <span class="button"><a></span> to <a class="button"> (can't just add class to element w/ tinymce style formats, has to have wrapper)
@@ -97,6 +97,11 @@ function clean_up_content($content) {
 }
 add_filter('content_save_pre', __NAMESPACE__ . '\\clean_up_content', 10, 1);
 
+function cmb2_sanitize_wysiwyg_callback($override_value, $content) {
+  $content = preg_replace('/<span class=\\\"button\\\"><a(.*)<\/a><\/span>/', '<a class=\"button\"$1</a>', $content);
+  return $content;
+}
+add_filter('cmb2_sanitize_wysiwyg', __NAMESPACE__ . '\\cmb2_sanitize_wysiwyg_callback', 10, 2);
 
 /**
  * Remove unused Customize link from admin bar

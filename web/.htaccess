@@ -3,6 +3,11 @@
 RewriteEngine On
 RewriteBase /
 
+RewriteCond %{HTTP_HOST} !^chicagofreedomschool.org$ [NC]
+RewriteCond %{HTTP_HOST} !^staging.chicagofreedomschool.org$ [NC]
+RewriteCond %{HTTP_HOST} !^cfs.localhost$ [NC]
+RewriteRule ^(.*)$ http://chicagofreedomschool.org/$1 [R=301,L]
+
 # Redirect Upcoming Workshops page
 RewriteRule ^workshops-trainings/upcoming-workshops/$ /workshops/ [R=301,L]
 

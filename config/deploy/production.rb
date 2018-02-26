@@ -1,7 +1,8 @@
+set :application, 'cfs_production'
 set :stage, :production
-set :domain, 'cfs.com'
+set :domain, 'chicagofreedomschool.org'
 set :php, 'php70'
-set :login, 'cfs'
+set :login, 'cfs2007'
 
 # Simple Role Syntax
 # ==================
