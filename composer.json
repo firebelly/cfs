@@ -47,14 +47,15 @@
     "wpackagist-plugin/update-from-bottom": "^1.0",
     "jamiehollern/eventbrite": "^1.0",
     "wpackagist-plugin/wp-mail-smtp": "^1.1",
-    "wpackagist-plugin/search-exclude": "^1.2"
+    "wpackagist-plugin/search-exclude": "^1.2",
+    "wpackagist-plugin/akismet": "^4.0.3"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^2.5.1"
   },
   "extra": {
     "installer-paths": {
-      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin", "roots/soil", "wpackagist-plugin/cmb2"],
+      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin", "roots/soil", "wpackagist-plugin/cmb2", "wpackagist-plugin/akismet"],
       "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
       "web/app/themes/{$name}/": ["type:wordpress-theme"]
     },

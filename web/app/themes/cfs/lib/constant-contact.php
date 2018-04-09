@@ -11,8 +11,13 @@ function newsletter_subscribe() {
   }
 
   // Check nonce
-  if(empty($_REQUEST['newsletter_form_nonce']) || !wp_verify_nonce($_REQUEST['newsletter_form_nonce'], 'newsletter_form')) {
+  if (empty($_REQUEST['newsletter_form_nonce']) || !wp_verify_nonce($_REQUEST['newsletter_form_nonce'], 'newsletter_form')) {
     wp_send_json_error(['message' => 'Invalid nonce.']);
+  }
+
+  // Check with akismet for spam
+  if (is_spam_akismet(['user_name' => $_REQUEST['cc_name'], 'user_email' => $_REQUEST['cc_email']])) {
+    wp_send_json_error(['message' => 'Your email was flagged as spam.']);
   }
 
   // Split name into first/last for CC
@@ -128,4 +133,43 @@ function get_cc_lists() {
     $return[] = 'Error sending request';
   }
   return $return;
+}
+
+function is_spam_akismet($args) {
+    global $akismet_api_host, $akismet_api_port;
+    $spam = false;
+
+    // No akismet?
+    if (empty($akismet_api_host) || empty($akismet_api_port)) {
+      return false;
+    }
+
+    $query['user_ip']       = !empty($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';;
+    $query['user_agent']    = !empty($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+    $query['referrer']      = !empty($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
+    $query['blog']          = get_option('home');
+    $query['blog_lang']     = get_locale(); // default 'en_US'
+    $query['blog_charset']  = get_option('blog_charset');
+    $query['comment_type']  = 'contact-form'; //For more info http://bit.ly/2bVOMay
+
+    $query['comment_content'] = !empty($args['post_content']) ? $args['post_content'] : '';
+    // $query['permalink']     = $args['referrer'];
+    $query['comment_author'] = $args['user_name'];
+    $query['comment_author_email'] = $args['user_email'];
+
+    // $query['is_test']  = '1';  // uncomment this when testing spam detection
+    // $query['comment_author']  = 'viagra-test-123';  // uncomment this to test spam detection
+
+    $query_string = http_build_query($query);
+
+    if ( is_callable( array( 'Akismet', 'http_post' ) ) ) { //Akismet v3.0+
+      $response = \Akismet::http_post($query_string, 'comment-check');
+    } else {
+      $response = akismet_http_post($query_string, $akismet_api_host, '/1.1/comment-check', $akismet_api_port);
+    }
+    if ('true' == $response[1]) {
+      $spam = true;
+    }
+
+    return $spam;
 }
