@@ -73,7 +73,7 @@ function newsletter_subscribe() {
             ]
           ]);
         } catch (\Exception $e) {
-          print_r($e);
+          // print_r($e);
           wp_send_json_error(['message' => 'There was an error adding existing contact to list.']);
         }
         wp_send_json_success(['message' => 'Thank you for subscribing!']);
