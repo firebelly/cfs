@@ -59,7 +59,7 @@ function newsletter_subscribe() {
         wp_send_json_error(['message' => 'You are already subscribed.']);
       } else {
         // Add new list_id
-        $contact_lists[] = $cc_list_id;
+        $contact_lists[] = [ 'id' => $cc_list_id ];
 
         // Add existing contact to requested list
         try {
