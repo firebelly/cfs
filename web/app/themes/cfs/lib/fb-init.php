@@ -88,7 +88,7 @@ function simplify_tinymce($settings) {
 add_filter('tiny_mce_before_init', __NAMESPACE__ . '\\simplify_tinymce');
 
 /**
- * Clean up content before saving post (and also cmb2 wysiwyg fields)
+ * Clean up content before saving post
  */
 function clean_up_content($content) {
   // Convert <span class="button"><a></span> to <a class="button"> (can't just add class to element w/ tinymce style formats, has to have wrapper)
@@ -96,7 +96,7 @@ function clean_up_content($content) {
   return $content;
 }
 add_filter('content_save_pre', __NAMESPACE__ . '\\clean_up_content', 10, 1);
-
+// ... and support for cmb2 wysiwyg fields:
 function cmb2_sanitize_wysiwyg_callback($override_value, $content) {
   $content = preg_replace('/<span class=\\\"button\\\"><a(.*)<\/a><\/span>/', '<a class=\"button\"$1</a>', $content);
   return $content;
