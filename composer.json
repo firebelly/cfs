@@ -39,7 +39,7 @@
     "johnpbloch/wordpress": "^4.9",
     "oscarotero/env": "^1.1.0",
     "roots/wp-password-bcrypt": "1.0.0",
-    "wpackagist-plugin/cmb2": "2.2.5.2",
+    "wpackagist-plugin/cmb2": "^2.4",
     "roots/soil": "^3.7",
     "jjgrainger/posttypes": "^2.0",
     "wpackagist-plugin/intuitive-custom-post-order": "^3.1",
