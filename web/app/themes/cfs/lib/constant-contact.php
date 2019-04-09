@@ -34,7 +34,7 @@ function newsletter_subscribe() {
 
   try {
     // Check if user is already a contact
-    $res = $client->request('GET', 'https://api.constantcontact.com/v2/contacts?email=' . $_REQUEST['cc_email'] . '&api_key=' . getenv('CONSTANT_CONTACT_APIKEY'), [
+    $res = $client->request('GET', 'https://api.constantcontact.com/v2/contacts?email=' . urlencode($_REQUEST['cc_email']) . '&api_key=' . getenv('CONSTANT_CONTACT_APIKEY'), [
       'headers' => [
         'Authorization' => 'Bearer ' . getenv('CONSTANT_CONTACT_ACCESS_TOKEN')
       ]

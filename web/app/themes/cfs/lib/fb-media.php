@@ -58,7 +58,7 @@ function get_attachment_id_from_src($image_src) {
 }
 
 /**
- * Get header bg for post, duotone treated with the random IHC_BACKGROUND + Dark Blue
+ * Get header bg for post, duotone treated
  * @param  string|object   $post_or_image (WP post object or background image)
  * @return HTML            background image code
  */
@@ -146,7 +146,7 @@ function get_post_thumbnail($post_id, $size='medium') {
 
 
 /**
- * Allow SVG files to be uplaoded via media uploader
+ * Allow SVG files to be uploaded via media uploader
  */
 function cc_mime_types($mimes) {
   $mimes['svg'] = 'image/svg+xml';

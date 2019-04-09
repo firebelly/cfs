@@ -20,11 +20,11 @@ $sage_includes = [
 
 $firebelly_includes = [
   'lib/disable-comments.php',          // Disables WP comments in admin and frontend
-  'lib/fb_init.php',                   // FB theme setups
-  'lib/fb_metatags.php',               // FB metatags / ogtags
-  'lib/media.php',                     // FB media
-  'lib/ajax.php',                      // AJAX functions
-  'lib/custom-functions.php',          // Rando utility functions and miscellany
+  'lib/fb-init.php',                   // FB theme setups
+  'lib/fb-metatags.php',               // FB metatags / ogtags
+  'lib/fb-media.php',                  // FB media
+  'lib/fb-ajax.php',                   // FB AJAX functions
+  'lib/fb-utils.php',                  // FB utility functions
   'lib/cmb2-custom-fields.php',        // Custom CMB2
   'lib/page-fields.php',               // Extra fields for pages
   'lib/post-fields.php',               // Extra fields for posts + CPTs
