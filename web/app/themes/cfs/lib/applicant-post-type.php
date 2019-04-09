@@ -7,7 +7,6 @@ namespace Firebelly\PostTypes\Applicant;
 
 use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
 use PostTypes\Taxonomy;
-use jamiehollern\eventbrite\Eventbrite; // see https://github.com/jamiehollern/eventbrite
 
 $cpt = new PostType(['name' => 'applicant'], [
   'supports'   => ['title', 'editor', 'thumbnail'],
