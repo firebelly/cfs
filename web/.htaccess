@@ -3,10 +3,19 @@
 RewriteEngine On
 RewriteBase /
 
-RewriteCond %{HTTP_HOST} !^chicagofreedomschool.org$ [NC]
-RewriteCond %{HTTP_HOST} !^staging.chicagofreedomschool.org$ [NC]
-RewriteCond %{HTTP_HOST} !^cfs.localhost$ [NC]
-RewriteRule ^(.*)$ http://chicagofreedomschool.org/$1 [R=301,L]
+# Force single domain
+RewriteCond %{REQUEST_URI} !\.well-known
+RewriteCond %{HTTP_HOST} !^chicagofreedomschool\.org$ [NC]
+RewriteCond %{HTTP_HOST} !^staging.chicagofreedomschool\.org$ [NC]
+RewriteCond %{HTTP_HOST} !^cfs\.localhost$ [NC]
+RewriteRule ^(.*)$ https://chicagofreedomschool.org/$1 [R=301,L]
+
+# Force HTTPS (uncomment once site is live and SSL cert is set up)
+RewriteCond %{REQUEST_URI} !\.well-known
+RewriteCond %{HTTP:X-Forwarded-SSL} !on
+RewriteCond %{HTTP_HOST} !^staging\.chicagofreedomschool\.org$ [NC]
+RewriteCond %{HTTP_HOST} !^cfs\.localhost$ [NC]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 
 # Redirect Upcoming Workshops page
 RewriteRule ^workshops-trainings/upcoming-workshops/$ /workshops/ [R=301,L]
