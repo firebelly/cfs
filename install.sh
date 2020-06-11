@@ -84,7 +84,7 @@ else
   sed -i "" "s/fb-sage.localhost/${theme}.localhost/g" .env
   sed -i "" "s/database_name/${theme}_dev/g" .env
   sed -i "" "s/database_user/root/g" .env
-  sed -i "" "s/database_password//g" .env
+  sed -i "" "s/database_password/root/g" .env
 
   printf "Setting up theme '%s' to enable gulp build system...\n" $theme
   cd "web/app/themes/${theme}"
@@ -106,7 +106,7 @@ else
   fi
 
   # Is wp-cli available? Ask to pull production database
-  if ! [ -x "$(command -v wp)" ]; then
+  if [ -x "$(command -v wp)" ]; then
     read -p "Pull production database to ${theme}_dev database? (y/n) :" -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]
