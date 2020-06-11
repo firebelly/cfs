@@ -1,91 +1,57 @@
-# [Bedrock](https://roots.io/bedrock/)
-[![Packagist](https://img.shields.io/packagist/v/roots/bedrock.svg?style=flat-square)](https://packagist.org/packages/roots/bedrock)
-[![Build Status](https://img.shields.io/travis/roots/bedrock.svg?style=flat-square)](https://travis-ci.org/roots/bedrock)
+# CFS
 
-Bedrock is a modern WordPress stack that helps you get started with the best development tools and project structure.
+A Bedrock/Sage site for https://chicagofreedomschool.org
 
-Much of the philosophy behind Bedrock is inspired by the [Twelve-Factor App](http://12factor.net/) methodology including the [WordPress specific version](https://roots.io/twelve-factor-wordpress/).
+## Basic requirements
 
-## Features
+You'll need a local copy of Mariadb or Mysql running with Apache for local development. A great guide for getting a Mac up and running for development:
 
-* Better folder structure
-* Dependency management with [Composer](http://getcomposer.org)
-* Easy WordPress configuration with environment specific files
-* Environment variables with [Dotenv](https://github.com/vlucas/phpdotenv)
-* Autoloader for mu-plugins (use regular plugins as mu-plugins)
-* Enhanced security (separated web root and secure passwords with [wp-password-bcrypt](https://github.com/roots/wp-password-bcrypt))
+https://getgrav.org/blog/macos-catalina-apache-multiple-php-versions
 
-Use [Trellis](https://github.com/roots/trellis) for additional features:
+Install scripts expect the site to be at `cfs.localhost`. You can either edit your `/etc/hosts` file every time you have a new local site to work on with, e.g.:
 
-* Easy development environments with [Vagrant](http://www.vagrantup.com/)
-* Easy server provisioning with [Ansible](http://www.ansible.com/) (Ubuntu 16.04, PHP 7.1, MariaDB)
-* One-command deploys
+    127.0.0.1 cfs.localhost
 
-See a complete working example in the [roots-example-project.com repo](https://github.com/roots/roots-example-project.com).
+... or set up all `*.localhost` requests to resolve to your local machine. Here's a good guide for this:
 
-## Requirements
+https://medium.com/@kharysharpe/automatic-local-domains-setting-up-dnsmasq-for-macos-high-sierra-using-homebrew-caf767157e43
 
-* PHP >= 5.6
-* Composer - [Install](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx)
+## Set up Apache
 
-## Installation
+Bedrock/Sage sites need to be served from the `web` dir, so a vhost entry would look like this:
 
-1. Create a new project in a new folder for your project:
+    <VirtualHost *:80>
+        DocumentRoot "/Users/natebeaty/Firebelly/cfs/web"
+        ServerName cfs.localhost
+        ErrorLog "/private/var/log/apache2/cfs.localhost-error_log"
+    </VirtualHost>
 
-  `composer create-project roots/bedrock your-project-folder-name`
+If you're using Sublime Text, and followed the guide above, edit the Apache vhost file with:
 
-2. Update environment variables in `.env`  file:
-  * `DB_NAME` - Database name
-  * `DB_USER` - Database user
-  * `DB_PASSWORD` - Database password
-  * `DB_HOST` - Database host
-  * `WP_ENV` - Set to environment (`development`, `staging`, `production`)
-  * `WP_HOME` - Full URL to WordPress home (http://example.com)
-  * `WP_SITEURL` - Full URL to WordPress including subdirectory (http://example.com/wp)
-  * `AUTH_KEY`, `SECURE_AUTH_KEY`, `LOGGED_IN_KEY`, `NONCE_KEY`, `AUTH_SALT`, `SECURE_AUTH_SALT`, `LOGGED_IN_SALT`, `NONCE_SALT`
+`subl /usr/local/etc/httpd/extra/httpd-vhosts.conf`
 
-  If you want to automatically generate the security keys (assuming you have wp-cli installed locally) you can use the very handy [wp-cli-dotenv-command][wp-cli-dotenv]:
+## Install WordPress, Capistrano, and Composer/Node packages for development and deploys
 
-      wp package install aaemnnosttv/wp-cli-dotenv-command
+Install homebrew: https://brew.sh
 
-      wp dotenv salts regenerate
+Install Composer, wp-cli, and rbenv with rbenv-gemset:
 
-  Or, you can cut and paste from the [Roots WordPress Salt Generator][roots-wp-salt].
+`brew install composer wp-cli rbenv ruby-build rbenv-gemset`
 
-3. Add theme(s) in `web/app/themes` as you would for a normal WordPress site.
+Run `sh install.sh` to install all Composer packages, gemsets for Capistrano deploys, and set up the Gulp build system in `app/themes/cfs`.
 
-4. Set your site vhost document root to `/path/to/site/web/` (`/path/to/site/current/web/` if using deploys)
+## Pull a fresh copy of staging or production db
 
-5. Access WP admin at `http://example.com/wp/wp-admin`
+`cap production wpcli:db:pull`
 
-## Deploys
+Which will dump the remote db, scp it locally, install the db into what's specified in `.env`, and update all domain references in the db using `wp-cli` (see `config/deploy/production.rb` for domain config changes).
 
-There are two methods to deploy Bedrock sites out of the box:
+## To develop locally
 
-* [Trellis](https://github.com/roots/trellis)
-* [bedrock-capistrano](https://github.com/roots/bedrock-capistrano)
+`cd app/themes/cfs; npx gulp watch` to monitor changes to scss, js and php files. If you view the site at `http://cfs.localhost:3000` you'll get live updates with BrowserSync.
 
-Any other deployment method can be used as well with one requirement:
+## To deploy
 
-`composer install` must be run as part of the deploy process.
+`cap staging deploy`
 
-## Documentation
-
-Bedrock documentation is available at [https://roots.io/bedrock/docs/](https://roots.io/bedrock/docs/).
-
-## Contributing
-
-Contributions are welcome from everyone. We have [contributing guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
-
-## Community
-
-Keep track of development and community news.
-
-* Participate on the [Roots Discourse](https://discourse.roots.io/)
-* Follow [@rootswp on Twitter](https://twitter.com/rootswp)
-* Read and subscribe to the [Roots Blog](https://roots.io/blog/)
-* Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
-* Listen to the [Roots Radio podcast](https://roots.io/podcast/)
-
-[roots-wp-salt]:https://roots.io/salts.html
-[wp-cli-dotenv]:https://github.com/aaemnnosttv/wp-cli-dotenv-command
+Will create a new release dir on WebFaction in webapps/cfs_staging/, compile & scp assets, and finally update `webapps/cfs_staging/current` to the new release dir.
