@@ -1,9 +1,13 @@
-set :application, 'cfs'
+set :application, 'cfs_staging'
 set :domain, 'chicagofreedomschool.org'
 set :theme, 'cfs'
 set :login, 'cfs2007'
 set :repo_url, 'git@github.com:firebelly/cfs.git'
 set :php, 'php70'
+
+# For wpcli db command search-replace
+set :wpcli_remote_url, "http://#{fetch(:domain)}"
+set :wpcli_local_url, "http://#{fetch(:theme)}.localhost"
 
 # Hardcodes branch to always be master
 # This could be overridden in a stage config file

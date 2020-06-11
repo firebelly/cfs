@@ -3,6 +3,7 @@ set :stage, :production
 set :domain, 'chicagofreedomschool.org'
 set :php, 'php70'
 set :login, 'cfs2007'
+set :wpcli_remote_url, "https://#{fetch(:domain)}"
 
 # Simple Role Syntax
 # ==================
