@@ -5,6 +5,8 @@ set :login, 'cfs2007'
 set :repo_url, 'git@github.com:firebelly/cfs.git'
 set :php, 'php70'
 
+SSHKit.config.command_map[:wp] = "$(if [ $(which wp) ]; then echo 'wp'; else echo '/home/#{fetch(:login)}/bin/wp'; fi)"
+
 # For wpcli db command search-replace
 set :wpcli_remote_url, "http://#{fetch(:domain)}"
 set :wpcli_local_url, "http://#{fetch(:theme)}.localhost"
