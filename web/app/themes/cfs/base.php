@@ -38,7 +38,7 @@ use Roots\Sage\Wrapper;
     ?>
     <?php if (WP_ENV === 'development'): ?>
     <script id="__bs_script__">//<![CDATA[
-        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.18.13'><\/script>".replace("HOST", location.hostname));
+        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.7'><\/script>".replace("HOST", location.hostname));
     //]]></script>
     <?php endif; ?>
   </body>

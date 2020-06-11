@@ -62,7 +62,7 @@ Will rsync all uploads from production to your local install.
 
 ## To develop locally
 
-`cd web/app/themes/cfs; npx gulp watch` to monitor changes to scss, js and php files. If you view the site at `http://cfs.localhost:3000` you'll get live updates with BrowserSync.
+`cd web/app/themes/cfs; npx gulp watch` to monitor changes to scss, js and php files. You'll get live updates with BrowserSync.
 
 ## To deploy
 

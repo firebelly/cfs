@@ -39,6 +39,6 @@
 
   },
   "config": {
-    "devUrl": "http://cfs.dev"
+    "devUrl": "http://cfs.localhost"
   }
 }
