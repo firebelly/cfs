@@ -4,6 +4,10 @@ require 'capistrano/setup'
 # Includes default deployment tasks
 require 'capistrano/deploy'
 
+# Silence deprecation notice
+require 'capistrano/scm/git'
+install_plugin Capistrano::SCM::Git
+
 # Load tasks from gems
 require 'capistrano/composer'
 
