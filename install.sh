@@ -88,20 +88,15 @@ else
 
   printf "Setting up theme '%s' to enable gulp build system...\n" $theme
   cd "web/app/themes/${theme}"
-  npm install
+  printf "Running bower install...\n" $theme
+  bower install
+  printf "Running npm install...\n" $theme
+  npm install --unsafe-perm=true
   printf "Running gulp build for initial asset compilation...\n" $theme
   npx gulp build
   cd -
 
   # Create database?
-  read -p "Create ${theme}_dev database? (y/n) :" -n 1 -r
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]]
-  then
-      echo "Running: mysql -u root -p -e \"create database ${theme}_dev\""
-      mysql -u root -p -e "create database ${theme}_dev"
-  fi
-
   read -p "Create ${theme}_dev database? (y/n) :" -n 1 -r
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]

@@ -26,7 +26,7 @@ Bedrock/Sage sites need to be served from the `web` dir, so a vhost entry would 
         ErrorLog "/private/var/log/apache2/cfs.localhost-error_log"
     </VirtualHost>
 
-If you're using Sublime Text, and followed the guide above, edit the Apache vhost file with:
+If you're using Sublime Text, and followed the guide above to use homebrew's Apache, edit the vhost file with:
 
 `subl /usr/local/etc/httpd/extra/httpd-vhosts.conf`
 
@@ -34,11 +34,15 @@ If you're using Sublime Text, and followed the guide above, edit the Apache vhos
 
 Install homebrew: https://brew.sh
 
-Install Composer, wp-cli, and rbenv with rbenv-gemset:
+Install Composer, wp-cli, bower, and rbenv with rbenv-gemset:
 
-`brew install composer wp-cli rbenv ruby-build rbenv-gemset`
+`brew install composer wp-cli bower rbenv ruby-build rbenv-gemset`
 
-Run `sh install.sh` to install all Composer packages, gemsets for Capistrano deploys, and set up the Gulp build system in `app/themes/cfs`.
+Make sure you have ruby 2.6.0 installed with rbenv (required for Capistrano deploys):
+
+`rbenv install 2.6.0`
+
+Run `sh install.sh` to install all Composer packages, gems for Capistrano deploys, and set up the Gulp build system in `web/app/themes/cfs`.
 
 ## Pull a fresh copy of staging or production db
 
@@ -48,10 +52,10 @@ Which will dump the remote db, scp it locally, install the db into what's specif
 
 ## To develop locally
 
-`cd app/themes/cfs; npx gulp watch` to monitor changes to scss, js and php files. If you view the site at `http://cfs.localhost:3000` you'll get live updates with BrowserSync.
+`cd web/app/themes/cfs; npx gulp watch` to monitor changes to scss, js and php files. If you view the site at `http://cfs.localhost:3000` you'll get live updates with BrowserSync.
 
 ## To deploy
 
 `cap staging deploy`
 
-Will create a new release dir on WebFaction in webapps/cfs_staging/, compile & scp assets, and finally update `webapps/cfs_staging/current` to the new release dir.
+Will create a new release dir on WebFaction in webapps/cfs_staging/, compile & scp assets, and finally update the `webapps/cfs_staging/current` symlink to the new release dir.
