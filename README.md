@@ -50,6 +50,12 @@ Run `sh install.sh` to install all Composer packages, gems for Capistrano deploy
 
 Which will dump the remote db, scp it locally, install the db into what's specified in `.env`, and update all domain references in the db using `wp-cli` (see `config/deploy/production.rb` for domain config changes).
 
+## Sync remote assets to local install
+
+`cap production wpcli:uploads:rsync:pull`
+
+Will rsync all uploads from production to your local install.
+
 ## To develop locally
 
 `cd web/app/themes/cfs; npx gulp watch` to monitor changes to scss, js and php files. If you view the site at `http://cfs.localhost:3000` you'll get live updates with BrowserSync.
