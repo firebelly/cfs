@@ -16,12 +16,16 @@ Install scripts expect the site to be at `cfs.localhost`. You can either edit yo
 
 https://medium.com/@kharysharpe/automatic-local-domains-setting-up-dnsmasq-for-macos-high-sierra-using-homebrew-caf767157e43
 
+## Clone this repo
+
+From wherever your local sites reside, e.g. `~/Sites`, run `git clone git@github.com:firebelly/cfs.git`
+
 ## Set up Apache
 
 Bedrock/Sage sites need to be served from the `web` dir, so a vhost entry would look like this:
 
     <VirtualHost *:80>
-        DocumentRoot "/Users/natebeaty/Firebelly/cfs/web"
+        DocumentRoot "/Users/natebeaty/Sites/cfs/web"
         ServerName cfs.localhost
         ErrorLog "/private/var/log/apache2/cfs.localhost-error_log"
     </VirtualHost>
