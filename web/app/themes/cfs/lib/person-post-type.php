@@ -9,8 +9,12 @@ use PostTypes\Taxonomy;
 
 $persons = new PostType(['name' => 'person', 'plural' => 'People', 'slug' => 'person'], [
   'taxonomies' => ['person_category'],
-  'supports'   => ['title', 'editor', 'thumbnail'],
-  'rewrite'    => ['with_front' => false],
+  'capability_type' => 'post',
+  'supports'   => ['title', 'editor', 'thumbnail', 'post-formats', 'excerpt'],
+  'has_archive' => true,
+  'public' => true,
+  'rewrite'    => ['with_front' => true, 'slug' => 'person'],
+  'query_var' => true
 ]);
 $persons->filters(['person_category']);
 $persons->register();
@@ -45,6 +49,13 @@ function metaboxes() {
         'name'     => 'Title',
       ),
     // 'desc'      => 'e.g. 20xx Freedom Fellow',
+  ]);
+  $person_info-> add_field([
+    'name'      => 'Show Link?',
+    'id'        => $prefix . 'show_link',
+    'type'      => 'checkbox',
+    'desc'      => 'If checked, will show front-end (e.g. /person/john-doe)',
+    'default' => false
   ]);
 
 }
@@ -98,3 +109,68 @@ function get_people($options=[]) {
   endforeach;
   return $output;
 }
+
+function get_person_by_slug($slug) {
+  $posts = get_posts([
+    'name' => $slug,
+    'posts_per_page' => 1,
+    'post_type' => 'person',
+    'post_status' => 'publish'
+  ]);
+  if (!$posts) {
+    return false;
+  }
+  return $posts[0];
+}
+
+function get_person_like_title($title) {
+  global $wpdb;
+  $sql = $wpdb->prepare('SELECT ID FROM wp_posts
+          WHERE post_type = "person"
+          AND post_title LIKE %s ORDER BY ID DESC LIMIT 1',
+          '%'.$wpdb->esc_like($title).'%');
+  $results = $wpdb->get_results($sql);
+  if ($results) {
+    return get_post($results[0]->ID);
+  }
+  return false;
+}
+
+function get_featured_person($args=[]) {
+  array_merge($featured_args = [
+    'post_type' => 'person',
+    'orderby' => 'meta_value_num',
+    'meta_key' => '_cmb2_first_name',
+    'meta_query' => [
+      [
+        'key' => '_cmb2_featured',
+        'value' => 'on'
+      ],
+    ]
+  ], $args);
+
+  return get_posts($featured_args);
+}
+
+add_action('pre_get_posts', __NAMESPACE__ . '\\custom_query_vars');
+function custom_query_vars($query) {
+  if (!is_admin() && $query->is_main_query()) {
+    if (is_post_type_archive('person')) {
+      $query->set('tax_query', [
+        [
+          'taxonomy' => 'person_category',
+          'field' => 'slug',
+        ]
+      ]);
+    }
+  }
+  return $query;
+}
+
+function people_query($query) {
+  global $wp_the_query;
+  if ($wp_the_query === $query && !is_admin() && is_post_type_archive('person')) {
+    $query->set('orderby', 'meta_value_num');
+  }
+}
+add_action('pre_get_posts', __NAMESPACE__ . '\\people_query');

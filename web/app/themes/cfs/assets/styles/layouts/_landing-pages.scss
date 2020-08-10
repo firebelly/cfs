@@ -5,6 +5,7 @@
   color: $white;
   padding: mobile-grid(5) mobile-grid(5) 0;
   article {
+    margin-bottom: 50px;
     padding-bottom: mobile-grid(5);
     &:last-of-type {
       padding-bottom: mobile-grid(3);
@@ -44,6 +45,7 @@
     }
     article {
       position: relative;
+      margin-bottom: 50px;
       padding-bottom: grid(3);
       .image {
         margin-bottom: grid(2);
