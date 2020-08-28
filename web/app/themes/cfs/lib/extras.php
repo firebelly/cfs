@@ -27,15 +27,7 @@ add_filter('body_class', __NAMESPACE__ . '\\body_class');
 /**
  * Clean up the_excerpt()
  */
-function excerpt_more($post) {
-  global $post;
-  $post->meta = get_post_meta($post->ID);
-  $excerpt = '';
-  if ($post) {
-    $excerpt = ' &hellip; <a class="read-more" href="' . get_permalink($post->ID) . '">' . __('Continue', 'sage') . '</a>';
-  } else {
-    $excerpt = ' &hellip; <a href="' . get_permalink() . '">' . __('Continued', 'sage') . '</a>';
-  }
-  return $excerpt;
-}
-add_filter('excerpt_more', __NAMESPACE__ . '\\excerpt_more');
+ function excerpt_more() {
+   return ' &hellip; <a href="' . get_permalink() . '">' . __('Continued', 'sage') . '</a>';
+ }
+ add_filter('excerpt_more', __NAMESPACE__ . '\\excerpt_more');

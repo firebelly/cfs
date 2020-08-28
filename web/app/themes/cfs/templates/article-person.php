@@ -7,8 +7,8 @@ $person_desc = strip_shortcodes( $person_post->ID );
 $person_desc = apply_filters('the_content', $person_post->post_content);
 $person_desc = str_replace(']]>', ']]&gt;', $person_desc);
 $excerpt_length = apply_filters( 'excerpt_length', 25 );
-$excerpt_more = apply_filters( 'excerpt_more', ' ' . '[&hellip;]' );
-$person_desc = wp_trim_words( $person_desc, $excerpt_length, $excerpt_more );
+$person_desc = wp_trim_words( $person_desc, $excerpt_length);
+
 ?>
 <article class="person <?= $person_post->column_width ?>"><div class="wrap">
   <?= \Firebelly\Utils\admin_edit_link($person_post) ?>
@@ -24,6 +24,9 @@ $person_desc = wp_trim_words( $person_desc, $excerpt_length, $excerpt_more );
     <p class="title"><?= $person_title ?></p>
   <?php endif; ?>
   <?php if (!empty($person_desc)): ?>
-    <div class="excerpt"><?= $person_desc ?></div>
+    <div class="excerpt">
+      <?= $person_desc ?>
+    </div>
+    <a class="read-more" href="<?= get_permalink($person_post) ?>" title="<?= $person_title?>">Continue</a>
   <?php endif; ?>
 </div></article>
