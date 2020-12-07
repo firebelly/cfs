@@ -1,9 +1,9 @@
 set :application, 'cfs_staging'
 set :domain, 'chicagofreedomschool.org'
 set :theme, 'cfs'
-set :login, 'cfs2007'
+set :login, 'cfs'
 set :repo_url, 'git@github.com:firebelly/cfs.git'
-set :php, 'php70'
+set :php, 'php74'
 
 SSHKit.config.command_map[:wp] = "$(if [ $(which wp) ]; then echo 'wp'; else echo '/home/#{fetch(:login)}/bin/wp'; fi)"
 
@@ -15,7 +15,7 @@ set :wpcli_local_url, "http://#{fetch(:theme)}.localhost"
 # This could be overridden in a stage config file
 set :branch, :master
 
-set :deploy_to, -> { "/home/#{fetch(:login)}/webapps/#{fetch(:application)}" }
+set :deploy_to, -> { "/home/#{fetch(:login)}/apps/#{fetch(:application)}" }
 
 set :tmp_dir, -> { "/home/#{fetch(:login)}/tmp" }
 
