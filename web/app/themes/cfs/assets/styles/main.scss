@@ -26,6 +26,7 @@
 @import "components/article-grids";
 @import "components/pagination";
 @import "components/wp-classes";
+@import "components/tabs";
 
 // Layout specifics
 @import "layouts/header";
@@ -38,6 +39,7 @@
 
 // Pages
 @import "pages/home";
+@import "pages/press";
 @import "pages/programs";
 @import "pages/workshops";
 @import "pages/people";

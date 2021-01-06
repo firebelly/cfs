@@ -1,0 +1,116 @@
+.page-header.press {
+  .bg-image {
+    h1 {
+      color: #fff;
+    }
+  }
+  .page-content {
+    .one-half {
+      &.-left {
+        max-width: 30%;
+        @include media-xs {
+          max-width: 100%;
+        }
+      }
+      &.-right {
+        max-width: 50%;
+        @include media-xs {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+  .tab-content {
+    border: none;
+    .wrap {
+      position: relative;
+      @include media-xs {
+        width: 100%;
+        display: block;
+      }
+      .tab-pane {
+        border-bottom: 1px solid #323228;
+        &:last-child {
+          border-bottom: 0px;
+        }
+        h2 {
+          font-weight: 400;
+          font-size: 14px;
+          font-family: Rubik Mono One,sans-serif;
+          text-transform: uppercase;
+          &.media_class {
+            color: #fff;
+          }
+          a {
+            text-decoration: none;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+      .one-half {
+        padding: 0;
+        &.-left {
+          order: 1;
+          @include media-xs {
+            max-width: 100%;
+          }
+        }
+        &.-right {
+          order: 2;
+          padding: 15px;
+          @include media-xs {
+            padding: 5px;
+          }
+        }
+      }
+    }
+  }
+  .press {
+    .bg-image {
+      @include aspect-ratio(480, 324);
+      margin-bottom: mobile-grid(2);
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    }
+    h1 {
+      font-size: 60px;
+      &, a {
+        color: $red;
+      }
+      margin-bottom: mobile-grid(1);
+    }
+
+    @include media-md {
+      padding: 0;
+      margin: 0 0 0 columns(1,18);
+      >.wrap {
+        padding: grid(4) columns(2,17) grid(4) columns(1,17);
+      }
+      .image {
+        margin: 0 $gutter 0 0;
+      }
+    }
+
+    // Press Release/News Article Custom Link
+    &.tab-content {
+      @include max-screen($breakpoint-md) {
+        .grid {
+          display: block;
+        }
+        .one-half {
+          padding: 0;
+          @include media-xs {
+            max-width: 100%;
+          }
+        }
+      }
+
+      @include media-md {
+        .image {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
