@@ -7,6 +7,9 @@ web/app/uploads/*
 !web/app/uploads/.gitkeep
 log/*
 
+# Misc
+.notes
+
 # WordPress
 web/wp
 
