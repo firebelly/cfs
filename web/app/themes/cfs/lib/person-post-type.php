@@ -7,13 +7,13 @@ namespace Firebelly\PostTypes\Person;
 use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
 use PostTypes\Taxonomy;
 
-$persons = new PostType(['name' => 'person', 'plural' => 'People', 'slug' => 'person'], [
+$persons = new PostType(['name' => 'person', 'plural' => 'People', 'slug' => 'about-us/people'], [
   'taxonomies' => ['person_category'],
   'capability_type' => 'post',
   'supports'   => ['title', 'editor', 'thumbnail', 'post-formats', 'excerpt'],
-  'has_archive' => true,
+  'has_archive' => false,
   'public' => true,
-  'rewrite'    => ['with_front' => true, 'slug' => 'person'],
+  'rewrite'    => ['with_front' => false, 'slug' => 'about-us/people'],
   'query_var' => true
 ]);
 $persons->filters(['person_category']);
@@ -54,7 +54,7 @@ function metaboxes() {
     'name'      => 'Show Link?',
     'id'        => $prefix . 'show_link',
     'type'      => 'checkbox',
-    'desc'      => 'If checked, will show front-end (e.g. /person/john-doe)',
+    'desc'      => 'If checked, will show front-end (e.g. /about-us/people/john-doe)',
     'default' => false
   ]);
 
