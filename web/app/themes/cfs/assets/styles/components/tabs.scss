@@ -1,89 +1,58 @@
+// Tabs used currently only on the press page
+
 .tabs {
   .tabs-nav {
-    padding: 0;
-    clear: both;
-    overflow: hidden;
-    &::after {
+    @include clearfix;
+    position: relative;
+    &::before {
+      left: 0;
+      bottom: 0;
+      width: 100%;
       content: '';
-      display: table;
-      clear: both;
+      height: 2px;
+      position: absolute;
+      background-color: $red;
     }
+
     li {
-      list-style: none;
+      @extend %smooth;
       float: left;
-      position: relative;
-      top: 0;
-      margin: 1px .2em 1em 0;
-      font-family: Rubik, sans-serif;
-      padding: 0;
-      white-space: nowrap;
-      display: block;
-      text-decoration: none;
-      font-size: 14px;
-      line-height: 18px;
+      width: 100%;
+      padding: 15px;
       cursor: pointer;
-      padding: 10px 20px 10px 0px;
+      list-style: none;
+      text-align: center;
+      white-space: nowrap;
+      border: 2px solid $red;
+      letter-spacing: .06875em;
+      text-decoration: underline;
+      font: 500 12px/1.5 $font-display;
       &.active {
-        background-color: $red;
-        color: #fff;
-        padding-left: 10px;
-        border: 1px solid $red;
-        font-weight: 600;
-        text-transform: uppercase;
+        color: $white;
         cursor: default;
-        @include media-xs {
-          width: 100%;
-        }
+        text-decoration: none;
+        background-color: $red;
       }
-      &:focus {
-        box-shadow: none
+      &:not(.active):hover {
+        color: $red;
       }
-      &::before {
-        content: "";
+
+      @include media-md {
+        width: auto;
+        text-align: left;
       }
     }
   }
   .tab-content {
-    box-sizing: border-box;
-    margin-top: -1px;
-  }
-}
+    article {
+      padding: $mobile-global-padding 0;
 
-.tabs-wrap {
-  box-sizing: border-box;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 0;
-  -ms-flex: 0 1 auto;
-  flex: 0 1 auto;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin: -6px -12px -12px -12px;
-  .tabs {
-    -ms-flex-preferred-size: 100%;
-    flex-basis: 100%;
-    max-width: 100%;
-    background-color: #fafafa;
-    border-bottom: 1px solid #eee;
-    .tab {
-      display: block;
-      float: left;
-      cursor: pointer;
-      padding: 10px;
-      border-right: 1px solid #eee;
-      .tab-icon {
-        margin-right: 5px;
-        &:hover {
-          background-color: #f8f8f8;
-        }
-        &.active {
-          background-color: #fff;
-        }
+      .article-body > *:last-child {
+        margin-bottom: 0;
+      }
+
+      + article {
+        border-top: 2px solid $black;
       }
     }
   }

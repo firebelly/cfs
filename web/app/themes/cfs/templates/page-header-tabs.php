@@ -18,66 +18,75 @@ if (!empty($post)) {
     <svg class="icon icon-notch bottom-left" aria-hidden="true"><use xlink:href="#icon-notch"/></svg>
   </div>
   <?php endif; ?>
+
   <div class="page-intro">
-    <h1><?= !empty($page_intro_title) ? $page_intro_title : \Roots\Sage\Titles\title(); ?></h1>
     <div class="color-wrap">
       <div class="page-content grid">
+
         <div class="one-half -left media page-titles">
-          <div class="grid">
-            <h2 class="media_class">Press Assets</h2>
-          </div>
+          <h2 class="media_class">Press Assets</h2>
 
-          <h3>Logos</h3>
           <?php
-
           if ($logos) :
+            echo '<h3>Logos</h3>';
             $images = array();
             foreach ( (array) $logos as $logo_id => $logo_url ):
               if ($logo_url) : ?>
-              <div class="image">
+              <a class="image" href="<?= $logo_url['_cmb2_brand_logo'] ?>" download>
                 <?= wp_get_attachment_image($logo_url['_cmb2_brand_logo_id'], 'medium') ?>
-              </div>
+              </a>
             <?php
           endif;
           endforeach;
           endif; ?>
-
         </div>
-        <div class="one-half -right intro-text user-content">
+
+        <div class="one-half -right">
           <h1><?= !empty($page_intro_title) ? $page_intro_title : \Roots\Sage\Titles\title(); ?></h1>
-          <?= apply_filters('the_content', $post->post_content); ?>
+          <div class="user-content">
+            <?= apply_filters('the_content', $post->post_content); ?>
+          </div>
+
           <div class="grid">
             <div class="tabs tabs-wrap">
               <ul class="tabs-nav">
                 <li class="active">In The News</li>
                 <li>Press Releases</li>
               </ul>
+
               <div class="tab-content">
                 <?php if ($news) :?>
                 <div class="wrap">
                   <div class="tab-pane">
-            
+
                   <?php foreach ( (array) $news as $new ) :
                     if ($new) :
                       $headline = $new['_cmb2_headline'];
                       $subline = $new['_cmb2_subline'];
                       $link = $new['_cmb2_link'];
                       $images = $new['_cmb2_featured_img_id'];
+
+                      echo '<article class="news-article">';
+
                       //$featured_image = wp_get_attachment_image( get_post_meta( get_the_ID(), $images, 1 ), 'medium' );
-                      if ( isset($images) && isset($link) ) : ?>
-                         <a href="<?= $link ?>" class="image">
+                      if ( !empty($images) ) : ?>
+                        <?php if (!empty($link)): ?><a href="<?= $link ?>" class="image"><?php endif; ?>
                           <?= wp_get_attachment_image($images, 'medium'); ?>
-                        </a>
+                        <?php if (!empty($link)): ?></a><?php endif; ?>
                       <?php endif;
-                      
-                      
+
                       if (!empty($headline)): ?>
-                      <h2 class="series"><a href="<?= $link ?>" target="_blank"><?= $headline ?></a></h2>
-                      <p><?= $subline ?></p>
-                    
-                    <?php endif; 
-                  endif;
-                endforeach; ?>
+                        <h2 class="series"><a href="<?= $link ?>" target="_blank"><?= $headline ?></a></h2>
+                        <?php if (!empty($subline)) : ?>
+                          <div class="article-body user-content">
+                            <p><?= $subline ?></p>
+                          </div>
+                        <?php endif; ?>
+                      <?php endif;
+
+                      echo '</article>';
+                    endif;
+                  endforeach; ?>
                     </div>
                   </div>
                 <?php endif;
@@ -85,33 +94,38 @@ if (!empty($post)) {
                 if ($press_releases) : ?>
                 <div class="wrap">
 
+                  <div class="tab-pane">
                   <?php foreach ( (array) $press_releases as $press_release ) : ?>
-                    <div class="tab-pane">
+                    <article class="press-release-article">
 
                       <?php $title = $press_release['_cmb2_title'];
                       $post_body = $press_release['_cmb2_post_body'];
-               
-                      if ( isset($press_release['_cmb2_post_img']) && isset($press_release['_cmb2_press_release_link']) ) : 
+
+                      if ( !empty($press_release['_cmb2_post_img']) && !empty($press_release['_cmb2_press_release_link']) ) :
                         $link = $press_release['_cmb2_press_release_link'];
                       ?>
                         <a href="<?= $link ?>" class="image">
                           <?= wp_get_attachment_image($press_release['_cmb2_post_img_id'], 'medium'); ?>
                         </a>
-                      <?php else: 
+                      <?php else:
                        echo '';
                       endif;
                       if (!empty($title)): ?>
                         <h2 class="series"><a href="<?= $link ?>" target="_blank"><?= $title ?></a></h2>
-                        <p><?= $post_body ?></p>
+                        <div class="article-body user-content">
+                          <p><?= $post_body ?></p>
+                        </div>
                       <?php endif; ?>
+                    </article>
                   <?php endforeach; ?>
                   </div><!--/ .tab-pane -->
 
                 </div><!--/ .wrap -->
                 <?php endif; ?>
-              </div>
-            </div>
-          </div>
+              </div><!-- .tab-content -->
+            </div><!-- .tabs.tabs-wrap -->
+          </div><!-- .grid -->
+
         </div>
       </div>
     </div>

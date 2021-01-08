@@ -1,8 +1,6 @@
 <?php
-/**
-* Template Name: Press
-* @package WordPress
-* @subpackage cfs
+/*
+  Template name: Press
 */
 
 get_template_part('templates/page', 'header-tabs');
