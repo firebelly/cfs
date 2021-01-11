@@ -108,6 +108,10 @@ function fb_crumbs() {
   } else if (is_singular('program')) {
     $parent_page = get_page_by_path('/programs/');
     $return .= " {$separator} <a href=\"" . get_permalink($parent_page) . '">' . $parent_page->post_title . "</a> {$separator} " . get_the_title();
+  } else if (is_singular('person')) {
+    $grandparent_page = get_page_by_path('/about-us/');
+    $parent_page = get_page_by_path('/about-us/people/');
+    $return .= " {$separator} <a href=\"" . get_permalink($grandparent_page) . '">' . $grandparent_page->post_title . "</a> {$separator} <a href=\"" . get_permalink($parent_page) . '">' . $parent_page->post_title . "</a> {$separator}" . get_the_title();
   } else if (is_singular('post')) {
     // todo: check for post_type and if not page, show link to listing page (e.g. /programs/)
     $return .= " {$separator} " . get_the_title();
