@@ -11,9 +11,9 @@ SSHKit.config.command_map[:wp] = "$(if [ $(which wp) ]; then echo 'wp'; else ech
 set :wpcli_remote_url, "http://#{fetch(:domain)}"
 set :wpcli_local_url, "http://#{fetch(:theme)}.localhost"
 
-# Hardcodes branch to always be master
+# Hardcodes branch to always be main
 # This could be overridden in a stage config file
-set :branch, :master
+set :branch, :main
 
 set :deploy_to, -> { "/home/#{fetch(:login)}/apps/#{fetch(:application)}" }
 
