@@ -1,0 +1,5 @@
+# rsync staging to local
+rsync -avz cfs@opal8.opalstack.com:/home/cfs/apps/cfs_staging/web/app/uploads/ web/app/uploads/
+
+# rsync production to local
+rsync -avz cfs@opal8.opalstack.com:/home/cfs/apps/cfs_production-web/app/uploads/ web/app/uploads/

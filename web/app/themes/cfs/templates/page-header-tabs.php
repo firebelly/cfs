@@ -70,13 +70,13 @@ if (!empty($post)) {
 
                       //$featured_image = wp_get_attachment_image( get_post_meta( get_the_ID(), $images, 1 ), 'medium' );
                       if ( !empty($images) ) : ?>
-                        <?php if (!empty($link)): ?><a href="<?= $link ?>" class="image"><?php endif; ?>
+                        <?php if (!empty($link)): ?><a href="<?= $link ?>" class="image" target="_blank" rel="noopener"><?php endif; ?>
                           <?= wp_get_attachment_image($images, 'medium'); ?>
                         <?php if (!empty($link)): ?></a><?php endif; ?>
                       <?php endif;
 
                       if (!empty($headline)): ?>
-                        <h2 class="series"><a href="<?= $link ?>" target="_blank"><?= $headline ?></a></h2>
+                        <h2 class="series"><a href="<?= $link ?>" target="_blank" rel="noopener"><?= $headline ?></a></h2>
                         <?php if (!empty($subline)) : ?>
                           <div class="article-body user-content">
                             <p><?= $subline ?></p>
@@ -104,14 +104,14 @@ if (!empty($post)) {
                       if ( !empty($press_release['_cmb2_post_img']) && !empty($press_release['_cmb2_press_release_link']) ) :
                         $link = $press_release['_cmb2_press_release_link'];
                       ?>
-                        <a href="<?= $link ?>" class="image">
+                        <a href="<?= $link ?>" class="image" target="_blank" rel="noopener">
                           <?= wp_get_attachment_image($press_release['_cmb2_post_img_id'], 'medium'); ?>
                         </a>
                       <?php else:
                        echo '';
                       endif;
                       if (!empty($title)): ?>
-                        <h2 class="series"><a href="<?= $link ?>" target="_blank"><?= $title ?></a></h2>
+                        <h2 class="series"><a href="<?= $link ?>" target="_blank" rel="noopener"><?= $title ?></a></h2>
                         <div class="article-body user-content">
                           <p><?= $post_body ?></p>
                         </div>
