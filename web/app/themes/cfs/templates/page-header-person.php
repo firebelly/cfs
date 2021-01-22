@@ -7,8 +7,17 @@ if (is_404()) {
 // Default values
 $header_bg = '';
 $page_title = \Roots\Sage\Titles\title();
+$background_image;
 
-$background_image = get_the_post_thumbnail_url($post, 'medium');
+if (!has_post_thumbnail()) :
+  global $post;
+  $post_id = 101;
+  $parent_image = wp_get_attachment_image_src( get_post_thumbnail_id($post_id), 'medium' );
+  $background_image = $parent_image[0];
+else:
+  $background_image = get_the_post_thumbnail_url($post, 'medium');
+endif;
+
 $header_bg = ' style="background-image:url(' . $background_image . ');"';
 $page_title = $post->post_title;
 
