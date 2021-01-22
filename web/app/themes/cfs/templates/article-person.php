@@ -23,7 +23,7 @@ $person_desc = wp_trim_words( $person_desc, $excerpt_length);
   <?php if (!empty($person_title)): ?>
     <p class="title"><?= $person_title ?></p>
   <?php endif; ?>
-  <?php if (!empty($person_desc)): ?>
+  <?php if (!empty($person_desc) && !empty($person_image)): ?>
     <div class="excerpt">
       <?= $person_desc ?>
     </div>
