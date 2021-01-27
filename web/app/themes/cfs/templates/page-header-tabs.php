@@ -24,10 +24,10 @@ if (!empty($post)) {
       <div class="page-content grid">
 
         <div class="one-half -left media page-titles">
-          <h2 class="media_class">Press Assets</h2>
 
           <?php
           if ($logos) :
+            echo '<h2 class="media_class">Press Assets</h2>';
             echo '<h3>Logos</h3>';
             $images = array();
             foreach ( (array) $logos as $logo_id => $logo_url ):
@@ -50,8 +50,12 @@ if (!empty($post)) {
           <div class="grid">
             <div class="tabs tabs-wrap">
               <ul class="tabs-nav">
-                <li class="active">In The News</li>
-                <li>Press Releases</li>
+                <?php if ($news): ?>
+                  <li class="active">In The News</li>
+                <?php endif ?>
+                <?php if ($press_releases): ?>
+                  <li>Press Releases</li>
+                <?php endif ?>
               </ul>
 
               <div class="tab-content">
