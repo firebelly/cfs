@@ -241,7 +241,7 @@ function press_tab_metaboxes() {
   ) );
 
   $news_repeat_metabox->add_group_field( $news_metaboxes, array(
-    'name' => __( 'Subine', 'cmb2' ),
+    'name' => __( 'Subline', 'cmb2' ),
     'desc' => __('Excerpt attained by the article', 'cmb2'),
     'id' => $prefix . 'subline',
     'type' => 'textarea_small',
