@@ -21,6 +21,7 @@ var CFS = (function($) {
     _initNav();
     _initBigClicky();
     _initAccordions();
+    _tabs();
     _initForms();
     _initSlickSliders();
     // _initStickyElements();
@@ -350,6 +351,34 @@ var CFS = (function($) {
     clearInterval(_footerFlashTimer);
     _footerFlashCount = 3;
     $('.footer-flash .flash-count').text(_footerFlashCount);
+  }
+
+  function _tabs() {
+    var tabWrapper = $('.tabs-wrap'),
+      tabMnu = tabWrapper.find('.tabs-nav li'),
+      tabContent = tabWrapper.find('.tab-content .wrap');
+
+    tabContent.not(':first-child').hide();
+
+    tabMnu.each(function(i) {
+      $(this).attr('data-tab', 'tab' + i);
+    });
+
+    tabContent.each(function(i) {
+      $(this).attr('data-tab', 'tab' + i);
+    });
+
+    tabMnu.click(function() {
+      var tabData = $(this).data('tab');
+      tabWrapper.find(tabContent).hide();
+      tabWrapper.find(tabContent).filter('[data-tab=' + tabData + ']').show();
+    });
+
+    $('.tabs-nav > li').click(function() {
+      var before = $('.tabs-nav li.active');
+      before.removeClass('active');
+      $(this).addClass('active');
+    });
   }
 
   // Public functions

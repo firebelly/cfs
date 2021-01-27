@@ -1,0 +1,60 @@
+body.press {
+
+  .page-content {
+    .one-half {
+      &.-left {
+        max-width: 100%;
+        @include media-md {
+          max-width: 30%;
+        }
+      }
+      &.-right {
+        max-width: 100%;
+        padding: mobile-grid(3) mobile-grid(3) mobile-grid(2);
+        @include media-md {
+          max-width: 70%;
+          padding: grid(4) columns(1,17);
+        }
+      }
+    }
+
+    // Media/Press Assets Section
+    .media {
+      h2 {
+        margin-top: 0;
+      }
+
+      .image {
+        display: inline-block;
+        img {
+          display: block;
+        }
+
+        + .image {
+          margin-top: $grid;
+        }
+      }
+    }
+  }
+
+  .tab-content {
+    .wrap {
+      .tab-pane {
+        h2 {
+          font-size: 14px;
+          font-weight: 400;
+          text-transform: uppercase;
+          font-family: $font-display;
+
+          a {
+            text-decoration: underline;
+            &:hover,
+            &:focus {
+              color: $red;
+            }
+          }
+        }
+      }
+    }
+  }
+}

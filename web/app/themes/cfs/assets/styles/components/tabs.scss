@@ -1,0 +1,59 @@
+// Tabs used currently only on the press page
+
+.tabs {
+  .tabs-nav {
+    @include clearfix;
+    position: relative;
+    &::before {
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      content: '';
+      height: 2px;
+      position: absolute;
+      background-color: $red;
+    }
+
+    li {
+      @extend %smooth;
+      float: left;
+      width: 100%;
+      padding: 15px;
+      cursor: pointer;
+      list-style: none;
+      text-align: center;
+      white-space: nowrap;
+      border: 2px solid $red;
+      letter-spacing: .06875em;
+      text-decoration: underline;
+      font: 500 12px/1.5 $font-display;
+      &.active {
+        color: $white;
+        cursor: default;
+        text-decoration: none;
+        background-color: $red;
+      }
+      &:not(.active):hover {
+        color: $red;
+      }
+
+      @include media-md {
+        width: auto;
+        text-align: left;
+      }
+    }
+  }
+  .tab-content {
+    article {
+      padding: $mobile-global-padding 0;
+
+      .article-body > *:last-child {
+        margin-bottom: 0;
+      }
+
+      + article {
+        border-top: 2px solid $black;
+      }
+    }
+  }
+}
