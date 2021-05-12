@@ -150,6 +150,19 @@ function get_accordions($post) {
       $accordions_html .= '<div class="accordion-body user-content">'.apply_filters('the_content', $accordion['accordion_body']).'</div>';
     }
 
+    if (!empty($accordion['accordion_post_select'])) {
+      foreach((array)$accordion['accordion_post_select'] as $a) {  // loop all elements
+        $content_post = get_post($a);
+        $content = $content_post->post_content;
+        $content = apply_filters('the_content', $content);
+        $content = str_replace(']]>', ']]&gt;', $content);
+        $accordions_html .= '<div>';
+        $accordions_html .= '<h3 id="accordion-t">' .  get_the_title($a) . '</h3>';
+        $accordions_html .=  $content;
+        $accordions_html .=  '</div>';
+      }
+    }
+
     // Check for media blocks
 
     // Video URL

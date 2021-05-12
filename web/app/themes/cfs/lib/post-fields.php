@@ -64,7 +64,7 @@ function metaboxes() {
     'id'           => $prefix . 'accordions_group',
     'title'        => esc_html__( 'Accordions', 'cmb2' ),
     'priority'     => 'low',
-    'object_types' => ['program', 'workshop', 'page', 'post'],
+    'object_types' => ['program', 'job', 'workshop', 'page', 'post'],
     'show_on_cb'   => '\Firebelly\CMB2\cmb_is_not_front_page',
   ]);
   $group_field_id = $cmb_group->add_field([
@@ -104,6 +104,17 @@ function metaboxes() {
       'textarea_rows' => 8,
     ],
     'after_row' => '</div>',
+  ]);
+  $cmb_group->add_group_field($group_field_id, [
+    'name' => 'Accordion Post Select (Optional)',
+    'id'  => 'accordion_post_select',
+    'type' => 'multicheck_inline',
+    'default' => '0',
+    'object_types'  => array( 'job' ), // post type
+    'query_args' => [
+      'post_type' => 'job',
+    ],
+    'options' => get_custom_post_type('job')
   ]);
   $cmb_group->add_group_field($group_field_id, [
     'name'        => 'Video',
@@ -222,5 +233,25 @@ function parse_video_links($post_id, $post, $update) {
     }
   }
 }
+
+function get_custom_post_type($query_args) {
+  $args = wp_parse_args( $query_args, array(
+    'post_type'   => 'job',
+    'orderby' => 'title',
+    'order' => 'ASC',
+    'post_parent' => 0,
+  ) );
+
+  $posts = get_posts( $args );
+
+  $post_options = array();
+  if ( $posts ) {
+    foreach ( $posts as $post ) {
+      $post_options[ $post->ID ] = $post->post_title;
+    }
+  }
+  return $post_options;
+}
+
 add_action('save_post', __NAMESPACE__ . '\\parse_video_links', 10, 3);
 add_action('save_post_program', __NAMESPACE__ . '\\parse_video_links', 10, 3);
