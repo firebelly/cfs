@@ -45,6 +45,14 @@
       font-size: 12px;
       letter-spacing: .06875em;
       text-decoration: underline;
+      &:hover,
+      &:focus {
+        color: $red;
+      }
+
+      + .excerpt {
+        margin-top: 18px;
+      }
     }
     p {
       position: relative;
