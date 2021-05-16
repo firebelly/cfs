@@ -156,9 +156,13 @@ function get_accordions($post) {
         $content = $content_post->post_content;
         $content = apply_filters('the_content', $content);
         $content = str_replace(']]>', ']]&gt;', $content);
+        $excerpt_length = apply_filters( 'excerpt_length', 25 );
+        $accordion_excerpt = wp_trim_words( $content, $excerpt_length);
+
         $accordions_html .= '<div>';
         $accordions_html .= '<h3 id="accordion-t">' .  get_the_title($a) . '</h3>';
-        $accordions_html .=  $content;
+        $accordions_html .= $accordion_excerpt;
+        $accordions_html .=  '<br/> <a href="' . get_permalink($a) . '" title="' . get_the_title($a) . '">Read More</a>';
         $accordions_html .=  '</div>';
       }
     }

@@ -5,10 +5,15 @@
 
 namespace Firebelly\PostTypes\Job;
 use PostTypes\PostType; // see https://github.com/jjgrainger/PostTypes
+use PostTypes\Taxonomy;
 
-$jobs = new PostType('job', [
-  'supports'   => ['title', 'editor'],
-  'rewrite'    => ['with_front' => false],
+$jobs = new PostType(['name' => 'job', 'plural' => 'Jobs', 'slug' => 'job'], [
+  'capability_type' => 'post',
+  'supports'   => ['title', 'editor', 'post-formats'],
+  'has_archive' => true,
+  'public' => true,
+  'rewrite'    => ['with_front' => true, 'slug' => 'job'],
+  'query_var' => true
 ]);
 $jobs->register();
 
@@ -61,3 +66,25 @@ function get_jobs($options=[]) {
   endforeach;
   return $output;
 }
+
+add_action('pre_get_posts', __NAMESPACE__ . '\\custom_query_vars');
+function custom_query_vars($query) {
+  if (!is_admin() && $query->is_main_query()) {
+    if (is_post_type_archive('job')) {
+      $query->set('tax_query', [
+        [
+          'field' => 'slug',
+        ]
+      ]);
+    }
+  }
+  return $query;
+}
+
+function jobs_query($query) {
+  global $wp_the_query;
+  if ($wp_the_query === $query && !is_admin() && is_post_type_archive('job')) {
+    $query->set('orderby', 'meta_value_num');
+  }
+}
+add_action('pre_get_posts', __NAMESPACE__ . '\\jobs_query');
