@@ -1,0 +1,24 @@
+// Single Job
+
+body.single-job {
+  .page-header.-wide {
+    .crumb {
+      left: auto;
+      bottom: auto;
+      position: relative;
+      margin-bottom: 24px;
+
+      &,
+      a {
+        color: $black;
+      }
+      a {
+        text-decoration: none;
+        &:hover,
+        &:focus {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

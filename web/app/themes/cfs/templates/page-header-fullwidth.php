@@ -19,6 +19,9 @@ if (!empty($post)) {
     <div class="page-intro"><div class="color-wrap">
       <div class="page-content grid">
         <div class="intro-text user-content">
+          <?php if (get_post_type($post) == 'job'): ?>
+            <?= Firebelly\Utils\fb_crumbs() ?>
+          <?php endif; ?>
           <h1><?= !empty($page_intro_title) ? $page_intro_title : Titles\title(); ?></h1>
           <p class="p-intro"><?= $page_intro_quote; ?></p>
           <?= apply_filters('the_content', $post->post_content); ?>
