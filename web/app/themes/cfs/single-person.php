@@ -1,1 +1,1 @@
-<?php get_template_part('templates/page-header', 'person'); ?>
+<?php get_template_part('templates/page-person', 'person'); ?>

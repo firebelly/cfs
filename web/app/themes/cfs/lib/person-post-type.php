@@ -50,6 +50,15 @@ function metaboxes() {
       ),
     // 'desc'      => 'e.g. 20xx Freedom Fellow',
   ]);
+  $person_info->add_field([
+    'name'      => 'Email',
+    'id'        => $prefix . 'person_email',
+    'type'      => 'text_email',
+    'column'    => array(
+      'position' => 2,
+        'name'     => 'Email',
+      ),
+  ]);
   $person_info-> add_field([
     'name'      => 'Show Link?',
     'id'        => $prefix . 'show_link',

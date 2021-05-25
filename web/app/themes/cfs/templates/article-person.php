@@ -2,6 +2,7 @@
 $person_post->meta = get_post_meta($person_post->ID);
 $person_title = get_post_meta($person_post->ID, '_cmb2_person_title', true);
 $person_show_page = get_post_meta($person_post->ID, '_cmb2_show_link', true);
+$person_email = get_post_meta($person_post->ID, '_cmb2_person_email', true);
 $person_image = \Firebelly\Media\get_header_bg($person_post, ['size' => 'medium']);
 $person_desc = strip_shortcodes( $person_post->ID );
 $person_desc = apply_filters('the_content', $person_post->post_content);
@@ -16,12 +17,15 @@ $person_desc = wp_trim_words( $person_desc, $excerpt_length);
     <div class="image" <?= $person_image ?>></div>
   <?php endif; ?>
   <?php if ( $person_show_page === 'on'): ?>
-    <h1 class="h3"><a href="<?= get_permalink($person_post) ?>" title="<?= $person_title?>"><?= $person_post->post_title ?></a></h1>
+    <h2 class="h3"><a href="<?= get_permalink($person_post) ?>" title="<?= $person_title?>"><?= $person_post->post_title ?></a></h2>
   <?php else: ?>
-    <h1 class="h3"><?= $person_post->post_title ?></h1>
+    <h3 class="h3"><?= $person_post->post_title ?></h3>
   <?php endif; ?>
   <?php if (!empty($person_title)): ?>
     <p class="title"><?= $person_title ?></p>
+  <?php endif; ?>
+  <?php if (!empty($person_email)): ?>
+    <a href="mailto:<?= $person_email ?>" class="email"><?= $person_email ?></a>
   <?php endif; ?>
   <?php if (!empty($person_desc)): ?>
     <div class="excerpt">
