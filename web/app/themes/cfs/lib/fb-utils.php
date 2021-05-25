@@ -108,10 +108,14 @@ function fb_crumbs() {
   } else if (is_singular('program')) {
     $parent_page = get_page_by_path('/programs/');
     $return .= " {$separator} <a href=\"" . get_permalink($parent_page) . '">' . $parent_page->post_title . "</a> {$separator} " . get_the_title();
+  } else if (is_singular('job')) {
+    $grandparent_page = get_page_by_path('/about-us/');
+    $parent_page = get_page_by_path('/about-us/join-us/');
+    $return .= " {$separator} <a href=\"" . get_permalink($grandparent_page) . '">' . $grandparent_page->post_title . "</a> {$separator} <a href=\"" . get_permalink($parent_page) . '">' . $parent_page->post_title . "</a> {$separator} " . get_the_title();
   } else if (is_singular('person')) {
     $grandparent_page = get_page_by_path('/about-us/');
     $parent_page = get_page_by_path('/about-us/people/');
-    $return .= " {$separator} <a href=\"" . get_permalink($grandparent_page) . '">' . $grandparent_page->post_title . "</a> {$separator} <a href=\"" . get_permalink($parent_page) . '">' . $parent_page->post_title . "</a> {$separator}" . get_the_title();
+    $return .= " {$separator} <a href=\"" . get_permalink($grandparent_page) . '">' . $grandparent_page->post_title . "</a> {$separator} <a href=\"" . get_permalink($parent_page) . '">' . $parent_page->post_title . "</a> {$separator} " . get_the_title();
   } else if (is_singular('post')) {
     // todo: check for post_type and if not page, show link to listing page (e.g. /programs/)
     $return .= " {$separator} " . get_the_title();
@@ -148,6 +152,23 @@ function get_accordions($post) {
     // Main body
     if (!empty($accordion['accordion_body'])) {
       $accordions_html .= '<div class="accordion-body user-content">'.apply_filters('the_content', $accordion['accordion_body']).'</div>';
+    }
+
+    if (!empty($accordion['accordion_post_select'])) {
+      foreach((array)$accordion['accordion_post_select'] as $a) {  // loop all elements
+        $content_post = get_post($a);
+        $content = $content_post->post_content;
+        $content = apply_filters('the_content', $content);
+        $content = str_replace(']]>', ']]&gt;', $content);
+        $excerpt_length = apply_filters( 'excerpt_length', 25 );
+        $accordion_excerpt = wp_trim_words( $content, $excerpt_length);
+
+        $accordions_html .= '<div>';
+        $accordions_html .= '<h3 id="accordion-t">' .  get_the_title($a) . '</h3>';
+        $accordions_html .= $accordion_excerpt;
+        $accordions_html .=  '<br/> <a href="' . get_permalink($a) . '" title="' . get_the_title($a) . '">Read More</a>';
+        $accordions_html .=  '</div>';
+      }
     }
 
     // Check for media blocks

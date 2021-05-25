@@ -21,7 +21,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 RewriteRule ^workshops-trainings/upcoming-workshops/$ /workshops/ [R=301,L]
 
 # Redirect single posts to landing pages for people/jobs/partners
-RewriteRule ^jobs/(.*)$ /about-us/join-us/ [R=301,L]
+# RewriteRule ^jobs/(.*)$ /about-us/join-us/ [R=301,L]
 RewriteRule ^partners/(.*)$ /support-us/partners-supporters/ [R=301,L]
 
 # Redirect landing page nav child pages that don't really exist
@@ -44,7 +44,7 @@ RewriteRule ^support/foundation-partners/?$ /support-us/partners-supporters/ [R=
 RewriteRule ^what-we-do/collaboration-and-partnership/?$ /support-us/partners-supporters/ [R=301,L]
 RewriteRule ^contact-us/?$ /#contact [R=301,L,NE]
 RewriteRule ^getinvolved/?$ /support-us/donate/ [R=301,L]
-RewriteRule ^jobs-volunteers-interns/?$ /about-us/join-us/ [R=301,L]
+# RewriteRule ^jobs-volunteers-interns/?$ /about-us/join-us/ [R=301,L]
 RewriteRule ^tenth-anniversary/?$ / [R=301,L]
 RewriteRule ^blog/(.*) / [R=301,L]
 RewriteRule ^kaba-library / [R=301,L]
@@ -53,12 +53,11 @@ RewriteRule ^kaba-library / [R=301,L]
 # END Custom redirects
 
 # BEGIN WordPress
-# The directives (lines) between "BEGIN WordPress" and "END WordPress" are
+# The directives (lines) between `BEGIN WordPress` and `END WordPress` are
 # dynamically generated, and should only be modified via WordPress filters.
 # Any changes to the directives between these markers will be overwritten.
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 RewriteBase /
 RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
